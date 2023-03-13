@@ -343,4 +343,13 @@ public class BPAConfiguration {
 
 	@Value("${egov.shortener.url}")
 	private String shortenerURL;
+	
+	// Application Save Config
+	@Value("${persister.save.Application.topic}")
+	private String saveApplicationTopic;
+	
+	
+	// Application Save Config
+		@Value("${persister.update.Application.topic}")
+		private String updateApplicationTopic;
 }

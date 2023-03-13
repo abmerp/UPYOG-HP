@@ -19,7 +19,9 @@ import org.egov.bpa.util.BPAConstants;
 import org.egov.bpa.util.BPAErrorConstants;
 import org.egov.bpa.util.BPAUtil;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.BPASearchCriteria;
 import org.egov.bpa.web.model.Document;
 import org.egov.bpa.web.model.NOC.Noc;
@@ -58,6 +60,11 @@ public class BPAValidator {
 		validateApplicationDocuments(bpaRequest, mdmsData, null, values);
 	}
 
+	
+	public void validateCreate2(BPARequestV2 bpaRequest, Object mdmsData, Map<String, String> values) {
+		mdmsValidator.validateMdmsData2(bpaRequest, mdmsData);
+		validateApplicationDocuments2(bpaRequest, mdmsData, null, values);
+	}
 
 	/**
 	 * Validates the application documents of the BPA comparing the document types configured in the mdms
@@ -143,6 +150,103 @@ public class BPAValidator {
 						"Atleast " + requiredDocTypes.size() + " Documents are requied ");
 			}
 			bpa.setDocuments(allDocuments);
+		}
+
+	}
+	
+	private void validateApplicationDocuments2(BPARequestV2 request, Object mdmsData, String currentState, Map<String, String> values) {
+		Map<String, List<String>> masterData = mdmsValidator.getAttributeValues(mdmsData);
+		BpaV2 bpa = request.getBPA();
+
+		if (!bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_REJECT)
+				&& !bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_ADHOC)
+				&& !bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_PAY)) {
+
+			String applicationType = values.get(BPAConstants.APPLICATIONTYPE);
+			String serviceType = values.get(BPAConstants.SERVICETYPE);
+			
+			String filterExp = "$.[?(@.applicationType=='" + applicationType + "' && @.ServiceType=='"
+					+ serviceType + "' && @.RiskType=='" + bpa.getRiskType() + "' && @.WFState=='"
+					+ currentState + "')].docTypes";
+			
+			List<Object> docTypeMappings = JsonPath.read(masterData.get(BPAConstants.DOCUMENT_TYPE_MAPPING), filterExp);
+
+			List<Document> allDocuments = new ArrayList<Document>();
+//			=====For Create API ====================
+//			if (bpa.getDocuments() != null) {
+//				allDocuments.addAll(bpa.getDocuments());
+//			}
+//			=====For Create API ====================
+			
+//			=====For CreateForm API ====================
+			if (bpa.getApplcationDetail() != null) {
+				allDocuments.addAll(bpa.getApplcationDetail().getDocuments());
+			}
+//			=====For CreateForm API ====================
+
+			if (CollectionUtils.isEmpty(docTypeMappings)) {
+				return;
+			}
+
+			filterExp = "$.[?(@.required==true)].code";
+			List<String> requiredDocTypes = JsonPath.read(docTypeMappings.get(0), filterExp);
+
+			List<String> validDocumentTypes = masterData.get(BPAConstants.DOCUMENT_TYPE);
+
+			if (!CollectionUtils.isEmpty(allDocuments)) {
+
+				allDocuments.forEach(document -> {
+
+					if (!validDocumentTypes.contains(document.getDocumentType())) {
+						throw new CustomException(BPAErrorConstants.BPA_UNKNOWN_DOCUMENTTYPE,
+								document.getDocumentType() + " is Unkown");
+					}
+				});
+
+				if (requiredDocTypes.size() > 0 && allDocuments.size() < requiredDocTypes.size()) {
+
+					throw new CustomException(BPAErrorConstants.BPA_MDNADATORY_DOCUMENTPYE_MISSING,
+							BPAErrorConstants.BPA_UNKNOWN_DOCS_MSG);
+				} else if (requiredDocTypes.size() > 0) {
+
+					List<String> addedDocTypes = new ArrayList<String>();
+					allDocuments.forEach(document -> {
+
+						String docType = document.getDocumentType();
+						int lastIndex = docType.lastIndexOf(".");
+						String documentNs = "";
+						if (lastIndex > 1) {
+							documentNs = docType.substring(0, lastIndex);
+						} else if (lastIndex == 1) {
+							throw new CustomException(BPAErrorConstants.BPA_INVALID_DOCUMENTTYPE,
+									document.getDocumentType() + " is Invalid");
+						} else {
+							documentNs = docType;
+						}
+
+						addedDocTypes.add(documentNs);
+					});
+					requiredDocTypes.forEach(docType -> {
+						String docType1 = docType.toString();
+						if (!addedDocTypes.contains(docType1)) {
+							throw new CustomException(BPAErrorConstants.BPA_MDNADATORY_DOCUMENTPYE_MISSING,
+									"Document Type " + docType1 + " is Missing");
+						}
+					});
+				}
+			} else if (requiredDocTypes.size() > 0) {
+				throw new CustomException(BPAErrorConstants.BPA_MDNADATORY_DOCUMENTPYE_MISSING,
+						"Atleast " + requiredDocTypes.size() + " Documents are requied ");
+			}
+//			==========for Create API ===========
+//			bpa.setDocuments(allDocuments);
+//			==========for Create API ===========
+
+//			==========for CreateForm API ===========
+			bpa.getApplcationDetail().setDocuments(allDocuments);
+//			==========for CreateForm API ===========
+			
+			
 		}
 
 	}
@@ -554,6 +658,13 @@ public class BPAValidator {
 		validateSkipPaymentAction(bpaRequest);
 		validateNocApprove(bpaRequest, mdmsRes);
 	}
+	
+	
+	public void validatePreEnrichData2(BPARequestV2 bpaRequest, Object mdmsRes) {		
+		validateSkipPaymentAction2(bpaRequest);
+		validateNocApprove2(bpaRequest, mdmsRes);
+	}
+	
 	/**
 	 * Validate workflowActions against the skipPayment 
 	 * @param bpaRequest
@@ -562,6 +673,16 @@ public class BPAValidator {
 		BPA bpa = bpaRequest.getBPA();
 		if (bpa.getWorkflow().getAction() != null && (bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_SKIP_PAY))) {
 			BigDecimal demandAmount = bpaUtil.getDemandAmount(bpaRequest);
+			if ((demandAmount.compareTo(BigDecimal.ZERO) > 0)) {
+				throw new CustomException(BPAErrorConstants.BPA_INVALID_ACTION, "Payment can't be skipped once demand is generated.");
+			}
+		}
+	}
+	
+	private void validateSkipPaymentAction2(BPARequestV2 bpaRequest) {
+		BpaV2 bpa = bpaRequest.getBPA();
+		if (bpa.getWorkflow().getAction() != null && (bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_SKIP_PAY))) {
+			BigDecimal demandAmount = bpaUtil.getDemandAmount2(bpaRequest);
 			if ((demandAmount.compareTo(BigDecimal.ZERO) > 0)) {
 				throw new CustomException(BPAErrorConstants.BPA_INVALID_ACTION, "Payment can't be skipped once demand is generated.");
 			}
@@ -598,6 +719,51 @@ public class BPAValidator {
 
 				log.debug("===========> valdiateNocApprove method called, noctypes====",nocTypes);
 				List<Noc> nocs = nocService.fetchNocRecords(bpaRequest);
+				if (!CollectionUtils.isEmpty(nocs)) {
+					for (Noc noc : nocs) {
+						if (!nocTypes.isEmpty() && nocTypes.contains(noc.getNocType())) {
+							List<String> statuses = Arrays.asList(config.getNocValidationCheckStatuses().split(","));
+							if(!statuses.contains(noc.getApplicationStatus())) {
+								log.error("Noc is not approved having applicationNo :" + noc.getApplicationNo());
+								throw new CustomException(BPAErrorConstants.NOC_SERVICE_EXCEPTION,
+										" Application can't be forwarded without NOC "
+												+ StringUtils.join(statuses, " or "));
+							}
+						}
+					}
+				} else {
+					log.debug("No NOC record found to validate with sourceRefId " + bpa.getApplicationNo());
+				}
+			}
+		}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private void validateNocApprove2(BPARequestV2 bpaRequest, Object mdmsRes) {
+		BpaV2 bpa = bpaRequest.getBPA();
+		log.debug("===========> valdiateNocApprove method called");
+		if (config.getValidateRequiredNoc()) {
+			if (bpa.getStatus().equalsIgnoreCase(BPAConstants.NOCVERIFICATION_STATUS)
+					&& bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_FORWORD)) {
+				Map<String, String> edcrResponse = edcrService.getEDCRDetails2(bpaRequest.getRequestInfo(),
+						bpaRequest.getBPA());
+				log.debug("===========> valdiateNocApprove method called, application is in noc verification pending");
+				String riskType = "ALL";
+				if (StringUtils.isEmpty(bpa.getRiskType()) || bpa.getRiskType().equalsIgnoreCase("LOW")) {
+					riskType = bpa.getRiskType();
+				}
+				log.debug("fetching NocTypeMapping record having riskType : " + riskType);
+
+				String nocPath = BPAConstants.NOCTYPE_REQUIRED_MAP
+						.replace("{1}", edcrResponse.get(BPAConstants.APPLICATIONTYPE))
+						.replace("{2}", edcrResponse.get(BPAConstants.SERVICETYPE)).replace("{3}", riskType);
+
+				List<Object> nocMappingResponse = (List<Object>) JsonPath.read(mdmsRes, nocPath);
+				List<String> nocTypes = JsonPath.read(nocMappingResponse, "$..type");
+
+				log.debug("===========> valdiateNocApprove method called, noctypes====",nocTypes);
+				List<Noc> nocs = nocService.fetchNocRecords2(bpaRequest);
 				if (!CollectionUtils.isEmpty(nocs)) {
 					for (Noc noc : nocs) {
 						if (!nocTypes.isEmpty() && nocTypes.contains(noc.getNocType())) {

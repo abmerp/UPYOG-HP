@@ -1,0 +1,554 @@
+serviceMaps:
+ serviceName: bpa-services
+ mappings:
+ - version: 1.0
+   description: Persists buildingplan details in EG_BPA_BuildingPlan  table
+   fromTopic: save-bpa-buildingplan
+   isTransaction: true
+   queryMaps:
+
+       - query: INSERT INTO eg_bpa_buildingplan(id, applicationNo, landId, accountId, edcrNumber, tenantId, status, approvalDate, businessService, additionalDetails, createdBy, lastmodifiedBy, createdTime, lastmodifiedTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.id
+
+          - jsonPath: $.BPA.applicationNo
+          
+          - jsonPath: $.BPA.landId
+          
+          - jsonPath: $.BPA.accountId
+
+          - jsonPath: $.BPA.edcrNumber
+          
+          - jsonPath: $.BPA.tenantId
+          
+          - jsonPath: $.BPA.status
+          
+          - jsonPath: $.BPA.approvalDate
+          
+          - jsonPath: $.BPA.businessService
+
+          - jsonPath: $.BPA.additionalDetails
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+
+       - query: INSERT INTO eg_bpa_document( id, documenttype, fileStoreId, buildingplanid, documentuid, additionalDetails, createdby, lastmodifiedby, createdtime, lastmodifiedtime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+         basePath: BPA.documents.*
+         jsonMaps:
+          - jsonPath: $.BPA.documents.*.id
+
+          - jsonPath: $.BPA.documents.*.documentType
+
+          - jsonPath: $.BPA.documents.*.fileStoreId
+
+          - jsonPath: $.BPA.id
+
+          - jsonPath: $.BPA.documents.*.documentUid
+
+          - jsonPath: $.BPA.documents.*.additionalDetails
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+
+
+       - query: INSERT INTO eg_bpa_auditdetails SELECT * FROM eg_bpa_buildingplan WHERE id =?;
+         basePath: BPA
+         jsonMaps:
+
+          - jsonPath: $.BPA.id
+  
+
+
+
+ - version: 1.0
+   description: update buildingplan details in EG_BPA_BuildingPlan  table
+   fromTopic: update-bpa-buildingplan
+   isTransaction: true
+   queryMaps:
+
+       - query: UPDATE eg_bpa_buildingplan SET applicationno=?, approvalNo=?, applicationDate=?, status=?, additionaldetails=?, lastmodifiedby=?, lastmodifiedtime=?, approvalDate=? WHERE id=?;
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.applicationNo
+          
+          - jsonPath: $.BPA.approvalNo
+          
+          - jsonPath: $.BPA.applicationDate
+
+          - jsonPath: $.BPA.status
+
+          - jsonPath: $.BPA.additionalDetails
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+          - jsonPath: $.BPA.approvalDate
+
+          - jsonPath: $.BPA.id
+
+
+       - query: INSERT INTO eg_bpa_auditdetails SELECT * FROM eg_bpa_buildingplan WHERE id =?;
+         basePath: BPA
+         jsonMaps:
+
+           - jsonPath: $.BPA.id
+
+        
+       - query: INSERT INTO eg_bpa_document(id, documenttype, fileStoreId, buildingplanid, documentuid, additionalDetails, createdby, lastmodifiedby, createdtime, lastmodifiedtime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (id) DO UPDATE SET documenttype =?,  fileStoreId =?, additionalDetails=?, lastmodifiedby =?, lastmodifiedtime =?;
+         basePath: BPA.documents.*
+         jsonMaps:
+          
+           - jsonPath: $.BPA.documents.*.id
+  
+           - jsonPath: $.BPA.documents.*.documentType
+  
+           - jsonPath: $.BPA.documents.*.fileStoreId
+  
+           - jsonPath: $.BPA.id
+  
+           - jsonPath: $.BPA.documents.*.documentUid
+  
+           - jsonPath: $.BPA.documents.*.additionalDetails
+             type: JSON
+             dbType: JSONB
+  
+           - jsonPath: $.BPA.auditDetails.createdBy
+  
+           - jsonPath: $.BPA.auditDetails.lastModifiedBy
+  
+           - jsonPath: $.BPA.auditDetails.createdTime
+
+           - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+           - jsonPath: $.BPA.documents.*.documentType
+
+           - jsonPath: $.BPA.documents.*.fileStoreId
+  
+           - jsonPath: $.BPA.documents.*.additionalDetails
+             type: JSON
+             dbType: JSONB
+
+           - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+           - jsonPath: $.BPA.auditDetails.lastModifiedTime
+          
+ - version: 1.0
+   description: update buildingplan details in EG_BPA_BuildingPlan  table
+   fromTopic: update-bpa-workflow
+   isTransaction: true
+   queryMaps:
+   
+          
+       - query: INSERT INTO eg_bpa_document(id, documentType, fileStoreId, buildingplanid, documentUid, additionalDetails, createdby, lastmodifiedby, createdtime, lastmodifiedtime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (id) DO UPDATE SET documenttype =?,  fileStoreId =?, additionalDetails=?, lastmodifiedby =?, lastmodifiedtime =?;
+         basePath: BPA.documents.*
+         jsonMaps:
+          
+           - jsonPath: $.BPA.documents.*.id
+  
+           - jsonPath: $.BPA.documents.*.documentType
+  
+           - jsonPath: $.BPA.documents.*.fileStoreId
+  
+           - jsonPath: $.BPA.id
+  
+           - jsonPath: $.BPA.documents.*.documentUid
+  
+           - jsonPath: $.BPA.documents.*.additionalDetails
+             type: JSON
+             dbType: JSONB
+  
+           - jsonPath: $.BPA.auditDetails.createdBy
+  
+           - jsonPath: $.BPA.auditDetails.lastModifiedBy
+  
+           - jsonPath: $.BPA.auditDetails.createdTime
+
+           - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+           - jsonPath: $.BPA.documents.*.documentType
+
+           - jsonPath: $.BPA.documents.*.fileStoreId
+  
+           - jsonPath: $.BPA.documents.*.additionalDetails
+             type: JSON
+             dbType: JSONB
+
+           - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+           - jsonPath: $.BPA.auditDetails.lastModifiedTime
+           
+           
+       - query: INSERT INTO eg_bpa_auditdetails SELECT * FROM eg_bpa_buildingplan WHERE id =?;
+         basePath: BPA
+         jsonMaps:
+
+           - jsonPath: $.BPA.id
+
+
+       - query: UPDATE eg_bpa_buildingplan SET applicationno=?, approvalNo=?, applicationDate=?, status=?, additionaldetails=?, lastmodifiedby=?, lastmodifiedtime=?, approvalDate=? WHERE id=?;
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.applicationNo
+          
+          - jsonPath: $.BPA.approvalNo
+          
+          - jsonPath: $.BPA.applicationDate
+
+          - jsonPath: $.BPA.status
+
+          - jsonPath: $.BPA.additionalDetails
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+          - jsonPath: $.BPA.approvalDate
+
+          - jsonPath: $.BPA.id
+
+
+
+
+ - version: 1.0
+   description: Persists application details in PG_BPA_ Realted  table
+   fromTopic: save-bpa-applicationn
+   isTransaction: true
+   queryMaps:
+
+       - query: INSERT INTO public.pg_bpa_application(id, applicationnumber, applicationtype, action, status, comment, businessservice, applicantioninfo, permissionofsubdivisionchecklist, permissionofsubdivisionuploaddoc, workflowcode, tenantid, createdby, lastmodifiedby, createdtime, lastmodifiedtime)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.id
+
+          - jsonPath: $.BPA.applicationNo
+          
+          - jsonPath: $.BPA.applicationType
+          
+          - jsonPath: $.BPA.workflow.action
+
+          - jsonPath: $.BPA.status
+          
+          - jsonPath: $.BPA.workflow.comments
+          
+          - jsonPath: $.BPA.businessService
+
+          - jsonPath: $.BPA.additionalDetails
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.permissionOfSubdivisionChecklist
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.documents
+            type: JSON
+            dbType: JSONB
+          
+          - jsonPath: $.BPA.businessService
+          
+          - jsonPath: $.BPA.tenantId
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+
+       - query: INSERT INTO public.pg_bpa_landdetails (landdetailid, applicationid, district, notifiedarea, nameofulb, nameofward , tenantid, createdby, lastmodifiedby, createdtime, lastmodifiedtime)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.landInfo.landAreaDetails.id
+
+          - jsonPath: $.BPA.id
+          
+          - jsonPath: $.BPA.landInfo.landAreaDetails.district
+          
+          - jsonPath: $.BPA.landInfo.landAreaDetails.notifiedArea
+
+          - jsonPath: $.BPA.landInfo.landAreaDetails.nameOfULB
+          
+          - jsonPath: $.BPA.landInfo.landAreaDetails.nameOfWard
+          
+          - jsonPath: $.BPA.tenantId
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+      
+      
+       - query: INSERT INTO public.pg_bpa_applicantinfo(id, applicationid, applicantname, guardianname, applicantmobileno, aadharno, additionalapplicantinfo, uploadphoto, addmoreapplicant, emailid, pvtprofmobileno, createdby, lastmodifiedby, createdtime, lastmodifiedtime)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.landInfo.owners.*.id
+
+          - jsonPath: $.BPA.id
+          
+          - jsonPath: $.BPA.landInfo.owners.*.applicantName
+          
+          - jsonPath: $.BPA.landInfo.owners.*.guardianName
+
+          - jsonPath: $.BPA.landInfo.owners.*.applicantMobileNo
+          
+          - jsonPath: $.BPA.landInfo.owners.*.aadharNo
+          
+          - jsonPath: $.BPA.landInfo.owners.*.additionalApplicantInfo
+            type: JSON
+            dbType: JSONB
+          
+          - jsonPath: $.BPA.landInfo.owners.*.uploadPhoto
+      
+          - jsonPath: $.BPA.landInfo.owners.*.addMoreApplicant
+      
+          - jsonPath: $.BPA.landInfo.owners.*.emailId
+      
+          - jsonPath: $.BPA.landInfo.owners.*.pvtProfMobileNo     
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+      
+      
+       - query: INSERT INTO public.pg_bpa_landdescription (id, applicationid, revenuevillagemohalla, khatonino, khasrano, khatano,  latitudelongitude, totalplotarea, areaunderconsideration, noofplot, pvtprofessionalinfo, usetype, propertytype, plotareaforsubdivdevact,  createdby, lastmodifiedby, createdtime, lastmodifiedtime) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.id
+
+          - jsonPath: $.BPA.id
+          
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.revenueVillageMohalla
+          
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.khatoniNo
+
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.khasraNo
+          
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.khataNo
+          
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.latitudeLongitude
+      
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.totalPlotArea
+      
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.areaUnderConsideration
+      
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.noOfPlot
+
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.pvtProfessionalInfo
+      
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.useType
+      
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.propertyType
+      
+          - jsonPath: $.BPA.landInfo.descriptionOfLand.plotAreaForSubDivisionalDevelopmentActivitiesInSqM    
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+      
+      
+       - query: INSERT INTO public.pg_bpa_permanentaddress (id, applicationid, name, type, guardianname, state,district, tehsil, townvillageward, address, pin, createdby, lastmodifiedby, createdtime, lastmodifiedtime)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.id
+
+          - jsonPath: $.BPA.id
+          
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.name
+          
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.type
+
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.guardianName
+          
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.state
+          
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.district
+          
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.tehsil
+      
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.townVillageWard
+      
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.address
+      
+          - jsonPath: $.BPA.landInfo.address.permanentAddressDetails.pin     
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+      
+      
+       - query: INSERT INTO public.pg_bpa_correspondenceaddress (id, applicationid, name, type, guardianname, state,district, tehsil, townvillageward, address, pin, createdby, lastmodifiedby, createdtime, lastmodifiedtime)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.id
+
+          - jsonPath: $.BPA.id
+          
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.name
+          
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.type
+
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.guardianName
+          
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.state
+          
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.district
+          
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.tehsil
+      
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.townVillageWard
+      
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.address
+      
+          - jsonPath: $.BPA.landInfo.address.correspondenceAddressDetails.pin      
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+
+
+
+ - version: 1.0
+   description: Persists application details in PG_BPA_ Realted  table
+   fromTopic: save-bpa-application
+   isTransaction: true
+   queryMaps:
+
+       - query: INSERT INTO public.pg_bpa_applications(id, applicationnumber, servicetype, department, category, totalplotarea, action, status, comment, businessservice, workflowcode, tenantid, applicationdetails, createdby, lastmodifiedby, createdtime, lastmodifiedtime)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.id
+
+          - jsonPath: $.BPA.applicationNo
+          
+          - jsonPath: $.BPA.applicationType
+          
+          - jsonPath: $.BPA.department
+
+          - jsonPath: $.BPA.category
+          
+          - jsonPath: $.BPA.totalPlotArea
+          
+          - jsonPath: $.BPA.workflow.action
+
+          - jsonPath: $.BPA.status
+          
+          - jsonPath: $.BPA.workflow.comments
+          
+          - jsonPath: $.BPA.businessService
+          
+          - jsonPath: $.BPA.businessService
+          
+          - jsonPath: $.BPA.tenantId
+          
+          - jsonPath: $.BPA.applcationDetail
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+
+
+
+ - version: 1.0
+   description: Persists application details in PG_BPA_ Realted  table
+   fromTopic: update-bpa-application
+   isTransaction: true
+   queryMaps:
+
+       - query: UPDATE public.pg_bpa_applications SET id=? , servicetype=?, department=?, category=?, totalplotarea=?, action=?, status=?, comment=?, businessservice=?, workflowcode=?, tenantid=?, applicationdetails=?, createdby=?, lastmodifiedby=?, createdtime=?, lastmodifiedtime=? WHERE applicationnumber=?;
+ 
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.id
+          
+          - jsonPath: $.BPA.applicationType
+          
+          - jsonPath: $.BPA.department
+
+          - jsonPath: $.BPA.category
+          
+          - jsonPath: $.BPA.totalPlotArea
+          
+          - jsonPath: $.BPA.workflow.action
+
+          - jsonPath: $.BPA.status
+          
+          - jsonPath: $.BPA.workflow.comments
+          
+          - jsonPath: $.BPA.businessService
+          
+          - jsonPath: $.BPA.businessService
+          
+          - jsonPath: $.BPA.tenantId
+          
+          - jsonPath: $.BPA.applcationDetail
+            type: JSON
+            dbType: JSONB
+
+          - jsonPath: $.BPA.auditDetails.createdBy
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedBy
+
+          - jsonPath: $.BPA.auditDetails.createdTime
+
+          - jsonPath: $.BPA.auditDetails.lastModifiedTime
+
+          - jsonPath: $.BPA.applicationNo          
+

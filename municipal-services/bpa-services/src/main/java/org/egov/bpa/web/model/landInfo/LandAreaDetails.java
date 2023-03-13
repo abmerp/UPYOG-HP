@@ -32,6 +32,10 @@ public class LandAreaDetails {
 	  private String notifiedArea = null;
 	  
 	  @SafeHtml
+	  @JsonProperty("category")
+	  private String category = null;
+	  
+	  @SafeHtml
 	  @JsonProperty("nameOfVillage")
 	  private String nameOfVillage = null;
 	  

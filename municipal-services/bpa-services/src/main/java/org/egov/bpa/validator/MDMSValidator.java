@@ -8,6 +8,7 @@ import java.util.Map;
 import org.egov.bpa.util.BPAConstants;
 import org.egov.bpa.util.BPAErrorConstants;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.tracer.model.CustomException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +27,16 @@ public class MDMSValidator {
 	 * @param bpaRequest
 	 */
 	public void validateMdmsData(BPARequest bpaRequest, Object mdmsData) {
+
+		Map<String, List<String>> masterData = getAttributeValues(mdmsData);
+		String[] masterArray = { BPAConstants.SERVICE_TYPE, BPAConstants.APPLICATION_TYPE,
+				BPAConstants.OWNERSHIP_CATEGORY, BPAConstants.OWNER_TYPE, BPAConstants.OCCUPANCY_TYPE,
+				BPAConstants.SUB_OCCUPANCY_TYPE, BPAConstants.USAGES };
+
+		validateIfMasterPresent(masterArray, masterData);
+	}
+	
+	public void validateMdmsData2(BPARequestV2 bpaRequest, Object mdmsData) {
 
 		Map<String, List<String>> masterData = getAttributeValues(mdmsData);
 		String[] masterArray = { BPAConstants.SERVICE_TYPE, BPAConstants.APPLICATION_TYPE,
