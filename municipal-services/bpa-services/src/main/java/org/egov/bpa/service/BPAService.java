@@ -16,6 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.egov.bpa.config.BPAConfiguration;
 import org.egov.bpa.repository.BPARepository;
 import org.egov.bpa.util.BPAConstants;
@@ -24,7 +26,9 @@ import org.egov.bpa.util.BPAUtil;
 import org.egov.bpa.util.NotificationUtil;
 import org.egov.bpa.validator.BPAValidator;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.BPASearchCriteria;
 import org.egov.bpa.web.model.Workflow;
 import org.egov.bpa.web.model.landInfo.LandInfo;
@@ -138,6 +142,28 @@ public class BPAService {
 		repository.save(bpaRequest);
 		return bpaRequest.getBPA();
 	}
+	
+	
+
+	public BpaV2 createe(@Valid BPARequestV2 bpaRequest) {
+		RequestInfo requestInfo = bpaRequest.getRequestInfo();
+		String tenantId = bpaRequest.getBPA().getTenantId().split("\\.")[0];
+		Object mdmsData = util.mDMSCall(requestInfo, tenantId);
+		String serviceType = bpaRequest.getBPA().getServiceType();
+		Map<String, String> values = new HashMap<String, String>();
+//		values.put(BPAConstants.SERVICETYPE, "Form_12");
+//		String applicationType = ;
+		values.put(BPAConstants.APPLICATIONTYPE, bpaRequest.getBPA().getApplicationType());
+		String applicationType = values.get(BPAConstants.APPLICATIONTYPE);
+		bpaValidator.validateCreate2(bpaRequest, mdmsData, values);
+		enrichmentService.enrichBPACreateRequest2(bpaRequest, mdmsData, values);
+		wfIntegrator.callWorkFlow2(bpaRequest);
+//		this.addCalculation2(applicationType, bpaRequest);
+		repository.save2(bpaRequest);
+		return bpaRequest.getBPA();
+		
+	}
+    
 
 	/**
 	 * applies the required vlaidation for OC on Create
@@ -235,6 +261,46 @@ public class BPAService {
 		}
 		return bpas;
 	}
+	
+	
+	public List<BpaV2> search2(BPASearchCriteria criteria, RequestInfo requestInfo) {
+		List<BpaV2> bpas = new LinkedList<>();
+		bpaValidator.validateSearch(requestInfo, criteria);
+		LandSearchCriteria landcriteria = new LandSearchCriteria();
+		landcriteria.setTenantId(criteria.getTenantId());
+		landcriteria.setLocality(criteria.getLocality());
+		List<String> edcrNos = null;
+		if (criteria.getMobileNumber() != null) {
+//			bpas= this.getBPAFromMobileNumber(criteria, landcriteria, requestInfo);
+		} else {
+			List<String> roles = new ArrayList<>();
+			for (Role role : requestInfo.getUserInfo().getRoles()) {
+				roles.add(role.getCode());
+			}
+			if ((criteria.tenantIdOnly() || criteria.isEmpty()) && roles.contains(BPAConstants.CITIZEN)) {
+				log.debug("loading data of created and by me");
+//				bpas =  this.getBPACreatedForByMe(criteria, requestInfo, landcriteria, edcrNos);
+				log.debug("no of bpas retuning by the search query" + bpas.size());
+			} else {
+				bpas = getBPAFromCriteria2(criteria, requestInfo, edcrNos);
+				ArrayList<String> landIds = new ArrayList<>();
+//				if (!bpas.isEmpty()) {	
+//					for (int i = 0; i < bpas.size(); i++) {
+//						landIds.add(bpas.get(i).getLandId());
+//					}
+//					landcriteria.setIds(landIds);
+//					landcriteria.setTenantId(bpas.get(0).getTenantId());
+//					log.debug("Call with tenantId to Land::" + landcriteria.getTenantId());
+//					ArrayList<LandInfo> landInfos = landService.searchLandInfoToBPA(requestInfo, landcriteria);
+//
+//					this.populateLandToBPA(bpas, landInfos,requestInfo);
+//				}
+			}
+		}
+		return bpas;
+	}
+	
+	
 	/**
 	 * search the BPA records created by and create for the logged in User
 	 * @param criteria
@@ -363,6 +429,13 @@ public class BPAService {
 			return Collections.emptyList();
 		return bpa;
 	}
+	
+	public List<BpaV2> getBPAFromCriteria2(BPASearchCriteria criteria, RequestInfo requestInfo, List<String> edcrNos) {
+		List<BpaV2> bpa = repository.getBPAData2(criteria, edcrNos);
+		if (bpa.isEmpty())
+			return Collections.emptyList();
+		return bpa;
+	}
 
 	/**
 	 * Updates the bpa
@@ -459,6 +532,85 @@ public class BPAService {
 		return bpaRequest.getBPA();
 
 	}
+	
+	/**
+	 * Updates the bpa
+	 * 
+	 * @param bpaRequest
+	 *            The update Request
+	 * @return Updated bpa
+	 */
+	@SuppressWarnings("unchecked")
+	public BpaV2 updatee(BPARequestV2 bpaRequest) {
+		RequestInfo requestInfo = bpaRequest.getRequestInfo();
+		String tenantId = bpaRequest.getBPA().getTenantId();
+		Object mdmsData = util.mDMSCall(requestInfo, tenantId);
+		BpaV2 bpa = bpaRequest.getBPA();
+
+		if (bpa.getId() == null) {
+			throw new CustomException(BPAErrorConstants.UPDATE_ERROR, "Application Not found in the System" + bpa);
+		}
+
+		
+		String applicationType = bpaRequest.getBPA().getApplicationType();
+		
+		log.debug("applicationType is " + applicationType);
+		BusinessService businessService = workflowService.getBusinessService2(bpa, bpaRequest.getRequestInfo(),
+				bpa.getApplicationNo());
+		
+		
+		
+//		Map<String, String> additionalDetails = bpa.getAdditionalDetails() != null ? (Map<String, String>)bpa.getAdditionalDetails()
+//				: new HashMap<String, String>();
+		
+		bpaValidator.validatePreEnrichData2(bpaRequest, mdmsData);
+		enrichmentService.enrichBPAUpdateRequest2(bpaRequest, businessService);
+		
+                String state = workflowService.getCurrentState(bpa.getStatus(), businessService);
+                String businessSrvc = businessService.getBusinessService();
+                
+                /*
+                 * Before approving the application we need to check sanction fee is applicable
+                 * or not for that purpose on PENDING_APPROVAL_STATE the demand is generating.
+                 */
+                // Generate the sanction Demand
+                
+                
+                /*
+                 * For Permit medium/high and OC on approval stage, we need to check whether for a 
+                 * application sanction fee is applicable or not. If sanction fee is not applicable
+                 * then we need to skip the payment on APPROVE and need to make it APPROVED instead
+                 * of SANCTION FEE PAYMENT PEDNING.
+                 */
+                if ((businessSrvc.equalsIgnoreCase(BPAConstants.BPA_OC_MODULE_CODE)
+                        || businessSrvc.equalsIgnoreCase(BPAConstants.BPA_BUSINESSSERVICE))
+                        && state.equalsIgnoreCase(BPAConstants.PENDING_APPROVAL_STATE) &&
+                        bpa.getWorkflow() != null && bpa.getWorkflow().getAction().equalsIgnoreCase(BPAConstants.ACTION_APPROVE)
+                        && util.getDemandAmount2(bpaRequest).compareTo(BigDecimal.ZERO) <= 0) {
+                    Workflow workflow = Workflow.builder().action(BPAConstants.ACTION_SKIP_PAY).build();
+                    bpa.setWorkflow(workflow);
+                }
+
+		wfIntegrator.callWorkFlow2(bpaRequest);
+		log.debug("===> workflow done =>" +bpaRequest.getBPA().getStatus()  );
+		
+		
+		log.debug("Bpa status is : " + bpa.getStatus());
+
+
+                /*
+                 * if (Arrays.asList(config.getSkipPaymentStatuses().split(",")).contains(bpa.getStatus())) {
+                 * enrichmentService.skipPayment(bpaRequest); enrichmentService.postStatusEnrichment(bpaRequest); }
+                 */
+
+		
+		repository.update(bpaRequest, workflowService.isStateUpdatable(bpa.getStatus(), businessService));
+		return bpaRequest.getBPA();
+
+	}
+	
+	
+	
 	
 	/**
 	 * handle the reject and Send Back action of the update

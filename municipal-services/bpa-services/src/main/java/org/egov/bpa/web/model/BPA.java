@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.egov.bpa.web.model.collection.PermissionOfSubdivisionChecklist;
 import org.egov.bpa.web.model.landInfo.LandInfo;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * BPA application object to capture the details of land, land owners, and address of the land.
@@ -29,6 +32,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class BPA   {
   @SafeHtml
   @JsonProperty("id")
@@ -45,6 +50,14 @@ public class BPA   {
   @SafeHtml
   @JsonProperty("accountId")
   private String accountId = null;
+  
+  @SafeHtml
+  @JsonProperty("applicationType")
+  private String applicationType = null;
+  
+  @SafeHtml
+  @JsonProperty("serviceType")
+  private String serviceType = null;
 
   @SafeHtml
   @JsonProperty("edcrNumber")
@@ -85,6 +98,9 @@ public class BPA   {
 
   @JsonProperty("workflow")
   private Workflow workflow = null;
+  
+  @JsonProperty("permissionOfSubdivisionChecklist")
+  private PermissionOfSubdivisionChecklist permissionOfSubdivisionChecklist = null;
 
   @JsonProperty("auditDetails")
   private AuditDetails auditDetails = null;

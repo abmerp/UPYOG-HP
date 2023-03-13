@@ -5,6 +5,7 @@ import org.egov.bpa.repository.ServiceRequestRepository;
 import org.egov.bpa.util.BPAConstants;
 import org.egov.bpa.util.BPAErrorConstants;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.RequestInfoWrapper;
 import org.egov.bpa.web.model.workflow.BusinessService;
 import org.egov.bpa.web.model.workflow.BusinessServiceResponse;
@@ -54,6 +55,19 @@ public class WorkflowService {
 		}
 		return response.getBusinessServices().get(0);
 	}
+	
+	public BusinessService getBusinessService2(BpaV2 bpa, RequestInfo requestInfo, String applicationNo) {
+		StringBuilder url = getSearchURLWithParams(bpa, true, null);
+		RequestInfoWrapper requestInfoWrapper = RequestInfoWrapper.builder().requestInfo(requestInfo).build();
+		Object result = serviceRequestRepository.fetchResult(url, requestInfoWrapper);
+		BusinessServiceResponse response = null;
+		try {
+			response = mapper.convertValue(result, BusinessServiceResponse.class);
+		} catch (IllegalArgumentException e) {
+			throw new CustomException(BPAErrorConstants.PARSING_ERROR, "Failed to parse response of calculate");
+		}
+		return response.getBusinessServices().get(0);
+	}
 
 	/**
 	 * Creates url for search based on given tenantId
@@ -63,6 +77,25 @@ public class WorkflowService {
 	 * @return The search url
 	 */
 	private StringBuilder getSearchURLWithParams(BPA bpa, boolean businessService, String applicationNo) {
+		StringBuilder url = new StringBuilder(config.getWfHost());
+		if (businessService) {
+			url.append(config.getWfBusinessServiceSearchPath());
+		} else {
+			url.append(config.getWfProcessPath());
+		}
+		url.append("?tenantId=");
+		url.append(bpa.getTenantId());
+		if (businessService) {
+				url.append("&businessServices=");
+				url.append(bpa.getBusinessService());
+		} else {
+			url.append("&businessIds=");
+			url.append(applicationNo);
+		}
+		return url;
+	}
+	
+	private StringBuilder getSearchURLWithParams(BpaV2 bpa, boolean businessService, String applicationNo) {
 		StringBuilder url = new StringBuilder(config.getWfHost());
 		if (businessService) {
 			url.append(config.getWfBusinessServiceSearchPath());

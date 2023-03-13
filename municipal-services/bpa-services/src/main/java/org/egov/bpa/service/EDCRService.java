@@ -14,6 +14,7 @@ import org.egov.bpa.util.BPAConstants;
 import org.egov.bpa.util.BPAErrorConstants;
 import org.egov.bpa.validator.MDMSValidator;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
 import org.egov.bpa.web.model.BPASearchCriteria;
 import org.egov.bpa.web.model.edcr.RequestInfo;
@@ -239,6 +240,48 @@ public class EDCRService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public Map<String, String> getEDCRDetails(org.egov.common.contract.request.RequestInfo requestInfo, BPA bpa) {
+
+		String edcrNo = bpa.getEdcrNumber();
+		StringBuilder uri = new StringBuilder(config.getEdcrHost());
+
+		uri.append(config.getGetPlanEndPoint());
+		uri.append("?").append("tenantId=").append(bpa.getTenantId());
+		uri.append("&").append("edcrNumber=").append(edcrNo);
+		RequestInfo edcrRequestInfo = new RequestInfo();
+		BeanUtils.copyProperties(requestInfo, edcrRequestInfo);
+		LinkedHashMap responseMap = null;
+		try {
+			responseMap = (LinkedHashMap) serviceRequestRepository.fetchResult(uri,
+					new RequestInfoWrapper(edcrRequestInfo));
+		} catch (ServiceCallException se) {
+			throw new CustomException(BPAErrorConstants.EDCR_ERROR, " EDCR Number is Invalid");
+		}
+
+		if (CollectionUtils.isEmpty(responseMap))
+			throw new CustomException(BPAErrorConstants.EDCR_ERROR, "The response from EDCR service is empty or null");
+
+		String jsonString = new JSONObject(responseMap).toString();
+		DocumentContext context = JsonPath.using(Configuration.defaultConfiguration()).parse(jsonString);
+		Map<String, String> edcrDetails = new HashMap<String, String>();
+		List<String> serviceType = context.read("edcrDetail.*.planDetail.planInformation.serviceType");
+		if (CollectionUtils.isEmpty(serviceType)) {
+			serviceType.add("NEW_CONSTRUCTION");
+		}
+		List<String> applicationType = context.read("edcrDetail.*.appliactionType");
+		if (CollectionUtils.isEmpty(applicationType)) {
+			applicationType.add("permit");
+		}
+		List<String> approvalNo = context.read("edcrDetail.*.permitNumber");
+		edcrDetails.put(BPAConstants.SERVICETYPE, serviceType.get(0).toString());
+		edcrDetails.put(BPAConstants.APPLICATIONTYPE, applicationType.get(0).toString());
+		if(approvalNo.size()>0 && approvalNo!=null){
+			edcrDetails.put(BPAConstants.PERMIT_NO, approvalNo.get(0).toString());
+		}
+		return edcrDetails;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String, String> getEDCRDetails2(org.egov.common.contract.request.RequestInfo requestInfo, BpaV2 bpa) {
 
 		String edcrNo = bpa.getEdcrNumber();
 		StringBuilder uri = new StringBuilder(config.getEdcrHost());

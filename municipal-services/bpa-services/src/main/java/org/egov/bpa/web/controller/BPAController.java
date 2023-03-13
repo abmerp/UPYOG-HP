@@ -13,8 +13,11 @@ import org.egov.bpa.util.BPAErrorConstants;
 import org.egov.bpa.util.BPAUtil;
 import org.egov.bpa.util.ResponseInfoFactory;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.BPAResponse;
+import org.egov.bpa.web.model.BPAResponse2;
 import org.egov.bpa.web.model.BPASearchCriteria;
 import org.egov.bpa.web.model.PermissionOfSubdivision;
 import org.egov.bpa.web.model.RequestInfoWrapper;
@@ -55,6 +58,19 @@ public class BPAController {
 				.build();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	
+	@PostMapping(value = "/_createForm")
+	public ResponseEntity<BPAResponse2> createe(@Valid @RequestBody BPARequestV2 bpaRequest) {
+//		bpaUtil.defaultJsonPathConfig();
+		BpaV2 bpa = bpaService.createe(bpaRequest);
+		List<BpaV2> bpas = new ArrayList<BpaV2>();
+		bpas.add(bpa);
+		BPAResponse2 response = BPAResponse2.builder().BPA(bpas)
+				.responseInfo(responseInfoFactory.createResponseInfoFromRequestInfo(bpaRequest.getRequestInfo(), true))
+				.build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@PostMapping(value = "/_update")
 	public ResponseEntity<BPAResponse> update(@Valid @RequestBody BPARequest bpaRequest) {
@@ -62,6 +78,18 @@ public class BPAController {
 		List<BPA> bpas = new ArrayList<BPA>();
 		bpas.add(bpa);
 		BPAResponse response = BPAResponse.builder().BPA(bpas)
+				.responseInfo(responseInfoFactory.createResponseInfoFromRequestInfo(bpaRequest.getRequestInfo(), true))
+				.build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+
+	}
+	
+	@PostMapping(value = "/_updateForm")
+	public ResponseEntity<BPAResponse2> updatee(@Valid @RequestBody BPARequestV2 bpaRequest) {
+		BpaV2 bpa = bpaService.updatee(bpaRequest);
+		List<BpaV2> bpas = new ArrayList<BpaV2>();
+		bpas.add(bpa);
+		BPAResponse2 response = BPAResponse2.builder().BPA(bpas)
 				.responseInfo(responseInfoFactory.createResponseInfoFromRequestInfo(bpaRequest.getRequestInfo(), true))
 				.build();
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -75,6 +103,18 @@ public class BPAController {
 		List<BPA> bpas = bpaService.search(criteria, requestInfoWrapper.getRequestInfo());
 		int count = bpaService.getBPACount(criteria, requestInfoWrapper.getRequestInfo());
 		BPAResponse response = BPAResponse.builder().BPA(bpas).responseInfo(
+				responseInfoFactory.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true)).count(count)
+				.build();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/_searchForm")
+	public ResponseEntity<BPAResponse2> search2(@Valid @RequestBody RequestInfoWrapper requestInfoWrapper,
+			@Valid @ModelAttribute BPASearchCriteria criteria) {
+
+		List<BpaV2> bpas = bpaService.search2(criteria, requestInfoWrapper.getRequestInfo());
+		int count = bpaService.getBPACount(criteria, requestInfoWrapper.getRequestInfo());
+		BPAResponse2 response = BPAResponse2.builder().BPA(bpas).responseInfo(
 				responseInfoFactory.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true)).count(count)
 				.build();
 		return new ResponseEntity<>(response, HttpStatus.OK);

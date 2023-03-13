@@ -24,12 +24,25 @@ public class BPAQueryBuilder {
             + " FROM eg_bpa_buildingplan bpa"
             + LEFT_OUTER_JOIN_STRING
             + "eg_bpa_document bpadoc ON bpadoc.buildingplanid = bpa.id";;
+            
+            
+            
+            
+	private static final String QUERY2 = "SELECT id, applicationnumber, servicetype, department, category, totalplotarea, action, status, comment, businessservice, workflowcode, tenantid,edcrnumber , approvalno, applicationdetails, createdby, lastmodifiedby, createdtime, lastmodifiedtime FROM public.pg_bpa_applications as bpa";
 
+//    private final String paginationWrapper = "SELECT * FROM "
+//            + "(SELECT *, DENSE_RANK() OVER (ORDER BY bpa_lastModifiedTime DESC) offset_ FROM " + "({})"
+//            + " result) result_offset " + "WHERE offset_ > ? AND offset_ <= ?";
+    
     private final String paginationWrapper = "SELECT * FROM "
-            + "(SELECT *, DENSE_RANK() OVER (ORDER BY bpa_lastModifiedTime DESC) offset_ FROM " + "({})"
+            + "(SELECT *, DENSE_RANK() OVER (ORDER BY lastmodifiedtime DESC) offset_ FROM " + "({})"
             + " result) result_offset " + "WHERE offset_ > ? AND offset_ <= ?";
     
-    private final String countWrapper = "SELECT COUNT(DISTINCT(bpa_id)) FROM ({INTERNAL_QUERY}) as bpa_count";
+//    private final String countWrapper = "SELECT COUNT(DISTINCT(bpa_id)) FROM ({INTERNAL_QUERY}) as bpa_count";
+    
+    private final String countWrapper = "SELECT COUNT(DISTINCT(id)) FROM ({INTERNAL_QUERY}) as bpa_count";
+    
+    
 
     /**
      * To give the Search query based on the requirements.
@@ -40,7 +53,7 @@ public class BPAQueryBuilder {
      */
     public String getBPASearchQuery(BPASearchCriteria criteria, List<Object> preparedStmtList, List<String> edcrNos, boolean isCount) {
 
-        StringBuilder builder = new StringBuilder(QUERY);
+        StringBuilder builder = new StringBuilder(QUERY2);
 
         if (criteria.getTenantId() != null) {
             if (criteria.getTenantId().split("\\.").length == 1) {
@@ -74,7 +87,7 @@ public class BPAQueryBuilder {
         if (applicationNo != null) {
             List<String> applicationNos = Arrays.asList(applicationNo.split(","));
             addClauseIfRequired(preparedStmtList, builder);
-            builder.append(" bpa.applicationNo IN (").append(createQuery(applicationNos)).append(")");
+            builder.append(" bpa.applicationnumber IN (").append(createQuery(applicationNos)).append(")");
             addToPreparedStatement(preparedStmtList, applicationNos);
         }
 

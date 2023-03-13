@@ -343,7 +343,9 @@ public class BPAConstants {
 	
 	public static final String BUILDING_PLAN_OC = "BUILDING_OC_PLAN_SCRUTINY";
 
-	public static final String BPA_OC_MODULE_CODE = "BPA_OC";
+//	public static final String BPA_OC_MODULE_CODE = "BPA_OC";
+	
+	public static final String BPA_OC_MODULE_CODE = "BPA_HP_BELOW_200";
 
 	public static final String OC_OCCUPANCY = "$.edcrDetail[0].planDetail.planInformation.occupancy";
 
@@ -354,6 +356,8 @@ public class BPAConstants {
 	public static final String SERVICETYPE = "serviceType";
 	
 	public static final String APPLICATIONTYPE = "applicationType";
+	
+	 public static final String MDMS_BUSSINES_SERVICE_PATH = "$.MdmsRes.BPA.BussinessService";
 	
 	public static final String PERMIT_NO = "permitNumber";
 
