@@ -1,0 +1,94 @@
+.container {
+    width: 90vw;
+    margin: 3vw auto;
+}
+
+.container .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.container .headerContainer .buttonWrapper {
+    display: flex;
+    justify-items: flex-start;
+    align-items: center;
+    gap: 1vw;
+    margin-top: 1vw;
+}
+
+.container .straightLine {
+    height: 0.063vw;
+    background-color: grey;
+    margin-top: 0.2vw;
+}
+
+.container .formContainer {
+    margin: 2vw auto;
+}
+
+.container .formContainer .formHeaderContainer .formHeading {
+    font-size: 1.4vw;
+    color: darkslategray;
+    font-weight: 600;
+    margin-bottom: 0.3vw;
+}
+
+.container .formContainer .formInputContainer {
+    border: 0.063vw solid grey;
+    border-radius: 0.2vw;
+    padding: .7vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+.container .formContainer .formInputContainer .inputContainer {
+    display: flex;
+    align-items: center;
+}
+
+.container .formContainer .formInputContainer .columnWrapper {
+    gap: 1vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .formContainer .formInputContainer .inputContainer .label {
+    font-size: 1.1vw;
+    font-weight: 400;
+    margin-left: 4vw;
+    width: 17vw;
+    margin-right: 3vw;
+}
+
+.container .formContainer .formInputContainer .inputContainer .label.photo {
+    width: 10vw;
+}
+
+.container .formContainer .formInputContainer .inputContainer .label.multiCoumn {
+    width: 11vw !important;
+}
+
+.addressType {
+    font-size: 1.2vw;
+    font-weight: 500;
+    color: darkslategrey;
+    margin-left: 4vw;
+    text-decoration: underline;
+}
+
+.footerContainer .buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+}
+
+.addressType {
+    display: flex;
+    align-items: center;
+}
