@@ -158,7 +158,18 @@ public class BPAService {
 		bpaValidator.validateCreate2(bpaRequest, mdmsData, values);
 		enrichmentService.enrichBPACreateRequest2(bpaRequest, mdmsData, values);
 		wfIntegrator.callWorkFlow2(bpaRequest);
-//		this.addCalculation2(applicationType, bpaRequest);
+		if(bpaRequest.getBPA().getDepartment().equals(BPAConstants.DEPARTMENT_TCP) &&
+				bpaRequest.getBPA().getApplicationType().equalsIgnoreCase(BPAConstants.APPLICATION_TYPE_FORM_26)) {
+			//in TCP application fees is there only for form 26 and that is too just 200 rupees for all types of buildings.
+			// So for any other type bypass call of calculation service
+			//prepare BpaRequest from BpaRequestV2 --
+			BPARequest bpaRequestOld = BPARequest.builder().bpaV2(bpaRequest.getBPA()).requestInfo(requestInfo).build();
+			this.addCalculation(applicationType, bpaRequestOld);
+			//TODO:move below code to update
+			//directly set one step next status and call processinstance transition twice--
+			bpaRequest.getBPA().setStatus("");
+			wfIntegrator.callWorkFlow2(bpaRequest);
+		}
 		repository.save2(bpaRequest);
 		return bpaRequest.getBPA();
 		
@@ -592,6 +603,16 @@ public class BPAService {
                 }
 
 		wfIntegrator.callWorkFlow2(bpaRequest);
+		if (bpaRequest.getBPA().getDepartment().equals(BPAConstants.DEPARTMENT_TCP)
+				&& !bpaRequest.getBPA().getApplicationType().equalsIgnoreCase(BPAConstants.APPLICATION_TYPE_FORM_26)
+				&& state.equalsIgnoreCase(BPAConstants.TCP_STATE_INPROGRESS)
+				&& bpaRequest.getBPA().getWorkflow().getAction().equalsIgnoreCase(BPAConstants.TCP_ACTION_APPLY)) {
+			//directly set one step next status and call processinstance transition twice--
+			bpaRequest.getBPA().setStatus(BPAConstants.TCP_STATE_PENDING_AT_DRAFTSMAN);
+			Workflow workflow = Workflow.builder().action(BPAConstants.ACTION_SKIP_PAY).build();
+			bpa.setWorkflow(workflow);
+			wfIntegrator.callWorkFlow2(bpaRequest);
+		}
 		log.debug("===> workflow done =>" +bpaRequest.getBPA().getStatus()  );
 		
 		

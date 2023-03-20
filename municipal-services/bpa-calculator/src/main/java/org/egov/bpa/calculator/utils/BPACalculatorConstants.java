@@ -60,4 +60,20 @@ public class BPACalculatorConstants {
 	
 	public static final String CALCULATION_ERROR = "CALCULATION ERROR";
 	
+	public static final String FEE_TYPE_PROCESSING_FEE = "ProcessingFee";
+	public static final String DEPARTMENT_TCP = "TCP";
+	public static final String DEPARTMENT_SADA = "SADA";
+	public static final String APPLICATION_TYPE_FORM_26 = "Form 26: For Composition of Offences";
+	public static final String APPLICATION_TYPE_FORM_12 = "Form 12 (Building Plan Permission)";
+	public static final String APPLICATION_TYPE_FORM_11 = "Form 11 (Form of Application for Permission of Sub-division/development of Land)";
+	public static final String APPLICATION_TYPE_CLU = "Change Of Land Use";
+	public static final String TCP_STATE_INPROGRESS = "INPROGRESS";
+	public static final String TCP_ACTION_APPLY = "APPLY";
+	public static final String TCP_STATE_PENDING_AT_DRAFTSMAN = "PENDING_AT_DRAFTSMAN_VERIFICATION";
+	public static final String TCP_ACTION_SKIP_APPLICATION_FEE_PAYMENT = "FORWARD_TO_DEPARTMENT";
+	public static final String TAXHEADCODE_APPLICATION_FEE = "BPA_APPL_FEES";
+	public static final String MDMS_FEETYPE = "Feetype";
+	public static final String MDMS_FEETYPE_PATH = "$.MdmsRes.BPA.Feetype";
+	public static final String TAXHEADCODE_SANCTION_FEE = "BPA_SANC_FEES";
+	
 }

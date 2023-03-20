@@ -384,5 +384,12 @@ public class BPAConstants {
 	public static final String CHANNEL = "Channel";
 
 	public static final String BPA_BUSINESSSERVICE = "BPA";
-
+	
+	public static final String DEPARTMENT_TCP = "TCP";
+	public static final String DEPARTMENT_SADA = "SADA";
+	public static final String APPLICATION_TYPE_FORM_26 = "Form 26: For Composition of Offences";
+	public static final String TCP_STATE_INPROGRESS = "INPROGRESS";
+	public static final String TCP_ACTION_APPLY = "APPLY";
+	public static final String TCP_STATE_PENDING_AT_DRAFTSMAN = "PENDING_AT_DRAFTSMAN_VERIFICATION";
+	public static final String TCP_ACTION_SKIP_APPLICATION_FEE_PAYMENT = "FORWARD_TO_DEPARTMENT";
 }

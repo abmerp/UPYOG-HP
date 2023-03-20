@@ -3,6 +3,7 @@ package org.egov.bpa.calculator.services;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.egov.bpa.calculator.web.models.CalculationReq;
 import org.egov.bpa.calculator.web.models.CalculationRes;
 import org.egov.bpa.calculator.web.models.CalulationCriteria;
 import org.egov.bpa.calculator.web.models.bpa.BPA;
+import org.egov.bpa.calculator.web.models.bpa.BpaV2;
 import org.egov.bpa.calculator.web.models.bpa.EstimatesAndSlabs;
 import org.egov.bpa.calculator.web.models.demand.Category;
 import org.egov.bpa.calculator.web.models.demand.TaxHeadEstimate;
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
@@ -98,10 +101,13 @@ public class CalculationService {
 		List<Calculation> calculations = new LinkedList<>();
 		for (CalulationCriteria criteria : criterias) {
 			BPA bpa;
+			BpaV2 bpaV2 = null;
 			if (criteria.getBpa() == null
 					&& criteria.getApplicationNo() != null) {
 				bpa = bpaService.getBuildingPlan(requestInfo, criteria.getTenantId(),
 						criteria.getApplicationNo(), null);
+				//TODO: call fetch building plan once search API ready
+				criteria.setBpaV2(bpaV2);
 				criteria.setBpa(bpa);
 			}
 
@@ -111,6 +117,7 @@ public class CalculationService {
 					.getEstimates();
 
 			Calculation calculation = new Calculation();
+			calculation.setBpaV2(criteria.getBpaV2());
 			calculation.setBpa(criteria.getBpa());
 			calculation.setTenantId(criteria.getTenantId());
 			calculation.setTaxHeadEstimates(taxHeadEstimates);
@@ -136,6 +143,22 @@ public class CalculationService {
 			Object mdmsData) {
 		List<TaxHeadEstimate> estimates = new LinkedList<>();
 		EstimatesAndSlabs estimatesAndSlabs;
+		
+		//my code--
+		if(calulationCriteria.getFeeType().equalsIgnoreCase("ApplicationFee")) {
+			if(calulationCriteria.getBpaV2().getDepartment().equals(BPACalculatorConstants.DEPARTMENT_TCP) &&
+					calulationCriteria.getBpaV2().getApplicationType().equalsIgnoreCase(BPACalculatorConstants.APPLICATION_TYPE_FORM_26)) {
+				// fixed amount 200
+				estimatesAndSlabs = calculateApplicationFeeForTCP(calulationCriteria, requestInfo, mdmsData);
+				estimates.addAll(estimatesAndSlabs.getEstimates());
+			}
+		}
+		else if(calulationCriteria.getFeeType().equalsIgnoreCase("ProcessingFee")) {
+			estimatesAndSlabs = calculateProcessingFeeForTCP(calulationCriteria, requestInfo, mdmsData);
+			estimates.addAll(estimatesAndSlabs.getEstimates());
+		}
+			
+		// end of my code	
 		if (calulationCriteria.getFeeType().equalsIgnoreCase(BPACalculatorConstants.LOW_RISK_PERMIT_FEE_TYPE)) {
 
 //			 stopping Application fee for lowrisk applicaiton according to BBI-391
@@ -159,6 +182,21 @@ public class CalculationService {
 		estimatesAndSlabs.setEstimates(estimates);
 
 		return estimatesAndSlabs;
+	}
+	
+	private String getLimit(CalulationCriteria calulationCriteria, RequestInfo requestInfo, Object mdmsData) {
+		//TODO: implementation from edcr details or database TBD
+		//2 possible values to be retunred - "muncipalLimit" or "OutOfMuncipalLimit"
+		//hardcode OutOfMuncipalLimit as of now
+		return "OutOfMuncipalLimit";
+	}
+	
+	private String getResidentialOrNonResidentialCategory(CalulationCriteria calulationCriteria,
+			RequestInfo requestInfo, Object mdmsData) {
+		//TODO: implementation from edcr details or database TBD
+		//2 possible values to be retunred - "Residental" or "NotResidental"
+		//hardcode residential as of now-
+		return "Residental";
 	}
 
 	/**
@@ -256,6 +294,94 @@ public class CalculationService {
 			estimate.setTaxHeadCode(taxHeadCode);
 			estimates.add(estimate);
 		}
+		estimatesAndSlabs.setEstimates(estimates);
+		return estimatesAndSlabs;
+	}
+	
+	/**
+	 * Calculates base tax and cretaes its taxHeadEstimate
+	 * 
+	 * @param calulationCriteria
+	 *            CalculationCriteria containing the tradeLicense or
+	 *            applicationNumber
+	 * @param requestInfo
+	 *            The requestInfo of the calculation request
+	 * @return BaseTax taxHeadEstimate and billingSlabs used to calculate it
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private EstimatesAndSlabs calculateApplicationFeeForTCP(CalulationCriteria calulationCriteria,
+			RequestInfo requestInfo, Object mdmsData) {
+		BigDecimal applicationFee = BigDecimal.ZERO;
+		if (calulationCriteria.getBpaV2().getDepartment().equals(BPACalculatorConstants.DEPARTMENT_TCP)
+				&& calulationCriteria.getBpaV2().getApplicationType()
+						.equalsIgnoreCase(BPACalculatorConstants.APPLICATION_TYPE_FORM_26)) {
+			applicationFee = new BigDecimal("200");
+		}
+
+		EstimatesAndSlabs estimatesAndSlabs = new EstimatesAndSlabs();
+		ArrayList<TaxHeadEstimate> estimates = new ArrayList<TaxHeadEstimate>();
+
+		TaxHeadEstimate estimate = new TaxHeadEstimate();
+
+		estimate.setEstimateAmount(applicationFee);
+		estimate.setCategory(Category.FEE);
+
+		String taxHeadCode = BPACalculatorConstants.TAXHEADCODE_APPLICATION_FEE;
+		estimate.setTaxHeadCode(taxHeadCode);
+		estimates.add(estimate);
+		estimatesAndSlabs.setEstimates(estimates);
+		return estimatesAndSlabs;
+	}
+	
+	private EstimatesAndSlabs calculateProcessingFeeForTCP(CalulationCriteria calulationCriteria,
+			RequestInfo requestInfo, Object mdmsData) {
+		List jsonOutput = JsonPath.read(mdmsData, BPACalculatorConstants.MDMS_FEETYPE_PATH);
+		log.debug("ApplicationType is " + calulationCriteria.getBpaV2().getApplicationType());
+		String filterExp = "$.[?(@.ApplicationType == '"+ calulationCriteria.getBpaV2().getApplicationType()+"')]";
+        
+		/*
+		switch(calulationCriteria.getBpaV2().getApplicationType()) {
+		case BPACalculatorConstants.APPLICATION_TYPE_FORM_26:
+			String filterExp = "$.[?(@.ApplicationType == '"+ calulationCriteria.getBpaV2().getApplicationType()+"')]";
+		case BPACalculatorConstants.APPLICATION_TYPE_FORM_11:
+			
+			break;
+			default:
+				//this also includes form 12 and addition/alteration
+		}
+		*/
+		if (!BPACalculatorConstants.APPLICATION_TYPE_FORM_26
+				.equals(calulationCriteria.getBpaV2().getApplicationType())
+				&& !BPACalculatorConstants.APPLICATION_TYPE_FORM_11
+						.equals(calulationCriteria.getBpaV2().getApplicationType())) {
+			filterExp = "$.[?(@.ApplicationType == '" + BPACalculatorConstants.APPLICATION_TYPE_FORM_12 + "')]";
+		}
+		List<Object> feeTypes = JsonPath.read(jsonOutput, filterExp);
+		HashMap<String, Object> feeTypeMaster = new HashMap<>();
+		if (feeTypes.size() > 0) {
+			Object obj = feeTypes.get(0);
+			feeTypeMaster = (HashMap<String, Object>) obj;
+		}
+
+		if (feeTypes.size() == 0) {
+			log.info("no feetype master found for applicationType:"
+					+ calulationCriteria.getBpaV2().getApplicationType());
+		}
+		String feeCategory = getLimit(calulationCriteria, requestInfo, mdmsData)
+				+ getResidentialOrNonResidentialCategory(calulationCriteria, requestInfo, mdmsData);
+		BigDecimal fee = BigDecimal.ZERO;
+		if (!StringUtils.isEmpty(feeTypeMaster.get(feeCategory))) {
+			fee = new BigDecimal(feeTypeMaster.get(feeCategory).toString());
+		}
+
+		EstimatesAndSlabs estimatesAndSlabs = new EstimatesAndSlabs();
+		TaxHeadEstimate estimate = new TaxHeadEstimate();
+		estimate.setEstimateAmount(fee);
+		estimate.setCategory(Category.FEE);
+		String taxHeadCode = BPACalculatorConstants.TAXHEADCODE_SANCTION_FEE;
+		estimate.setTaxHeadCode(taxHeadCode);
+		List<TaxHeadEstimate> estimates = new LinkedList<>();
+		estimates.add(estimate);
 		estimatesAndSlabs.setEstimates(estimates);
 		return estimatesAndSlabs;
 	}
