@@ -153,31 +153,7 @@ public class EnrichmentService {
 //			bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_OC_MODULE_CODE);
 			bpaRequest.getBPA().setBusinessService(bussineServiceName2(bpaRequest.getBPA(), mdmsData));
 			
-//			bpaRequest.getBPA().getForm2().getLandAreaDetails().setId(UUID.randomUUID().toString());
-//			bpaRequest.getBPA().getForm2().getDescriptionOfLand().setId(UUID.randomUUID().toString());
-//			bpaRequest.getBPA().getForm2().getCorrespondenceAddressDetails().setId(UUID.randomUUID().toString());
-//			bpaRequest.getBPA().getForm2().getPermanentAddressDetails().setId(UUID.randomUUID().toString());
-//			List<OwnerInfo> owners = bpaRequest.getBPA().getForm2().getOwners();
-//			for (OwnerInfo ownerInfo : owners) {
-//				ownerInfo.setId(Long.parseLong(UUID.randomUUID().toString()));
-//			}
-			
-			
-//			bpaRequest.getBPA().setLandId(values.get("landId"));
-//		}
-//		if (bpaRequest.getBPA().getLandInfo() != null) {
-//			bpaRequest.getBPA().setLandId(bpaRequest.getBPA().getLandInfo().getId());
-//		}
-		// BPA Documents
-			
-//			====For Create API=============
-//		if (!CollectionUtils.isEmpty(bpaRequest.getBPA().getDocuments()))
-//			bpaRequest.getBPA().getDocuments().forEach(document -> {
-//				if (document.getId() == null) {
-//					document.setId(UUID.randomUUID().toString());
-//				}
-//			});
-//			====For Create API=============
+
 			
 			
 			
@@ -255,8 +231,8 @@ public class EnrichmentService {
 		String tenantId = request.getBPA().getTenantId();
 		BpaV2 bpa = request.getBPA();
 
-		List<String> applicationNumbers = getIdList(requestInfo, tenantId, config.getApplicationNoIdgenName(),
-				config.getApplicationNoIdgenFormat(), 1);
+		List<String> applicationNumbers = getIdList(requestInfo, tenantId, config.getBPAapplicationNumberIdgenName(),
+				config.getBPAapplicationNumberIdgenFormat(), 1);
 		ListIterator<String> itr = applicationNumbers.listIterator();
 
 		Map<String, String> errorMap = new HashMap<>();

@@ -511,6 +511,11 @@ serviceMaps:
    fromTopic: update-bpa-application
    isTransaction: true
    queryMaps:
+   
+       - query: INSERT INTO pg_bpa_applications_audit SELECT * FROM pg_bpa_applications WHERE applicationnumber = ?;
+         basePath: BPA
+         jsonMaps:
+          - jsonPath: $.BPA.applicationNo 
 
        - query: UPDATE public.pg_bpa_applications SET id=? , servicetype=?, department=?, category=?, totalplotarea=?, action=?, status=?, comment=?, businessservice=?, workflowcode=?, tenantid=?, applicationdetails=?, createdby=?, lastmodifiedby=?, createdtime=?, lastmodifiedtime=? WHERE applicationnumber=?;
  

@@ -9,7 +9,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyStore;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.net.ssl.HttpsURLConnection;
@@ -24,6 +27,8 @@ import org.egov.web.notification.sms.models.Sms;
 import org.egov.web.notification.sms.service.BaseSMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -171,8 +176,58 @@ public class NICSMSServiceImpl extends BaseSMSService {
         return true;
     }
 
+    
+//    -------my gov SMS-------
+    
+    public ResponseEntity<Map> sendSMSForApplication(Map<String, Object> request) {
 
 
+		request.put("username", smsProperties.username);
+		request.put("senderid", smsProperties.senderid);
+		request.put("password", smsProperties.password);
+		request.put("smsservicetype", "singlemsg");
+		
+		String genratedhashKey = hashGenerator(smsProperties.username, smsProperties.senderid, request.get("content").toString(),
+				smsProperties.secureKey);
+		request.put("key", genratedhashKey);
+		
+		log.info("request info\n" + request);
+		String url = smsProperties.getSmsApplication();
+		ResponseEntity<Map> response = restTemplate.postForEntity(url , request,
+				Map.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			log.info("SMS NOTIFICATION Sent\n" );
+		}
+		return response;
+	}
+
+	protected String hashGenerator(String userName, String senderId, String content, String secureKey) {
+		// TODO Auto-generated method stub
+		StringBuffer finalString=new StringBuffer();
+		finalString.append(userName.trim()).append(senderId.trim()).append(content.trim()).append(secureKey.trim());
+		// logger.info("Parameters for SHA-512 : "+finalString);
+		String hashGen=finalString.toString();
+		StringBuffer sb = null;
+		MessageDigest md;
+		try {
+		md = MessageDigest.getInstance("SHA-512");
+		md.update(hashGen.getBytes());
+		byte byteData[] = md.digest();
+		//convert the byte to hex format method 1
+		sb = new StringBuffer();
+		for (int i = 0; i < byteData.length; i++) {
+		sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}
+
+		} catch (NoSuchAlgorithmException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		return sb.toString();
+		}
+
+	
+//  -------my gov SMS-------
 
 
 }

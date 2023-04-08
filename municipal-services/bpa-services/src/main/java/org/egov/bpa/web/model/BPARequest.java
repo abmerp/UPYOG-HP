@@ -31,8 +31,8 @@ public class BPARequest   {
   @JsonProperty("BPA")
   private BPA BPA = null;
   
-  @JsonProperty("BpaV2")
-  private BpaV2 bpaV2 = null;
+//  @JsonProperty("BpaV2")
+//  private BpaV2 bpaV2 = null;
 
   public BPARequest requestInfo(RequestInfo requestInfo) {
     this.requestInfo = requestInfo;

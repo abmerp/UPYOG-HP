@@ -87,7 +87,7 @@ public class BPARepository {
 
 	}
 	
-	public void update(BPARequestV2 bpaRequest, boolean isStateUpdatable) {
+	public void update2(BPARequestV2 bpaRequest, boolean isStateUpdatable) {
 		RequestInfo requestInfo = bpaRequest.getRequestInfo();
 
 		BpaV2 bpaForStatusUpdate = null;

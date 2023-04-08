@@ -163,8 +163,8 @@ public class BPAService {
 			//in TCP application fees is there only for form 26 and that is too just 200 rupees for all types of buildings.
 			// So for any other type bypass call of calculation service
 			//prepare BpaRequest from BpaRequestV2 --
-			BPARequest bpaRequestOld = BPARequest.builder().bpaV2(bpaRequest.getBPA()).requestInfo(requestInfo).build();
-			this.addCalculation(applicationType, bpaRequestOld);
+			BPARequestV2 bpaRequestOld = BPARequestV2.builder().BPA(bpaRequest.getBPA()).requestInfo(requestInfo).build();
+//			this.addCalculation(applicationType, bpaRequestOld);
 			//TODO:move below code to update
 			//directly set one step next status and call processinstance transition twice--
 			bpaRequest.getBPA().setStatus("");
@@ -625,7 +625,7 @@ public class BPAService {
                  */
 
 		
-		repository.update(bpaRequest, workflowService.isStateUpdatable(bpa.getStatus(), businessService));
+		repository.update2(bpaRequest, workflowService.isStateUpdatable(bpa.getStatus(), businessService));
 		return bpaRequest.getBPA();
 
 	}
