@@ -349,7 +349,15 @@ public class BPAConfiguration {
 	private String saveApplicationTopic;
 	
 	
-	// Application Save Config
+	// Application Update Config
 		@Value("${persister.update.Application.topic}")
 		private String updateApplicationTopic;
+		
+ // For Application number
+		
+		@Value("${egov.idgen.bpa.form.applicationNum.name}")
+		private String BPAapplicationNumberIdgenName;
+		
+		@Value("${egov.idgen.bpa.form.applicationNum.format}")
+		private String BPAapplicationNumberIdgenFormat;
 }

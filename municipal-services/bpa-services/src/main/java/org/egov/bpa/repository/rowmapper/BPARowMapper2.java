@@ -13,6 +13,7 @@ import org.egov.bpa.web.model.AuditDetails;
 import org.egov.bpa.web.model.BPA;
 import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.Document;
+import org.egov.bpa.web.model.Workflow;
 import org.egov.bpa.web.model.ApplcationDetail;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,9 @@ public class BPARowMapper2 implements ResultSetExtractor<List<BpaV2>> {
 				AuditDetails auditdetails = AuditDetails.builder().createdBy(rs.getString("createdby"))
 						.createdTime(rs.getLong("createdtime")).lastModifiedBy(rs.getString("lastmodifiedby"))
 						.lastModifiedTime(lastModifiedTime).build();
+				
+				Workflow workflow = Workflow.builder().action(rs.getString("action")).assignes(null).comments(rs.getString("comment"))
+						.varificationDocuments(null).build();
 
 
 				currentbpa = BpaV2.builder()
@@ -71,8 +75,14 @@ public class BPARowMapper2 implements ResultSetExtractor<List<BpaV2>> {
 						.edcrNumber(rs.getString("edcrnumber"))
 //						.accountId(rs.getString("accountId"))
 						.id(id)
+						.serviceType(rs.getString("servicetype"))
+						.department(rs.getString("department"))
+						.category(rs.getString("category"))
+						.totalPlotArea(rs.getFloat("totalplotarea"))
+						.applicationType(rs.getString("servicetype"))
 						.applcationDetail(additionalDetails)
 						.businessService(rs.getString("businessservice"))
+						.workflow(workflow)
 						.build();
 
 				buildingMap.put(id, currentbpa);
