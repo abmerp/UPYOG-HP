@@ -1,0 +1,519 @@
+{
+  "RequestInfo": {
+        "apiId": "Rainmaker",
+        "action": "_create",
+        "did": 1,
+        "key": "",
+        "msgId": "20170310130900|en_IN",
+        "ts": 0,
+        "ver": ".01",
+        "authToken": "80458c19-3b48-4aa8-b86e-e2e195e6753a",
+        "userInfo": {
+            "uuid": "5fe074f2-c12d-4a27-bd7b-92d15f9ab19c",
+            "name": "rahul7",
+            "userName": "rahul7",
+            "tenantId": "hr",
+            "id": 97,
+            "mobileNumber": "7895877833"
+        }
+    },
+  "BusinessServices": [
+    {
+      "tenantId": "hr",
+      "businessService": "BPA_UDD2",
+      "business": "bpa-services",
+      "businessServiceSla": 5184000000,
+      "states": [
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": null,
+          "applicationStatus": null,
+          "docUploadRequired": false,
+          "isStartState": true,
+          "isTerminateState": false,
+          "isStateUpdatable": true,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "action": "INITIATE",
+              "nextState": "CITIZEN_APPROVAL_PENDING",
+              "roles": [
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "CITIZEN_APPROVAL_PENDING",
+          "applicationStatus": "CITIZEN_APPROVAL_PENDING",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": true,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "CITIZEN_APPROVAL_PENDING",
+              "action": "APPROVE",
+              "nextState": "INPROGRESS",
+              "roles": [
+                "CITIZEN"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "INPROGRESS",
+          "applicationStatus": "INPROGRESS",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "INPROGRESS",
+              "action": "INITIATE",
+              "nextState": "INPROGRESS",
+              "roles": [
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "INPROGRESS",
+              "action": "APPLY",
+              "nextState": "PENDING_SCRUTINY_FEE_PAYMENT",
+              "roles": [
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "PENDING_SCRUTINY_FEE_PAYMENT",
+          "applicationStatus": "PENDING_SCRUTINY_FEE_PAYMENT",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_SCRUTINY_FEE_PAYMENT",
+              "action": "PAY",
+              "nextState": "PENDING_AT_CLERK_TALLY_OPERATOR",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR",
+                "SYSTEM_PAYMENT",
+                "CEMP"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_SCRUTINY_FEE_PAYMENT",
+              "action": "ADHOC",
+              "nextState": "PENDING_SCRUTINY_FEE_PAYMENT",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR",
+                "SYSTEM_PAYMENT",
+                "CEMP"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_SCRUTINY_FEE_PAYMENT",
+              "action": "FORWARD_TO_DEPARTMENT",
+              "nextState": "PENDING_AT_CLERK_TALLY_OPERATOR",
+              "roles": [
+                "SYSTEM"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "PENDING_AT_CLERK_TALLY_OPERATOR",
+          "applicationStatus": "PENDING_AT_CLERK_TALLY_OPERATOR",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_CLERK_TALLY_OPERATOR",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+              "roles": [
+                "BPA_CLERK",
+                "BPA_TALLY_OPERATOR"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_CLERK_TALLY_OPERATOR",
+              "action": "REJECT",
+              "nextState": "REJECTED",
+              "roles": [
+                "BPA_CLERK",
+                "BPA_TALLY_OPERATOR"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_CLERK_TALLY_OPERATOR",
+              "action": "SEND_BACK_TO_CITIZEN",
+              "nextState": "BACK_FROM_CLERK_TALLY_OPERATOR",
+              "roles": [
+                "BPA_CLERK",
+                "BPA_TALLY_OPERATOR"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+          "applicationStatus": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+              "action": "REJECT",
+              "nextState": "REJECTED",
+              "roles": [
+                "BPA_UDD_DRAUGHTSMAN",
+                "BPA_UDD_JE",
+                "BPA_UDD_JR_DRAUGHTSMAN",
+                "BPA_UDD_SR_PLANNING_DRAUGHTSMAN",
+                "BPA_UDD_HEAD_DRAUGHTSMAN",
+                "BPA_UDD_ASSISTANT_DRAUGHTSMAN",
+                "BPA_UDD_SURVEYOR"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_L2_VERIFICATION",
+              "roles": [
+                "BPA_UDD_DRAUGHTSMAN",
+                "BPA_UDD_JE",
+                "BPA_UDD_JR_DRAUGHTSMAN",
+                "BPA_UDD_SR_PLANNING_DRAUGHTSMAN",
+                "BPA_UDD_HEAD_DRAUGHTSMAN",
+                "BPA_UDD_ASSISTANT_DRAUGHTSMAN",
+                "BPA_UDD_SURVEYOR"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+              "action": "SEND_BACK_TO_CITIZEN",
+              "nextState": "BACK_FROM_DRAUGHTSMAN_VERIFICATION",
+              "roles": [
+                "BPA_UDD_DRAUGHTSMAN",
+                "BPA_UDD_JE",
+                "BPA_UDD_JR_DRAUGHTSMAN",
+                "BPA_UDD_SR_PLANNING_DRAUGHTSMAN",
+                "BPA_UDD_HEAD_DRAUGHTSMAN",
+                "BPA_UDD_ASSISTANT_DRAUGHTSMAN",
+                "BPA_UDD_SURVEYOR"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "PENDING_AT_L2_VERIFICATION",
+          "applicationStatus": "PENDING_AT_L2_VERIFICATION",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_L2_VERIFICATION",
+              "action": "REJECT",
+              "nextState": "REJECTED",
+              "roles": [
+                "BPA_UDD_ASSISTANT_ENGINEER",
+                "BPA_UDD_PLANNING_OFFICER",
+                "BPA_UDD_MUNICIPAL_ENGINEER"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_L2_VERIFICATION",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_COMMISSIONER",
+              "roles": [
+                "BPA_UDD_ASSISTANT_ENGINEER",
+                "BPA_UDD_PLANNING_OFFICER",
+                "BPA_UDD_MUNICIPAL_ENGINEER"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_L2_VERIFICATION",
+              "action": "SEND_BACK_TO_CITIZEN",
+              "nextState": "BACK_FROM_L2_VERIFICATION",
+              "roles": [
+                "BPA_UDD_ASSISTANT_ENGINEER",
+                "BPA_UDD_PLANNING_OFFICER",
+                "BPA_UDD_MUNICIPAL_ENGINEER"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "PENDING_AT_COMMISSIONER",
+          "applicationStatus": "PENDING_AT_COMMISSIONER",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_COMMISSIONER",
+              "action": "REJECT",
+              "nextState": "REJECTED",
+              "roles": [
+                "BPA_UDD_COMMISSIONER"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_COMMISSIONER",
+              "action": "APPROVE",
+              "nextState": "PENDING_SANC_FEE_PAYMENT",
+              "roles": [
+                "BPA_UDD_COMMISSIONER"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_AT_COMMISSIONER",
+              "action": "SEND_BACK_TO_CITIZEN",
+              "nextState": "BACK_FROM_COMMISSIONER",
+              "roles": [
+                "BPA_UDD_COMMISSIONER"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "PENDING_SANC_FEE_PAYMENT",
+          "applicationStatus": "PENDING_SANC_FEE_PAYMENT",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": false,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_SANC_FEE_PAYMENT",
+              "action": "ADHOC",
+              "nextState": "PENDING_SANC_FEE_PAYMENT",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR",
+                "SYSTEM_PAYMENT",
+                "CEMP"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_SANC_FEE_PAYMENT",
+              "action": "PAY",
+              "nextState": "APPROVED",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT",
+                "BPA_ENGINEER",
+                "BPA_BUILDER",
+                "BPA_STRUCTURALENGINEER",
+                "BPA_TOWNPLANNER",
+                "BPA_SUPERVISOR",
+                "SYSTEM_PAYMENT",
+                "CEMP"
+              ]
+            },
+            {
+              "tenantId": "hr",
+              "currentState": "PENDING_SANC_FEE_PAYMENT",
+              "action": "APPROVE",
+              "nextState": "APPROVED",
+              "roles": [
+                "SYSTEM"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "BACK_FROM_CLERK_TALLY_OPERATOR",
+          "applicationStatus": "BACK_FROM_CLERK_TALLY_OPERATOR",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": true,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "BACK_FROM_CLERK_TALLY_OPERATOR",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_CLERK_TALLY_OPERATOR",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "BACK_FROM_DRAUGHTSMAN_VERIFICATION",
+          "applicationStatus": "BACK_FROM_DRAUGHTSMAN_VERIFICATION",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": true,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "BACK_FROM_DRAUGHTSMAN_VERIFICATION",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_DRAUGHTSMAN_VERIFICATION",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "BACK_FROM_L2_VERIFICATION",
+          "applicationStatus": "BACK_FROM_L2_VERIFICATION",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": true,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "BACK_FROM_L2_VERIFICATION",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_L2_VERIFICATION",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "BACK_FROM_COMMISSIONER",
+          "applicationStatus": "BACK_FROM_COMMISSIONER",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": false,
+          "isStateUpdatable": true,
+          "actions": [
+            {
+              "tenantId": "hr",
+              "currentState": "BACK_FROM_COMMISSIONER",
+              "action": "FORWARD",
+              "nextState": "PENDING_AT_COMMISSIONER",
+              "roles": [
+                "CITIZEN",
+                "BPA_ARCHITECT"
+              ]
+            }
+          ]
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "APPROVED",
+          "applicationStatus": "APPROVED",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": true,
+          "isStateUpdatable": false,
+          "actions": null
+        },
+        {
+          "tenantId": "hr",
+          "sla": null,
+          "state": "REJECTED",
+          "applicationStatus": "REJECTED",
+          "docUploadRequired": false,
+          "isStartState": false,
+          "isTerminateState": true,
+          "isStateUpdatable": false,
+          "actions": null
+        }
+      ]
+    }
+  ]
+}
