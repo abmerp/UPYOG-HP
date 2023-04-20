@@ -57,6 +57,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.egov.common.entity.edcr.Block;
+import org.egov.common.entity.edcr.Floor;
 import org.egov.common.entity.edcr.Measurement;
 import org.egov.common.entity.edcr.OccupancyType;
 import org.egov.common.entity.edcr.Plan;
@@ -77,7 +78,10 @@ public class Coverage extends FeatureProcess {
     private static final String RULE_EXPECTED_KEY = "coverage.expected";
     private static final String RULE_ACTUAL_KEY = "coverage.actual";
    // private static final BigDecimal ThirtyFive = BigDecimal.valueOf(35);
-    private static final BigDecimal Forty = BigDecimal.valueOf(40);
+    private static final BigDecimal SIXTYSIX = BigDecimal.valueOf(66);
+    private static final BigDecimal SEVENTYFIVE = BigDecimal.valueOf(75);
+//    private static final BigDecimal THIRTYFIVE = BigDecimal.valueOf(35);
+//    private static final BigDecimal FIFTY = BigDecimal.valueOf(50);
 	/*
 	 * private static final BigDecimal FortyFive = BigDecimal.valueOf(45); private
 	 * static final BigDecimal Sixty = BigDecimal.valueOf(60); private static final
@@ -89,6 +93,16 @@ public class Coverage extends FeatureProcess {
     public static final String RULE_38 = "38";
     private static final BigDecimal ROAD_WIDTH_TWELVE_POINTTWO = BigDecimal.valueOf(12.2);
     private static final BigDecimal ROAD_WIDTH_THIRTY_POINTFIVE = BigDecimal.valueOf(30.5);
+
+	private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
+	private static final BigDecimal TWOHUNDREDFIFTY = BigDecimal.valueOf(250);
+//	private static final BigDecimal SIX_ACRES_IN_SQM = BigDecimal.valueOf(24636);
+//	private static final BigDecimal TWENTY_FIVE_ACRES_IN_SQM = BigDecimal.valueOf(101524);
+	private static final BigDecimal THREEHUNDREDFIFTY = BigDecimal.valueOf(350);
+	private static final BigDecimal FIVEHUNDRED = BigDecimal.valueOf(500);
+	private static final BigDecimal ONETHOUSAND = BigDecimal.valueOf(1000);
+	private static final BigDecimal SEVENTYFIVE_PERCENT = BigDecimal.valueOf(0.75);
+	private static final BigDecimal SIXTYSIX_PERCENT = BigDecimal.valueOf(0.66);
     
     @Override
     public Plan validate(Plan pl) {
@@ -105,15 +119,19 @@ public class Coverage extends FeatureProcess {
         validate(pl);
         BigDecimal totalCoverage = BigDecimal.ZERO;
         BigDecimal totalCoverageArea = BigDecimal.ZERO;
+        boolean isAccepted = false;
+        String expectedResult = StringUtils.EMPTY;
 
         for (Block block : pl.getBlocks()) {
+        	for(Floor floor : block.getBuilding().getFloors())
+        	{
             BigDecimal coverageAreaWithoutDeduction = BigDecimal.ZERO;
             BigDecimal coverageDeductionArea = BigDecimal.ZERO;
 
             for (Measurement coverage : block.getCoverage()) {
                 coverageAreaWithoutDeduction = coverageAreaWithoutDeduction.add(coverage.getArea());
             }
-            for (Measurement deduct : block.getCoverageDeductions()) {
+            for (Measurement deduct : floor.getCoverageDeduct()) {
                 coverageDeductionArea = coverageDeductionArea.add(deduct.getArea());
             }
             if (block.getBuilding() != null) {
@@ -132,7 +150,7 @@ public class Coverage extends FeatureProcess {
             }
 
         }
-
+       }
       //  pl.setCoverageArea(totalCoverageArea);
         // use plotBoundaryArea
         if (pl.getPlot() != null && pl.getPlot().getArea().doubleValue() > 0)
@@ -142,12 +160,34 @@ public class Coverage extends FeatureProcess {
         if (pl.getVirtualBuilding() != null) {
             pl.getVirtualBuilding().setTotalCoverageArea(totalCoverageArea);
         }
+        
 
-       BigDecimal roadWidth = pl.getPlanInformation().getRoadWidth();
-       if(roadWidth != null && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0
-				&& roadWidth.compareTo(ROAD_WIDTH_THIRTY_POINTFIVE) <= 0) {
-        processCoverage(pl, StringUtils.EMPTY, totalCoverage, Forty);
-       }
+      // BigDecimal roadWidth = pl.getPlanInformation().getRoadWidth();
+      
+      //*** Implementation for GROUND COVERAGE as per Haryana
+        if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY)<=0) {
+       	 processCoverage(pl, StringUtils.EMPTY, totalCoverage, SEVENTYFIVE);
+        }
+    	
+    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY)>=0) {
+    		 processCoverage(pl, StringUtils.EMPTY, totalCoverage, SIXTYSIX);
+        }
+    	
+		/*
+		 * if (pl.getPlanInformation().getLandUseZone().equalsIgnoreCase(OccupancyType.
+		 * OCCUPANCY_A4.getOccupancyTypeVal())) { if
+		 * (pl.getPlot().getArea().compareTo(SIX_ACRES_IN_SQM) <= 0) {
+		 * processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY); } if
+		 * (pl.getPlot().getArea().compareTo(SIX_ACRES_IN_SQM) > 0 &&
+		 * pl.getPlot().getArea().compareTo(TWENTY_FIVE_ACRES_IN_SQM) <= 0) {
+		 * processCoverage(pl, StringUtils.EMPTY, totalCoverage, THIRTYFIVE); } }
+		 */
+        
+        
+        
+        
+       
+      
 		/*
 		 * // for weighted coverage if (pl.getPlot().getArea().doubleValue() >= 5000) {
 		 * BigDecimal provideCoverage = BigDecimal.ZERO; BigDecimal weightedArea =
@@ -228,7 +268,7 @@ public class Coverage extends FeatureProcess {
         scrutinyDetail.setHeading("Coverage in Percentage");
         scrutinyDetail.addColumnHeading(1, RULE_NO);
         scrutinyDetail.addColumnHeading(2, DESCRIPTION);
-        //scrutinyDetail.addColumnHeading(3, OCCUPANCY);
+        scrutinyDetail.addColumnHeading(3, OCCUPANCY);
         scrutinyDetail.addColumnHeading(4, PERMISSIBLE);
         scrutinyDetail.addColumnHeading(5, PROVIDED);
         scrutinyDetail.addColumnHeading(6, STATUS);
@@ -240,7 +280,7 @@ public class Coverage extends FeatureProcess {
             Map<String, String> details = new HashMap<>();
             details.put(RULE_NO, RULE_38);
             details.put(DESCRIPTION, desc);
-           // details.put(OCCUPANCY, occupancy);
+            details.put(OCCUPANCY, occupancy);
             details.put(PERMISSIBLE, expectedResult);
             details.put(PROVIDED, actualResult);
             details.put(STATUS, Result.Accepted.getResultVal());
@@ -251,7 +291,7 @@ public class Coverage extends FeatureProcess {
             Map<String, String> details = new HashMap<>();
             details.put(RULE_NO, RULE_38);
             details.put(DESCRIPTION, desc);
-           // details.put(OCCUPANCY, occupancy);
+            details.put(OCCUPANCY, occupancy);
             details.put(PERMISSIBLE, expectedResult);
             details.put(PROVIDED, actualResult);
             details.put(STATUS, Result.Not_Accepted.getResultVal());
