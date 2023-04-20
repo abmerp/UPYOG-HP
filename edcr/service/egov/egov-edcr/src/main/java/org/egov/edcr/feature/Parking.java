@@ -77,6 +77,7 @@ import org.egov.common.entity.edcr.OccupancyTypeHelper;
 import org.egov.common.entity.edcr.ParkingDetails;
 import org.egov.common.entity.edcr.ParkingHelper;
 import org.egov.common.entity.edcr.Plan;
+import org.egov.common.entity.edcr.PlanInformation;
 import org.egov.common.entity.edcr.Result;
 import org.egov.common.entity.edcr.ScrutinyDetail;
 import org.egov.edcr.utility.DcrConstants;
@@ -118,7 +119,7 @@ public class Parking extends FeatureProcess {
     private static final double MECH_PARKING_WIDTH = 2.7;
     private static final double MECH_PARKING_HEIGHT = 5.5;
 
-    private static final double OPEN_ECS = 23;
+    private static final double OPEN_ECS = 12.5;
     private static final double COVER_ECS = 28;
     private static final double BSMNT_ECS = 32;
     private static final double PARK_A = 0.25;
@@ -241,86 +242,115 @@ public class Parking extends FeatureProcess {
 				pl.addError(TWO_WHEELER_DIM_DESC, TWO_WHEELER_DIM_DESC + count
 						+ " number of two wheeler Parking slot polygon not having only 4 points.");
 		}
-    }
+        
+            }
 
     public void processParking(Plan pl) {
         ParkingHelper helper = new ParkingHelper();
         // checkDimensionForCarParking(pl, helper);
-
+        int floor_count = 0;
         OccupancyTypeHelper mostRestrictiveOccupancy = pl.getVirtualBuilding() != null
                 ? pl.getVirtualBuilding().getMostRestrictiveFarHelper()
                 : null;
-        BigDecimal totalBuiltupArea = pl.getOccupancies().stream().map(Occupancy::getBuiltUpArea)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+//        BigDecimal totalBuiltupArea = pl.getOccupancies().stream().map(Occupancy::getBuiltUpArea)
+//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal totalPlotArea = pl.getPlanInformation().getPlotArea();
         BigDecimal coverParkingArea = BigDecimal.ZERO;
         BigDecimal basementParkingArea = BigDecimal.ZERO;
+        BigDecimal stiltParkingArea = BigDecimal.ZERO;
         for (Block block : pl.getBlocks()) {
             for (Floor floor : block.getBuilding().getFloors()) {
-                coverParkingArea = coverParkingArea.add(floor.getParking().getCoverCars().stream().map(Measurement::getArea)
+            	
+            	floor_count++;
+                if(floor.getParking().getStilts().size() == 1) {
+                	floor_count--;
+                }
+            	coverParkingArea = coverParkingArea.add(floor.getParking().getCoverCars().stream().map(Measurement::getArea)
                         .reduce(BigDecimal.ZERO, BigDecimal::add));
                 basementParkingArea = basementParkingArea
                         .add(floor.getParking().getBasementCars().stream().map(Measurement::getArea)
                                 .reduce(BigDecimal.ZERO, BigDecimal::add));
+                stiltParkingArea = stiltParkingArea.add(floor.getParking().getStilts().stream().map(Measurement::getArea)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add));
+                
+                
+                
             }
         }
         BigDecimal openParkingArea = pl.getParkingDetails().getOpenCars().stream().map(Measurement::getArea)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        BigDecimal totalProvidedCarParkArea = openParkingArea.add(coverParkingArea).add(basementParkingArea);
+        BigDecimal totalProvidedCarParkArea = openParkingArea.add(coverParkingArea).add(basementParkingArea).add(stiltParkingArea);
         helper.totalRequiredCarParking += openParkingArea.doubleValue() / OPEN_ECS;
         helper.totalRequiredCarParking += coverParkingArea.doubleValue() / COVER_ECS;
         helper.totalRequiredCarParking += basementParkingArea.doubleValue() / BSMNT_ECS;
+        helper.totalRequiredCarParking += stiltParkingArea.doubleValue() / OPEN_ECS;
         Double requiredCarParkArea = 0d;
         Double requiredVisitorParkArea = 0d;
 
         BigDecimal providedVisitorParkArea = BigDecimal.ZERO;
 
-        validateSpecialParking(pl, helper, totalBuiltupArea);
+       // validateSpecialParking(pl, helper, totalBuiltupArea);
 
-        if (totalBuiltupArea != null && totalBuiltupArea.doubleValue() <= 300) {
+        if (totalPlotArea != null && totalPlotArea.doubleValue() <= 300) {
 
             if (mostRestrictiveOccupancy != null && A.equals(mostRestrictiveOccupancy.getType().getCode())) {
-                if (totalBuiltupArea.doubleValue() <= 200) {
-                    requiredCarParkArea += OPEN_ECS * 1;
-                } else if (totalBuiltupArea.doubleValue() > 200 && totalBuiltupArea.doubleValue() <= 300) {
-                    requiredCarParkArea += OPEN_ECS * 2;
-                }
+//                if (totalPlotArea.doubleValue() <= 200) {
+//                    requiredCarParkArea += OPEN_ECS * 1 * floor_count;
+//                } else if (totalPlotArea.doubleValue() > 200 && totalPlotArea.doubleValue() <= 300) {
+//                    requiredCarParkArea += OPEN_ECS * 2 * floor_count;
+//                }
+            	if (totalPlotArea.doubleValue() < 100) {
+            		requiredCarParkArea += OPEN_ECS * 0.5 * floor_count;
+            	} else if (totalPlotArea.doubleValue() >= 100 && totalPlotArea.doubleValue() < 250) {
+            		requiredCarParkArea += OPEN_ECS * 1 * floor_count;
+            	} else if (totalPlotArea.doubleValue() >= 250 && totalPlotArea.doubleValue() < 500) {
+            		requiredCarParkArea += OPEN_ECS * 1.5 * floor_count;
+            	} else if (totalPlotArea.doubleValue() >= 500) {
+            		requiredCarParkArea += OPEN_ECS * 2 * floor_count;
+            	}
+            	
             } else {
-                BigDecimal builtupArea = totalBuiltupArea.subtract(totalBuiltupArea.multiply(BigDecimal.valueOf(0.15)));
-                double requiredEcs = builtupArea.divide(BigDecimal.valueOf(100)).multiply(BigDecimal.valueOf(2))
+//                BigDecimal builtupArea = totalBuiltupArea.subtract(totalBuiltupArea.multiply(BigDecimal.valueOf(0.15)));
+                BigDecimal plotArea = totalPlotArea.subtract(totalPlotArea.multiply(BigDecimal.valueOf(0.15)));
+                
+//                double requiredEcs = builtupArea.divide(BigDecimal.valueOf(100)).multiply(BigDecimal.valueOf(2))
+//                        .setScale(0, RoundingMode.UP).doubleValue();
+                double requiredEcsPlotArea = plotArea.divide(BigDecimal.valueOf(100)).multiply(BigDecimal.valueOf(2))
                         .setScale(0, RoundingMode.UP).doubleValue();
+                
                 if (openParkingArea.doubleValue() > 0 && coverParkingArea.doubleValue() > 0)
-                    requiredCarParkArea += COVER_ECS * requiredEcs;
+                    requiredCarParkArea += COVER_ECS * requiredEcsPlotArea;
                 else if (openParkingArea.doubleValue() > 0 && basementParkingArea.doubleValue() > 0)
-                    requiredCarParkArea += BSMNT_ECS * requiredEcs;
+                    requiredCarParkArea += BSMNT_ECS * requiredEcsPlotArea;
                 else if (coverParkingArea.doubleValue() > 0 && basementParkingArea.doubleValue() > 0)
-                    requiredCarParkArea += BSMNT_ECS * requiredEcs;
+                    requiredCarParkArea += BSMNT_ECS * requiredEcsPlotArea;
                 else if (coverParkingArea.doubleValue() > 0)
-                    requiredCarParkArea += COVER_ECS * requiredEcs;
+                    requiredCarParkArea += COVER_ECS * requiredEcsPlotArea;
                 else if (basementParkingArea.doubleValue() > 0)
-                    requiredCarParkArea += BSMNT_ECS * requiredEcs;
+                    requiredCarParkArea += BSMNT_ECS * requiredEcsPlotArea;
                 else if (openParkingArea.doubleValue() > 0)
-                    requiredCarParkArea += OPEN_ECS * requiredEcs;
+                    requiredCarParkArea += OPEN_ECS * requiredEcsPlotArea;
             }
         } else {
             providedVisitorParkArea = pl.getParkingDetails().getVisitors().stream().map(Measurement::getArea)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
             if (mostRestrictiveOccupancy != null && A.equals(mostRestrictiveOccupancy.getType().getCode())) {
-                requiredCarParkArea = totalBuiltupArea.doubleValue() * PARK_A;
+                requiredCarParkArea = totalPlotArea.doubleValue() * PARK_A;
                 if (mostRestrictiveOccupancy != null && mostRestrictiveOccupancy.getSubtype() != null
                         && A_AF.equals(mostRestrictiveOccupancy.getSubtype().getCode()))
                     requiredVisitorParkArea = requiredCarParkArea * PARK_VISITOR;
             } 
             else if (mostRestrictiveOccupancy != null && (F.equals(mostRestrictiveOccupancy.getType().getCode()))) {
-                requiredCarParkArea = totalBuiltupArea.doubleValue() * PARK_F;
+                requiredCarParkArea = totalPlotArea.doubleValue() * PARK_F;
                 if (mostRestrictiveOccupancy != null && mostRestrictiveOccupancy.getSubtype() != null && ( F_H.equals(mostRestrictiveOccupancy.getSubtype().getCode()) || F_RT.equals(mostRestrictiveOccupancy.getSubtype().getCode())
                 		|| F_LD.equals(mostRestrictiveOccupancy.getSubtype().getCode()) || F_CB.equals(mostRestrictiveOccupancy.getSubtype().getCode())
                 		|| F_IT.equals(mostRestrictiveOccupancy.getSubtype().getCode()))) {
-                    requiredCarParkArea = totalBuiltupArea.doubleValue() * PARK_F;
+                    requiredCarParkArea = totalPlotArea.doubleValue() * PARK_F;
             }
           }
            else if (mostRestrictiveOccupancy != null && (G.equals(mostRestrictiveOccupancy.getType().getCode()))) {
-                requiredCarParkArea = totalBuiltupArea.doubleValue() * PARK_F;
+                requiredCarParkArea = totalPlotArea.doubleValue() * PARK_F;
           }
         }
 
@@ -331,6 +361,8 @@ public class Parking extends FeatureProcess {
         
         //checkDimensionForTwoWheelerParking(pl, helper);
        //  checkAreaForLoadUnloadSpaces(pl);
+        LOGGER.info("******************Provided Car Parking Area ***************" + totalProvidedCarParkingArea);
+        LOGGER.info("******************Require Car Parking Area ***************" + requiredCarParkingArea);
         if (totalProvidedCarParkArea.doubleValue() == 0) {
             pl.addError(SUB_RULE_40_2_DESCRIPTION,
                     getLocaleMessage("msg.error.not.defined", SUB_RULE_40_2_DESCRIPTION));
@@ -705,9 +737,10 @@ public class Parking extends FeatureProcess {
     
     private void checkAreaForLoadUnloadSpaces(Plan pl) {
         double providedArea = 0;
-        BigDecimal totalBuiltupArea = pl.getOccupancies().stream().map(Occupancy::getBuiltUpArea)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        double requiredArea = Math.abs(((totalBuiltupArea.doubleValue() - 700) / 1000) * 30);
+//        BigDecimal totalBuiltupArea = pl.getOccupancies().stream().map(Occupancy::getBuiltUpArea)
+//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal totalPlotArea = pl.getPlanInformation().getPlotArea();
+        double requiredArea = Math.abs(((totalPlotArea.doubleValue() - 700) / 1000) * 30);
         if (!pl.getParkingDetails().getLoadUnload().isEmpty()) {
                 for (Measurement m : pl.getParkingDetails().getLoadUnload()) {
                         if (m.getArea().compareTo(BigDecimal.valueOf(30)) >= 0)

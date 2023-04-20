@@ -61,9 +61,12 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.egov.common.entity.edcr.Block;
+import org.egov.common.entity.edcr.Floor;
+import org.egov.common.entity.edcr.Measurement;
 import org.egov.common.entity.edcr.OccupancyTypeHelper;
 import org.egov.common.entity.edcr.Plan;
 import org.egov.common.entity.edcr.Result;
+import org.egov.common.entity.edcr.RoofArea;
 import org.egov.common.entity.edcr.ScrutinyDetail;
 import org.egov.common.entity.edcr.SetBack;
 import org.egov.common.entity.edcr.Yard;
@@ -76,7 +79,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdditionalFeature extends FeatureProcess {
     private static final Logger LOG = LogManager.getLogger(AdditionalFeature.class);
-
+    
     private static final String RULE_38 = "38";
     private static final String RULE_39 = "39";
     private static final String RULE_41_I_A = "41-i-a";
@@ -92,6 +95,7 @@ public class AdditionalFeature extends FeatureProcess {
     private static final BigDecimal SEVEN = BigDecimal.valueOf(7);
     private static final BigDecimal TEN = BigDecimal.valueOf(10);
     private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
+    private static final BigDecimal SIXTEENPOINTFIVE = BigDecimal.valueOf(16.5);
     private static final BigDecimal NINETEEN = BigDecimal.valueOf(19);
 
     private static final BigDecimal ROAD_WIDTH_TWO_POINTFOUR = BigDecimal.valueOf(2.4);
@@ -103,7 +107,9 @@ public class AdditionalFeature extends FeatureProcess {
     private static final BigDecimal ROAD_WIDTH_TWELVE_POINTTWO = BigDecimal.valueOf(12.2);
 
     private static final int PLOTAREA_100 = 100;
+    private static final int ROOFAREA_100 = 100;
     private static final int PLOTAREA_300 = 300;
+    private static final int PLOTAREA_420 = 420;
     private static final int PLOTAREA_500 = 500;
     private static final int PLOTAREA_1000 = 1000;
     private static final int PLOTAREA_3000 = 3000;
@@ -122,8 +128,8 @@ public class AdditionalFeature extends FeatureProcess {
     public static final String NEW_AREA_ERROR_MSG = "No construction shall be permitted if the road width is less than 6.1m for new area.";
     public static final String NO_OF_FLOORS = "Maximum number of floors allowed";
     public static final String HEIGHT_BUILDING = "Maximum height of building allowed";
-    public static final String MIN_PLINTH_HEIGHT = " >= 0.45";
-    public static final String MIN_PLINTH_HEIGHT_DESC = "Minimum plinth height";
+    public static final String MIN_PLINTH_HEIGHT = " >= 0.45 & <= 1.5";
+    public static final String MIN_PLINTH_HEIGHT_DESC = "Plinth height";
     public static final String MAX_BSMNT_CELLAR = "Number of basement/cellar allowed";
     public static final String MIN_INT_COURT_YARD = "0.15";
     public static final String MIN_INT_COURT_YARD_DESC = "Minimum interior courtyard";
@@ -132,7 +138,10 @@ public class AdditionalFeature extends FeatureProcess {
     public static final String GREEN_BUILDINGS_AND_SUSTAINABILITY_PROVISIONS_ERROR_MSG = "Green buildings and sustainability provision should be YES";
     public static final String GREEN_BUILDINGS_AND_SUSTAINABILITY = "Green buildings and sustainability provisions";
     public static final String FIRE_PROTECTION_AND_FIRE_SAFETY_REQUIREMENTS_DESC = "Fire Protection And Fire Safety Requirements";
-
+    public static final String DWELLING_UNITS_ERROR_CODE = "DWELLING UNITS ERROR CODE";
+    public static final String DWELLING_UNITS_ERROR_MSG = "DWELLING UNITS ERROR MSG";
+//    private static final BigDecimal KITCHEN_COUNT = BigDecimal.valueOf(0);
+    
     @Override
     public Plan validate(Plan pl) {
         HashMap<String, String> errors = new HashMap<>();
@@ -180,12 +189,36 @@ public class AdditionalFeature extends FeatureProcess {
         validateBarrierFreeAccess(pl, errors);
         validateBasement(pl, errors);
         validateGreenBuildingsAndSustainability(pl, errors);
+        validateSolarPanels(pl, errors);
         validateFireDeclaration(pl, errors);
-
+        validateDwellingUnits(pl, errors); 
+//		  if (pl.getPlanInformation().getLandUseZone().equalsIgnoreCase(OccupancyType.
+//		  OCCUPANCY_A1.getOccupancyTypeVal()) ||
+//		  pl.getPlanInformation().getLandUseZone().equalsIgnoreCase(OccupancyType.
+//		  OCCUPANCY_A2.getOccupancyTypeVal())) { 
+//			
+//			  validateDwellingUnits(pl, errors); 
+//			  
+//		  }
+        
+//        String buildingFootPrintLayer = String.format(DxfFileConstants.BUILDING_FOOT_PRINT);
+//        
+//        if (pl.getPlot().getBuildingFootPrint().getPresentInDxf() &&
+//        		(pl.getPlot().getBuildingFootPrint().getColorCode() == 25 || 
+//        				pl.getPlot().getBuildingFootPrint().getColorCode() == 3) && 
+//        		(pl.getPlot().getBuildingFootPrint().getName().equals(buildingFootPrintLayer)))
+//        {
+//        		validateDwellingUnits(pl, errors); 
+//			  
+//        } 
+//        else {
+//        	pl.addError(RESIDENTIAL, getLocaleMessage(OBJECTNOTDEFINED, RESIDENTIAL));
+//        }
+        
         return pl;
     }
 
-    private void validateFireDeclaration(Plan pl, HashMap<String, String> errors) {
+	private void validateFireDeclaration(Plan pl, HashMap<String, String> errors) {
         ScrutinyDetail scrutinyDetail = getNewScrutinyDetail("Fire Protection And Fire Safety Requirements");
         OccupancyTypeHelper mostRestrictiveOccupancyType = pl.getVirtualBuilding() != null
                 ? pl.getVirtualBuilding().getMostRestrictiveFarHelper()
@@ -362,32 +395,35 @@ public class AdditionalFeature extends FeatureProcess {
             BigDecimal buildingHeight = block.getBuilding().getBuildingHeight();
 
             if (typeOfArea.equalsIgnoreCase(OLD)) {
-                if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOUR) < 0) {
-                    errors.put(OLD_AREA_ERROR, OLD_AREA_ERROR_MSG);
-                    pl.addErrors(errors);
-                } else if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOURFOUR) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) < 0) {
-                    isAccepted = buildingHeight.compareTo(SEVEN) <= 0;
-                    requiredBuildingHeight = "<= 7";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) < 0) {
-                    isAccepted = buildingHeight.compareTo(TEN) <= 0;
-                    requiredBuildingHeight = "<= 10";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
-                    isAccepted = buildingHeight.compareTo(TEN) <= 0;
-                    requiredBuildingHeight = "<= 10";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
-                    isAccepted = buildingHeight.compareTo(TWELVE) <= 0;
-                    requiredBuildingHeight = "<= 12";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0) {
-                    List<SetBack> setBacks = block.getSetBacks();
-                    BigDecimal permitedHeight = getPermitedHeight(roadWidth, setBacks);
-                    isAccepted = buildingHeight.compareTo(permitedHeight) <= 0;
-                    requiredBuildingHeight = "<=" + permitedHeight.toString();
-                    ruleNo = RULE_39;
-                }
+//                if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOUR) < 0) {
+//                    errors.put(OLD_AREA_ERROR, OLD_AREA_ERROR_MSG);
+//                    pl.addErrors(errors);
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOURFOUR) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) < 0) {
+//                    isAccepted = buildingHeight.compareTo(SEVEN) <= 0;
+//                    requiredBuildingHeight = "<= 7";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) < 0) {
+//                    isAccepted = buildingHeight.compareTo(TEN) <= 0;
+//                    requiredBuildingHeight = "<= 10";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
+//                    isAccepted = buildingHeight.compareTo(TEN) <= 0;
+//                    requiredBuildingHeight = "<= 10";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
+//                    isAccepted = buildingHeight.compareTo(TWELVE) <= 0;
+//                    requiredBuildingHeight = "<= 12";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0) {
+//                    List<SetBack> setBacks = block.getSetBacks();
+//                    BigDecimal permitedHeight = getPermitedHeight(roadWidth, setBacks);
+//                    isAccepted = buildingHeight.compareTo(permitedHeight) <= 0;
+//                    requiredBuildingHeight = "<=" + permitedHeight.toString();
+//                    ruleNo = RULE_39;
+//                }
+            	isAccepted = buildingHeight.compareTo(SIXTEENPOINTFIVE) <= 0;
+                requiredBuildingHeight = "<= 16.5";
+            	
                 /*
                  * else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0 && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO)
                  * <= 0) { return BETWEEN_NINEPOINT_ONE_TWELVEPOINT_TWO; } else if
@@ -406,23 +442,26 @@ public class AdditionalFeature extends FeatureProcess {
             }
 
             if (typeOfArea.equalsIgnoreCase(NEW)) {
-                if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
-                    errors.put(NEW_AREA_ERROR, NEW_AREA_ERROR_MSG);
-                    pl.addErrors(errors);
-                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
-                    isAccepted = buildingHeight.compareTo(TWELVE) <= 0;
-                    requiredBuildingHeight = "<= 12";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) < 0) {
-                    isAccepted = buildingHeight.compareTo(NINETEEN) <= 0;
-                    requiredBuildingHeight = "<= 19";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) > 0) {
-                    List<SetBack> setBacks = block.getSetBacks();
-                    BigDecimal permitedHeight = getPermitedHeight(roadWidth, setBacks);
-                    isAccepted = buildingHeight.compareTo(permitedHeight) <= 0;
-                    requiredBuildingHeight = "<=" + permitedHeight.toString();
-                } /*
+//                if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
+//                    errors.put(NEW_AREA_ERROR, NEW_AREA_ERROR_MSG);
+//                    pl.addErrors(errors);
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
+//                    isAccepted = buildingHeight.compareTo(TWELVE) <= 0;
+//                    requiredBuildingHeight = "<= 12";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) < 0) {
+//                    isAccepted = buildingHeight.compareTo(NINETEEN) <= 0;
+//                    requiredBuildingHeight = "<= 19";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) > 0) {
+//                    List<SetBack> setBacks = block.getSetBacks();
+//                    BigDecimal permitedHeight = getPermitedHeight(roadWidth, setBacks);
+//                    isAccepted = buildingHeight.compareTo(permitedHeight) <= 0;
+//                    requiredBuildingHeight = "<=" + permitedHeight.toString();
+//                } 
+            	isAccepted = buildingHeight.compareTo(SIXTEENPOINTFIVE) <= 0;
+                requiredBuildingHeight = "<= 16.5";
+                /*
                    * else if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0 &&
                    * roadWidth.compareTo(ROAD_WIDTH_EIGHTEEN_POINTTHREE) <= 0) { return
                    * BETWEEN_TWELVEPOINT_TWO_EIGHTEENPOINT_THREE; } else if (roadWidth.compareTo(ROAD_WIDTH_EIGHTEEN_POINTTHREE)
@@ -443,7 +482,7 @@ public class AdditionalFeature extends FeatureProcess {
                 details.put(RULE_NO, ruleNo);
                 details.put(DESCRIPTION, HEIGHT_BUILDING);
                 details.put(DxfFileConstants.AREA_TYPE, typeOfArea);
-                details.put(DxfFileConstants.ROAD_WIDTH, roadWidth.toString());
+//                details.put(DxfFileConstants.ROAD_WIDTH, roadWidth.toString());
                 details.put(PERMISSIBLE, requiredBuildingHeight);
                 details.put(PROVIDED, String.valueOf(buildingHeight));
                 details.put(STATUS, isAccepted ? Result.Accepted.getResultVal() : Result.Not_Accepted.getResultVal());
@@ -471,13 +510,15 @@ public class AdditionalFeature extends FeatureProcess {
 
             boolean isAccepted = false;
             BigDecimal minPlinthHeight = BigDecimal.ZERO;
+            BigDecimal maxPlinthHeight = BigDecimal.ZERO;
             String blkNo = block.getNumber();
             ScrutinyDetail scrutinyDetail = getNewScrutinyDetail("Block_" + blkNo + "_" + "Plinth");
             List<BigDecimal> plinthHeights = block.getPlinthHeight();
 
             if (!plinthHeights.isEmpty()) {
                 minPlinthHeight = plinthHeights.stream().reduce(BigDecimal::min).get();
-                if (minPlinthHeight.compareTo(BigDecimal.valueOf(0.45)) >= 0) {
+                maxPlinthHeight = plinthHeights.stream().reduce(BigDecimal::max).get();
+                if (minPlinthHeight.compareTo(BigDecimal.valueOf(0.45)) >= 0 && maxPlinthHeight.compareTo(BigDecimal.valueOf(1.5)) <= 0) {
                     isAccepted = true;
                 }
             } else {
@@ -489,7 +530,7 @@ public class AdditionalFeature extends FeatureProcess {
             if (errors.isEmpty()) {
                 Map<String, String> details = new HashMap<>();
                 details.put(RULE_NO, RULE_41_I_A);
-                details.put(DESCRIPTION, MIN_PLINTH_HEIGHT_DESC);
+                details.put(DESCRIPTION, MIN_PLINTH_HEIGHT_DESC );
                 details.put(PERMISSIBLE, MIN_PLINTH_HEIGHT);
                 details.put(PROVIDED, String.valueOf(minPlinthHeight));
                 details.put(STATUS, isAccepted ? Result.Accepted.getResultVal() : Result.Not_Accepted.getResultVal());
@@ -566,32 +607,81 @@ public class AdditionalFeature extends FeatureProcess {
 
                     if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_100)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) < 0) {
+                    	
+                    	
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+                    	
+                    	
+                    	
+//                        validate2a(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+//    					validate1b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
-
+                        
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) < 0) {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_3000)) < 0) {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2a(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     } else {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2a(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     }
@@ -600,31 +690,75 @@ public class AdditionalFeature extends FeatureProcess {
                     if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_100)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) < 0) {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) < 0) {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2a(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_3000)) < 0) {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2a(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     } else {
 
-                        validate1a(pl, scrutinyDetail);
-                        validate2a(pl, scrutinyDetail);
-                        validate2b(pl, scrutinyDetail);
+                    	blk: for (Block block : pl.getBlocks()) {
+                    		for (Floor floor : block.getBuilding().getFloors()) {
+                    			for (RoofArea roofArea : floor.getRoofAreas()) {
+                    			if (roofArea != null && roofArea.getArea() != null) {
+                    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+                    					validate1a(pl, scrutinyDetail);
+                    				}
+                    			}
+                    		  }
+                    		}
+                    	}
+//                    	validate1b(pl, scrutinyDetail);
+//                        validate2a(pl, scrutinyDetail);
+//                        validate2b(pl, scrutinyDetail);
                         validate4a(pl, scrutinyDetail);
 
                     }
@@ -636,6 +770,156 @@ public class AdditionalFeature extends FeatureProcess {
             } else {
                 errors.put(GREEN_BUILDINGS_AND_SUSTAINABILITY_PROVISIONS_ERROR_CODE,
                         GREEN_BUILDINGS_AND_SUSTAINABILITY_PROVISIONS_ERROR_MSG);
+                pl.addErrors(errors);
+            }
+        }
+
+    }
+    
+    private void validateSolarPanels(Plan pl, HashMap<String, String> errors) {
+        OccupancyTypeHelper mostRestrictiveFarHelper = pl.getVirtualBuilding() != null
+                ? pl.getVirtualBuilding().getMostRestrictiveFarHelper()
+                : null;
+        ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
+        scrutinyDetail.setKey("Common_Solar Panels provisions");
+        scrutinyDetail.addColumnHeading(1, RULE_NO);
+        scrutinyDetail.addColumnHeading(2, DESCRIPTION);
+        scrutinyDetail.addColumnHeading(3, REQUIRED);
+        scrutinyDetail.addColumnHeading(4, PROVIDED);
+        scrutinyDetail.addColumnHeading(5, STATUS);
+        if (pl.getPlot() != null && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_100)) >= 0) {
+
+            if (StringUtils.isNotBlank(pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability())
+                    && pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability().equals("YES")) {
+
+                if (mostRestrictiveFarHelper != null && mostRestrictiveFarHelper.getType() != null
+                        && DxfFileConstants.A.equalsIgnoreCase(mostRestrictiveFarHelper.getType().getCode())) {
+
+                    if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_420)) >= 0
+                            && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) < 0) {
+
+                        validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) >= 0
+                            && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) < 0) {
+                    	validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) >= 0
+                            && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_3000)) < 0) {
+
+                        validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    } else {
+
+                        validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    }
+                } else {
+
+                    if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_420)) >= 0
+                            && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) < 0) {
+                    	validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) >= 0
+                            && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) < 0) {
+
+                        validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) >= 0
+                            && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_3000)) < 0) {
+
+                        validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    } else {
+
+                        validate2a(pl, scrutinyDetail);
+                        validate2b(pl, scrutinyDetail);
+
+                    }
+
+                }
+
+                pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
+
+            } else {
+                errors.put(GREEN_BUILDINGS_AND_SUSTAINABILITY_PROVISIONS_ERROR_CODE,
+                        GREEN_BUILDINGS_AND_SUSTAINABILITY_PROVISIONS_ERROR_MSG);
+                pl.addErrors(errors);
+            }
+        }
+
+    }
+    
+    private void validateDwellingUnits(Plan pl, HashMap<String, String> errors) {
+
+        int kitchen_floor_count = 0;
+        int kitchen_Total_count = 0;
+        OccupancyTypeHelper mostRestrictiveFarHelper = pl.getVirtualBuilding() != null
+                ? pl.getVirtualBuilding().getMostRestrictiveFarHelper()
+                : null;
+        ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
+        scrutinyDetail.setKey("Common_Dwelling Units");
+        scrutinyDetail.addColumnHeading(1, RULE_NO);
+        scrutinyDetail.addColumnHeading(2, DESCRIPTION);
+        scrutinyDetail.addColumnHeading(3, REQUIRED);
+        scrutinyDetail.addColumnHeading(4, PROVIDED);
+        scrutinyDetail.addColumnHeading(5, STATUS);
+        if (pl.getPlot() != null && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_100)) >= 0) {
+
+            if (StringUtils.isNotBlank(pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability())
+                    && pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability().equals("YES")) {
+
+                if (mostRestrictiveFarHelper != null && mostRestrictiveFarHelper.getType() != null
+                        && DxfFileConstants.A.equalsIgnoreCase(mostRestrictiveFarHelper.getType().getCode())) {
+
+                	blk: for (Block block : pl.getBlocks()) {
+                        if (block.getBuilding() != null && !block.getBuilding().getFloors().isEmpty()) {
+                        	
+                        	scrutinyDetail.setKey("Block_" + block.getNumber() + "_" + "Dwelling Units");
+                        	
+                        	for (Floor floor : block.getBuilding().getFloors()) {
+                        		kitchen_floor_count = 0; 
+                        			if (floor.getKitchen() != null) {
+		                        		for (Measurement room : floor.getKitchen().getRooms()) {
+		                        			kitchen_floor_count++;
+		                        			kitchen_Total_count++;
+		                        		}
+
+		                        		if(kitchen_floor_count > 1) {
+		                        			addDetails(scrutinyDetail, "55-1-a", "Floorwise Number of Dwelling Units ", "= 1",
+			                                		String.valueOf(kitchen_floor_count), Result.Not_Accepted.getResultVal());
+		                        			
+			                                } else {
+			                                	addDetails(scrutinyDetail, "55-1-a", "Floorwise Number of Dwelling Units", "= 1",
+				                            			String.valueOf(kitchen_floor_count), Result.Accepted.getResultVal());
+			                                }
+			                        	}
+                                	
+                    		}
+
+                        }	
+                        if(kitchen_Total_count >= 1 && kitchen_Total_count <= block.getBuilding().getFloors().size()) {
+                			addDetails(scrutinyDetail, "55-1-a", "Number of Dwelling Units in Building", ">= 1",
+                        			String.valueOf(kitchen_Total_count), Result.Accepted.getResultVal());
+                            } else {
+                            addDetails(scrutinyDetail, "55-1-a", "Number of Dwelling Units in Building", ">= 1",
+                            		String.valueOf(kitchen_Total_count), Result.Not_Accepted.getResultVal());
+                            }                     
+                      }
+                	}
+                
+                pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
+
+            } else {
+                errors.put(DWELLING_UNITS_ERROR_CODE,
+                		DWELLING_UNITS_ERROR_MSG);
                 pl.addErrors(errors);
             }
         }
@@ -686,6 +970,24 @@ public class AdditionalFeature extends FeatureProcess {
                     "Not Provided rain water harvesting", Result.Not_Accepted.getResultVal());
         }
     }
+    
+//    private void validate1b(Plan pl, ScrutinyDetail scrutinyDetail) {
+//    	for (Block block : pl.getBlocks()) {
+//    		for (Floor floor : block.getBuilding().getFloors()) {
+//    			for (RoofArea roofArea : floor.getRoofAreas()) {
+//    			if (roofArea != null && roofArea.getArea() != null) {
+//    				if (roofArea.getArea().compareTo(BigDecimal.valueOf(ROOFAREA_100)) >= 0) {
+//    					addDetailsForRoof(scrutinyDetail, "55-1-a", "Rain Water Harvesting Roof Area Criteria", "Roof Area >= 100",
+//    			                roofArea.getArea().toString(), Result.Accepted.getResultVal());
+//    				} else {
+//    					addDetailsForRoof(scrutinyDetail, "55-1-a", "Rain Water Harvesting Roof Area Criteria", "Roof Area < 100",
+//    							roofArea.getArea().toString(), Result.NA.getResultVal());
+//    				}
+//    			}
+//    		  }
+//    		}
+//    	}
+//    }
 
     /*
      * private void validateIntCourtYard(Plan pl, HashMap<String, String> errors) { for (Block block : pl.getBlocks()) { boolean
@@ -710,13 +1012,24 @@ public class AdditionalFeature extends FeatureProcess {
         details.put(STATUS, status);
         scrutinyDetail.getDetail().add(details);
     }
+    
+    private void addDetailsForRoof(ScrutinyDetail scrutinyDetail, String rule, String description, String required,
+            String provided, String status) {
+        Map<String, String> details = new HashMap<>();
+        details.put(RULE_NO, rule);
+        details.put(DESCRIPTION, description);
+        details.put(REQUIRED, required);
+        details.put(PROVIDED, provided);
+        details.put(STATUS, status);
+        scrutinyDetail.getDetail().add(details);
+    }
 
     private ScrutinyDetail getNewScrutinyDetailRoadArea(String key) {
         ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
         scrutinyDetail.addColumnHeading(1, RULE_NO);
         scrutinyDetail.addColumnHeading(2, DESCRIPTION);
         scrutinyDetail.addColumnHeading(3, DxfFileConstants.AREA_TYPE);
-        scrutinyDetail.addColumnHeading(4, DxfFileConstants.ROAD_WIDTH);
+//        scrutinyDetail.addColumnHeading(4, DxfFileConstants.ROAD_WIDTH);
         scrutinyDetail.addColumnHeading(5, PERMISSIBLE);
         scrutinyDetail.addColumnHeading(6, PROVIDED);
         scrutinyDetail.addColumnHeading(7, STATUS);
