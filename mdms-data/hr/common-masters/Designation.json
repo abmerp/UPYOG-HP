@@ -1,0 +1,186 @@
+{
+  "tenantId": "hr",
+  "moduleName": "common-masters",
+  "Designation": [
+    {
+      "code": "DTP",
+      "name": "District Towm Planner",
+      "description": "District Towm Planner",
+      "active": true
+    },
+    {
+      "code": "SE_BR",
+      "name": "Superintending Engineer ( B&R)",
+      "description": "Superintending Engineer ( B&R)",
+      "active": true
+    },
+    {
+      "code": "CE",
+      "name": "Corporation Engineer (B&R)",
+      "description": "Corporation Engineer (B&R)",
+      "active": true
+    },
+    {
+      "code": "AE_BR",
+      "name": "Asst. Engineer ( B&R)",
+      "description": "Asst. Engineer ( B&R)",
+      "active": true
+    },
+    {
+      "code": "JE_BR",
+      "name": "Junior Engineer ( B&R)",
+      "description": "Junior Engineer ( B&R)",
+      "active": true
+    },
+    {
+      "code": "LSO",
+      "name": "Land Scape Officer",
+      "description": "Land Scape Officer",
+      "active": true
+    },
+    {
+      "code": "SE_OM",
+      "name": "Superintending Engineer ( O&M)",
+      "description": "Superintending Engineer ( O&M)",
+      "active": true
+    },
+    {
+      "code": "CE_OM",
+      "name": "Corporation Engineer (O&M)",
+      "description": "Corporation Engineer (O&M)",
+      "active": true
+    },
+    {
+      "code": "AE_OM",
+      "name": "Asst. Engineer ( O&M)",
+      "description": "Asst. Engineer ( O&M)",
+      "active": true
+    },
+    {
+      "code": "JE_OM",
+      "name": "Junior Engineer ( O&M)",
+      "description": "Junior Engineer ( O&M)",
+      "active": true
+    },
+    {
+      "code": "SE_LIGHT",
+      "name": "Superintending Engineer ( Light)",
+      "description": "Superintending Engineer ( Light)",
+      "active": true
+    },
+    {
+      "code": "CE_LIGHT",
+      "name": "Corporation Engineer (Light)",
+      "description": "Corporation Engineer (Light)",
+      "active": true
+    },
+    {
+      "code": "JE_LIGHT",
+      "name": "Junior Engineer ( Light)",
+      "description": "Junior Engineer ( Light)",
+      "active": true
+    },
+    {
+      "code": "HO",
+      "name": "Health Officer",
+      "description": "Health Officer",
+      "active": true
+    },
+    {
+      "code": "MO",
+      "name": "Medical Officer",
+      "description": "Medical Officer",
+      "active": true
+    },
+    {
+      "code": "CSI",
+      "name": "Chief Sanitary Inspector",
+      "description": "Mechanical Oversear",
+      "active": true
+    },
+    {
+      "code": "SI",
+      "name": "Sainitary Inspector",
+      "description": "Clerk",
+      "active": true
+    },
+    {
+      "code": "SS",
+      "name": "Sainitary Supervisor",
+      "description": "Accountant",
+      "active": true
+    },
+    {
+      "code": "STP",
+      "name": "Senior Town Planner",
+      "description": "Senior Town Planner",
+      "active": true
+    },
+    {
+      "code": "MTP",
+      "name": "Municipal Town Planner",
+      "description": "Municipal Town Planner",
+      "active": true
+    },
+    {
+      "code": "ATP",
+      "name": "Asst. Town Planner",
+      "description": "Asst. Town Planner",
+      "active": true
+    },
+    {
+      "code": "BI",
+      "name": "Building Inspector",
+      "description": "Building Inspector",
+      "active": true
+    },
+    {
+      "code": "JE_HORTICULTURE",
+      "name": "Junior Enginer ( Horticulutre)",
+      "description": "Junior Enginer ( Horticulutre)",
+      "active": true
+    },
+    {
+      "code": "CSR",
+      "name": "Citizen service representative",
+      "description": "Citizen service representative",
+      "active": true
+    },
+    {
+      "name": "DCFA",
+      "description": "Deputy Controller Finance and Accounts",
+      "code": "DESIG_1001",
+      "active": true
+    },
+   {
+      "name": "Accountant",
+      "description": "Accountant",
+      "code": "DESIG_58",
+      "active": true
+    },
+   {
+      "code": "AC",
+      "name": "Assistant Commissioner",
+      "description": "Assistant Commissioner",
+      "active": true
+    },    
+    {
+      "name": "Superintendent",
+      "description": "Superintendent",
+      "code": "DESIG_47",
+      "active": true
+    },
+    {
+      "name": "AO",
+      "description": "Accounts Officer",
+      "code": "DESIG_59",
+      "active": true
+    },
+    {
+      "name": "Commissioner",
+      "description": "Commissioner",
+      "code": "DESIG_60",
+      "active": true
+    }
+  ]
+}
