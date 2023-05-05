@@ -1,0 +1,64 @@
+{
+  "tenantId": "hr",
+  "moduleName": "common-masters",
+  "StateInfo": [
+    {
+      "name": "Haryana",
+      "code": "hr",
+      "qrCodeURL": "https://raw.githubusercontent.com/egovernments/frontend/master/web/rainmaker/dev-packages/egov-ui-kit-dev/src/assets/images/qrImage.png",
+      "bannerUrl": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.testing/Haryana-bg-QA.jpg",
+      "logoUrl": "https://raw.githubusercontent.com/egovernments/egov-web-app/rainmaker-v1-dynamic-state/web/rainmaker/packages/assets/images/pb/mseva-Haryana.png",
+      "logoUrlWhite": "https://dev.digit.org/egov-dev-assets/logo-mseva-white.png",
+      "statelogo":"https://dev.digit.org/egov-dev-assets/pblogo.png",
+      "hasLocalisation": true,
+      "enableWhatsApp": true,
+      "defaultUrl": {
+        "citizen": "/user/register",
+        "employee": "/user/login"
+      },
+      "languages": [
+        {
+          "label": "ENGLISH",
+          "value": "en_IN"
+        }
+        
+      ],
+      "localizationModules": [
+        
+        {
+          "label": "rainmaker-common",
+          "value": "rainmaker-common"
+        },
+        {
+          "label": "rainmaker-noc",
+          "value": "rainmaker-noc"
+        },
+        
+        {
+          "label": "rainmaker-uc",
+          "value": "rainmaker-uc"
+        },
+        
+        
+        {
+          "label": "rainmaker-tl",
+          "value": "rainmaker-tl"
+        },
+        {
+          "label": "rainmaker-hr",
+          "value": "rainmaker-hr"
+        },
+        
+        
+        {
+          "label": "rainmaker-receipt",
+          "value": "rainmaker-receipt"
+        },
+        {
+          "label": "rainmaker-dss",
+          "value": "rainmaker-dss"
+        }
+      ]
+    }
+  ]
+}
