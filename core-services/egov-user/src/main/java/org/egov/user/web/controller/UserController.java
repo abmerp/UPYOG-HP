@@ -3,6 +3,12 @@ package org.egov.user.web.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.egov.common.contract.response.ResponseInfo;
+import org.egov.user.abm.developer.contract.DevDetail;
+import org.egov.user.abm.developer.contract.DeveloperRegistration;
+import org.egov.user.abm.developer.contract.Developerdetail;
+import org.egov.user.abm.developer.contract.SsoCitizen;
+import org.egov.user.abm.developer.contract.SsoCitizenRequest;
+import org.egov.user.abm.developer.services.DeveloperRegistrationService;
 import org.egov.user.domain.model.*;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,9 +25,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,175 +55,239 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 @Slf4j
 public class UserController {
 
-    private UserService userService;
-    private TokenService tokenService;
+	private UserService userService;
+	private TokenService tokenService;
+	
+	@Value("${tcp.redirect.url.host}")
+	private String redirectUrlhost;
+	
+	@Value("${tcp.citizen.redirect.url}")
+	private String redirectUrlCitizen;
+	
+	@Value("${tcp.employee.redirect.url}")
+	private String redirectUrlEmployee;
 
-    @Value("${mobile.number.validation.workaround.enabled}")
-    private String mobileValidationWorkaroundEnabled;
+	@Value("${mobile.number.validation.workaround.enabled}")
+	private String mobileValidationWorkaroundEnabled;
 
-    @Value("${otp.validation.register.mandatory}")
-    private boolean IsValidationMandatory;
+	@Value("${otp.validation.register.mandatory}")
+	private boolean IsValidationMandatory;
 
-    @Value("${citizen.registration.withlogin.enabled}")
-    private boolean isRegWithLoginEnabled;
+	@Value("${citizen.registration.withlogin.enabled}")
+	private boolean isRegWithLoginEnabled;
 
-    @Value("${egov.user.search.default.size}")
-    private Integer defaultSearchSize;
+	@Value("${egov.user.search.default.size}")
+	private Integer defaultSearchSize;
+	@Autowired
+	DeveloperRegistrationService developerRegistrationService;
+
+	@Autowired
+	public UserController(UserService userService, TokenService tokenService) {
+		this.userService = userService;
+		this.tokenService = tokenService;
+	}
+
+	/**
+	 * end-point to create the citizen with otp.Here otp is mandatory to create
+	 * citizen.
+	 *
+	 * @param createUserRequest
+	 * @return
+	 */
+	@PostMapping("/citizen/_create")
+	public Object createCitizen(@RequestBody @Valid CreateUserRequest createUserRequest) {
+		log.info("Received Citizen Registration Request  " + createUserRequest);
+		User user = createUserRequest.toDomain(true);
+		user.setOtpValidationMandatory(IsValidationMandatory);
+		if (isRegWithLoginEnabled) {
+			Object object = userService.registerWithLogin(user, createUserRequest.getRequestInfo());
+			return new ResponseEntity<>(object, HttpStatus.OK);
+		}
+		User createdUser = userService.createCitizen(user, createUserRequest.getRequestInfo());
+		return createResponse(createdUser);
+	}
+
+	/**
+	 * end-point to create the user without otp validation.
+	 *
+	 * @param createUserRequest
+	 * @param headers
+	 * @return
+	 */
+	@PostMapping("/users/_createnovalidate")
+	public UserDetailResponse createUserWithoutValidation(@RequestBody @Valid CreateUserRequest createUserRequest,
+			@RequestHeader HttpHeaders headers) {
+
+		User user = createUserRequest.toDomain(true);
+		user.setMobileValidationMandatory(isMobileValidationRequired(headers));
+		user.setOtpValidationMandatory(false);
+		final User newUser = userService.createUser(user, createUserRequest.getRequestInfo());
+		return createResponse(newUser);
+	}
+
+	/**
+	 * end-point to search the users by providing userSearchRequest. In Request if
+	 * there is no active filed value, it will fetch only active users
+	 *
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/_search")
+	public UserSearchResponse get(@RequestBody @Valid UserSearchRequest request, @RequestHeader HttpHeaders headers) {
+
+		log.info("Received User search Request  " + request);
+		if (request.getActive() == null) {
+			request.setActive(true);
+		}
+		return searchUsers(request, headers);
+	}
+
+	/**
+	 * end-point to search the users by providing userSearchRequest. In Request if
+	 * there is no active filed value, it will fetch all(active & inactive) users.
+	 *
+	 * @param request
+	 * @return
+	 */
+	@PostMapping("/v1/_search")
+	public UserSearchResponse getV1(@RequestBody UserSearchRequest request, @RequestHeader HttpHeaders headers) {
+		return searchUsers(request, headers);
+	}
+
+	/**
+	 * end-point to fetch the user details by access-token
+	 *
+	 * @param accessToken
+	 * @return
+	 */
+	@PostMapping("/_details")
+	public CustomUserDetails getUser(@RequestParam(value = "access_token") String accessToken) {
+		final UserDetail userDetail = tokenService.getUser(accessToken);
+		return new CustomUserDetails(userDetail);
+		// no encrypt/decrypt
+	}
+
+	/**
+	 * end-point to update the user details without otp validations.
+	 *
+	 * @param createUserRequest
+	 * @param headers
+	 * @return
+	 */
+	@PostMapping("/users/_updatenovalidate")
+	public UpdateResponse updateUserWithoutValidation(@RequestBody final @Valid CreateUserRequest createUserRequest,
+			@RequestHeader HttpHeaders headers) {
+		User user = createUserRequest.toDomain(false);
+		user.setMobileValidationMandatory(isMobileValidationRequired(headers));
+		final User updatedUser = userService.updateWithoutOtpValidation(user, createUserRequest.getRequestInfo());
+		return createResponseforUpdate(updatedUser);
+	}
+
+	/**
+	 * end-point to update user profile.
+	 *
+	 * @param createUserRequest
+	 * @return
+	 */
+	@PostMapping("/profile/_update")
+	public UpdateResponse patch(@RequestBody final @Valid CreateUserRequest createUserRequest) {
+		log.info("Received Profile Update Request  " + createUserRequest);
+		User user = createUserRequest.toDomain(false);
+		final User updatedUser = userService.partialUpdate(user, createUserRequest.getRequestInfo());
+		return createResponseforUpdate(updatedUser);
+	}
+
+	private UserDetailResponse createResponse(User newUser) {
+		UserRequest userRequest = new UserRequest(newUser);
+		ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
+		return new UserDetailResponse(responseInfo, Collections.singletonList(userRequest));
+	}
+
+	private UpdateResponse createResponseforUpdate(User newUser) {
+		UpdateRequest updateRequest = new UpdateRequest(newUser);
+		ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
+		return new UpdateResponse(responseInfo, Collections.singletonList(updateRequest));
+	}
+
+	public UserSearchResponse searchUsers(@RequestBody UserSearchRequest request, HttpHeaders headers) {
+
+		UserSearchCriteria searchCriteria = request.toDomain();
+//TODO PALAM
+		if (!isInterServiceCall(headers)) {
+			if ((isEmpty(searchCriteria.getId()) && isEmpty(searchCriteria.getUuid()) )
+					&& (searchCriteria.getLimit() > defaultSearchSize || searchCriteria.getLimit() == 0))
+				searchCriteria.setLimit(defaultSearchSize);
+		}
+
+		List<User> userModels = userService.searchUsers(searchCriteria, isInterServiceCall(headers),
+				request.getRequestInfo());
+		List<UserSearchResponseContent> userContracts = userModels.stream().map(UserSearchResponseContent::new)
+				.collect(Collectors.toList());
+		ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
+		return new UserSearchResponse(responseInfo, userContracts);
+	}
+
+	@PostMapping("/developer/registration")
+	public DeveloperResponse createDeveloperRegistraion(@RequestBody final @Valid DeveloperRequest detail)
+			throws JsonProcessingException {
+
+		DeveloperRegistration developerRegistration1 = developerRegistrationService.addDeveloperRegistraion(detail);
+		ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
+		List<Developerdetail> listDevelopers = developerRegistration1.getDeveloperDetail();
+
+		return new DeveloperResponse(responseInfo, developerRegistration1.getId(),
+				developerRegistration1.getCurrentVersion(), developerRegistration1.getCreatedBy().toString(),
+				developerRegistration1.getCreatedDate(), developerRegistration1.getUpdateddBy().toString(),
+				developerRegistration1.getUpdatedDate(), listDevelopers.get(listDevelopers.size() - 1));
+
+	}
+
+	private boolean isMobileValidationRequired(HttpHeaders headers) {
+		boolean x_pass_through_gateway = !isInterServiceCall(headers);
+		if (mobileValidationWorkaroundEnabled != null && Boolean.valueOf(mobileValidationWorkaroundEnabled)
+				&& !x_pass_through_gateway) {
+			return false;
+		}
+		return true;
+	}
+	
+	@PostMapping("/users/_ssoCitizen")
+	public  Map<String,Object> ssoCitizen(@RequestBody  SsoCitizenRequest ssoCitizenRequest){
+		
+		SsoCitizen ssoCitizenData = ssoCitizenRequest.getSsoCitizen();
+	
+		Map<String,Object> ssoCitizen =  userService.ssoCitizen(ssoCitizenData, ssoCitizenRequest.getRequestInfo());
+		
+		return (Map<String, Object>) ssoCitizen;
 
 
-    @Autowired
-    public UserController(UserService userService, TokenService tokenService) {
-        this.userService = userService;
-        this.tokenService = tokenService;
-    }
 
-    /**
-     * end-point to create the citizen with otp.Here otp is mandatory to create
-     * citizen.
-     *
-     * @param createUserRequest
-     * @return
-     */
-    @PostMapping("/citizen/_create")
-    public Object createCitizen(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        log.info("Received Citizen Registration Request  " + createUserRequest);
-        User user = createUserRequest.toDomain(true);
-        user.setOtpValidationMandatory(IsValidationMandatory);
-        if (isRegWithLoginEnabled) {
-            Object object = userService.registerWithLogin(user, createUserRequest.getRequestInfo());
-            return new ResponseEntity<>(object, HttpStatus.OK);
-        }
-        User createdUser = userService.createCitizen(user, createUserRequest.getRequestInfo());
-        return createResponse(createdUser);
-    }
+	}
 
-    /**
-     * end-point to create the user without otp validation.
-     *
-     * @param createUserRequest
-     * @param headers
-     * @return
-     */
-    @PostMapping("/users/_createnovalidate")
-    public UserDetailResponse createUserWithoutValidation(@RequestBody @Valid CreateUserRequest createUserRequest,
-                                                          @RequestHeader HttpHeaders headers) {
+    @PostMapping(value = "/_ssoCitizen/v1/_redirect", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<Object> methodCitizen(@RequestBody MultiValueMap<String, String> formData) {
+        String returnURL = redirectUrlhost+redirectUrlCitizen;
+        MultiValueMap<String, String> params = UriComponentsBuilder.fromUriString(returnURL).build().getQueryParams();
+        String gateway = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StringBuilder redirectURL = new StringBuilder();
+        redirectURL.append(returnURL);
+        httpHeaders.setLocation(UriComponentsBuilder.fromHttpUrl(redirectURL.toString())
+                .queryParams(formData).build().encode().toUri());
+        return new ResponseEntity<>(httpHeaders, HttpStatus.FOUND);
+       }
 
-        User user = createUserRequest.toDomain(true);
-        user.setMobileValidationMandatory(isMobileValidationRequired(headers));
-        user.setOtpValidationMandatory(false);
-        final User newUser = userService.createUser(user, createUserRequest.getRequestInfo());
-        return createResponse(newUser);
-    }
-
-    /**
-     * end-point to search the users by providing userSearchRequest. In Request
-     * if there is no active filed value, it will fetch only active users
-     *
-     * @param request
-     * @return
-     */
-    @PostMapping("/_search")
-    public UserSearchResponse get(@RequestBody @Valid UserSearchRequest request, @RequestHeader HttpHeaders headers) {
-
-        log.info("Received User search Request  " + request);
-        if (request.getActive() == null) {
-            request.setActive(true);
-        }
-        return searchUsers(request, headers);
-    }
-
-    /**
-     * end-point to search the users by providing userSearchRequest. In Request
-     * if there is no active filed value, it will fetch all(active & inactive)
-     * users.
-     *
-     * @param request
-     * @return
-     */
-    @PostMapping("/v1/_search")
-    public UserSearchResponse getV1(@RequestBody UserSearchRequest request, @RequestHeader HttpHeaders headers) {
-        return searchUsers(request, headers);
-    }
-
-    /**
-     * end-point to fetch the user details by access-token
-     *
-     * @param accessToken
-     * @return
-     */
-    @PostMapping("/_details")
-    public CustomUserDetails getUser(@RequestParam(value = "access_token") String accessToken) {
-        final UserDetail userDetail = tokenService.getUser(accessToken);
-        return new CustomUserDetails(userDetail);
-        //  no encrypt/decrypt
-    }
-
-    /**
-     * end-point to update the user details without otp validations.
-     *
-     * @param createUserRequest
-     * @param headers
-     * @return
-     */
-    @PostMapping("/users/_updatenovalidate")
-    public UpdateResponse updateUserWithoutValidation(@RequestBody final @Valid CreateUserRequest createUserRequest,
-                                                      @RequestHeader HttpHeaders headers) {
-        User user = createUserRequest.toDomain(false);
-        user.setMobileValidationMandatory(isMobileValidationRequired(headers));
-        final User updatedUser = userService.updateWithoutOtpValidation(user, createUserRequest.getRequestInfo());
-        return createResponseforUpdate(updatedUser);
-    }
-
-    /**
-     * end-point to update user profile.
-     *
-     * @param createUserRequest
-     * @return
-     */
-    @PostMapping("/profile/_update")
-    public UpdateResponse patch(@RequestBody final @Valid CreateUserRequest createUserRequest) {
-        log.info("Received Profile Update Request  " + createUserRequest);
-        User user = createUserRequest.toDomain(false);
-        final User updatedUser = userService.partialUpdate(user, createUserRequest.getRequestInfo());
-        return createResponseforUpdate(updatedUser);
-    }
-
-    private UserDetailResponse createResponse(User newUser) {
-        UserRequest userRequest = new UserRequest(newUser);
-        ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
-        return new UserDetailResponse(responseInfo, Collections.singletonList(userRequest));
-    }
-
-    private UpdateResponse createResponseforUpdate(User newUser) {
-        UpdateRequest updateRequest = new UpdateRequest(newUser);
-        ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
-        return new UpdateResponse(responseInfo, Collections.singletonList(updateRequest));
-    }
-
-    private UserSearchResponse searchUsers(@RequestBody UserSearchRequest request, HttpHeaders headers) {
-
-        UserSearchCriteria searchCriteria = request.toDomain();
-
-        if (!isInterServiceCall(headers)) {
-            if ((isEmpty(searchCriteria.getId()) && isEmpty(searchCriteria.getUuid())) && (searchCriteria.getLimit() > defaultSearchSize
-                    || searchCriteria.getLimit() == 0))
-                searchCriteria.setLimit(defaultSearchSize);
-        }
-
-        List<User> userModels = userService.searchUsers(searchCriteria, isInterServiceCall(headers), request.getRequestInfo());
-        List<UserSearchResponseContent> userContracts = userModels.stream().map(UserSearchResponseContent::new)
-                .collect(Collectors.toList());
-        ResponseInfo responseInfo = ResponseInfo.builder().status(String.valueOf(HttpStatus.OK.value())).build();
-        return new UserSearchResponse(responseInfo, userContracts);
-    }
-
-    private boolean isMobileValidationRequired(HttpHeaders headers) {
-        boolean x_pass_through_gateway = !isInterServiceCall(headers);
-        if (mobileValidationWorkaroundEnabled != null && Boolean.valueOf(mobileValidationWorkaroundEnabled)
-                && !x_pass_through_gateway) {
-            return false;
-        }
-        return true;
-    }
+    @PostMapping(value = "/_ssoEmployee/v1/_redirect", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<Object> methodEmployee(@RequestBody MultiValueMap<String, String> formData) {
+        String returnURL = redirectUrlhost+redirectUrlEmployee;
+        MultiValueMap<String, String> params = UriComponentsBuilder.fromUriString(returnURL).build().getQueryParams();
+        String gateway = null;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        StringBuilder redirectURL = new StringBuilder();
+        redirectURL.append(returnURL);
+        httpHeaders.setLocation(UriComponentsBuilder.fromHttpUrl(redirectURL.toString())
+                .queryParams(formData).build().encode().toUri());
+        return new ResponseEntity<>(httpHeaders, HttpStatus.FOUND);
+       }
 
 }

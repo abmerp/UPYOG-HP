@@ -1,0 +1,55 @@
+serviceMaps:
+ serviceName: tl-services
+ mappings:
+ - version: 1.0
+   description: Persists renewallicense service of  renewallicense
+   fromTopic: save-renewallicense
+   isTransaction: true
+   queryMaps: 
+      - query: INSERT INTO public.eg_tl_renewallicense(id,tenantid, licensetype, licensenumber, applicationnumber, applicationdate, issueddate, financialyear, action, status, createdby, lastmodifiedby, createdtime, lastmodifiedtime, "renewalLicensename", businessservice, applicationtype, workflowcode, ver, application_number, application_status, current_version, loi_number, old_application_number, validupto, renewalforduration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        basePath: renewal.*.renewalLicense.*
+        jsonMaps:        
+         - jsonPath: renewalLicense.*.id
+         - jsonPath: renewalLicense.*.tenantId
+         - jsonPath: renewalLicense.*.licenseType
+         - jsonPath: renewalLicense.*.licenseNumber
+         - jsonPath: renewalLicense.*.applicationNumber
+         - jsonPath: renewalLicense.*.applicationDate
+         - jsonPath: renewalLicense.*.issuedDate
+         - jsonPath: renewalLicense.*.financialYear
+         - jsonPath: renewalLicense.*.action
+         - jsonPath: renewalLicense.*.status
+         - jsonPath: renewalLicense.*.auditDetails.createdBy
+         - jsonPath: renewalLicense.*.auditDetails.lastModifiedBy
+         - jsonPath: renewalLicense.*.auditDetails.createdTime
+         - jsonPath: renewalLicense.*.auditDetails.lastModifiedTime
+         - jsonPath: renewalLicense.*.renewalLicenseName
+         - jsonPath: renewalLicense.*.businessService
+         - jsonPath: renewalLicense.*.applicationType
+         - jsonPath: renewalLicense.*.workflowCode
+         - jsonPath: renewalLicense.*.ver
+         - jsonPath: renewalLicense.*.applicationNumber
+         - jsonPath: renewalLicense.*.applicationStatus
+         - jsonPath: renewalLicense.*.ver
+         - jsonPath: renewalLicense.*.loiNumber
+         - jsonPath: renewalLicense.*.oldApplicationStatus
+         - jsonPath: renewalLicense.*.validUpTo
+         - jsonPath: renewalLicense.*.renewalForDuration
+      
+      - query: INSERT INTO public.eg_tl_renewallicensedetail(id, additionaldetail, renewallicenseid, createdby, lastmodifiedby, createdtime, lastmodifiedtime, currentversion, penaltypayable, renewalamount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        basePath: renewal.*.renewalLicenseDetail.*
+        jsonMaps:        
+         - jsonPath: renewalLicenseDetail.*.id
+         
+         - jsonPath: renewalLicenseDetail.*.additionalDetail
+           type: JSON
+           dbType: JSONB   
+           
+         - jsonPath: renewalLicenseDetail.*.renewllicenseId
+         - jsonPath: renewalLicenseDetail.*.auditDetails.createdBy
+         - jsonPath: renewalLicenseDetail.*.auditDetails.lastModifiedBy
+         - jsonPath: renewalLicenseDetail.*.auditDetails.createdTime
+         - jsonPath: renewalLicenseDetail.*.auditDetails.lastModifiedTime
+         - jsonPath: renewalLicenseDetail.*.currentVersion
+         - jsonPath: renewalLicenseDetail.*.penaltyPayable
+         - jsonPath: renewalLicenseDetail.*.renewalAmount

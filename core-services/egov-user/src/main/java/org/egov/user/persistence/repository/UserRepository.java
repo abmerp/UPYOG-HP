@@ -68,12 +68,22 @@ public class UserRepository {
     public List<User> findAll(UserSearchCriteria userSearch) {
         final List<Object> preparedStatementValues = new ArrayList<>();
         boolean RoleSearchHappend = false;
+        List<User> users = new ArrayList<>();
         List<Long> userIds = new ArrayList<>();
         if (!isEmpty(userSearch.getRoleCodes()) && userSearch.getTenantId() != null) {
             userIds = findUsersWithRole(userSearch);
             RoleSearchHappend = true;
         }
-        List<User> users = new ArrayList<>();
+		
+		  if ( userSearch.getParentid() !=null && userSearch.getParentid() > 0
+		  &&userSearch.getTenantId() != null) { 
+				  
+				  return findUsersWithParentId(userSearch);
+
+	         
+		  }
+		 
+       
         if (RoleSearchHappend) {
             if (!CollectionUtils.isEmpty(userIds)) {
                 if (CollectionUtils.isEmpty(userSearch.getId()))
@@ -115,7 +125,23 @@ public class UserRepository {
 
         return usersIds;
     }
-
+    /**
+     * get list of all userids with role in given tenant
+     *
+     * @param userSearch
+     * @return
+     */
+    private List<User> findUsersWithParentId(UserSearchCriteria userSearch) {
+        final List<Object> preparedStatementValues = new ArrayList<>();
+       
+        String queryStr = userTypeQueryBuilder.getQueryUserParentSearch(userSearch, preparedStatementValues);
+        log.debug(queryStr);
+        List<User> users = new ArrayList<>();
+     //   usersIds = jdbcTemplate.queryForList(queryStr, preparedStatementValues.toArray(), Long.class);
+        users = jdbcTemplate.query(queryStr, preparedStatementValues.toArray(), userResultSetExtractor);
+        enrichRoles(users);
+        return users;
+    }
 
     /**
      * Api will check user is present or not with userName And tenantId
@@ -475,6 +501,7 @@ public class UserRepository {
         userInputs.put("emailid", entityUser.getEmailId());
         userInputs.put("active", entityUser.getActive());
         userInputs.put("name", entityUser.getName());
+        userInputs.put("parentid", entityUser.getParentId());
 
         if (Gender.FEMALE.equals(entityUser.getGender())) {
             userInputs.put("gender", 1);

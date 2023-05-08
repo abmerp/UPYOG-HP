@@ -10,6 +10,7 @@ import org.egov.user.domain.model.User;
 import org.egov.user.domain.model.enums.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,7 +28,8 @@ import javax.validation.constraints.Size;
 public class UserRequest {
 
     private Long id;
-
+    
+    private Long parentid;
     @SafeHtml
     @Size(max = 64)
     private String userName;
@@ -134,6 +136,7 @@ public class UserRequest {
     @Size(max = 50)
     private String tenantId;
 
+    @Value("roles")
     private Set<RoleRequest> roles;
 
     @SafeHtml
@@ -145,8 +148,10 @@ public class UserRequest {
     private Date createdDate;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date lastModifiedDate;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dob;
+    
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date pwdExpiryDate;
 
@@ -183,6 +188,7 @@ public class UserRequest {
         this.relationship = user.getGuardianRelation();
         this.uuid = user.getUuid();
         this.alternatemobilenumber=user.getAlternateMobileNumber();
+        this.parentid = user.getParentId();
         mapPermanentAddress(user);
         mapCorrespondenceAddress(user);
     }
@@ -220,6 +226,7 @@ public class UserRequest {
         return User.builder()
                 .uuid(this.uuid)
                 .id(this.id)
+                .parentId(this.parentid)
                 .name(this.name)
                 .username(this.userName)
                 .salutation(this.salutation)

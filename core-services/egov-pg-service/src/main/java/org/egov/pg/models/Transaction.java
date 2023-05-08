@@ -147,6 +147,12 @@ public class Transaction {
     @JsonProperty("gatewayPaymentMode")
     private String gatewayPaymentMode;
 
+    
+    /**
+     * Mode of payment, as returned by the payment gateway
+     */
+    @JsonProperty("ptype")
+    private String ptype;
     /**
      * Payment Gateway Specific RAW status code
      */
@@ -170,6 +176,52 @@ public class Transaction {
 
     @JsonProperty("additionalDetails")
     private Object additionalDetails;
+    
+    //--------------------nic detail----------------//
+    @JsonProperty("officeName")
+    private String officeName;
+    
+    @JsonProperty("bank")
+    private String bank;
+    
+    @JsonProperty("challanYear")
+    private String challanYear;
+    
+    @JsonProperty("remarks")
+    private String remarks;
+    
+    @JsonProperty("ApplicationNumber")
+    private String ApplicationNumber;
+    
+    @JsonProperty("securityEmail")
+    private String securityEmail;
+    
+    @JsonProperty("cityName")
+    private String cityName;
+    
+    @JsonProperty("address")
+    private String address;
+    
+    @JsonProperty("pinCode")
+    private String pinCode;
+    
+    @JsonProperty("securityPhone")
+    private String securityPhone;
+    
+    @JsonProperty("validUpto")
+    private String validUpto;
+    
+    @JsonProperty("schemeCount")
+    private String schemeCount;
+    
+    @JsonProperty("schemeName")
+    private Map<String,String> schemeName;
+    
+    @JsonProperty("feeamount")
+    private Map<String,String> feeamount;
+
+    
+    //----------------nic detail end-------------------//
 
     /**
      * Entire RAW payment gateway response

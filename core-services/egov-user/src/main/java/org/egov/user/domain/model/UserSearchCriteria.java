@@ -10,6 +10,7 @@ import java.util.List;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
@@ -26,6 +27,7 @@ public class UserSearchCriteria {
     private Boolean active;
     private Integer offset;
     private Integer limit;
+    private Long parentid;
     private List<String> sort;
     private UserType type;
     private String tenantId;
@@ -47,10 +49,10 @@ public class UserSearchCriteria {
                 at least one is compulsory --> 'userName' or 'name' or 'mobileNumber' or 'emailId' or 'uuid'
          */
         if (isInterServiceCall)
-            return isEmpty(userName) && isEmpty(name) && isEmpty(mobileNumber) && isEmpty(emailId) &&
+            return (parentid==null ||parentid ==0)   &&isEmpty(userName) && isEmpty(name) && isEmpty(mobileNumber) && isEmpty(emailId) &&
                     CollectionUtils.isEmpty(uuid) && CollectionUtils.isEmpty(id) && CollectionUtils.isEmpty(roleCodes);
         else
-            return isEmpty(userName) && isEmpty(name) && isEmpty(mobileNumber) && isEmpty(emailId) &&
+            return (parentid==null ||parentid ==0) &&isEmpty(userName) && isEmpty(name) && isEmpty(mobileNumber) && isEmpty(emailId) &&
                     CollectionUtils.isEmpty(uuid);
     }
 
