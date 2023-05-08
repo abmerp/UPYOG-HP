@@ -86,49 +86,5 @@ public class MDMSController {
 
 	}
 
-	@PostMapping("_district")
-	@ResponseBody
-	private List<District> getDistrict(@RequestBody @Valid RequestInfo requestInfo) throws Exception {
-
-		return mdmsService.getDistrict();
-	}
-
-	@PostMapping("_tehsil")
-	@ResponseBody
-	private List<Tehsil> getTehsil(@RequestBody @Valid RequestInfo requestInfo, @RequestParam("dCode") String dCode)
-			throws Exception {
-		return mdmsService.getTehsil(dCode);
-	}
-
-	@PostMapping("_village")
-	@ResponseBody
-	private List<Village> getVillages(@RequestBody @Valid RequestInfo requestInfo, @RequestParam("dCode") String dCode,
-			@RequestParam("tCode") String tCode) throws Exception {
-		return mdmsService.getVillages(dCode, tCode);
-	}
-
-	@PostMapping("_must")
-	@ResponseBody
-	private Must getMurabaByNVCODE(@RequestBody @Valid RequestInfo requestInfo, @RequestParam("dCode") String dCode,
-			@RequestParam("tCode") String tCode, @RequestParam("NVCode") String nvCode) throws Exception {
-		return mdmsService.getMurabaByNVCODE(dCode, tCode, nvCode);
-	}
-
-	@PostMapping("_khasra")
-	@ResponseBody
-	private List<Khasra> getKhasraListByNVCODE(@RequestBody @Valid RequestInfo requestInfo,
-			@RequestParam("dCode") String dCode, @RequestParam("tCode") String tCode,
-			@RequestParam("NVCode") String nvCode, @RequestParam("murba") String murba) throws Exception {
-		return mdmsService.getKhasraListByNVCODE(dCode, tCode, nvCode, murba);
-	}
-
-	@PostMapping("_owner")
-	@ResponseBody()
 	
-	private List<Owner> getOwnersbykhewatOnline(@RequestBody @Valid RequestInfo requestInfo,
-			@RequestParam("dCode") String dCode, @RequestParam("tCode") String tCode,
-			@RequestParam("NVCode") String nvCode, @RequestParam("khewat") String khewat) throws Exception {
-		
-		return mdmsService.getOwnersbykhewatOnline(dCode, tCode, nvCode, khewat);
-	}
 }
