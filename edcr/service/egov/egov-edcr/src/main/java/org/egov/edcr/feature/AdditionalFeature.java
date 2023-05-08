@@ -627,7 +627,7 @@ public class AdditionalFeature extends FeatureProcess {
 //                        validate2b(pl, scrutinyDetail);
 
 //    					validate1b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
                         
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) < 0) {
@@ -645,7 +645,7 @@ public class AdditionalFeature extends FeatureProcess {
                     	}
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_3000)) < 0) {
@@ -664,7 +664,7 @@ public class AdditionalFeature extends FeatureProcess {
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2a(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     } else {
 
@@ -682,7 +682,7 @@ public class AdditionalFeature extends FeatureProcess {
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2a(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     }
                 } else {
@@ -703,7 +703,7 @@ public class AdditionalFeature extends FeatureProcess {
                     	}
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_500)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) < 0) {
@@ -722,7 +722,7 @@ public class AdditionalFeature extends FeatureProcess {
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2a(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     } else if (pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_1000)) >= 0
                             && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_3000)) < 0) {
@@ -741,7 +741,7 @@ public class AdditionalFeature extends FeatureProcess {
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2a(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     } else {
 
@@ -759,7 +759,7 @@ public class AdditionalFeature extends FeatureProcess {
 //                    	validate1b(pl, scrutinyDetail);
 //                        validate2a(pl, scrutinyDetail);
 //                        validate2b(pl, scrutinyDetail);
-                        validate4a(pl, scrutinyDetail);
+//                        validate4a(pl, scrutinyDetail);
 
                     }
 
@@ -787,7 +787,7 @@ public class AdditionalFeature extends FeatureProcess {
         scrutinyDetail.addColumnHeading(3, REQUIRED);
         scrutinyDetail.addColumnHeading(4, PROVIDED);
         scrutinyDetail.addColumnHeading(5, STATUS);
-        if (pl.getPlot() != null && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_100)) >= 0) {
+        if (pl.getPlot() != null && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_420)) >= 0) {
 
             if (StringUtils.isNotBlank(pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability())
                     && pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability().equals("YES")) {
@@ -867,10 +867,11 @@ public class AdditionalFeature extends FeatureProcess {
         ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
         scrutinyDetail.setKey("Common_Dwelling Units");
         scrutinyDetail.addColumnHeading(1, RULE_NO);
-        scrutinyDetail.addColumnHeading(2, DESCRIPTION);
-        scrutinyDetail.addColumnHeading(3, REQUIRED);
-        scrutinyDetail.addColumnHeading(4, PROVIDED);
-        scrutinyDetail.addColumnHeading(5, STATUS);
+        scrutinyDetail.addColumnHeading(2, FLOOR);
+        scrutinyDetail.addColumnHeading(3, DESCRIPTION);
+        scrutinyDetail.addColumnHeading(4, REQUIRED);
+        scrutinyDetail.addColumnHeading(5, PROVIDED);
+        scrutinyDetail.addColumnHeading(6, STATUS);
         if (pl.getPlot() != null && pl.getPlot().getArea().compareTo(BigDecimal.valueOf(PLOTAREA_100)) >= 0) {
 
             if (StringUtils.isNotBlank(pl.getPlanInformation().getProvisionsForGreenBuildingsAndSustainability())
@@ -885,6 +886,7 @@ public class AdditionalFeature extends FeatureProcess {
                         	scrutinyDetail.setKey("Block_" + block.getNumber() + "_" + "Dwelling Units");
                         	
                         	for (Floor floor : block.getBuilding().getFloors()) {
+                        		int floor_count = floor.getNumber();
                         		kitchen_floor_count = 0; 
                         			if (floor.getKitchen() != null) {
 		                        		for (Measurement room : floor.getKitchen().getRooms()) {
@@ -892,13 +894,15 @@ public class AdditionalFeature extends FeatureProcess {
 		                        			kitchen_Total_count++;
 		                        		}
 
-		                        		if(kitchen_floor_count > 1) {
-		                        			addDetails(scrutinyDetail, "55-1-a", "Floorwise Number of Dwelling Units ", "= 1",
-			                                		String.valueOf(kitchen_floor_count), Result.Not_Accepted.getResultVal());
+		                        		if(kitchen_floor_count == 1) {
+		                        			addDetailsForDwelling(scrutinyDetail, "55-1-a", "floor "+floor_count, "Floorwise Number of Dwelling Units ",
+		                        					"= 1",
+			                                		String.valueOf(kitchen_floor_count), Result.Accepted.getResultVal());
 		                        			
 			                                } else {
-			                                	addDetails(scrutinyDetail, "55-1-a", "Floorwise Number of Dwelling Units", "= 1",
-				                            			String.valueOf(kitchen_floor_count), Result.Accepted.getResultVal());
+			                                	addDetailsForDwelling(scrutinyDetail, "55-1-a", "floor "+floor_count, "Floorwise Number of Dwelling Units", 
+			                                			"= 1",
+				                            			String.valueOf(kitchen_floor_count), Result.Not_Accepted.getResultVal());
 			                                }
 			                        	}
                                 	
@@ -906,10 +910,10 @@ public class AdditionalFeature extends FeatureProcess {
 
                         }	
                         if(kitchen_Total_count >= 1 && kitchen_Total_count <= block.getBuilding().getFloors().size()) {
-                			addDetails(scrutinyDetail, "55-1-a", "Number of Dwelling Units in Building", ">= 1",
+                        	addDetailsForDwelling(scrutinyDetail, "55-1-a","", "Number of Dwelling Units in Building", ">= 1",
                         			String.valueOf(kitchen_Total_count), Result.Accepted.getResultVal());
                             } else {
-                            addDetails(scrutinyDetail, "55-1-a", "Number of Dwelling Units in Building", ">= 1",
+                            	addDetailsForDwelling(scrutinyDetail, "55-1-a","", "Number of Dwelling Units in Building", ">= 1",
                             		String.valueOf(kitchen_Total_count), Result.Not_Accepted.getResultVal());
                             }                     
                       }
@@ -926,15 +930,15 @@ public class AdditionalFeature extends FeatureProcess {
 
     }
 
-    private void validate4a(Plan pl, ScrutinyDetail scrutinyDetail) {
-        if (pl.getUtility().getSegregationOfWaste() != null && !pl.getUtility().getSegregationOfWaste().isEmpty()) {
-            addDetails(scrutinyDetail, "55-4-a", "Segregation of Waste", "Segregation of waste details",
-                    "Provided segregation of waste details", Result.Accepted.getResultVal());
-        } else {
-            addDetails(scrutinyDetail, "55-4-a", "Segregation of Waste", "Segregation of waste details",
-                    "Not provided segregation of waste details", Result.Not_Accepted.getResultVal());
-        }
-    }
+//    private void validate4a(Plan pl, ScrutinyDetail scrutinyDetail) {
+//        if (pl.getUtility().getSegregationOfWaste() != null && !pl.getUtility().getSegregationOfWaste().isEmpty()) {
+//            addDetails(scrutinyDetail, "55-4-a", "Segregation of Waste", "Segregation of waste details",
+//                    "Provided segregation of waste details", Result.Accepted.getResultVal());
+//        } else {
+//            addDetails(scrutinyDetail, "55-4-a", "Segregation of Waste", "Segregation of waste details",
+//                    "Not provided segregation of waste details", Result.Not_Accepted.getResultVal());
+//        }
+//    }
 
     private void validate2b(Plan pl, ScrutinyDetail scrutinyDetail) {
         if (pl.getUtility().getSolarWaterHeatingSystems() != null
@@ -1007,6 +1011,18 @@ public class AdditionalFeature extends FeatureProcess {
         Map<String, String> details = new HashMap<>();
         details.put(RULE_NO, rule);
         details.put(DESCRIPTION, description);
+        details.put(REQUIRED, required);
+        details.put(PROVIDED, provided);
+        details.put(STATUS, status);
+        scrutinyDetail.getDetail().add(details);
+    }
+    
+    private void addDetailsForDwelling(ScrutinyDetail scrutinyDetail, String rule, String floorCount, String description, String required,
+            String provided, String status) {
+        Map<String, String> details = new HashMap<>();
+        details.put(RULE_NO, rule);
+        details.put(DESCRIPTION, description);
+        details.put(FLOOR, floorCount);
         details.put(REQUIRED, required);
         details.put(PROVIDED, provided);
         details.put(STATUS, status);

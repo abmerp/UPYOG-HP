@@ -108,338 +108,330 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @RequestMapping(value = "/rest/dcr")
 public class RestEdcrApplicationController {
 
-    private static final String INVALID_JSON_FORMAT = "Invalid JSON Data";
-    private static final String INCORRECT_REQUEST = "INCORRECT_REQUEST";
-    private static final String DIGIT_DCR = "Digit DCR";
-    private static final String USER_INFO_HEADER_NAME = "x-user-info";
-    
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestEdcrApplicationController.class);
+	private static final String INVALID_JSON_FORMAT = "Invalid JSON Data";
+	private static final String INCORRECT_REQUEST = "INCORRECT_REQUEST";
+	private static final String DIGIT_DCR = "Digit DCR";
+	private static final String USER_INFO_HEADER_NAME = "x-user-info";
 
-    @Autowired
-    private EdcrRestService edcrRestService;
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestEdcrApplicationController.class);
 
-    @Autowired
-    private PlanService planService;
+	@Autowired
+	private EdcrRestService edcrRestService;
 
-    @Autowired
-    protected FileStoreUtils fileStoreUtils;
+	@Autowired
+	private PlanService planService;
 
-    @Autowired
-    private MdmsConfiguration mdmsConfiguration;
+	@Autowired
+	protected FileStoreUtils fileStoreUtils;
 
-    @Autowired
-    private MDMSValidator mDMSValidator;
+	@Autowired
+	private MdmsConfiguration mdmsConfiguration;
 
-    @Autowired
-    private BpaMdmsUtil bpaMdmsUtil;
+	@Autowired
+	private MDMSValidator mDMSValidator;
 
-    @Autowired
-    private OcComparisonService ocComparisonService;
+	@Autowired
+	private BpaMdmsUtil bpaMdmsUtil;
 
-    @Autowired
-    private EdcrValidator edcrValidator;
+	@Autowired
+	private OcComparisonService ocComparisonService;
 
-    @PostMapping(value = "/scrutinizeplan", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> scrutinizePlan(@RequestBody MultipartFile planFile,
-            @RequestParam String edcrRequest) {
-        EdcrDetail edcrDetail = new EdcrDetail();
-        EdcrRequest edcr = new EdcrRequest();
-        boolean isValid = isValidJson(edcrRequest);
-        if (!isValid) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT,
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        try {
-            edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
-            ErrorDetail edcRes = edcrValidator.validate(edcr);
-            if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
-                return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
-            ErrorDetail errorResponses = (edcrRestService.validateEdcrRequest(edcr, planFile));
-            if (errorResponses != null)
-                return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
-            else {
-                edcrDetail = edcrRestService.createEdcr(edcr, planFile, new HashMap<>());
-            }
+	@Autowired
+	private EdcrValidator edcrValidator;
 
-        } catch (IOException e) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(),
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        return getSuccessResponse(Arrays.asList(edcrDetail), edcr.getRequestInfo());
-    }
+	@PostMapping(value = "/scrutinizeplan", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> scrutinizePlan(@RequestBody MultipartFile planFile, @RequestParam String edcrRequest) {
+		EdcrDetail edcrDetail = new EdcrDetail();
+		EdcrRequest edcr = new EdcrRequest();
+		boolean isValid = isValidJson(edcrRequest);
+		if (!isValid) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
+			ErrorDetail edcRes = edcrValidator.validate(edcr);
+			if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
+				return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
+			ErrorDetail errorResponses = (edcrRestService.validateEdcrRequest(edcr, planFile));
+			if (errorResponses != null)
+				return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
+			else {
+				edcrDetail = edcrRestService.createEdcr(edcr, planFile, new HashMap<>());
+			}
 
-    @PostMapping(value = "/scrutinizeocplan", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> scrutinizeOccupancyPlan(@RequestBody MultipartFile planFile,
-            @RequestParam String edcrRequest) {
-        EdcrDetail edcrDetail = new EdcrDetail();
-        EdcrRequest edcr = new EdcrRequest();
-        boolean isValid = isValidJson(edcrRequest);
-        if (!isValid) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT,
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        try {
-            edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
-            ErrorDetail edcRes = edcrValidator.validate(edcr);
-            if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
-                return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
-            ErrorDetail errorResponses = (edcrRestService.validateEdcrOcRequest(edcr, planFile));
+		} catch (IOException e) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		return getSuccessResponse(Arrays.asList(edcrDetail), edcr.getRequestInfo());
+	}
 
-            if (errorResponses != null)
-                return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
-            else {
-                edcr.setAppliactionType(ApplicationType.OCCUPANCY_CERTIFICATE.toString());
+	@PostMapping(value = "/scrutinizeocplan", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> scrutinizeOccupancyPlan(@RequestBody MultipartFile planFile,
+			@RequestParam String edcrRequest) {
+		EdcrDetail edcrDetail = new EdcrDetail();
+		EdcrRequest edcr = new EdcrRequest();
+		boolean isValid = isValidJson(edcrRequest);
+		if (!isValid) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
+			ErrorDetail edcRes = edcrValidator.validate(edcr);
+			if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
+				return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
+			ErrorDetail errorResponses = (edcrRestService.validateEdcrOcRequest(edcr, planFile));
 
-                edcrDetail = edcrRestService.createEdcr(edcr, planFile, new HashMap<>());
-            }
+			if (errorResponses != null)
+				return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
+			else {
+				edcr.setAppliactionType(ApplicationType.OCCUPANCY_CERTIFICATE.toString());
 
-        } catch (IOException e) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(),
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        return getSuccessResponse(Arrays.asList(edcrDetail), edcr.getRequestInfo());
-    }
+				edcrDetail = edcrRestService.createEdcr(edcr, planFile, new HashMap<>());
+			}
 
-    @PostMapping(value = "/scrutinize", consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
-            MediaType.MULTIPART_FORM_DATA_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> scrutinize(@RequestPart("planFile") MultipartFile planFile,
-            @RequestParam("edcrRequest") String edcrRequest, final HttpServletRequest request) {
-        String userInfo = request.getHeader(USER_INFO_HEADER_NAME);
-        LOGGER.info("###User Info####"+userInfo);
-        EdcrDetail edcrDetail = new EdcrDetail();
-        EdcrRequest edcr = new EdcrRequest();
-        if (!isValidJson(edcrRequest) || (userInfo != null && !isValidJson(userInfo))) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT,
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        try {
-            List<ErrorDetail> errorResponses = new ArrayList<ErrorDetail>();
-            edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
-            if(userInfo != null) {
-                UserInfo userInfoReq = new ObjectMapper().readValue(userInfo, UserInfo.class);
-                UserInfo enrichUser = new UserInfo();
-                enrichUser.setId(userInfoReq.getId());
-                enrichUser.setUuid(userInfoReq.getUuid());
-                enrichUser.setMobile(userInfoReq.getMobile());
-                enrichUser.setTenantId(userInfoReq.getTenantId());
-                edcr.getRequestInfo().setUserInfo(enrichUser);
-            }
-            ErrorDetail edcRes = edcrValidator.validate(edcr);
-            if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
-                return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
-            List<ErrorDetail> errors = edcrRestService.validateEdcrMandatoryFields(edcr);
-            if (!errors.isEmpty())
-                return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+		} catch (IOException e) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		return getSuccessResponse(Arrays.asList(edcrDetail), edcr.getRequestInfo());
+	}
 
-            String applicationType = edcr.getAppliactionType();
-            String serviceType = edcr.getApplicationSubType();
-            Map<String, List<Object>> masterData = new HashMap<>();
-            Boolean mdmsEnabled = mdmsConfiguration.getMdmsEnabled();
-            if (mdmsEnabled != null && mdmsEnabled) {
-                Object mdmsData = bpaMdmsUtil.mDMSCall(new RequestInfo(), edcr.getTenantId());
-                HashMap<String, String> data = new HashMap<>();
-                data.put("applicationType", applicationType);
-                data.put("serviceType", serviceType);
-                masterData = mDMSValidator.getAttributeValues(mdmsData, "BPA");
-                List<ErrorDetail> mdmsErrors = mDMSValidator.validateMdmsData(masterData, data);
-                if (!mdmsErrors.isEmpty())
-                    return new ResponseEntity<>(mdmsErrors, HttpStatus.BAD_REQUEST);
+	@PostMapping(value = "/scrutinize", consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
+			MediaType.MULTIPART_FORM_DATA_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> scrutinize(@RequestPart("planFile") MultipartFile planFile,
+			@RequestParam("edcrRequest") String edcrRequest, final HttpServletRequest request) {
+		String userInfo = request.getHeader(USER_INFO_HEADER_NAME);
+		LOGGER.info("###User Info####" + userInfo);
+		EdcrDetail edcrDetail = new EdcrDetail();
+		EdcrRequest edcr = new EdcrRequest();
+		if (!isValidJson(edcrRequest) || (userInfo != null && !isValidJson(userInfo))) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			List<ErrorDetail> errorResponses = new ArrayList<ErrorDetail>();
+			edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
+			if (userInfo != null) {
+				UserInfo userInfoReq = new ObjectMapper().readValue(userInfo, UserInfo.class);
+				UserInfo enrichUser = new UserInfo();
+				enrichUser.setId(userInfoReq.getId());
+				enrichUser.setUuid(userInfoReq.getUuid());
+				enrichUser.setMobile(userInfoReq.getMobile());
+				enrichUser.setTenantId(userInfoReq.getTenantId());
+				edcr.getRequestInfo().setUserInfo(enrichUser);
+			}
+			ErrorDetail edcRes = edcrValidator.validate(edcr);
+			if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
+				return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
+			List<ErrorDetail> errors = edcrRestService.validateEdcrMandatoryFields(edcr);
+			if (!errors.isEmpty())
+				return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 
-                if ("BUILDING_OC_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
-                    edcr.setAppliactionType(ApplicationType.OCCUPANCY_CERTIFICATE.toString());
-                    errorResponses = edcrRestService.validateScrutinizeOcRequest(edcr, planFile);
-                } else if ("BUILDING_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
-                    ErrorDetail validateEdcrRequest = edcrRestService.validateEdcrRequest(edcr, planFile);
-                    if (validateEdcrRequest != null)
-                        errorResponses = Arrays.asList(validateEdcrRequest);
+			String applicationType = edcr.getAppliactionType();
+			String serviceType = edcr.getApplicationSubType();
+			Map<String, List<Object>> masterData = new HashMap<>();
+			Boolean mdmsEnabled = mdmsConfiguration.getMdmsEnabled();
+			if (mdmsEnabled != null && mdmsEnabled) {
+				Object mdmsData = bpaMdmsUtil.mDMSCall(new RequestInfo(), edcr.getTenantId());
+				HashMap<String, String> data = new HashMap<>();
+				data.put("applicationType", applicationType);
+				data.put("serviceType", serviceType);
+				masterData = mDMSValidator.getAttributeValues(mdmsData, "BPA");
+				List<ErrorDetail> mdmsErrors = mDMSValidator.validateMdmsData(masterData, data);
+				if (!mdmsErrors.isEmpty())
+					return new ResponseEntity<>(mdmsErrors, HttpStatus.BAD_REQUEST);
 
-                    edcr.setAppliactionType(ApplicationType.PERMIT.toString());
-                }
+				if ("BUILDING_OC_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
+					edcr.setAppliactionType(ApplicationType.OCCUPANCY_CERTIFICATE.toString());
+					errorResponses = edcrRestService.validateScrutinizeOcRequest(edcr, planFile);
+				} else if ("BUILDING_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
+					ErrorDetail validateEdcrRequest = edcrRestService.validateEdcrRequest(edcr, planFile);
+					if (validateEdcrRequest != null)
+						errorResponses = Arrays.asList(validateEdcrRequest);
 
-            } else {
-                if ("BUILDING_OC_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
-                    edcr.setAppliactionType(ApplicationType.OCCUPANCY_CERTIFICATE.toString());
-                    errorResponses = (edcrRestService.validateScrutinizeOcRequest(edcr, planFile));
-                } else if ("BUILDING_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
-                    ErrorDetail validateEdcrRequest = edcrRestService.validateEdcrRequest(edcr, planFile);
-                    if (validateEdcrRequest != null)
-                        errorResponses = Arrays.asList(validateEdcrRequest);
+					edcr.setAppliactionType(ApplicationType.PERMIT.toString());
+				}
 
-                    edcr.setAppliactionType(ApplicationType.PERMIT.toString());
-                }
-            }
+			} else {
+				if ("BUILDING_OC_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
+					edcr.setAppliactionType(ApplicationType.OCCUPANCY_CERTIFICATE.toString());
+					errorResponses = (edcrRestService.validateScrutinizeOcRequest(edcr, planFile));
+				} else if ("BUILDING_PLAN_SCRUTINY".equalsIgnoreCase(applicationType)) {
+					ErrorDetail validateEdcrRequest = edcrRestService.validateEdcrRequest(edcr, planFile);
+					if (validateEdcrRequest != null)
+						errorResponses = Arrays.asList(validateEdcrRequest);
 
-            if (!errorResponses.isEmpty())
-                return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
-            else {
-                edcrDetail = edcrRestService.createEdcr(edcr, planFile, masterData);
-            }
+					edcr.setAppliactionType(ApplicationType.PERMIT.toString());
+				}
+			}
 
-        } catch (IOException e) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(),
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        return getSuccessResponse(Arrays.asList(edcrDetail), edcr.getRequestInfo());
-    }
+			if (!errorResponses.isEmpty())
+				return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
+			else {
+				edcrDetail = edcrRestService.createEdcr(edcr, planFile, masterData);
+			}
 
-    @PostMapping(value = "/scrutinydetails", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> scrutinyDetails(@ModelAttribute EdcrRequest edcrRequest,
-            @RequestBody @Valid RequestInfoWrapper requestInfoWrapper) {
-        ErrorDetail edcReqRes = edcrValidator.validate(edcrRequest);
-        if (edcReqRes != null && StringUtils.isNotBlank(edcReqRes.getErrorMessage()))
-            return new ResponseEntity<>(edcReqRes, HttpStatus.BAD_REQUEST);
-        ErrorDetail edcRes = edcrValidator.validate(requestInfoWrapper);
-        if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
-            return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
-        List<EdcrDetail> edcrDetail = edcrRestService.fetchEdcr(edcrRequest, requestInfoWrapper);
-        Integer count = edcrRestService.fetchCount(edcrRequest, requestInfoWrapper);
-        if (!edcrDetail.isEmpty() && edcrDetail.get(0).getErrors() != null) {
-            return new ResponseEntity<>(edcrDetail.get(0).getErrors(), HttpStatus.OK);
-        } else {
-            return getSuccessResponse(edcrDetail, requestInfoWrapper.getRequestInfo(), count);
-        }
-    }
+		} catch (IOException e) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		return getSuccessResponse(Arrays.asList(edcrDetail), edcr.getRequestInfo());
+	}
 
-    @PostMapping(value = "/extractplan", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> planDetails(@RequestBody MultipartFile planFile,
-            @RequestParam String edcrRequest) {
-        Plan plan = new Plan();
-        EdcrRequest edcr = new EdcrRequest();
-        boolean isValid = isValidJson(edcrRequest);
-        if (!isValid) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT,
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        try {
-            edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
-            ErrorDetail edcRes = edcrValidator.validate(edcr);
-            if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
-                return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
-            ErrorDetail errorResponses = edcrRestService.validatePlanFile(planFile);
-            if (errorResponses != null)
-                return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
-            else {
-                plan = planService.extractPlan(edcr, planFile);
-            }
-        } catch (IOException e) {
-            ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(),
-                    HttpStatus.BAD_REQUEST);
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        String jsonRes = "";
-        try {
-            jsonRes = mapper.writeValueAsString(plan);
-        } catch (JsonProcessingException e) {
-            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-        }
-        return getPlanSuccessResponse(jsonRes, edcr.getRequestInfo());
-    }
+	@PostMapping(value = "/scrutinydetails", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> scrutinyDetails(@ModelAttribute EdcrRequest edcrRequest,
+			@RequestBody @Valid RequestInfoWrapper requestInfoWrapper) {
+		ErrorDetail edcReqRes = edcrValidator.validate(edcrRequest);
+		if (edcReqRes != null && StringUtils.isNotBlank(edcReqRes.getErrorMessage()))
+			return new ResponseEntity<>(edcReqRes, HttpStatus.BAD_REQUEST);
+		ErrorDetail edcRes = edcrValidator.validate(requestInfoWrapper);
+		if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
+			return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
+		List<EdcrDetail> edcrDetail = edcrRestService.fetchEdcr(edcrRequest, requestInfoWrapper);
+		Integer count = edcrRestService.fetchCount(edcrRequest, requestInfoWrapper);
+		if (!edcrDetail.isEmpty() && edcrDetail.get(0).getErrors() != null) {
+			return new ResponseEntity<>(edcrDetail.get(0).getErrors(), HttpStatus.OK);
+		} else {
+			return getSuccessResponse(edcrDetail, requestInfoWrapper.getRequestInfo(), count);
+		}
+	}
 
-    @GetMapping("/downloadfile")
-    public ResponseEntity<InputStreamResource> download(@RequestParam final String fileStoreId) {
-        return fileStoreUtils.fileAsResponseEntity(fileStoreId, DIGIT_DCR, true);
-    }
+	@PostMapping(value = "/extractplan", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> planDetails(@RequestBody MultipartFile planFile, @RequestParam String edcrRequest) {
+		Plan plan = new Plan();
+		EdcrRequest edcr = new EdcrRequest();
+		boolean isValid = isValidJson(edcrRequest);
+		if (!isValid) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, INVALID_JSON_FORMAT, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			edcr = new ObjectMapper().readValue(edcrRequest, EdcrRequest.class);
+			ErrorDetail edcRes = edcrValidator.validate(edcr);
+			if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
+				return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
+			ErrorDetail errorResponses = edcrRestService.validatePlanFile(planFile);
+			if (errorResponses != null)
+				return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
+			else {
+				plan = planService.extractPlan(edcr, planFile);
+			}
+		} catch (IOException e) {
+			ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		String jsonRes = "";
+		try {
+			jsonRes = mapper.writeValueAsString(plan);
+		} catch (JsonProcessingException e) {
+			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+		}
+		return getPlanSuccessResponse(jsonRes, edcr.getRequestInfo());
+	}
 
-    private ResponseEntity<?> getSuccessResponse(List<EdcrDetail> edcrDetails, RequestInfo requestInfo) {
-        EdcrResponse edcrRes = new EdcrResponse();
-        edcrRes.setEdcrDetail(edcrDetails);
-        ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
-        edcrRes.setResponseInfo(responseInfo);
-        return new ResponseEntity<>(edcrRes, HttpStatus.OK);
+	@GetMapping("/downloadfile")
+	public ResponseEntity<InputStreamResource> download(@RequestParam final String fileStoreId) {
+		return fileStoreUtils.fileAsResponseEntity(fileStoreId, DIGIT_DCR, true);
+	}
 
-    }
-    
-    private ResponseEntity<?> getSuccessResponse(List<EdcrDetail> edcrDetails, RequestInfo requestInfo, Integer count) {
-        EdcrResponse edcrRes = new EdcrResponse();
-        edcrRes.setEdcrDetail(edcrDetails);
-        edcrRes.setCount(count);
-        ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
-        edcrRes.setResponseInfo(responseInfo);
-        return new ResponseEntity<>(edcrRes, HttpStatus.OK);
+	private ResponseEntity<?> getSuccessResponse(List<EdcrDetail> edcrDetails, RequestInfo requestInfo) {
+		EdcrResponse edcrRes = new EdcrResponse();
+		edcrRes.setEdcrDetail(edcrDetails);
+		ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
+		edcrRes.setResponseInfo(responseInfo);
+		return new ResponseEntity<>(edcrRes, HttpStatus.OK);
 
-    }
+	}
 
-    private ResponseEntity<?> getPlanSuccessResponse(String jsonRes, RequestInfo requestInfo) {
-        PlanResponse planRes = new PlanResponse();
-        Plan plan;
-        try {
-            plan = new ObjectMapper().readValue(jsonRes, Plan.class);
-        } catch (IOException e) {
-            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-        }
-        planRes.setPlan(plan);
-        ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
-        planRes.setResponseInfo(responseInfo);
-        return new ResponseEntity<>(planRes, HttpStatus.OK);
-    }
+	private ResponseEntity<?> getSuccessResponse(List<EdcrDetail> edcrDetails, RequestInfo requestInfo, Integer count) {
+		EdcrResponse edcrRes = new EdcrResponse();
+		edcrRes.setEdcrDetail(edcrDetails);
+		edcrRes.setCount(count);
+		ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
+		edcrRes.setResponseInfo(responseInfo);
+		return new ResponseEntity<>(edcrRes, HttpStatus.OK);
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        String errorDesc;
-        if (ex.getLocalizedMessage() == null)
-            errorDesc = String.valueOf(ex).length() <= 200 ? String.valueOf(ex).substring(0, String.valueOf(ex).length())
-                    : String.valueOf(ex).substring(1, 200);
-        else
-            errorDesc = ex.getMessage();
-        ErrorResponse error = new ErrorResponse("Internal Server Error", errorDesc,
-                HttpStatus.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+	}
 
-    @PostMapping(value = "/occomparison", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> ocComparisonReport(@ModelAttribute ComparisonRequest comparisonRequest,
-            @RequestBody @Valid RequestInfoWrapper requestInfoWrapper) {
-        ErrorDetail comparision = edcrValidator.validate(comparisonRequest);
-        if (comparision != null && StringUtils.isNotBlank(comparision.getErrorMessage()))
-            return new ResponseEntity<>(comparision, HttpStatus.BAD_REQUEST);
-        ErrorDetail edcRes = edcrValidator.validate(requestInfoWrapper);
-        if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
-            return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
+	private ResponseEntity<?> getPlanSuccessResponse(String jsonRes, RequestInfo requestInfo) {
+		PlanResponse planRes = new PlanResponse();
+		Plan plan;
+		try {
+			plan = new ObjectMapper().readValue(jsonRes, Plan.class);
+		} catch (IOException e) {
+			return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+		}
+		planRes.setPlan(plan);
+		ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
+		planRes.setResponseInfo(responseInfo);
+		return new ResponseEntity<>(planRes, HttpStatus.OK);
+	}
 
-        List<ErrorDetail> errors = ocComparisonService.validateEdcrMandatoryFields(comparisonRequest);
-        if (!errors.isEmpty())
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+		String errorDesc;
+		ex.printStackTrace();
+		LOGGER.error(ex.getMessage());
+		if (ex.getLocalizedMessage() == null)
+			errorDesc = String.valueOf(ex).length() <= 200
+					? String.valueOf(ex).substring(0, String.valueOf(ex).length())
+					: String.valueOf(ex).substring(1, 200);
+		else
+			errorDesc = ex.getMessage();
+		ErrorResponse error = new ErrorResponse("Internal Server Error", errorDesc, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
-        ComparisonDetail comparisonDetail = ocComparisonService.process(comparisonRequest);
+	@PostMapping(value = "/occomparison", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> ocComparisonReport(@ModelAttribute ComparisonRequest comparisonRequest,
+			@RequestBody @Valid RequestInfoWrapper requestInfoWrapper) {
+		ErrorDetail comparision = edcrValidator.validate(comparisonRequest);
+		if (comparision != null && StringUtils.isNotBlank(comparision.getErrorMessage()))
+			return new ResponseEntity<>(comparision, HttpStatus.BAD_REQUEST);
+		ErrorDetail edcRes = edcrValidator.validate(requestInfoWrapper);
+		if (edcRes != null && StringUtils.isNotBlank(edcRes.getErrorMessage()))
+			return new ResponseEntity<>(edcRes, HttpStatus.BAD_REQUEST);
 
-        if (comparisonDetail.getErrors() != null && !comparisonDetail.getErrors().isEmpty())
-            return new ResponseEntity<>(comparisonDetail.getErrors(), HttpStatus.OK);
+		List<ErrorDetail> errors = ocComparisonService.validateEdcrMandatoryFields(comparisonRequest);
+		if (!errors.isEmpty())
+			return new ResponseEntity<>(errors, HttpStatus.OK);
 
-        return getComparisonSuccessResponse(comparisonDetail, requestInfoWrapper.getRequestInfo());
-    }
+		ComparisonDetail comparisonDetail = ocComparisonService.process(comparisonRequest);
 
-    private ResponseEntity<?> getComparisonSuccessResponse(ComparisonDetail comparisonDetail, RequestInfo requestInfo) {
-        ComparisonResponse comparisonResponse = new ComparisonResponse();
-        comparisonResponse.setComparisonDetail(comparisonDetail);
-        ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
-        comparisonResponse.setResponseInfo(responseInfo);
-        return new ResponseEntity<>(comparisonResponse, HttpStatus.OK);
+		if (comparisonDetail.getErrors() != null && !comparisonDetail.getErrors().isEmpty())
+			return new ResponseEntity<>(comparisonDetail.getErrors(), HttpStatus.OK);
 
-    }
+		return getComparisonSuccessResponse(comparisonDetail, requestInfoWrapper.getRequestInfo());
+	}
 
-    private static boolean isValidJson(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.readTree(json);
-        } catch (IOException e) {
-            return false;
-        }
-        return true;
-    }
+	private ResponseEntity<?> getComparisonSuccessResponse(ComparisonDetail comparisonDetail, RequestInfo requestInfo) {
+		ComparisonResponse comparisonResponse = new ComparisonResponse();
+		comparisonResponse.setComparisonDetail(comparisonDetail);
+		ResponseInfo responseInfo = edcrRestService.createResponseInfoFromRequestInfo(requestInfo, true);
+		comparisonResponse.setResponseInfo(responseInfo);
+		return new ResponseEntity<>(comparisonResponse, HttpStatus.OK);
+
+	}
+
+	private static boolean isValidJson(String json) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			objectMapper.readTree(json);
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
 
 }
