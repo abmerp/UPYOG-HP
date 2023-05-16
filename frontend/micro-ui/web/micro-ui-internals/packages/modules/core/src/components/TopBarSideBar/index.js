@@ -21,7 +21,7 @@ const TopBarSideBar = ({ t, stateInfo, userDetails, CITIZEN, cityDetails, mobile
   
     return (
       <React.Fragment>
-        <TopBar
+        {/* <TopBar
           t={t}
           stateInfo={stateInfo}
           toggleSidebar={toggleSidebar}
@@ -45,7 +45,7 @@ const TopBarSideBar = ({ t, stateInfo, userDetails, CITIZEN, cityDetails, mobile
           mobileView={mobileView}
           userDetails={userDetails}
         />
-        }
+        } */}
       </React.Fragment>
     );
   }

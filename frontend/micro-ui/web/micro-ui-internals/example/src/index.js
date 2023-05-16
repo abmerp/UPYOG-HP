@@ -104,7 +104,7 @@ const moduleReducers = (initData) => ({
   window.Digit.Customizations = { PGR: pgrCustomizations ,TL:{customiseCreateFormData:(formData,licenceObject)=>licenceObject,
     customiseRenewalCreateFormData:(formData,licenceObject)=>licenceObject,customiseSendbackFormData:(formData,licenceObject)=>licenceObject}};
 
-  const stateCode = "pg";
+  const stateCode = "hr";
   initTokens(stateCode);
 
   const registry = window?.Digit.ComponentRegistryService.getRegistry();
