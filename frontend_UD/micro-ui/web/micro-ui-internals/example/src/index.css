@@ -1,0 +1,201 @@
+.App {
+    text-align: center;
+    width: 400 px;
+    height: 600 px;
+    border-color: #282c34;
+    border-width: 2 px;
+    border-radius: 1 px;
+  }
+  
+    .parent {
+      width: 600px;
+      height: 400px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      overflow: scroll;
+    }
+  
+    .child {
+      width: 20px;
+      height: 10px;
+      background-color: #0a0a0a;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .buttonStyle{
+    color: azure!important;
+    white-space: nowrap;
+    font-size: 14px!important;
+    margin-right:16px;
+  }
+  
+  .tableStyle{
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 98%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  
+    th{
+      background-color: #dddddd;
+    }
+    
+    .headerStyle{
+      display: flex;
+      font-size: 5px !important;
+      line-height: 10px;
+      flex-direction: row;
+      white-space: pre-wrap;
+      color: orange;
+    }
+  
+    .notificationCard{
+      display: block;
+      flex-direction: row;
+  
+    }
+  
+    .row{
+      display: block;
+      width:100%;
+    }
+  
+    .col{
+      display: block;
+      width: 50%;
+    }
+  
+    .noti-sec{
+      display: table;
+      box-shadow: 0px 0px 10px gray;
+      margin-bottom: 15px;
+      min-height: 125px;
+      width: 90%;
+  
+    }
+  
+    .pdf-sec{
+      display: table-cell;
+      width:20%;
+      padding:12px 10px 5px 5px;
+      background-color:#ecf3ff;
+      vertical-align: middle;
+      text-align: center;
+    }
+  
+    .data-sec{
+      display: table-cell;
+      vertical-align: middle;
+      padding: 5px 5px 5px 15px;
+    }
+  
+    .paragraph{
+      font-size: 16px;
+      line-height: 25px;
+      text-align: justify;
+      font-family: sans-serif;
+      margin-bottom: 14px;
+      color: #0a0a0a;
+      margin:0px 0px 10px;
+      white-space: pre-wrap;
+    }
+  
+    .paragraph1{
+      font-size: 16px;
+      line-height: 25px;
+      text-align: justify;
+      font-family: sans-serif;
+      margin-bottom: 14px;
+      color: #0a0a0a;
+      margin:0px 0px 10px;
+      white-space: pre-wrap;
+    }
+  
+   /* .cardHovered{
+    transition: all 200ms ease-in 0s;
+    transform: scale(1.2);
+   }
+  
+   .cardHovered1{
+    transition: all 200ms ease-in 0s;
+    transform: scale(1);
+   }
+  
+   .cardHovered2{
+    transition: all 200ms ease-in 0s;
+    transform: scale(1);
+   }
+    */
+    
+  
+    .MuiInputLabel-root {
+      color: whitesmoke !important;
+    }
+  
+    .formCalContainer{
+      width: '1164px';
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 10px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  
+    .formDataContainer{
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0px 0px 15px #cecece;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
+    
