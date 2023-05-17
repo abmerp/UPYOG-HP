@@ -3,7 +3,7 @@ import * as React from 'react';
 
 export default function Appendix8() {
   return (
-    <>
+    <React.Fragment>
   <div style={{margin: '20px'}}>
   <p>&nbsp; &nbsp; &nbsp;</p>
 
@@ -103,7 +103,7 @@ export default function Appendix8() {
     <li>Urban and Regional Development Plans Formulation and&nbsp; Implementation (URDPFI) Guidelines, 2014 of the Government of India or the National Building Code of India shall have to be adhered to.</li>
   </ol>
   </div>
-    </>
+    </React.Fragment>
   );
 }
 

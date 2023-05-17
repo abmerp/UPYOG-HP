@@ -28,7 +28,7 @@ const handlePdfDownload = (pdfUrl) => {
 
 const NotificationTCP = () => {
   return (
-    <>
+    <React.Fragment>
     <TableContainer component={Paper}>
     <Typography variant='h6' style={{margin: '20px'}}>
       Other Notifications
@@ -56,7 +56,7 @@ const NotificationTCP = () => {
         </TableBody>
       </Table>
     </TableContainer>
-    </>
+    </React.Fragment>
   );
 };
 

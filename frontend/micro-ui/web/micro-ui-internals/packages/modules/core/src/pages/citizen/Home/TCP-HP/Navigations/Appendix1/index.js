@@ -5,7 +5,7 @@ import OtherUse from "./OtherUse"
 
 const Appendix1 = () => {
     return(
-        <>
+        <React.Fragment>
         <p style={{textAlign: 'center'}}><span style={{fontSize:'16px'}}>APPENDIX-1<br />
             (See rules 13 and 14)</span>
         </p>
@@ -18,7 +18,7 @@ const Appendix1 = () => {
         <OtherUse />
         <IndustrialUse />
         <GeneralRegulation />
-        </>
+        </React.Fragment>
     )
 }
 

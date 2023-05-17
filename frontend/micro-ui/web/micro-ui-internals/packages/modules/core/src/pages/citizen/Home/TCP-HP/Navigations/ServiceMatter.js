@@ -33,7 +33,7 @@ const handlePdfDownload = (pdfUrl) => {
 
 const ServiceMatter = () => {
   return (
-    <>
+    <React.Fragment>
     <TableContainer component={Paper}>
     <Typography variant='h6' style={{margin: '20px'}}>
       Service Matter
@@ -59,7 +59,7 @@ const ServiceMatter = () => {
         </TableBody>
       </Table>
     </TableContainer>
-    </>
+    </React.Fragment>
   );
 };
 

@@ -32,7 +32,7 @@ import HeritageGallery from "./Home/TCP-HP/Navigations/HeritageGallery";
 import PowerDelegation from "./Home/TCP-HP/Navigations/Delegation";
 import DevelopmentPlan from "./Home/TCP-HP/Navigations/DevelopmentPlan";
 import ApplyOnline from "./Home/TCP-HP/OurServices/ApplyOnline";
-import CardGroup from "./Home/TCP-HP/Cards/CardGroup";
+// import CardGroup from "./Home/TCP-HP/Cards/CardGroup";
 import FormType from "./Home/TCP-HP/FeeCalculator";
 
 const getTenants = (codes, tenants) => {
@@ -118,7 +118,7 @@ const Home = ({
           <Route path={`${path}/objectives`}><Layout><Objectives /></Layout></Route>
           <Route path={`${path}/organizational-setup`}><Layout><OrganizationalSetup /></Layout></Route>
           <Route path={`${path}/contact-us`}><Layout><ContactUs /></Layout></Route>
-          <Route path={`${path}/employee-profile}`}><Layout><EmployeeProfile /></Layout></Route>
+          <Route path={`${path}/employeeprofile}`}><Layout><EmployeeProfile /></Layout></Route>
           <Route path={`${path}/ex-employee-profile`}><Layout><ExEmployeeProfile /></Layout></Route>
           <Route path={`${path}/appendix-1`}><Layout><Appendix1 /></Layout></Route>
           <Route path={`${path}/appendix-8`}><Layout><Appendix8 /></Layout></Route>
@@ -131,7 +131,7 @@ const Home = ({
           <Route path={`${path}/heritage-gallery`}><Layout><HeritageGallery /></Layout></Route>
           <Route path={`${path}/delegation-of-powers`}><Layout><PowerDelegation /></Layout></Route>
           <Route path={`${path}/development-plan`}><Layout><DevelopmentPlan /></Layout></Route>
-          <Route path={`${path}/officerlogin`}><Layout><CardGroup /></Layout></Route>
+          {/* <Route path={`${path}/officerlogin`}><Layout><CardGroup /></Layout></Route> */}
           <Route path={`${path}/applyOnline`}><Layout><ApplyOnline /></Layout></Route>
           <Route path={`${path}/feeCalculator`}><Layout><FormType /></Layout></Route>
 

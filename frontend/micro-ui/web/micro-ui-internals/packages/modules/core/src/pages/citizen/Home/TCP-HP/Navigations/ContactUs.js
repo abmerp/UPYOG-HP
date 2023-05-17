@@ -4,7 +4,7 @@ import { Card, CardContent, Typography } from '@material-ui/core';
 
 const ContactUs = () => {
     return(
-        <>
+        <React.Fragment>
     <Card style={{width: 1200, height: '350px', margin: '50px 50px 50px 200px', color: 'black'}}>
       <CardContent style={{padding: '30px', display: 'flex', justifyContent: 'center', alignItems:'space-between'}}>
         <div style={{width: '50%'}}>
@@ -33,11 +33,11 @@ const ContactUs = () => {
         </div>
         <div style={{width: '50%', color: 'white'}}>
         <h4>Google Map Location</h4>
-        <img src={mapImage} alt='mapImage' style={{width: '400px', height: '300px', translate: '100px -100px'}}/>
+        {/* <img src={mapImage} alt='mapImage' style={{width: '400px', height: '300px', translate: '100px -100px'}}/> */}
         </div>
       </CardContent>
     </Card>
-    </>
+    </React.Fragment>
     )
 }
 

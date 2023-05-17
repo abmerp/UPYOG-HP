@@ -13,7 +13,7 @@ const rows = [
 
 export default function GeneralRegulation (){
     return(
-        <>  
+        <React.Fragment>  
         <div style={{margin: '20px'}}>
             <p><strong>General Regulation</strong></p>
             <p>The following provoisions shall be applicable where no specific mention is made namely</p>
@@ -286,7 +286,7 @@ export default function GeneralRegulation (){
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 29. In case of any clarification with reference to any proviso or if there is no any specific provision, the provisions as envisaged in the Urban and Regional Development Plans Formulation and&nbsp; Implementation Guidelines, 2014 of the Government of India or the National Building Code of India,2005shall have to be adhered to.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30. Firefighting provisions and specification shall be as per National Building Code of India, 2005<strong>.</strong></p>
             </div>
-        </>
+        </React.Fragment>
 
     )
 }

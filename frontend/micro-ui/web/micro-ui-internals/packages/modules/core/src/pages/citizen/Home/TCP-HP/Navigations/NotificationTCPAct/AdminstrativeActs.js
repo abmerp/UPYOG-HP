@@ -12,7 +12,7 @@ const handlePdfDownload = (pdfUrl) => {
 
 const AdminstrativeOrders = () => {
   return (
-    <>
+    <React.Fragment>
     <TableContainer component={Paper}>
     <Typography variant='h6' style={{margin: '20px'}}>
       AdminstrativeOrders
@@ -40,7 +40,7 @@ const AdminstrativeOrders = () => {
         </TableBody>
       </Table>
     </TableContainer>
-    </>
+    </React.Fragment>
   );
 };
 

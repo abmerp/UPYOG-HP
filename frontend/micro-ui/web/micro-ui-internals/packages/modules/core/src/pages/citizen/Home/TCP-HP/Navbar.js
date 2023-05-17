@@ -77,7 +77,7 @@ const Navbar = () => {
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose} style={{color: '#fff', fontSize: '12px'}}>
-        <Link style={{textDecoration: 'none', color: '#fff'}} to='/digit-ui/citizen/employee-profile'>
+        <Link style={{textDecoration: 'none', color: '#fff'}} to='/digit-ui/citizen/employeeprofile'>
           EMPLOYEE PROFILE
         </Link>
         </MenuItem>
