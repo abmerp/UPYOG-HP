@@ -28,7 +28,7 @@ const FormType = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <FormControl component="fieldset">
         <Typography variant="h6" gutterBottom>
           Choose an option:
@@ -57,7 +57,7 @@ const FormType = () => {
         </RadioGroup>
       </FormControl>
       {getComponentToRender()}
-    </>
+    </React.Fragment>
   );
 };
 

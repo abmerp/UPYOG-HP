@@ -39,7 +39,7 @@ const PrivateProfessionals = () => {
         </a>
         <Divider />
         
-        <a variant="body1" href='/' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/obps-home' component="p" className={classes.button}>
         Apply for Registration / Empanelment of Structural Engineers (With 6 years experience)
         </a>
         
