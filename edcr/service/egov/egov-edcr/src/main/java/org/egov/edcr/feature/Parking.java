@@ -117,7 +117,8 @@ public class Parking extends FeatureProcess {
     private static final double TWO_WHEEL_PARKING_AREA_WIDTH = 1.5;
     private static final double TWO_WHEEL_PARKING_AREA_HEIGHT = 2.0;
     private static final double MECH_PARKING_WIDTH = 2.7;
-    private static final double MECH_PARKING_HEIGHT = 5.5;
+    private static final double MECH_PARKING_HEIGHT = 3.0;
+    private static final double STILT_PARKING_HEIGHT = 3.0;
 
     private static final double OPEN_ECS = 12.5;
     private static final double COVER_ECS = 28;
@@ -142,7 +143,8 @@ public class Parking extends FeatureProcess {
     
     private static final String PARKING_VIOLATED_DIM = " parking violated dimension.";
     private static final String PARKING_AREA_DIM = "1.5 M x 2 M";
-
+    public static final String STILT_PARKING_DESC = "Stilt parking dimension ";
+    private static final String STILT_PARKING_HEIGHT_M = "= 3 M";
 
 
     @Override
@@ -162,7 +164,8 @@ public class Parking extends FeatureProcess {
         scrutinyDetail.addColumnHeading(4, PROVIDED);
         scrutinyDetail.addColumnHeading(5, STATUS);
         processParking(pl);
-        //processMechanicalParking(pl);
+        processMechanicalParking(pl);
+        processStiltHeight(pl);
         return pl;
     }
 
@@ -476,6 +479,21 @@ public class Parking extends FeatureProcess {
                     Result.Accepted.getResultVal());
         }
     }
+    
+    private void processStiltHeight(Plan pl) {
+        for (Measurement m : pl.getParkingDetails().getStilts()) {
+        	BigDecimal stilt_parking_ht = m.getHeight();
+            if (stilt_parking_ht.compareTo(BigDecimal.valueOf(STILT_PARKING_HEIGHT)) == 0) {
+                setReportOutputDetails(pl, SUB_RULE_34_2, STILT_PARKING_DESC, STILT_PARKING_HEIGHT_M,
+                		stilt_parking_ht.toString(),
+                        Result.Accepted.getResultVal());
+        } else {
+            setReportOutputDetails(pl, SUB_RULE_34_2, STILT_PARKING_DESC, STILT_PARKING_HEIGHT_M,
+            		stilt_parking_ht.toString(),
+                    Result.Not_Accepted.getResultVal());
+        }
+        }
+    }  
 
     /*
      * private double processMechanicalParking(Plan pl, ParkingHelper helper) { Integer noOfMechParkingFromPlInfo =
