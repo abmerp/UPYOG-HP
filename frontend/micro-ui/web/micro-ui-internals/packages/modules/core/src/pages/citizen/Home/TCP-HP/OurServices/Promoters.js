@@ -34,37 +34,37 @@ const Promoters = () => {
             Promoters
         </Typography>
         
-        <a variant="body1" href='/' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/form34' component="p" className={classes.button}>
         Apply for registration as promoter <strong>Form -34</strong>
         </a>
         <Divider />
         
-        <a variant="body1" href='/' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/form34' component="p" className={classes.button}>
         Apply for renewal of registration as promoter  <strong>Form - 38</strong>
         </a>
         <Divider />
         
-        <a variant="body1" href='/' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/form11' component="p" className={classes.button}>
         Apply for  permission of  sub-division/Development  of land    <strong>Form - 11</strong>
         </a>
         <Divider />
         
-        <a variant="body1"  href='/' component="p"  className={classes.button}>
+        <a variant="body1"  href='/digit-ui/citizen/obps/edcrscrutiny/apply/home' component="p"  className={classes.button}>
         Apply for permission of Development of land and Proposed/ existing building construction   <strong>Form - 12</strong>
         </a>
         <Divider />
     
-        <a variant="body1" href='/' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/form47' component="p" className={classes.button}>
         Apply for real estate license    <strong>Form - 47</strong>
         </a>
         <Divider />
         
-        <a variant="body1" href='/' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/form16' component="p" className={classes.button}>
         Apply for appeal   <strong>Form - 16</strong>
         </a>
         
         <Divider />
-        <a variant="body1"  href='/' component="p" className={classes.button}>
+        <a variant="body1"  href='/digit-ui/citizen/form26' component="p" className={classes.button}>
         Apply for composition of offences  to extent  of  permissible limit of 10%  <strong>Form - 26</strong>
         </a>
         <Divider />

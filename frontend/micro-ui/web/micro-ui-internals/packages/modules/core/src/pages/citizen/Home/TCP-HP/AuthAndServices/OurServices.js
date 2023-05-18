@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, Modal,FormControlLabel, Radio, RadioGroup, Button, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import online from '../Images/online-service.png'
+import online from '../Images/onlineService.png'
 import officer from '../Images/computer-worker.png'
 import fee from '../Images/fee.png'
 import status from '../Images/project-status.png'
@@ -41,7 +41,7 @@ const OurServices = () => {
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
         <Link to='/digit-ui/citizen/applyOnline' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src={online} alt="Registered private/professionals" style={{width: '80px', height: 'auto', padding: '10px', margin: '20px', marginLeft: '-60px',objectFit: 'cover'}} />
+        <img src='https://cdn.jsdelivr.net/npm/@egovernments/digit-ui-css@1.0.7/img/m_seva_white_logo.png' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '20px', marginLeft: '-60px',objectFit: 'cover'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
           Online Services
         </Typography>

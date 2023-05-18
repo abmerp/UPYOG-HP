@@ -34,6 +34,11 @@ import DevelopmentPlan from "./Home/TCP-HP/Navigations/DevelopmentPlan";
 import ApplyOnline from "./Home/TCP-HP/OurServices/ApplyOnline";
 // import CardGroup from "./Home/TCP-HP/Cards/CardGroup";
 import FormType from "./Home/TCP-HP/FeeCalculator";
+import Form12 from "./TCPForms/forms/form12";
+import Form11 from "./TCPForms/forms/form11";
+import Form16 from "./TCPForms/forms/form16";
+import Form26 from "./TCPForms/forms/form26";
+import Form34 from "./TCPForms/forms/form34";
 
 const getTenants = (codes, tenants) => {
   return tenants.filter((tenant) => codes.map((item) => item.code).includes(tenant.code));
@@ -134,7 +139,11 @@ const Home = ({
           {/* <Route path={`${path}/officerlogin`}><Layout><CardGroup /></Layout></Route> */}
           <Route path={`${path}/applyOnline`}><Layout><ApplyOnline /></Layout></Route>
           <Route path={`${path}/feeCalculator`}><Layout><FormType /></Layout></Route>
-
+          <Route path={`${path}/form12`}><Form12 /></Route>
+          <Route path={`${path}/form11`}><Form11 /></Route>
+          <Route path={`${path}/form16`}><Form16 /></Route>
+          <Route path={`${path}/form26`}><Form26 /></Route>
+          <Route path={`${path}/form34`}><Form34 /></Route> 
           <Route exact path={`${path}/select-language`}>
             <LanguageSelection />
           </Route>
