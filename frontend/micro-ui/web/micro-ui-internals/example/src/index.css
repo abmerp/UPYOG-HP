@@ -206,7 +206,7 @@ h1 {
     bottom: 0px;
     right: 0px;
     position: absolute;
-    background-image: url("D:\upyog-components\src\assets\watermark.png"); 
+    /* background-image: url("D:\upyog-components\src\assets\watermark.png");  */
     /* background-image:url("https://obpsud.hp.gov.in/img/logoHP.png"); */
 
     background-size: 30%;
