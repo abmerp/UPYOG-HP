@@ -39,9 +39,17 @@ const OurServices = () => {
         </Typography>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <Link to='/digit-ui/citizen/applyOnline' style={{textDecoration: 'none'}}>
+        <Link to='/digit-ui/citizen/obps/home' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
         <img src='https://cdn.jsdelivr.net/npm/@egovernments/digit-ui-css@1.0.7/img/m_seva_white_logo.png' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '20px', marginLeft: '-60px',objectFit: 'cover'}} />
+        <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
+          Registered Professionals
+        </Typography>
+        </div>
+        </Link>
+        <Link to='/digit-ui/citizen/applyOnline' style={{textDecoration: 'none'}}>
+        <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
+        <img src={online} alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '20px', marginLeft: '-60px',objectFit: 'cover'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
           Online Services
         </Typography>

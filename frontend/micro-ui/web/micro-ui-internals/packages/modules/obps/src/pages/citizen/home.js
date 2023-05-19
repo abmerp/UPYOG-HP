@@ -1,9 +1,20 @@
 import { BPAHomeIcon, BPAIcon, CitizenHomeCard, EDCRIcon, EmployeeModuleCard, Loader, Toast } from "@egovernments/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
+import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import foul from './Cards/CardsImages.js/foul.png'
+import investment from './Cards/CardsImages.js/invesment.png'
+import management from './Cards/CardsImages.js/management.png'
+import building from './Cards/CardsImages.js/office-building.png'
+import park from './Cards/CardsImages.js/park.png'
+import antina from './Cards/CardsImages.js/radio-antenna.png'
+import check from './Cards/CardsImages.js/checklist.png'
+import list from './Cards/CardsImages.js/check.png'
+import remove from './Cards/CardsImages.js/remove.png'
+import dropdown from './Cards/CardsImages.js/down-arrow.png' 
 
-const BPACitizenHomeScreen = ({ parentRoute }) => {
+const BPACitizenHomeScreens = ({ parentRoute }) => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData.code);
   const stateCode = Digit.ULBService.getStateId();
@@ -134,72 +145,162 @@ const BPACitizenHomeScreen = ({ parentRoute }) => {
     return <Loader />;
   } // || bparegLoading
 
-  const homeDetails = [
+  // const homeDetails = [
+  //   {
+  //     Icon: <BPAHomeIcon />,
+  //     moduleName: t("ACTION_TEST_BPA_STAKE_HOLDER_HOME"),
+  //     name: "employeeCard",
+  //     isCitizen: true,
+  //     kpis: [
+  //       {
+  //         count: !(bpaLoading || isEDCRInboxLoading) && totalCount && edcrCount ? totalCount + edcrCount : "-",
+  //         label: t("BPA_PDF_TOTAL"),
+  //         link: `/digit-ui/citizen/obps/bpa/inbox`,
+  //       },
+  //     ],
+  //     links: [
+  //       {
+  //         count: !bpaLoading ? totalCount : "-",
+  //         label: t("ES_COMMON_OBPS_INBOX_LABEL"),
+  //         link: `/digit-ui/citizen/obps/bpa/inbox`,
+  //       },
+  //       {
+  //         count: !isEDCRInboxLoading ? edcrCount : "-",
+  //         label: t("ES_COMMON_EDCR_INBOX_LABEL"),
+  //         link: `/digit-ui/citizen/obps/edcr/inbox`,
+  //       },
+  //     ],
+  //     className: "CitizenHomeCard",
+  //     styles: {padding: "0px", minWidth: "90%", minHeight: "90%"}
+  //   },
+  //   {
+  //     title: t("ACTION_TEST_EDCR_SCRUTINY"),
+  //     Icon: <EDCRIcon className="fill-path-primary-main" />,
+  //     links: [
+  //       {
+  //         link: `edcrscrutiny/apply`,
+  //         i18nKey: t("BPA_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
+  //       },
+  //       {
+  //         link: `edcrscrutiny/oc-apply`,
+  //         i18nKey: t("BPA_OC_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
+  //       },
+  //     ],
+  //     styles: {minWidth: "90%", minHeight: "90%"}
+  //   },
+  //   {
+  //     title: t("ACTION_TEST_BPA_STAKE_HOLDER_HOME"),
+  //     Icon: <BPAIcon className="fill-path-primary-main" />,
+  //     links: bpaLinks,
+  //     styles: {minWidth: "90%", minHeight: "90%"}
+  //   },
+  // ];
+  const cards = [
     {
-      Icon: <BPAHomeIcon />,
-      moduleName: t("ACTION_TEST_BPA_STAKE_HOLDER_HOME"),
-      name: "employeeCard",
-      isCitizen: true,
-      kpis: [
-        {
-          count: !(bpaLoading || isEDCRInboxLoading) && totalCount && edcrCount ? totalCount + edcrCount : "-",
-          label: t("BPA_PDF_TOTAL"),
-          link: `/digit-ui/citizen/obps/bpa/inbox`,
-        },
-      ],
-      links: [
-        {
-          count: !bpaLoading ? totalCount : "-",
-          label: t("ES_COMMON_OBPS_INBOX_LABEL"),
-          link: `/digit-ui/citizen/obps/bpa/inbox`,
-        },
-        {
-          count: !isEDCRInboxLoading ? edcrCount : "-",
-          label: t("ES_COMMON_EDCR_INBOX_LABEL"),
-          link: `/digit-ui/citizen/obps/edcr/inbox`,
-        },
-      ],
-      className: "CitizenHomeCard",
-      styles: {padding: "0px", minWidth: "90%", minHeight: "90%"}
+      title: 'Application for permission of Sub-division/Develoment of land',
+      applied: 'Applied: 140',
+      Approve: 'Approve: 30',
+      Rejected: 'Rejected: 12',
+      image: park
     },
     {
-      title: t("ACTION_TEST_EDCR_SCRUTINY"),
-      Icon: <EDCRIcon className="fill-path-primary-main" />,
-      links: [
-        {
-          link: `edcrscrutiny/apply`,
-          i18nKey: t("BPA_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
-        },
-        {
-          link: `edcrscrutiny/oc-apply`,
-          i18nKey: t("BPA_OC_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
-        },
-      ],
-      styles: {minWidth: "90%", minHeight: "90%"}
+      title: 'Application for building plan Permission',
+      applied: 'Applied: 143',
+      Approve: 'Approve: 40',
+      Rejected: 'Rejected: 22',
+      image: building
     },
     {
-      title: t("ACTION_TEST_BPA_STAKE_HOLDER_HOME"),
-      Icon: <BPAIcon className="fill-path-primary-main" />,
-      links: bpaLinks,
-      styles: {minWidth: "90%", minHeight: "90%"}
+      title: 'Application for composition of offences',
+      applied: 'Applied: 196',
+      Approve: 'Approve: 50',
+      Rejected: 'Rejected: 2',
+      image: foul,
     },
+    {
+      title: 'Application for Real Estate Project',
+      applied: 'Applied: 218',
+      Approve: 'Approve: 20',
+      Rejected: 'Rejected: 42',
+      image: investment
+    },
+    {
+      title: 'Application for Change of Land Use',
+      applied: 'Applied: 76',
+      Approve: 'Approve: 10',
+      Rejected: 'Rejected: 12',
+      image: management
+    },
+    {
+      title: 'Application for permission of mobile tower',
+      applied: 'Applied: 96',
+      Approve: 'Approve: 17',
+      Rejected: 'Rejected: 32',
+      image: antina
+    }
   ];
 
-  const homeScreen = (
-    <div className="mainContent citizenAllServiceGrid">
-      {homeDetails.map((data) => {
-        return (
-          <div>
-            {data.name === "employeeCard" ? <EmployeeModuleCard {...data} /> :
-              <CitizenHomeCard header={data.title} links={data.links} Icon={() => data.Icon} styles={data?.styles} />}
-          </div>
-        )
-      })}
-    </div>
+  // const homeScreen = (
+  //   <div className="mainContent citizenAllServiceGrid">
+  //     {homeDetails.map((data) => {
+  //       return (
+  //         <div>
+  //           {data.name === "employeeCard" ? <EmployeeModuleCard {...data} /> :
+  //             <CitizenHomeCard header={data.title} links={data.links} Icon={() => data.Icon} styles={data?.styles} />}
+  //         </div>
+  //       )
+  //     })}
+  //   </div>
+  // )
+  // sessionStorage.setItem("isPermitApplication", true);
+  // sessionStorage.setItem("isEDCRDisable", JSON.stringify(false));
+  // return homeScreen;
+  return(
+    <Grid container>
+    <Grid item xs={12} md={2} sx={{ backgroundColor: '#1F4A7C', minHeight: '100vh' , marginTop: '10px'}}>
+      <Typography variant="h6" sx={{ color: '#fff', padding: '20px' }}>Services <span><img src={dropdown} alt='drop' style={{width: '18px', height: '18px', color: 'blue'}}/></span></Typography>
+      <Typography variant="h6" sx={{ color: '#fff', padding: '20px' }}>Reports <span><img src={dropdown} alt='drop' style={{width: '18px', height: '18px', color: '#fff'}}/></span></Typography>
+    </Grid>
+    <Grid item xs={12} md={10}>
+    <Card sx={{ backgroundColor: '#1f4a7c', margin: '20px' }}>
+    <CardContent>
+      <Grid container spacing={2}>
+        {cards.map((card, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card sx={{ maxWidth: 345, width: '100%', height: '100%', margin: '10px', borderRadius:'10px',backgroundColor:'#F5F5FF', boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px'}}>
+              <CardContent>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
+              <CardMedia
+                  component="img"
+                  image={card.image}
+                  alt={card.title}
+                  sx={{ height: '100px', width: '100px', margin: '10px' }}
+                />
+                <Typography variant="p" component="div" style={{color: '#000033', fontSize: '16px', fontWeight: 'bold', margin: '15px' }}>
+                  {card.title} 
+                </Typography>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: '10px'}}>
+                <Typography sx={{ mb: 1.5, marginTop: '20px 10px -10px 10px' }} color="text.secondary">
+                  {card.applied} <span><img src={check} alt='check' style={{width: '10px', height: '10px'}}/></span>
+                </Typography>
+                <Typography variant="body2" sx={{ mb: 1.5, marginTop: '20px 10px -10px 10px', fontWeight: 'bold' }}>
+                  {card.Approve} <span><img src={list} alt='list' style={{width: '10px', height: '10px'}}/></span>
+                </Typography>
+                <Typography variant="body2">
+                  {card.Rejected} <span><img src={remove} alt='remove' style={{width: '10px', height: '10px'}}/></span>
+                </Typography>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </CardContent>
+  </Card>
+  </Grid>
+  </Grid>
   )
-  sessionStorage.setItem("isPermitApplication", true);
-  sessionStorage.setItem("isEDCRDisable", JSON.stringify(false));
-  return homeScreen;
 };
 
-export default BPACitizenHomeScreen;
+export default BPACitizenHomeScreens;
