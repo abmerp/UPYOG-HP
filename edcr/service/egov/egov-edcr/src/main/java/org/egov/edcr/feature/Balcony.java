@@ -75,7 +75,7 @@ public class Balcony extends FeatureProcess {
     String balconySide;
     private static final String RULE45_IV = "45-iv";
     private static final String WIDTH_BALCONY_DESCRIPTION = "Maximum width for %s balcony %s";
-    private static final BigDecimal ONE_POINTEIGHT = BigDecimal.valueOf(1.8);
+    private static final BigDecimal ONE_POINTTWENTY = BigDecimal.valueOf(1.20);
 //    private static final BigDecimal REARYARDMINIMUM_DISTANCE_1_5 = BigDecimal.valueOf(1.5);
 //	private static final BigDecimal REARYARDMINIMUM_DISTANCE_2 = BigDecimal.valueOf(2);
 //	private static final BigDecimal REARYARDMINIMUM_DISTANCE_3 = BigDecimal.valueOf(3);
@@ -116,7 +116,7 @@ public class Balcony extends FeatureProcess {
                             BigDecimal minWidth = widths.isEmpty() ? BigDecimal.ZERO : widths.stream().reduce(BigDecimal::min).get();
                             minWidth = minWidth.setScale(DcrConstants.DECIMALDIGITS_MEASUREMENTS,
                                     DcrConstants.ROUNDMODE_MEASUREMENTS);
-                            if (minWidth.compareTo(ONE_POINTEIGHT.setScale(DcrConstants.DECIMALDIGITS_MEASUREMENTS,
+                            if (minWidth.compareTo(ONE_POINTTWENTY.setScale(DcrConstants.DECIMALDIGITS_MEASUREMENTS,
                                     DcrConstants.ROUNDMODE_MEASUREMENTS)) <= 0)  {
                                 isAccepted = true;
                             }
@@ -166,12 +166,12 @@ public class Balcony extends FeatureProcess {
                             if (isAccepted) {
                                 setReportOutputDetailsFloorBalconyWise(plan, RULE45_IV, value,
                                         String.format(WIDTH_BALCONY_DESCRIPTION, balconySide, balcony.getNumber()),
-                                        ONE_POINTEIGHT.toString(),
+                                        ONE_POINTTWENTY.toString(),
                                         String.valueOf(minWidth), Result.Accepted.getResultVal(), scrutinyDetailLanding);
                             } else {
                                 setReportOutputDetailsFloorBalconyWise(plan, RULE45_IV, value,
                                         String.format(WIDTH_BALCONY_DESCRIPTION, balconySide, balcony.getNumber()),
-                                        ONE_POINTEIGHT.toString(),
+                                        ONE_POINTTWENTY.toString(),
                                         String.valueOf(minWidth), Result.Not_Accepted.getResultVal(), scrutinyDetailLanding);
                             }
                         }

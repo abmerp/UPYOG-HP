@@ -96,14 +96,14 @@ public class Parapet extends FeatureProcess {
 			if(b.getBuilding().getBuildingHeight().compareTo(new BigDecimal(16.5)) <= 0) {
 				if (b.getParapets() != null && !b.getParapets().isEmpty()) {
 					minHeight = Util.roundOffTwoDecimal(b.getParapets().stream().reduce(BigDecimal::min).get());
-					if (minHeight.compareTo(new BigDecimal(1.21)) < 0) {
-						details.put(REQUIRED, "Height <= 1.2");
+					if (minHeight.compareTo(new BigDecimal(0.9)) <= 0) {
+						details.put(REQUIRED, "Height <= 0.9");
 						details.put(PROVIDED, "Height is " + minHeight);
 						details.put(STATUS, Result.Accepted.getResultVal());
 						scrutinyDetail.getDetail().add(details);
 						pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
 					}else {
-						details.put(REQUIRED, "Height <= 1.2");
+						details.put(REQUIRED, "Height <= 0.9");
 						details.put(PROVIDED, "Height is " + minHeight);
 						details.put(STATUS, Result.Not_Accepted.getResultVal());
 						scrutinyDetail.getDetail().add(details);
@@ -113,14 +113,14 @@ public class Parapet extends FeatureProcess {
 			}else {
 				if (b.getParapets() != null && !b.getParapets().isEmpty()) {
 					minHeight = b.getParapets().stream().reduce(BigDecimal::min).get();
-					if(minHeight.compareTo(new BigDecimal(1.5)) <= 0) {
-						details.put(REQUIRED, "Height <= 1.5");
+					if(minHeight.compareTo(new BigDecimal(1.20)) <= 0) {
+						details.put(REQUIRED, "Height <= 1.20");
 						details.put(PROVIDED, "Height is " + minHeight);
 						details.put(STATUS, Result.Accepted.getResultVal());
 						scrutinyDetail.getDetail().add(details);
 						pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
 					}else {
-						details.put(REQUIRED, "Height <= 1.5");
+						details.put(REQUIRED, "Height <= 1.20");
 						details.put(PROVIDED, "Height is " + minHeight);
 						details.put(STATUS, Result.Not_Accepted.getResultVal());
 						scrutinyDetail.getDetail().add(details);

@@ -82,8 +82,8 @@ public class Kitchen extends FeatureProcess {
 
     public static final BigDecimal MINIMUM_HEIGHT_2_75 = BigDecimal.valueOf(2.75);
     public static final BigDecimal MINIMUM_HEIGHT_2_4 = BigDecimal.valueOf(2.4);
-//    public static final BigDecimal MINIMUM_AREA_4_5 = BigDecimal.valueOf(4.5);
-    public static final BigDecimal MINIMUM_AREA_5_5 = BigDecimal.valueOf(5.5);
+    public static final BigDecimal MINIMUM_AREA_4_5 = BigDecimal.valueOf(4.5);
+//    public static final BigDecimal MINIMUM_AREA_5_5 = BigDecimal.valueOf(5.5);
     public static final BigDecimal MINIMUM_AREA_7_5 = BigDecimal.valueOf(7.5);
     public static final BigDecimal EWS_MINIMUM_AREA_3_8 = BigDecimal.valueOf(3.8);
     public static final BigDecimal MINIMUM_AREA_5 = BigDecimal.valueOf(5);
@@ -203,7 +203,7 @@ public class Kitchen extends FeatureProcess {
 
                             if (!kitchenAreas.isEmpty()) {
                                 totalArea = kitchenAreas.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
-                                minimumHeight = MINIMUM_AREA_5_5;
+                                minimumHeight = MINIMUM_AREA_4_5;
                                 
                                 minimumAreaEWS = EWS_MINIMUM_AREA_3_8;
                                 

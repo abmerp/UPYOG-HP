@@ -367,10 +367,10 @@ public class GeneralStair extends FeatureProcess {
 	private BigDecimal getRequiredWidth(Block block, OccupancyTypeHelper mostRestrictiveOccupancyType) {
 		if (mostRestrictiveOccupancyType != null && mostRestrictiveOccupancyType.getType() != null
 				&& DxfFileConstants.A_AF.equalsIgnoreCase(mostRestrictiveOccupancyType.getType().getCode())) {
-			return BigDecimal.valueOf(0.9);
+			return BigDecimal.valueOf(1.0);
 		} else if (mostRestrictiveOccupancyType != null && mostRestrictiveOccupancyType.getType() != null
 				&& DxfFileConstants.A_AF_GH.equalsIgnoreCase(mostRestrictiveOccupancyType.getType().getCode())) {
-			return BigDecimal.valueOf(0.9);
+			return BigDecimal.valueOf(1.0);
 		} /*
 			 * else if (mostRestrictiveOccupancyType != null &&
 			 * mostRestrictiveOccupancyType.getType() != null &&
@@ -382,7 +382,7 @@ public class GeneralStair extends FeatureProcess {
 			 * <= 0) { return BigDecimal.ONE; }
 			 */ else if (mostRestrictiveOccupancyType != null && mostRestrictiveOccupancyType.getType() != null
 				&& DxfFileConstants.A.equalsIgnoreCase(mostRestrictiveOccupancyType.getType().getCode())) {
-			return BigDecimal.valueOf(0.9);
+			return BigDecimal.valueOf(1.0);
 		} else if (mostRestrictiveOccupancyType != null && mostRestrictiveOccupancyType.getType() != null
 				&& DxfFileConstants.B.equalsIgnoreCase(mostRestrictiveOccupancyType.getType().getCode())) {
 			return BigDecimal.valueOf(1.5);
@@ -471,12 +471,12 @@ public class GeneralStair extends FeatureProcess {
 				return BigDecimal.valueOf(0.25);
 
 			default:
-				return BigDecimal.valueOf(0.3);
+				return BigDecimal.valueOf(0.25);
 
 			}
 
 		}
-		return BigDecimal.valueOf(0.3);
+		return BigDecimal.valueOf(0.25);
 	}
 	
 	

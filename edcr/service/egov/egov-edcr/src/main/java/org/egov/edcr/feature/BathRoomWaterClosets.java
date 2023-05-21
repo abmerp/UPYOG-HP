@@ -127,10 +127,10 @@ public class BathRoomWaterClosets extends FeatureProcess {
 						}
 
 						if (minHeight.compareTo(new BigDecimal(2.75)) >= 0
-								&& totalArea.compareTo(new BigDecimal(3)) >= 0
+								&& totalArea.compareTo(new BigDecimal(2.3)) >= 0
 								&& minWidth.compareTo(new BigDecimal(1.2)) >= 0) {
 
-							details.put(REQUIRED, "Height >= 2.75 Total Area >= 3, Width >= 1.2");
+							details.put(REQUIRED, "Height >= 2.75 Total Area >= 2.3, Width >= 1.2");
 							details.put(PROVIDED, "Height >= " + minHeight + ", Total Area >= " + totalArea
 									+ ", Width >= " + minWidth);
 							details.put(STATUS, Result.Accepted.getResultVal());
@@ -138,7 +138,7 @@ public class BathRoomWaterClosets extends FeatureProcess {
 							pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
 
 						} else {
-							details.put(REQUIRED, "Height >= 2.75 Total Area >= 3, Width >= 1.2");
+							details.put(REQUIRED, "Height >= 2.75 Total Area >= 2.3, Width >= 1.2");
 							details.put(PROVIDED, "Height >= " + minHeight + ", Total Area >= " + totalArea
 									+ ", Width >= " + minWidth);
 							details.put(STATUS, Result.Not_Accepted.getResultVal());
