@@ -1,9 +1,5 @@
 import { Card, CardContent, Typography, Modal,FormControlLabel, Radio, RadioGroup, Button, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import online from '../Images/onlineService.png'
-import officer from '../Images/computer-worker.png'
-import fee from '../Images/fee.png'
-import status from '../Images/project-status.png'
 import { Link } from 'react-router-dom';
 const OurServices = () => {
   const [open, setOpen] = useState(false);
@@ -32,16 +28,16 @@ const OurServices = () => {
   };
   return (
     <div>
-    <Card style={{maxWidth: 900, height: '400px', margin: '20px', boxShadow: 'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset' }}>
+    <Card style={{maxWidth: '1200px', height: '400px', margin: '20px', boxShadow: 'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset' }}>
       <CardContent>
         <Typography variant="h5" style={{ backgroundColor: "#1F4A7C",  margin: '10px', color: "white", padding: "10px", fontSize: '15px', borderRadius: '5px' }}>
           Our Services
         </Typography>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
-        <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
+        <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '800px'}}>
         <Link to='/digit-ui/citizen/obps/home' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src='https://cdn.jsdelivr.net/npm/@egovernments/digit-ui-css@1.0.7/img/m_seva_white_logo.png' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '20px', marginLeft: '-60px',objectFit: 'cover'}} />
+        <img src='https://live.staticflickr.com/65535/52909336816_1d851aeda4_m.jpg' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px', marginLeft: '-60px',objectFit: 'cover'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
           Registered Professionals
         </Typography>
@@ -49,7 +45,7 @@ const OurServices = () => {
         </Link>
         <Link to='/digit-ui/citizen/applyOnline' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src={online} alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '20px', marginLeft: '-60px',objectFit: 'cover'}} />
+        <img src='https://live.staticflickr.com/65535/52909644208_e67ec38e49_m.jpg' alt="onlineServices" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px', marginLeft: '-60px',objectFit: 'cover'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
           Online Services
         </Typography>
@@ -58,7 +54,7 @@ const OurServices = () => {
         <br></br>
         <Link to='/digit-ui/employee' style={{textDecoration: 'none', cursor: 'pointer'}}>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'row'}}>
-        <img src={officer} alt="Online User Services" style={{width: '80px', height: 'auto', padding: '10px', margin: '20px'}} />
+        <img src='https://live.staticflickr.com/65535/52909190521_952c8ec76a_m.jpg' alt="Online User Services" style={{width: '80px', height: 'auto', padding: '10px', margin: '10px'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', fontWeight: 'bold', margin: '50px 15px 10px 10px', marginTop: '50px', color: '#001A00'}}>
           Officer Login
         </Typography>
@@ -69,7 +65,7 @@ const OurServices = () => {
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'row'}}>
         <Link to='/digit-ui/citizen/feeCalculator' style={{textDecoration: 'none', cursor: 'pointer'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src={fee} alt="Fee Calculator" style={{width: '80px', height: '80px', padding: '5px', margin: '10px'}}/>
+        <img src='https://live.staticflickr.com/65535/52909341549_17ea8a427d_m.jpg' alt="Fee Calculator" style={{width: '80px', height: '80px', padding: '5px', margin: '10px'}}/>
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '30px 40px 10px 10px', color: '#001A00'}}>
           Fee Calculator
         </Typography>
@@ -77,7 +73,7 @@ const OurServices = () => {
         </Link>
         <br></br>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'row'}}>
-        <img src={status} alt="Check/ Track application status" style={{width: '80px', height: '80px', padding: '5px', margin: '10px', cursor: 'pointer'}} onClick={handleOpen} />
+        <img src='https://live.staticflickr.com/65535/52908614842_764c4b6a72_m.jpg' alt="Check/ Track application status" style={{width: '80px', height: '80px', padding: '5px', margin: '10px', cursor: 'pointer'}} onClick={handleOpen} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '30px 0px 10px 10px', color: '#001A00', cursor: 'pointer'}} onClick={handleOpen}>
           Check Application Status
         </Typography>

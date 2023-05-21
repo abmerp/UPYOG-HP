@@ -3,7 +3,6 @@ import Step1 from "../formComponents/form12/Step1";
 import Step2 from "../formComponents/form12/Step2";
 import Step3 from "../formComponents/form12/Step3";
 import PrivateProffestional from "../formComponents/form26/Step2";
-import './index.css'
 
 const Form12 = () => {
   return (

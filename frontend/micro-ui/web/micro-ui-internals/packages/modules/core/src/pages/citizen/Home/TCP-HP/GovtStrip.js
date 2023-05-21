@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import Himanchal from './Images/Himanchal.png'
 
 const GovtStrip = () => {
   return (
@@ -17,7 +16,7 @@ const GovtStrip = () => {
           <h6 style={{fontSize: '15.75px', color: '#154773',margin: '10px 10px 10px 310px', position: 'absolute', bottom:'-20px', backgroundColor: 'white'}}>Government of Himanchal Pradesh</h6>
           </div>
           <div>
-            <img src={Himanchal} alt='himanchal' style={{width: '120px', height: '100px', margin: '10px 10px 10px 10px'}}/>
+            <img src='https://live.staticflickr.com/65535/52909341539_2d77079c38_m.jpg' alt='himanchal' style={{width: '120px', height: '100px', margin: '10px 10px 10px 10px'}}/>
           </div>
           </div>
         </Box>

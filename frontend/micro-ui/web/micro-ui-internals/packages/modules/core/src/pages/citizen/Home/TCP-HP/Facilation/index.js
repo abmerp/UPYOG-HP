@@ -1,15 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@mui/styles';
 import { Grid, Card, CardContent, Typography, Button } from '@mui/material';
-import Skywrapper from '../Images/building.png'
-import Case from '../Images/case.png'
-import Task from '../Images/task.png'
-import Resource from '../Images/resource.png'
-import Certi from '../Images/diploma.png'
-import Application from '../Images/application.png'
-import Instruction from '../Images/instruction.png'
-import Location from '../Images/location.png'
-import Complain from '../Images/complain.png'
 import {AiOutlineDoubleRight} from 'react-icons/ai'
 import { AiOutlineDoubleLeft } from 'react-icons/ai';
 
@@ -43,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const cards = [
   {
     title: 'Notified Planning/Special Area',
-    logo: <img src={Skywrapper} alt='image1' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52909644598_eb2a41fa3b_m.jpg' alt='image1' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   // {
   //   title: 'RTI',
@@ -52,36 +43,36 @@ const cards = [
   // },
   {
     title: 'Directory of Reg. Professionals',
-    logo: <img src={Case} alt='image2' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52908615252_f771955e60_m.jpg' alt='image2' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   {
     title: 'Download Form',
-    logo: <img src={Task} alt='image3' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52909341114_802fe94f83_m.jpg' alt='image3' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
 
   },
   {
     title: 'Public Service Guarantee ACT',
-    logo: <img src={Resource} alt='image4' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52909577000_a721b63e6a_m.jpg' alt='image4' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   {
     title: 'License and Essentiality Certifiate',
-    logo: <img src={Certi} alt='image5' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52908615227_83e4e657c3_m.jpg' alt='image5' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   {
     title: 'Planing Permission Cases',
-    logo: <img src={Application} alt='image6' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52908615297_481fa695db_m.jpg' alt='image6' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   {
     title: 'Instructions/Orders',
-    logo: <img src={Instruction} alt='image7' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52909644403_5a4537d0e5_m.jpg' alt='image7' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   {
     title: 'Area Locator',
-    logo: <img src={Location} alt='image8' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52909644368_64f6dfbd30_m.jpg' alt='image8' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
   {
     title: 'Unauthorised constructions complainants',
-    logo: <img src={Complain} alt='image9' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
+    logo: <img src='https://live.staticflickr.com/65535/52909341679_1e186a63f7_m.jpg' alt='image9' style={{width: '100px', height: '100px', marginTop: '20px'}}/>
   },
 ];
 
