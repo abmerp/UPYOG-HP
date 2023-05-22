@@ -33,6 +33,7 @@ import VideoGallery from "./TCP-HP/Navigations/VideoGallery";
 import HeritageGallery from "./TCP-HP/Navigations/HeritageGallery";
 import PowerDelegation from "./TCP-HP/Navigations/Delegation";
 import DevelopmentPlan from "./TCP-HP/Navigations/DevelopmentPlan";
+import Footers from "./TCP-HP/Footers";
 
 
 const Layout = ({ children }) => {
@@ -42,7 +43,7 @@ const Layout = ({ children }) => {
       <GovtStrip />
       <Navbar />
       {children}
-      <MapFooter />
+      <Footers />
     </React.Fragment>
   );
 };

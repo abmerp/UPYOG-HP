@@ -19,7 +19,7 @@ const Form16 = () => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <section className="container">
+    <section className="container1">
       <div className="header">Form of Application for Appeal</div>
       <h5 className="mandatoryInfo note">(*) Indicates Mandatory Field</h5>
       <div className="straightLine" />

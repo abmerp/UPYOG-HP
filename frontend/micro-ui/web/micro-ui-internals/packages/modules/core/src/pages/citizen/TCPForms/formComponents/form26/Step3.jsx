@@ -11,7 +11,7 @@ const Step3 = () => {
   const { handleSubmit, control } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <section className="container">
+    <section className="container1">
       <div className="headerContainer">
         <div className="buttonWrapper">
           <ButtonWrapper

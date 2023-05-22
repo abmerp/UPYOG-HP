@@ -31,7 +31,7 @@ const Step1 = () => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <section className="container">
+    <section className="container1">
       <div className="header">
         Form of application for composition of offences under section 39-C read
         with sub-section (3) of section 39 of the Himachal Pradesh Town and

@@ -33,7 +33,7 @@ const ContactUs = () => {
         </div>
         <div style={{width: '50%', color: 'white'}}>
         <h4>Google Map Location</h4>
-        {/* <img src={mapImage} alt='mapImage' style={{width: '400px', height: '300px', translate: '100px -100px'}}/> */}
+        <img src='https://live.staticflickr.com/65535/52916722175_c500f3c240_m.jpg' alt='mapImage' style={{width: '320px', height: '320px', translate: '100px -50px'}}/>
         </div>
       </CardContent>
     </Card>

@@ -22,7 +22,7 @@ const Step1 = () => {
   const { handleSubmit, control } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <section className="container">
+    <section className="container1">
       <div className="header">
         Form of application for permission under sub-section (2) of section 15-A
         or clause (a) of section 16 or sub-section (1) of section 30-A (beyond

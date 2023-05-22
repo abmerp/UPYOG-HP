@@ -121,7 +121,7 @@ const Facilation = () => {
           </Grid>
         ))}
       </Grid>
-      <Button onClick={handleNextClick} style={{transform: 'translateX(1180px) translateY(-150px)'}}><AiOutlineDoubleRight style={{width: '30px', height: '30px', color: '#FFFFFF',padding: '10px',borderRadius: '50%', backgroundColor: '#1F4A7C'}} /></Button>
+      <Button onClick={handleNextClick} style={{transform: 'translateX(1400px) translateY(-150px)'}}><AiOutlineDoubleRight style={{width: '30px', height: '30px', color: '#FFFFFF',padding: '10px',borderRadius: '50%', backgroundColor: '#1F4A7C'}} /></Button>
     </div>
   );
 };

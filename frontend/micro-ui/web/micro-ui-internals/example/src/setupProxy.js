@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const createProxy = createProxyMiddleware({
  
-  target: process.env.REACT_APP_PROXY_API || "http://3.111.16.234:80",
+  target: process.env.REACT_APP_PROXY_API || "http://3.111.16.234",
   changeOrigin: true,
 });
 

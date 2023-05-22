@@ -9,7 +9,7 @@ const Step1 = () => {
   const { handleSubmit, control } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <section className="container">
+    <section className="container1">
       <div className="header">
         NOC Form used for taking permission for Electrical, Sewerage, and water
         connection from the Urban Developement Department.

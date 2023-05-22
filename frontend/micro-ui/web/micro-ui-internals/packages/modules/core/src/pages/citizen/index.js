@@ -1,4 +1,4 @@
-import { BackButton } from "@egovernments/digit-ui-react-components";
+import { BackButton, PrivateRoute } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
@@ -140,7 +140,7 @@ const Home = ({
           <Route path={`${path}/applyOnline`}><Layout><ApplyOnline /></Layout></Route>
           <Route path={`${path}/feeCalculator`}><Layout><FormType /></Layout></Route>
           <Route path={`${path}/form12`}><Form12 /></Route>
-          <Route path={`${path}/form11`}><Form11 /></Route>
+          <PrivateRoute path={`${path}/form11`}><Form11 /></PrivateRoute>
           <Route path={`${path}/form16`}><Form16 /></Route>
           <Route path={`${path}/form26`}><Form26 /></Route>
           <Route path={`${path}/form34`}><Form34 /></Route> 

@@ -14,7 +14,7 @@ import list from './Cards/CardsImages.js/check.png'
 import remove from './Cards/CardsImages.js/remove.png'
 import dropdown from './Cards/CardsImages.js/down-arrow.png' 
 
-const BPACitizenHomeScreens = ({ parentRoute }) => {
+const BPACitizenHomeScreen = ({ parentRoute }) => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData.code);
   const stateCode = Digit.ULBService.getStateId();
@@ -303,4 +303,4 @@ const BPACitizenHomeScreens = ({ parentRoute }) => {
   )
 };
 
-export default BPACitizenHomeScreens;
+export default BPACitizenHomeScreen;
