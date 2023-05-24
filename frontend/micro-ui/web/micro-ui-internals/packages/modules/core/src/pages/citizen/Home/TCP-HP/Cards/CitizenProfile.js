@@ -56,7 +56,7 @@ const CitizenProfile = ({
         onClick: () => history.push("/digit-ui/citizen/pt-home"),
       },
       {
-        name: t("Form-11"),
+        name: t("MODULE_TL"),
         Icon: <CaseIcon className="fill-path-primary-main" />,
         onClick: () => history.push("/digit-ui/citizen/tl-home"),
       },
@@ -70,6 +70,37 @@ const CitizenProfile = ({
         Icon: <OBPSIcon />,
         onClick: () => history.push("/digit-ui/citizen/obps-home"),
       },
+      {
+        name: t("Application for permission of Subdivision/Development of land - Form11"),
+        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        onClick: () => history.push("/digit-ui/citizen/services/form11"),
+      },
+      {
+        name: t("Application for building plan Permission - Form12"),
+        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        onClick: () => history.push("/digit-ui/citizen/obps/bpa/inbox"),
+      },
+      {
+        name: t("Application for composition of offences - Form26"),
+        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        onClick: () => history.push("/digit-ui/citizen/services/form26"),
+      },
+      {
+        name: t("Application for Real Estate Project - Form47"),
+        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        onClick: () => history.push("/digit-ui/citizen/services/form34"),
+      },
+      {
+        name: t("Application for Change of Land Use"),
+        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        onClick: () => history.push("/digit-ui/citizen/services/form34"),
+      },
+      {
+        name: t("Application for permission of mobile tower"),
+        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        onClick: () => history.push("/digit-ui/citizen/services/form11"),
+      },
+     
     ],
     styles: { display: "flex", flexWrap: "wrap", justifyContent: "flex-start", width: "100%" },
   };
@@ -135,7 +166,7 @@ const CitizenProfile = ({
         <CardBasedOptions {...allInfoAndUpdatesProps} />
       </div>
 
-      {conditionsToDisableNotificationCountTrigger() ? (
+      {/* {conditionsToDisableNotificationCountTrigger() ? (
         EventsDataLoading ? (
           <Loader />
         ) : (
@@ -147,7 +178,7 @@ const CitizenProfile = ({
             <WhatsNewCard {...EventsData?.[0]} />
           </div>
         )
-      ) : null}
+      ) : null} */}
     </div>
     </div>
   );

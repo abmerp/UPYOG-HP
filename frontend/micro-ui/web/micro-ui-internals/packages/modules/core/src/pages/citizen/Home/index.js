@@ -17,22 +17,6 @@ import FormAndCheckList from "./TCP-HP/FormAndCheckList";
 import LinksSlideshow from "./TCP-HP/LinksSlideShow";
 import MapFooter from "./TCP-HP/Footer/MapFooter";
 import Navbar from "./TCP-HP/Navbar";
-import Objectives from "./TCP-HP/Navigations/Objective";
-import OrganizationalSetup from "./TCP-HP/Navigations/OrganizationalSetup";
-import ContactUs from "./TCP-HP/Navigations/ContactUs";
-import ExEmployeeProfile from "./TCP-HP/Navigations/ExEmployeeProfile";
-import EmployeeProfile from "./TCP-HP/Navigations/EmployeeProfile";
-import Appendix1 from "./TCP-HP/Navigations/Appendix1";
-import Appendix8 from "./TCP-HP/Navigations/Appendix8";
-import AppartmentRegulation from "./TCP-HP/Navigations/ApartmentRegulation";
-import CourtOrders from "./TCP-HP/Navigations/CourtOrders";
-import NotificationTCPAct from "./TCP-HP/Navigations/NotificationTCPAct";
-import ServiceMatter from "./TCP-HP/Navigations/ServiceMatter";
-import PhotoGallery from "./TCP-HP/Navigations/PhotoGallery";
-import VideoGallery from "./TCP-HP/Navigations/VideoGallery";
-import HeritageGallery from "./TCP-HP/Navigations/HeritageGallery";
-import PowerDelegation from "./TCP-HP/Navigations/Delegation";
-import DevelopmentPlan from "./TCP-HP/Navigations/DevelopmentPlan";
 import Footers from "./TCP-HP/Footers";
 
 
@@ -172,26 +156,7 @@ const Home = () => {
     //     )
     //   ) : null}
     // </div>
-    <Switch>
-      <Route path={`${path}/objectives`}><Layout><Objectives /></Layout></Route>
-      <Route path={`${path}/organizational-setup`}><Layout><OrganizationalSetup /></Layout></Route>
-      <Route path='/contact-us'><Layout><ContactUs /></Layout></Route>
-      <Route path='/employee-profile'><Layout><EmployeeProfile /></Layout></Route>
-      <Route path='/ex-employee-profile'><Layout><ExEmployeeProfile /></Layout></Route>
-      <Route path='/appendix-1'><Layout><Appendix1 /></Layout></Route>
-      <Route path='/appendix-8'><Layout><Appendix8 /></Layout></Route>
-      <Route path='/apartment-colonies-regulation'><Layout><AppartmentRegulation /></Layout></Route>
-      <Route path='/court-orders'><Layout><CourtOrders /></Layout></Route>
-      <Route path='/notifications-under-tcp-act'><Layout><NotificationTCPAct /></Layout></Route>
-      <Route path='/service-matter'><Layout><ServiceMatter /></Layout></Route>
-      <Route path='/photo-gallery'><Layout><PhotoGallery /></Layout></Route>
-      <Route path='/video-gallery'><Layout><VideoGallery /></Layout></Route>
-      <Route path='/heritage-gallery'><Layout><HeritageGallery /></Layout></Route>
-      <Route path='/delegation-of-powers'><Layout><PowerDelegation /></Layout></Route>
-      <Route path='/development-plan'><Layout><DevelopmentPlan /></Layout></Route>
-      {/* <Route path='/applyOnline' element={<Layout><ApplyOnline /></Layout>} />
-      <Route path='/officerlogin' element={<Layout><CardGroup /></Layout>} />
-      <Route path='/feeCalculator' element={<Layout><FormType /></Layout>} /> */}
+    <Switch> 
       <Route path='/*'><Layout>
         <ImageSlider images={images}/>
         <NewsTicker />

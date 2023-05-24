@@ -192,7 +192,7 @@ const Home = ({
         </Switch>
       </div>
       <div style={{ width: '100%', bottom: 0 }}>
-        <div style={{ display: 'flex', justifyContent: 'center', color:"#22394d" }}>
+        <div style={{ display: 'flex', justifyContent: 'center', color:"#1F4A7C" }}>
           <img style={{ cursor: "pointer", display: "inline-flex", height: '1.4em' }} alt={"Powered by DIGIT"} src={`${sourceUrl}/digit-footer.png`} onError={"this.src='./../digit-footer.png'"} onClick={() => {
             window.open('https://www.digit.org/', '_blank').focus();
           }}></img>
