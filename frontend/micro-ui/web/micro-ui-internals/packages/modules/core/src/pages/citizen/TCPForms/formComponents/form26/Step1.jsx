@@ -158,7 +158,7 @@ const Step1 = () => {
                 />
               </div>
 
-              <InputContainer
+              {/* <InputContainer
                 label="ULB Type"
                 control={control}
                 placeholder="Select ULB Type"
@@ -174,7 +174,7 @@ const Step1 = () => {
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-              />
+              /> */}
               <InputContainer
                 label="Name of Ward"
                 control={control}
@@ -725,7 +725,7 @@ const Step1 = () => {
                 type="selectInput"
                 data={propertyType}
               />
-              <InputContainer
+              {/* <InputContainer
                 label="ULB Type"
                 control={control}
                 placeholder="Select ULB Type"
@@ -733,15 +733,15 @@ const Step1 = () => {
                 mandatory
                 type="selectInput"
                 data={NamesOFULB}
-              />
-              <InputContainer
+              /> */}
+              {/* <InputContainer
                 label="Name of ULB"
                 control={control}
                 placeholder="Select Name of ULB"
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-              />
+              /> */}
               <InputContainer
                 label="Name of Ward"
                 control={control}

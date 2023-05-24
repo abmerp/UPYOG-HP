@@ -79,7 +79,7 @@ const Step1 = () => {
                 type="selectInput"
                 data={DistrictsData}
               />
-              {/* <InputContainer
+              <InputContainer
                 label="Notified Area"
                 control={control}
                 placeholder="Select Notified Area"
@@ -96,19 +96,19 @@ const Step1 = () => {
                 mandatory
                 type="selectInput"
                 data={appealApplicationStatus}
-              /> */}
-               <InputContainer
+              />
+               {/* <InputContainer
                 label="Name of ULB"
                 control={control}
                 placeholder="Select Name of ULB"
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-              />
+              /> */}
              
             </div>
             <div className="columnWrapper">
-            <InputContainer
+            {/* <InputContainer
                 label="ULB Type"
                 control={control}
                 placeholder="Select ULB Type"
@@ -116,7 +116,7 @@ const Step1 = () => {
                 mandatory
                 type="selectInput"
                 data={NamesOFULB}
-              />
+              /> */}
               <InputContainer
                 label="Name of Ward"
                 control={control}
@@ -492,7 +492,7 @@ const Step1 = () => {
                 type="selectInput"
                 data={DistrictsData}
               />
-              <InputContainer
+              {/* <InputContainer
                 label="ULB Type"
                 control={control}
                 placeholder="Select ULB Type"
@@ -509,7 +509,7 @@ const Step1 = () => {
                 mandatory
                 type="selectInput"
                 
-              />
+              /> */}
               <InputContainer
                 label="Name of Ward"
                 control={control}

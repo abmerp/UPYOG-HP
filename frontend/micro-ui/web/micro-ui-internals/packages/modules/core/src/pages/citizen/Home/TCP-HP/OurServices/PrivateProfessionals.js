@@ -49,7 +49,7 @@ const PrivateProfessionals = () => {
         </a>
         <Divider />
         
-        <a variant="body1"  href='/digit-ui/citizen/form11' component="p"  className={classes.button}>
+        <a variant="body1"  href='/digit-ui/citizen/profile' component="p"  className={classes.button}>
         Apply for  permission of  sub-division/Development  of land <strong>Form - 11</strong>
         </a>
         
@@ -60,12 +60,12 @@ const PrivateProfessionals = () => {
         </a>
         <Divider />
         
-        <a variant="body1" href='/digit-ui/citizen/form16' component="p" className={classes.button}>
+        <a variant="body1" href='/digit-ui/citizen/profile' component="p" className={classes.button}>
         Apply for appeal   <strong>Form - 16</strong>
         </a>
         
         <Divider />
-        <a variant="body1"  href='/digit-ui/citizen/form26' component="p" className={classes.button}>
+        <a variant="body1"  href='/digit-ui/citizen/profile' component="p" className={classes.button}>
         Apply for composition of offences  to extent  of  permissible limit of 10%  <strong>Form - 26</strong>
         </a>
         <Divider />

@@ -10,7 +10,6 @@ import LanguageSelection from "./Home/LanguageSelection";
 import LocationSelection from "./Home/LocationSelection";
 import Login from "./Login";
 import UserProfile from "./Home/UserProfile";
-// import PDF from "../../assets/";
 import Strip from "./Home/TCP-HP/Strip";
 import GovtStrip from "./Home/TCP-HP/GovtStrip";
 import Navbar from "./Home/TCP-HP/Navbar";
@@ -32,13 +31,15 @@ import HeritageGallery from "./Home/TCP-HP/Navigations/HeritageGallery";
 import PowerDelegation from "./Home/TCP-HP/Navigations/Delegation";
 import DevelopmentPlan from "./Home/TCP-HP/Navigations/DevelopmentPlan";
 import ApplyOnline from "./Home/TCP-HP/OurServices/ApplyOnline";
-// import CardGroup from "./Home/TCP-HP/Cards/CardGroup";
 import FormType from "./Home/TCP-HP/FeeCalculator";
 import Form12 from "./TCPForms/forms/form12";
 import Form11 from "./TCPForms/forms/form11";
 import Form16 from "./TCPForms/forms/form16";
 import Form26 from "./TCPForms/forms/form26";
 import Form34 from "./TCPForms/forms/form34";
+import FormRoute from "./Home/FormRoutes";
+import CitizenProfile from "./Home/TCP-HP/Cards/CitizenProfile";
+
 
 const getTenants = (codes, tenants) => {
   return tenants.filter((tenant) => codes.map((item) => item.code).includes(tenant.code));
@@ -103,7 +104,7 @@ const Home = ({
 
   return (
     <div className={classname}>
-      <TopBarSideBar
+      {/* <TopBarSideBar
         t={t}
         stateInfo={stateInfo}
         userDetails={userDetails}
@@ -113,7 +114,7 @@ const Home = ({
         handleUserDropdownSelection={handleUserDropdownSelection}
         logoUrl={logoUrl}
         showSidebar={true}
-      />
+      /> */}
 
       <div className={`main center-container mb-25`}>
         <Switch>
@@ -136,14 +137,30 @@ const Home = ({
           <Route path={`${path}/heritage-gallery`}><Layout><HeritageGallery /></Layout></Route>
           <Route path={`${path}/delegation-of-powers`}><Layout><PowerDelegation /></Layout></Route>
           <Route path={`${path}/development-plan`}><Layout><DevelopmentPlan /></Layout></Route>
-          {/* <Route path={`${path}/officerlogin`}><Layout><CardGroup /></Layout></Route> */}
           <Route path={`${path}/applyOnline`}><Layout><ApplyOnline /></Layout></Route>
           <Route path={`${path}/feeCalculator`}><Layout><FormType /></Layout></Route>
           <Route path={`${path}/form12`}><Form12 /></Route>
-          <PrivateRoute path={`${path}/form11`}><Form11 /></PrivateRoute>
-          <Route path={`${path}/form16`}><Form16 /></Route>
-          <Route path={`${path}/form26`}><Form26 /></Route>
-          <Route path={`${path}/form34`}><Form34 /></Route> 
+          <FormRoute 
+          path={`${path}/profile`} 
+          component={() => 
+          <CitizenProfile
+          t={t} 
+          stateInfo={stateInfo}
+          userDetails={userDetails}
+          CITIZEN={CITIZEN}
+          cityDetails={cityDetails}
+          mobileView={mobileView}
+          handleUserDropdownSelection={handleUserDropdownSelection}
+          logoUrl={logoUrl}
+          />
+          
+          }>
+
+          </FormRoute>
+
+          <Route path={`${path}/services/form11`}><Form11 /></Route>
+          <Route path={`${path}/services/form26`}><Form26 /></Route>
+          <Route path={`${path}/services/form34`}><Form34 /></Route>
           <Route exact path={`${path}/select-language`}>
             <LanguageSelection />
           </Route>

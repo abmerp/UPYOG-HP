@@ -35,10 +35,10 @@ const OurServices = () => {
         </Typography>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '800px'}}>
-        <Link to='/digit-ui/citizen/obps/home' style={{textDecoration: 'none'}}>
+        <Link to='/digit-ui/citizen/profile' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src='https://live.staticflickr.com/65535/52909336816_1d851aeda4_m.jpg' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px', marginLeft: '-60px',objectFit: 'cover'}} />
-        <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
+        <img src='https://live.staticflickr.com/65535/52909336816_1d851aeda4_m.jpg' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px -60px', objectFit: 'cover'}} />
+        <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '50px 50px 12px', color: '#001A00'}}>
           Registered Professionals
         </Typography>
         </div>

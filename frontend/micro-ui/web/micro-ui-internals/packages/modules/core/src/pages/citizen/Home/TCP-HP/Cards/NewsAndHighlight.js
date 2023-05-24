@@ -36,7 +36,7 @@ const NewsAndHighlights = () => {
         </Typography>
         
         <a variant="body1" href='/' component="p" className={classes.button}>
-            Public Notice on Revision of Recruitment Rules for the post of Planning Assistant (re-designated as Planning Officer) in TCPO
+            Public Notice on Revision of Recruitment Rules for the post of Planning Assistant (re-designated as Planning Officer) in TCP
         </a>
         
         
