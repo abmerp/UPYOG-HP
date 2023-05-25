@@ -1,4 +1,4 @@
-import { BackButton } from "@egovernments/digit-ui-react-components";
+import { BackButton, PrivateRoute } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
@@ -10,10 +10,51 @@ import LanguageSelection from "./Home/LanguageSelection";
 import LocationSelection from "./Home/LocationSelection";
 import Login from "./Login";
 import UserProfile from "./Home/UserProfile";
-// import PDF from "../../assets/";
+import Strip from "./Home/TCP-HP/Strip";
+import GovtStrip from "./Home/TCP-HP/GovtStrip";
+import Navbar from "./Home/TCP-HP/Navbar";
+import MapFooter from "./Home/TCP-HP/Footer/MapFooter";
+import Objectives from "./Home/TCP-HP/Navigations/Objective";
+import OrganizationalSetup from "./Home/TCP-HP/Navigations/OrganizationalSetup";
+import ContactUs from "./Home/TCP-HP/Navigations/ContactUs";
+import EmployeeProfile from "./Home/TCP-HP/Navigations/EmployeeProfile";
+import ExEmployeeProfile from "./Home/TCP-HP/Navigations/ExEmployeeProfile";
+import Appendix1 from "./Home/TCP-HP/Navigations/Appendix1";
+import Appendix8 from "./Home/TCP-HP/Navigations/Appendix8";
+import AppartmentRegulation from "./Home/TCP-HP/Navigations/ApartmentRegulation";
+import CourtOrders from "./Home/TCP-HP/Navigations/CourtOrders";
+import NotificationTCPAct from "./Home/TCP-HP/Navigations/NotificationTCPAct";
+import ServiceMatter from "./Home/TCP-HP/Navigations/ServiceMatter";
+import PhotoGallery from "./Home/TCP-HP/Navigations/PhotoGallery";
+import VideoGallery from "./Home/TCP-HP/Navigations/VideoGallery";
+import HeritageGallery from "./Home/TCP-HP/Navigations/HeritageGallery";
+import PowerDelegation from "./Home/TCP-HP/Navigations/Delegation";
+import DevelopmentPlan from "./Home/TCP-HP/Navigations/DevelopmentPlan";
+import ApplyOnline from "./Home/TCP-HP/OurServices/ApplyOnline";
+import FormType from "./Home/TCP-HP/FeeCalculator";
+import Form12 from "./TCPForms/forms/form12";
+import Form11 from "./TCPForms/forms/form11";
+import Form16 from "./TCPForms/forms/form16";
+import Form26 from "./TCPForms/forms/form26";
+import Form34 from "./TCPForms/forms/form34";
+import FormRoute from "./Home/FormRoutes";
+import CitizenProfile from "./Home/TCP-HP/Cards/CitizenProfile";
+
 
 const getTenants = (codes, tenants) => {
   return tenants.filter((tenant) => codes.map((item) => item.code).includes(tenant.code));
+};
+
+const Layout = ({ children }) => {
+  return (
+    <React.Fragment>
+      <Strip />
+      <GovtStrip />
+      <Navbar />
+      {children}
+      <MapFooter />
+    </React.Fragment>
+  );
 };
 
 const Home = ({
@@ -63,7 +104,7 @@ const Home = ({
 
   return (
     <div className={classname}>
-      <TopBarSideBar
+      {/* <TopBarSideBar
         t={t}
         stateInfo={stateInfo}
         userDetails={userDetails}
@@ -73,14 +114,53 @@ const Home = ({
         handleUserDropdownSelection={handleUserDropdownSelection}
         logoUrl={logoUrl}
         showSidebar={true}
-      />
+      /> */}
 
       <div className={`main center-container mb-25`}>
         <Switch>
           <Route exact path={path}>
             <CitizenHome />
           </Route>
+          <Route path={`${path}/objectives`}><Layout><Objectives /></Layout></Route>
+          <Route path={`${path}/organizational-setup`}><Layout><OrganizationalSetup /></Layout></Route>
+          <Route path={`${path}/contact-us`}><Layout><ContactUs /></Layout></Route>
+          <Route path={`${path}/employeeprofile}`}><Layout><EmployeeProfile /></Layout></Route>
+          <Route path={`${path}/ex-employee-profile`}><Layout><ExEmployeeProfile /></Layout></Route>
+          <Route path={`${path}/appendix-1`}><Layout><Appendix1 /></Layout></Route>
+          <Route path={`${path}/appendix-8`}><Layout><Appendix8 /></Layout></Route>
+          <Route path={`${path}/apartment-colonies-regulation`}><Layout><AppartmentRegulation /></Layout></Route>
+          <Route path={`${path}/court-orders`}><Layout><CourtOrders /></Layout></Route>
+          <Route path={`${path}/notifications-under-tcp-act`}><Layout><NotificationTCPAct /></Layout></Route>
+          <Route path={`${path}/service-matter`}><Layout><ServiceMatter /></Layout></Route>
+          <Route path={`${path}/photo-gallery`}><Layout><PhotoGallery /></Layout></Route>
+          <Route path={`${path}/video-gallery`}><Layout><VideoGallery /></Layout></Route>
+          <Route path={`${path}/heritage-gallery`}><Layout><HeritageGallery /></Layout></Route>
+          <Route path={`${path}/delegation-of-powers`}><Layout><PowerDelegation /></Layout></Route>
+          <Route path={`${path}/development-plan`}><Layout><DevelopmentPlan /></Layout></Route>
+          <Route path={`${path}/applyOnline`}><Layout><ApplyOnline /></Layout></Route>
+          <Route path={`${path}/feeCalculator`}><Layout><FormType /></Layout></Route>
+          <Route path={`${path}/form12`}><Form12 /></Route>
+          <FormRoute 
+          path={`${path}/profile`} 
+          component={() => 
+          <CitizenProfile
+          t={t} 
+          stateInfo={stateInfo}
+          userDetails={userDetails}
+          CITIZEN={CITIZEN}
+          cityDetails={cityDetails}
+          mobileView={mobileView}
+          handleUserDropdownSelection={handleUserDropdownSelection}
+          logoUrl={logoUrl}
+          />
+          
+          }>
 
+          </FormRoute>
+
+          <Route path={`${path}/services/form11`}><Form11 /></Route>
+          <Route path={`${path}/services/form26`}><Form26 /></Route>
+          <Route path={`${path}/services/form34`}><Form34 /></Route>
           <Route exact path={`${path}/select-language`}>
             <LanguageSelection />
           </Route>
@@ -112,7 +192,7 @@ const Home = ({
         </Switch>
       </div>
       <div style={{ width: '100%', bottom: 0 }}>
-        <div style={{ display: 'flex', justifyContent: 'center', color:"#22394d" }}>
+        <div style={{ display: 'flex', justifyContent: 'center', color:"#1F4A7C" }}>
           <img style={{ cursor: "pointer", display: "inline-flex", height: '1.4em' }} alt={"Powered by DIGIT"} src={`${sourceUrl}/digit-footer.png`} onError={"this.src='./../digit-footer.png'"} onClick={() => {
             window.open('https://www.digit.org/', '_blank').focus();
           }}></img>

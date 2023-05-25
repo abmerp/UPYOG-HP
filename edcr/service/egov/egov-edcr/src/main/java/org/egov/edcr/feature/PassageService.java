@@ -66,10 +66,10 @@ import org.springframework.stereotype.Service;
 public class PassageService extends FeatureProcess {
 		private static final String RULE41 = "41";
 		private static final String RULE39_6 = "39(6)";
-		private static final String MINIMUM_HEIGHT_DESCRIPTION = "The minimum height of passage";
-		private static final String MINIMUM_HEIGHT_OF_PASSAGE = "2.15";
+//		private static final String MINIMUM_HEIGHT_DESCRIPTION = "The minimum height of passage";
+//		private static final String MINIMUM_HEIGHT_OF_PASSAGE = "2.15";
 //		private static final String PASSAGE_STAIR_MINIMUM_WIDTH = "1.2";
-		private static final String MINIMUM_WIDTH_OF_PASSAGE = "1.25";
+		private static final String MINIMUM_WIDTH_OF_PASSAGE = "1";
 //		private static final String RULE39_6_DESCRIPTION = "The minimum passage giving access to stair";
 		private static final String RULE_41_DESCRIPTION = "The minimum width of corridors / passages";
 		
@@ -105,7 +105,7 @@ public class PassageService extends FeatureProcess {
 
 					List<BigDecimal> passagePolylines = passage.getPassageDimensions();
 					List<BigDecimal> passageStairPolylines = passage.getPassageStairDimensions();
-					List<BigDecimal> passageHeight = passage.getPassageHeight();
+//					List<BigDecimal> passageHeight = passage.getPassageHeight();
 					
 					if (passagePolylines != null && passagePolylines.size() > 0) {
 
@@ -115,7 +115,7 @@ public class PassageService extends FeatureProcess {
 						BigDecimal minWidth = Util.roundOffTwoDecimal(minPassagePolyLine);
 						
 //						if (minWidth.compareTo(BigDecimal.ONE) >= 0) {
-						if (minWidth.compareTo(Util.roundOffTwoDecimal(BigDecimal.valueOf(1.25))) >= 0) {
+						if (minWidth.compareTo(Util.roundOffTwoDecimal(BigDecimal.valueOf(1))) >= 0) {
 							setReportOutputDetails(plan, RULE41, RULE_41_DESCRIPTION,
 									MINIMUM_WIDTH_OF_PASSAGE, String.valueOf(minWidth), Result.Accepted.getResultVal(),
 									scrutinyDetail);
@@ -143,22 +143,22 @@ public class PassageService extends FeatureProcess {
 //						}
 //					}
 					
-					if (passageHeight != null && passageHeight.size() > 0) {
-
-						BigDecimal minPassageHeight = passageHeight.stream().reduce(BigDecimal::min).get();;
-
-						BigDecimal minHeight = Util.roundOffTwoDecimal(minPassageHeight);
-						
-						if (minHeight.compareTo(Util.roundOffTwoDecimal(BigDecimal.valueOf(2.15))) >= 0) {
-							setReportOutputDetails(plan, RULE39_6, MINIMUM_HEIGHT_DESCRIPTION,
-									MINIMUM_HEIGHT_OF_PASSAGE, String.valueOf(minHeight), Result.Accepted.getResultVal(),
-									scrutinyDetail);
-						} else {
-							setReportOutputDetails(plan, RULE39_6, MINIMUM_HEIGHT_DESCRIPTION,
-									MINIMUM_HEIGHT_OF_PASSAGE, String.valueOf(minHeight), Result.Not_Accepted.getResultVal(),
-									scrutinyDetail);
-						}
-					}
+//					if (passageHeight != null && passageHeight.size() > 0) {
+//
+//						BigDecimal minPassageHeight = passageHeight.stream().reduce(BigDecimal::min).get();;
+//
+//						BigDecimal minHeight = Util.roundOffTwoDecimal(minPassageHeight);
+//						
+//						if (minHeight.compareTo(Util.roundOffTwoDecimal(BigDecimal.valueOf(2.15))) >= 0) {
+//							setReportOutputDetails(plan, RULE39_6, MINIMUM_HEIGHT_DESCRIPTION,
+//									MINIMUM_HEIGHT_OF_PASSAGE, String.valueOf(minHeight), Result.Accepted.getResultVal(),
+//									scrutinyDetail);
+//						} else {
+//							setReportOutputDetails(plan, RULE39_6, MINIMUM_HEIGHT_DESCRIPTION,
+//									MINIMUM_HEIGHT_OF_PASSAGE, String.valueOf(minHeight), Result.Not_Accepted.getResultVal(),
+//									scrutinyDetail);
+//						}
+//					}
 
 				}
 			}

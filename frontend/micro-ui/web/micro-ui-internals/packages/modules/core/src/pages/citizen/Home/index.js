@@ -3,11 +3,39 @@ import {
 } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
+import Strip from "./TCP-HP/Strip";
+import GovtStrip from "./TCP-HP/GovtStrip";
+import ImageSlider from "./TCP-HP/ImageSlider";
+import images from "./TCP-HP/images";
+import NewsTicker from "./TCP-HP/NewsTicker";
+import Card from "./TCP-HP/Cards/Card";
+import AuthAndServices from "./TCP-HP/AuthAndServices";
+import Facilation from "./TCP-HP/Facilation";
+import FormAndCheckList from "./TCP-HP/FormAndCheckList";
+import LinksSlideshow from "./TCP-HP/LinksSlideShow";
+import MapFooter from "./TCP-HP/Footer/MapFooter";
+import Navbar from "./TCP-HP/Navbar";
+import Footers from "./TCP-HP/Footers";
+
+
+const Layout = ({ children }) => {
+  return (
+    <React.Fragment>
+      <Strip />
+      <GovtStrip />
+      <Navbar />
+      {children}
+      <Footers />
+    </React.Fragment>
+  );
+};
 
 const Home = () => {
   const { t } = useTranslation();
   const history = useHistory();
+  const { path } = useRouteMatch();
   const tenantId = Digit.ULBService.getCitizenCurrentTenant(true);
   const { data: { stateInfo } = {}, isLoading } = Digit.Hooks.useStore.getInitData();
 
@@ -101,33 +129,46 @@ const Home = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <div className="HomePageWrapper">
-      <div className="BannerWithSearch">
-        <img src={stateInfo?.bannerUrl} />
-        <div className="Search">
-          <StandaloneSearchBar placeholder={t("CS_COMMON_SEARCH_PLACEHOLDER")} />
-        </div>
-      </div>
+    // <div className="HomePageWrapper">
+    //   <div className="BannerWithSearch">
+    //     <img src={stateInfo?.bannerUrl} />
+    //     <div className="Search">
+    //       <StandaloneSearchBar placeholder={t("CS_COMMON_SEARCH_PLACEHOLDER")} />
+    //     </div>
+    //   </div>
 
-      <div className="ServicesSection">
-        <CardBasedOptions {...allCitizenServicesProps} />
-        <CardBasedOptions {...allInfoAndUpdatesProps} />
-      </div>
+    //   <div className="ServicesSection">
+    //     <CardBasedOptions {...allCitizenServicesProps} />
+    //     <CardBasedOptions {...allInfoAndUpdatesProps} />
+    //   </div>
 
-      {conditionsToDisableNotificationCountTrigger() ? (
-        EventsDataLoading ? (
-          <Loader />
-        ) : (
-          <div className="WhatsNewSection">
-            <div className="headSection">
-              <h2>{t("DASHBOARD_WHATS_NEW_LABEL")}</h2>
-              <p onClick={() => history.push("/digit-ui/citizen/engagement/whats-new")}>{t("DASHBOARD_VIEW_ALL_LABEL")}</p>
-            </div>
-            <WhatsNewCard {...EventsData?.[0]} />
-          </div>
-        )
-      ) : null}
-    </div>
+    //   {conditionsToDisableNotificationCountTrigger() ? (
+    //     EventsDataLoading ? (
+    //       <Loader />
+    //     ) : (
+    //       <div className="WhatsNewSection">
+    //         <div className="headSection">
+    //           <h2>{t("DASHBOARD_WHATS_NEW_LABEL")}</h2>
+    //           <p onClick={() => history.push("/digit-ui/citizen/engagement/whats-new")}>{t("DASHBOARD_VIEW_ALL_LABEL")}</p>
+    //         </div>
+    //         <WhatsNewCard {...EventsData?.[0]} />
+    //       </div>
+    //     )
+    //   ) : null}
+    // </div>
+    <Switch> 
+      <Route path='/*'><Layout>
+        <ImageSlider images={images}/>
+        <NewsTicker />
+        <Card />
+        <AuthAndServices />
+        <Facilation />
+        <FormAndCheckList />
+        <LinksSlideshow />
+        <MapFooter />
+      </Layout>
+      </Route>
+    </Switch>
   );
 };
 

@@ -22,6 +22,7 @@ import ApplicationDetails from "./ApplicationDetail";
 //import EdcrInbox from "./EdcrInbox";
 import OBPSResponse from "../employee/OBPSResponse";
 import Inbox from "../employee/Inbox";
+import BPACitizenHomeScreens from "./home";
 
 const App = ({ path }) => {
   const location = useLocation();
@@ -46,7 +47,7 @@ const App = ({ path }) => {
     <React.Fragment>
        {!location.pathname.includes("response") && !location.pathname.includes("openlink/stakeholder") && !location.pathname.includes("/acknowledgement") && !isDocScreenAfterEdcr && <BackButton style={{ border: "none" }}>{t("CS_COMMON_BACK")}</BackButton>}
       <Switch>
-        <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreen} />
+        <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreens} />
         <PrivateRoute path={`${path}/search/application`} component={(props) => <Search {...props} parentRoute={path} />} />
         <PrivateRoute path={`${path}/edcrscrutiny/apply`} component={CreateEDCR} />
         <PrivateRoute path={`${path}/edcrscrutiny/oc-apply`} component={CreateOCEDCR} />

@@ -27,6 +27,8 @@ import { initCommonPTComponents } from "@egovernments/digit-ui-module-commonpt";
 // import { PGRModule, PGRLinks } from "@egovernments/digit-ui-module-pgr";
 // import { Body, TopBar } from "@egovernments/digit-ui-react-components";
 import "@egovernments/digit-ui-css/example/index.css";
+// import './index.css'
+
 
 // import * as comps from "@egovernments/digit-ui-react-components";
 
@@ -104,7 +106,7 @@ const moduleReducers = (initData) => ({
   window.Digit.Customizations = { PGR: pgrCustomizations ,TL:{customiseCreateFormData:(formData,licenceObject)=>licenceObject,
     customiseRenewalCreateFormData:(formData,licenceObject)=>licenceObject,customiseSendbackFormData:(formData,licenceObject)=>licenceObject}};
 
-  const stateCode = "pg";
+  const stateCode = "hr";
   initTokens(stateCode);
 
   const registry = window?.Digit.ComponentRegistryService.getRegistry();

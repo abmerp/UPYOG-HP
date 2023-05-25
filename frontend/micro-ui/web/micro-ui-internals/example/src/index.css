@@ -1,0 +1,627 @@
+.certificate-container {
+    padding: 10px;
+    width: 85vw;
+    margin: auto;
+    font-family: Roboto;
+  }
+  
+  .certificate {
+    border: 8px solid brown;
+    padding: 15px;
+    height: max-content;
+    position: relative;
+  }
+  
+  .certificate:after {
+    content: '';
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    background-size: 100%;
+    z-index: -1;
+  }
+  
+  .certificate-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .certificate-header > h2 {
+    font-size: 1rem;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+  }
+  
+  .certificate-header > .logo {
+    width: 150px;
+    height: 150px;
+    
+  }
+  
+  .certificate-title {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  .certificate-body {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  h1 {
+    font-weight: 400;
+    font-size: 48px;
+    color: #151718;
+    text-decoration: underline;
+  
+  }
+  
+  
+  .certificate-date {
+    display: flex;
+    width: 90%;
+    margin: 1rem auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .certificate-to {
+    display: flex;
+    width: 90%;
+    /* margin: 1rem auto; */
+    justify-content: space-between;
+    align-items: justify;
+    margin-top: 20px;
+    margin-left: 30px;
+  }
+  
+  .certificate-date > h2 {
+    font-size: 1.1rem;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+  }
+  
+  .name {
+    display: flex;
+    width: 80%;
+    margin: 1rem auto;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .body{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 1rem auto;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    text-align: left;
+    font-size: 16px;
+    text-align:justify;
+    line-height: 30px;
+    margin-top: 50px;
+    color:#151718;
+    font-stretch:ultra-condensed;
+    font-weight: normal;
+  
+  
+  }
+  
+  .body1{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 1rem auto;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    text-align: left;
+    font-size: 16px;
+    text-align:justify;
+    line-height: 15px;
+    margin-top: 50px;
+    color:#151718;
+    font-stretch:ultra-condensed;
+    font-weight: normal;
+  
+  
+  }
+  
+  .srNo{
+    font-size:15px;
+    margin-left: 20px;
+    margin-top:5px;
+    
+  
+  }
+  
+  .applied-name {
+    margin-left: 1rem;
+    text-align: justify;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+    font-weight: 550;
+    font-size: 18;
+  }
+  
+  .certificate-to > h5 {
+    margin-top: 2rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  
+  .certificate-signature {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  
+  }
+  
+  .certificate-signature > img {
+    width: 300px;
+    height: 200px;
+    object-fit: contain;
+  }
+  
+  .list {
+    margin-top: 0.5rem;
+    width: 90%;
+    margin: auto;
+  }
+  
+  .list h5 {
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 400;
+  
+  }
+  
+  .certificate-last {
+    display: flex;
+    /* //margin: 1rem auto; */
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  
+  .certificate-last img {
+    width: 250px;
+    height: 200px;
+    object-fit: contain;
+  
+  }
+  
+  .certificate:after {
+    content: '';
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    /* background-image: url("D:\upyog-components\src\assets\watermark.png");  */
+    /* background-image:url("https://obpsud.hp.gov.in/img/logoHP.png"); */
+  
+    background-size: 30%;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+  }
+  
+  .border-title{
+    text-decoration: none;
+    font-size: 18px;
+    border: 3px solid#004D00;
+    border-radius: 20px;
+    padding: 10px;
+    color: rgb(22, 173, 52);
+    font-weight: 700;
+    margin-top: 10px;
+    
+  }
+  .qrcode__container {
+    display: flex;
+    align-items: center;
+    border: 2px ridge black;
+    padding: 7px!important;
+  }
+  
+  .mis {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+  }
+  
+  .btnstyle2{
+    height: 29px;
+    text-align: center;
+    background-color: #F8F8F8;
+    border-radius: 3px;
+    border: 2px solid #E8E8E8;
+    font-size: 12px;
+  }
+  
+  .mis-header{
+    text-decoration: none;
+    font-size: 18px;
+    border: 3px solid#004D00;
+    border-radius: 18px;
+    color: rgb(22, 173, 52);
+    font-weight: 700;
+    margin-top: 10px;
+    width:fit-content;
+    padding: 10px;
+    margin-left:37%;
+  }
+  
+  .container1 .header {
+    text-align: center;
+    background-color: #fff7cb;
+    padding: 0.713vw;
+    font-size: 1.2vw;
+    margin-bottom: 0.875vw;
+    font-weight: 600;
+  }
+  
+  .container1 .note {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  
+  .container1 {
+    width: 90vw;
+    margin: 3vw auto;
+  }
+  
+  .container1 .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .container1 .headerContainer .buttonWrapper {
+    display: flex;
+    justify-items: flex-start;
+    align-items: center;
+    gap: 1vw;
+    margin-top: 1vw;
+  }
+  
+  .container1 .straightLine {
+    height: 0.063vw;
+    background-color: grey;
+    margin-top: 0.2vw;
+  }
+  
+  .container1 .formContainer {
+    margin: 2vw auto;
+  }
+  
+  .container1 .formContainer .formHeaderContainer .formHeading {
+    font-size: 1.4vw;
+    color: darkslategray;
+    font-weight: 600;
+    margin-bottom: 0.3vw;
+  }
+  
+  .container1 .formContainer .formInputContainer {
+    border: 0.063vw solid grey;
+    border-radius: 0.2vw;
+    padding: .7vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  
+  .container1 .formContainer .formInputContainer .inputContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .container1 .formContainer .formInputContainer .columnWrapper {
+    gap: 1vw;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container1 .formContainer .formInputContainer .inputContainer .label {
+    font-size: 1.1vw;
+    font-weight: 400;
+    margin-left: 4vw;
+    width: 16vw;
+    margin-right: 3vw;
+  }
+  
+  .container1 .formContainer .formInputContainer .inputContainer .label.photo {
+    width: 10vw;
+  }
+  
+  .container1 .formContainer .formInputContainer .inputContainer .label.multiCoumn {
+    width: 11vw !important;
+  }
+  
+  .addressType {
+    font-size: 1.2vw;
+    font-weight: 500;
+    color: darkslategrey;
+    margin-left: 4vw;
+    text-decoration: underline;
+  }
+  
+  .footerContainer .buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+  }
+  
+  .addressType {
+    display: flex;
+    align-items: center;
+  }
+  
+  .tableWrapper {
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 2vw;
+  }
+  
+  .tableWrapper .row {
+    display: flex;
+    border-top: 1px solid #e0e0e0;
+    justify-content: center;
+  }
+  
+  .tableWrapper .heading {
+    font-size: 1.1vw;
+    font-weight: 600;
+  }
+  
+  /* .row:nth-child(2) {} */
+  
+  .tableWrapper .row .serial {
+    width: 4vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .tableWrapper .row .description {
+    padding: 0.938vw;
+    width: 20vw;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .tableWrapper .row .regulation {
+    width: 17vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+  }
+  
+  .tableWrapper .row .proposed {
+    width: 17vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .tableWrapper .row .remarks {
+    width: 17vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .tableWrapper .row .relaxation {
+    width: 8vw;
+    padding: 0.938vw;
+  }
+  
+  .checkboxWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    margin-top: 1vw;
+    justify-content: center;
+    padding: 0.625vw;
+  }
+  
+  .box p {
+    border: 1px solid #e0e0e0;
+    padding: 0.5vw;
+  }
+  
+  .uploadHtml {
+    padding: 0.625vw;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .uploadHtml h6 {
+    margin-top: 0.5vw;
+  }
+  
+  .subCol {
+    width: 33.3vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  
+  }
+  
+  .subCol .first,
+  .subCol .second {
+    width: 50%;
+    padding: 7px;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .subCol .second {
+    font-weight: 600;
+  }
+  
+  .table-image {
+    width: 10rem;
+    margin-top: 1rem;
+  }
+  
+  .mainContainer {
+    height: 100vh;
+    /* background-image: url("../assets/rupee.webp"); */
+  }
+  
+  .mainContainer .mainHead {
+    background-color: rgb(34, 28, 28);
+    height: 4rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    padding-left: 3rem;
+    justify-content: space-between;
+    padding-right: 4rem;
+  }
+  
+  .mainContainer .mainHead .iconGap {
+    display: flex;
+    gap: 3rem;
+  
+  }
+  
+  .mainContainer .mainSection {
+    text-align: center;
+  }
+  
+  
+  .mainContainer .mainSection h1 {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+    color: rgb(13, 3, 3);
+  }
+  
+  .mainContainer .mainSection h1 span {
+    color: crimson;
+  }
+  
+  .mainContainer .tableBody {
+    background-color: white;
+    width: 90%;
+    margin: 5rem auto;
+    border: 1px solid grey;
+  }
+  
+  .mainContainer .tableBody .head {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: rgba(217, 212, 212, 0.455);
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    border-bottom: 1px solid grey;
+  }
+  
+  .mainContainer .tableBody .table {
+    height: 2.6rem;
+    display: flex;
+    gap: 2rem;
+    border-bottom: 1px solid grey;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .mainContainer .tableBody .table .leftCol {
+    width: 60%;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 2rem;
+    align-items: center;
+    border-right: 1px solid grey;
+  
+  }
+  
+  .mainContainer .tableBody .table .rightCol {
+    width: 40%;
+    text-align: right;
+    padding-right: 4rem;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 2rem;
+    align-items: center;
+  }
+  
+  .mainContainer .paymentMethod {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+  }
+  
+  .mainContainer .footerContainer {
+    margin-top: 4rem;
+  }
+  
+  .notificationMainSection.mainSection {
+    color: blue;
+    background-color: rgba(154, 220, 242, 0.26);
+    border: 1px solid aqua;
+    margin-top: 4rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5rem;
+  }
+  
+  .mainSection.bgGreen {
+    background-color: rgb(196, 229, 196);
+    border: 1px solid rgb(47, 255, 68);
+    color: rgb(42, 184, 85);
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+  
+  .mainSection.bgGreen span {
+    color: crimson;
+  }
+  
+  .mainContainer .wrapper {
+    text-align: center;
+    margin-top: 5rem;
+  
+  }
+  
+  .menuItem {
+    width: 15.625vw;
+    text-align: center;
+  }
+  
+  .img {
+    width: 4vw;
+    height: 4vw;
+    object-fit: contain;
+  }

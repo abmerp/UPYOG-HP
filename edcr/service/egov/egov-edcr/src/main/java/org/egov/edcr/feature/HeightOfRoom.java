@@ -85,7 +85,7 @@ public class HeightOfRoom extends FeatureProcess {
     private static final String SUBRULE_41_II_B_AREA_DESC = "Total area of rooms";
     private static final String SUBRULE_41_II_B_TOTAL_WIDTH = "Minimum Width of room";
 
-    public static final BigDecimal MINIMUM_HEIGHT_3_6 = BigDecimal.valueOf(3.6);
+    public static final BigDecimal MINIMUM_HEIGHT_3_5 = BigDecimal.valueOf(3.5);
     public static final BigDecimal MINIMUM_HEIGHT_3 = BigDecimal.valueOf(3);
     public static final BigDecimal MINIMUM_HEIGHT_2_75 = BigDecimal.valueOf(2.75);
     public static final BigDecimal MINIMUM_HEIGHT_2_4 = BigDecimal.valueOf(2.4);
@@ -234,7 +234,7 @@ public class HeightOfRoom extends FeatureProcess {
                                     if (!G.equalsIgnoreCase(mostRestrictiveOccupancy.getType().getCode()))
                                         minimumHeight = MINIMUM_HEIGHT_2_75;
                                     else
-                                        minimumHeight = MINIMUM_HEIGHT_3_6;
+                                        minimumHeight = MINIMUM_HEIGHT_3_5;
 
                                     subRule = SUBRULE_41_II_A;
                                     subRuleDesc = SUBRULE_41_II_A_REGULAR_DESC;
@@ -289,7 +289,7 @@ public class HeightOfRoom extends FeatureProcess {
                                     if (!G.equalsIgnoreCase(mostRestrictiveOccupancy.getType().getCode()))
                                         minimumHeight = MINIMUM_HEIGHT_2_75;
                                     else
-                                        minimumHeight = MINIMUM_HEIGHT_3_6;
+                                        minimumHeight = MINIMUM_HEIGHT_3_5;
 
                                     subRule = SUBRULE_41_II_A;
                                     floorRuleDesc = SUBRULE_41_II_A_FLOOR;
@@ -319,7 +319,7 @@ public class HeightOfRoom extends FeatureProcess {
 
                                 else if (roomAreas.size() == 2) {
                                     minimumHeight = MINIMUM_AREA_9_5;
-                                    minWidth = MINIMUM_WIDTH_2_1;
+                                    minWidth = MINIMUM_WIDTH_2_4;
                                 }
                                 subRule = SUBRULE_41_II_B;
                                 subRuleDesc = SUBRULE_41_II_B_AREA_DESC;

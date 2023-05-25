@@ -1,0 +1,14 @@
+.container .header {
+    text-align: center;
+    background-color: #fff7cb;
+    padding: 0.713vw;
+    font-size: 1.2vw;
+    margin-bottom: 0.875vw;
+    font-weight: 600;
+}
+
+.container .note {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
