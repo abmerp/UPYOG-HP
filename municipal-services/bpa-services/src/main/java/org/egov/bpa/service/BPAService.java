@@ -147,7 +147,7 @@ public class BPAService {
 
 	public BpaV2 createe(@Valid BPARequestV2 bpaRequest) {
 		RequestInfo requestInfo = bpaRequest.getRequestInfo();
-		String tenantId = bpaRequest.getBPA().getTenantId().split("\\.")[0];
+		String tenantId = bpaRequest.getBPA().getTenantId();
 		Object mdmsData = util.mDMSCall(requestInfo, tenantId);
 		String serviceType = bpaRequest.getBPA().getServiceType();
 		Map<String, String> values = new HashMap<String, String>();
