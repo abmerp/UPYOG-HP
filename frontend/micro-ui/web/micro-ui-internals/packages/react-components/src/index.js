@@ -156,6 +156,7 @@ import TopBar from "./atoms/TopBar";
 import UploadFile from "./atoms/UploadFile";
 import UploadImages from "./atoms/UploadImages";
 import CardBasedOptions from "./atoms/CardBasedOptions";
+import CardBasedFormsOptions from "./atoms/CardBasedFormsOptions";
 import WhatsNewCard from "./atoms/WhatsNewCard";
 import EventCalendarView from "./atoms/EventCalendarView";
 import InboxLinks from "./atoms/InboxLinks";
@@ -268,6 +269,7 @@ export {
   EmployeeModuleCard,
   StandaloneSearchBar,
   CardBasedOptions,
+  CardBasedFormsOptions,
   WhatsNewCard,
   EventCalendarView,
   InboxLinks,

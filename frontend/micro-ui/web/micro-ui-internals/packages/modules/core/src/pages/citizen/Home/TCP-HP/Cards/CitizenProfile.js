@@ -1,10 +1,11 @@
 import {
-    Calender, CardBasedOptions, CaseIcon, ComplaintIcon, DocumentIcon, HomeIcon, Loader, OBPSIcon, PTIcon, StandaloneSearchBar, WhatsNewCard
+    Calender, CardBasedOptions, CardBasedFormsOptions, CaseIcon, ComplaintIcon, DocumentIcon, HomeIcon, Loader, OBPSIcon, PTIcon, StandaloneSearchBar, WhatsNewCard
 } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import TopBarSideBar from "../../../../../components/TopBarSideBar";
+// import CardBasedFormsOptions from "@egovernments/digit-ui-react-components/src/atoms/CardBasedFormsOptions";
 
 const CitizenProfile = ({
   // stateInfo,
@@ -45,59 +46,69 @@ const CitizenProfile = ({
       onClick: () => history.push("/digit-ui/citizen/all-services"),
     },
     options: [
-      {
-        name: t("ES_PGR_HEADER_COMPLAINT"),
-        Icon: <ComplaintIcon />,
-        onClick: () => history.push("/digit-ui/citizen/pgr-home"),
-      },
-      {
-        name: t("MODULE_PT"),
-        Icon: <PTIcon className="fill-path-primary-main" />,
-        onClick: () => history.push("/digit-ui/citizen/pt-home"),
-      },
-      {
-        name: t("MODULE_TL"),
-        Icon: <CaseIcon className="fill-path-primary-main" />,
-        onClick: () => history.push("/digit-ui/citizen/tl-home"),
-      },
+      // {
+      //   name: t("ES_PGR_HEADER_COMPLAINT"),
+      //   Icon: <ComplaintIcon />,
+      //   onClick: () => history.push("/digit-ui/citizen/pgr-home"),
+      // },
+      // {
+      //   name: t("MODULE_PT"),
+      //   Icon: <PTIcon className="fill-path-primary-main" />,
+      //   onClick: () => history.push("/digit-ui/citizen/pt-home"),
+      // },
+      // {
+      //   name: t("MODULE_TL"),
+      //   Icon: <CaseIcon className="fill-path-primary-main" />,
+      //   onClick: () => history.push("/digit-ui/citizen/tl-home"),
+      // },
       // {
       //     name: t("ACTION_TEST_WATER_AND_SEWERAGE"),
       //     Icon: <DropIcon/>,
       //     onClick: () => history.push("/digit-ui/citizen")
       // },
-      {
-        name: t("CS_COMMON_INBOX_BPA"),
-        Icon: <OBPSIcon />,
-        onClick: () => history.push("/digit-ui/citizen/obps-home"),
-      },
+      // {
+      //   name: t("CS_COMMON_INBOX_BPA"),
+      //   Icon: <OBPSIcon />,
+      //   onClick: () => history.push("/digit-ui/citizen/obps-home"),
+      // },
       {
         name: t("Application for permission of Subdivision/Development of land - Form11"),
-        Icon: <CaseIcon className="fill-path-primary-main"/>,
-        onClick: () => history.push("/digit-ui/citizen/services/form11"),
+        Icon: 'https://live.staticflickr.com/65535/52918330942_e84025ff6b_m.jpg',
+        onClick: () => history.push("/digit-ui/citizen/services/form11links"),
       },
       {
         name: t("Application for building plan Permission - Form12"),
-        Icon: <CaseIcon className="fill-path-primary-main"/>,
-        onClick: () => history.push("/digit-ui/citizen/obps/bpa/inbox"),
+        Icon: 'https://live.staticflickr.com/65535/52919069089_4f9b54e131_m.jpg',
+        onClick: () => history.push("/digit-ui/citizen/obps/edcrscrutiny/apply/home"),
       },
       {
         name: t("Application for composition of offences - Form26"),
-        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        Icon: 'https://live.staticflickr.com/65535/52919298260_7d4f971a64_m.jpg',
         onClick: () => history.push("/digit-ui/citizen/services/form26"),
       },
       {
-        name: t("Application for Real Estate Project - Form47"),
-        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        name: t("Application for Real Estate Project - Form34"),
+        Icon: 'https://live.staticflickr.com/65535/52919069129_39ee000a4a_m.jpg',
         onClick: () => history.push("/digit-ui/citizen/services/form34"),
       },
       {
         name: t("Application for Change of Land Use"),
-        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        Icon: 'https://live.staticflickr.com/65535/52919371468_12b6c2f069_m.jpg',
         onClick: () => history.push("/digit-ui/citizen/services/form34"),
       },
       {
         name: t("Application for permission of mobile tower"),
-        Icon: <CaseIcon className="fill-path-primary-main"/>,
+        Icon: 'https://live.staticflickr.com/65535/52919069099_3e46737a47_m.jpg',
+        onClick: () => history.push("/digit-ui/citizen/services/form11"),
+      },
+      {
+        name: t("Application for Appeal -Form 16"),
+        Icon: 'https://live.staticflickr.com/65535/52926586726_37783830c6_m.jpg',
+        onClick: () => history.push("/digit-ui/citizen/services/form16"),
+      },
+      {
+        name: t("Application for NOC"),
+        Icon: 'https://live.staticflickr.com/65535/52925993062_4896170e72_m.jpg',
         onClick: () => history.push("/digit-ui/citizen/services/form11"),
       },
      
@@ -155,14 +166,14 @@ const CitizenProfile = ({
         showSidebar={true}
       />
       <div className="BannerWithSearch">
-        <img src={stateInfo?.bannerUrl} />
+        <img src='https://static.toiimg.com/photo/93246451.cms' alt="sukhkisarkar" />
         <div className="Search">
           <StandaloneSearchBar placeholder={t("CS_COMMON_SEARCH_PLACEHOLDER")} />
         </div>
       </div>
 
       <div className="ServicesSection">
-        <CardBasedOptions {...allCitizenServicesProps} />
+        <CardBasedFormsOptions {...allCitizenServicesProps} />
         <CardBasedOptions {...allInfoAndUpdatesProps} />
       </div>
 
