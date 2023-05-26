@@ -140,7 +140,7 @@ public class Utility extends Measurement {
     public List<Solar> getSolar() {
         return solar;
     }
-
+    
     public List<RainWaterHarvesting> getRainWaterHarvest() {
         return rainWaterHarvest;
     }

@@ -22,10 +22,13 @@ public class DxfFileConstants {
     public static final String A_R = "A-R"; // Single family Residential
     public static final String A_AF = "A-AF"; // Apartment/Flat
     public static final String A_FH = "A-FH"; // Farm House
-    public static final String A_SR = "A-SR";// Special Residential
-    public static final String A_HE = "A-HE";// Hostel Educational
+//    public static final String A_SR = "A-SR";// Special Residential
+//    public static final String A_HE = "A-HE";// Hostel Educational
+//    public static final String A_PO = "A-PO";// Professional Office
+    public static final String A_D = "A-D";// Special Residential
+    public static final String A_SD = "A-SD";// Hostel Educational
     public static final String A_SA = "A-SA";// Service Apartment
-    public static final String A_PO = "A-PO";// Professional Office
+    public static final String A_RH = "A-RH";// Professional Office
     public static final String A_AF_GH = "A-AF-GH";
 
     public static final String B2 = "B2";// Educational HighSchool

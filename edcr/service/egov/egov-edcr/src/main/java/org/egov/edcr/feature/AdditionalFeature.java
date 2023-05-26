@@ -71,8 +71,10 @@ import org.egov.common.entity.edcr.ScrutinyDetail;
 import org.egov.common.entity.edcr.SetBack;
 import org.egov.common.entity.edcr.Yard;
 import org.egov.edcr.constants.DxfFileConstants;
+import org.egov.edcr.entity.blackbox.PlotDetail;
 import org.egov.edcr.utility.DcrConstants;
 import org.egov.infra.utils.StringUtils;
+import org.kabeja.dxf.DXFLWPolyline;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -95,8 +97,14 @@ public class AdditionalFeature extends FeatureProcess {
     private static final BigDecimal SEVEN = BigDecimal.valueOf(7);
     private static final BigDecimal TEN = BigDecimal.valueOf(10);
     private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
-    private static final BigDecimal SIXTEENPOINTFIVE = BigDecimal.valueOf(16.5);
     private static final BigDecimal NINETEEN = BigDecimal.valueOf(19);
+
+    private static final BigDecimal TWENTYONE = BigDecimal.valueOf(21);
+    private static final BigDecimal EIGHTEEN = BigDecimal.valueOf(18);
+    private static final BigDecimal ONEHUNDREDFIFTY = BigDecimal.valueOf(150);
+    private static final BigDecimal TWOHUNDREDFIFTY = BigDecimal.valueOf(250);
+    private static final BigDecimal NINTY = BigDecimal.valueOf(90);
+    private static final BigDecimal ONEHUNDREDTWENTY = BigDecimal.valueOf(120);
 
     private static final BigDecimal ROAD_WIDTH_TWO_POINTFOUR = BigDecimal.valueOf(2.4);
     private static final BigDecimal ROAD_WIDTH_TWO_POINTFOURFOUR = BigDecimal.valueOf(2.44);
@@ -124,11 +132,11 @@ public class AdditionalFeature extends FeatureProcess {
     public static final String NEW = "NEW";
     public static final String OLD_AREA_ERROR = "road width old area";
     public static final String NEW_AREA_ERROR = "road width new area";
-    public static final String OLD_AREA_ERROR_MSG = "No construction shall be permitted if the road width is less than 2.4m for old area.";
-    public static final String NEW_AREA_ERROR_MSG = "No construction shall be permitted if the road width is less than 6.1m for new area.";
+//    public static final String OLD_AREA_ERROR_MSG = "No construction shall be permitted if the road width is less than 2.4m for old area.";
+//    public static final String NEW_AREA_ERROR_MSG = "No construction shall be permitted if the road width is less than 6.1m for new area.";
     public static final String NO_OF_FLOORS = "Maximum number of floors allowed";
     public static final String HEIGHT_BUILDING = "Maximum height of building allowed";
-    public static final String MIN_PLINTH_HEIGHT = " >= 0.45 & <= 1.5";
+    public static final String MIN_PLINTH_HEIGHT = " >= 0.45 & <= 2";
     public static final String MIN_PLINTH_HEIGHT_DESC = "Plinth height";
     public static final String MAX_BSMNT_CELLAR = "Number of basement/cellar allowed";
     public static final String MIN_INT_COURT_YARD = "0.15";
@@ -138,6 +146,7 @@ public class AdditionalFeature extends FeatureProcess {
     public static final String GREEN_BUILDINGS_AND_SUSTAINABILITY_PROVISIONS_ERROR_MSG = "Green buildings and sustainability provision should be YES";
     public static final String GREEN_BUILDINGS_AND_SUSTAINABILITY = "Green buildings and sustainability provisions";
     public static final String FIRE_PROTECTION_AND_FIRE_SAFETY_REQUIREMENTS_DESC = "Fire Protection And Fire Safety Requirements";
+    public static final String ROAD_WIDTH_DESC = "ROAD WIDTH DETAILS";
     public static final String DWELLING_UNITS_ERROR_CODE = "DWELLING UNITS ERROR CODE";
     public static final String DWELLING_UNITS_ERROR_MSG = "DWELLING UNITS ERROR MSG";
 //    private static final BigDecimal KITCHEN_COUNT = BigDecimal.valueOf(0);
@@ -184,6 +193,7 @@ public class AdditionalFeature extends FeatureProcess {
             validateHeightOfBuilding(pl, errors, typeOfArea, roadWidth);
         }
 
+        validateRoadWidth(pl);
         validatePlinthHeight(pl, errors);
         // validateIntCourtYard(pl, errors);
         validateBarrierFreeAccess(pl, errors);
@@ -304,26 +314,31 @@ public class AdditionalFeature extends FeatureProcess {
             String requiredFloorCount = StringUtils.EMPTY;
 
             if (typeOfArea.equalsIgnoreCase(OLD)) {
-                if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOUR) < 0) {
-                    errors.put(OLD_AREA_ERROR, OLD_AREA_ERROR_MSG);
-                    pl.addErrors(errors);
-                } else if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOURFOUR) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) < 0) {
-                    isAccepted = floorAbvGround.compareTo(TWO) <= 0;
-                    requiredFloorCount = "<= 2";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) < 0) {
-                    isAccepted = floorAbvGround.compareTo(THREE) <= 0;
-                    requiredFloorCount = "<= 3";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
-                    isAccepted = floorAbvGround.compareTo(THREE) <= 0;
-                    requiredFloorCount = "<= 3";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
-                    isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
-                    requiredFloorCount = "<= 4";
-                } /*
+//                if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOUR) < 0) {
+//                    errors.put(OLD_AREA_ERROR, OLD_AREA_ERROR_MSG);
+//                    pl.addErrors(errors);
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOURFOUR) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) < 0) {
+//                    isAccepted = floorAbvGround.compareTo(TWO) <= 0;
+//                    requiredFloorCount = "<= 2";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_THREE_POINTSIX) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) < 0) {
+//                    isAccepted = floorAbvGround.compareTo(THREE) <= 0;
+//                    requiredFloorCount = "<= 3";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_FOUR_POINTEIGHT) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
+//                    isAccepted = floorAbvGround.compareTo(THREE) <= 0;
+//                    requiredFloorCount = "<= 3";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
+//                    isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
+//                    requiredFloorCount = "<= 4";
+//                } 
+            	
+                  isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
+                  requiredFloorCount = "<= 4";
+             
+                /*
                    * else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0 &&
                    * roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) <= 0) { return BETWEEN_NINEPOINT_ONE_TWELVEPOINT_TWO; } else
                    * if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0 &&
@@ -341,18 +356,24 @@ public class AdditionalFeature extends FeatureProcess {
             }
 
             if (typeOfArea.equalsIgnoreCase(NEW)) {
-                if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
-                    errors.put(NEW_AREA_ERROR, NEW_AREA_ERROR_MSG);
-                    pl.addErrors(errors);
-                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
-                    isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
-                    requiredFloorCount = "<= 4";
-                } else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0
-                        && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) < 0) {
-                    isAccepted = floorAbvGround.compareTo(SIX) <= 0;
-                    requiredFloorCount = "<= 6";
-                } /*
+//                if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) < 0) {
+//                    errors.put(NEW_AREA_ERROR, NEW_AREA_ERROR_MSG);
+//                    pl.addErrors(errors);
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_SIX_POINTONE) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) < 0) {
+//                    isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
+//                    requiredFloorCount = "<= 4";
+//                } else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0
+//                        && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) < 0) {
+//                    isAccepted = floorAbvGround.compareTo(SIX) <= 0;
+//                    requiredFloorCount = "<= 6";
+//                } 
+            	
+                  isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
+                  requiredFloorCount = "<= 4";
+            			
+            			
+                /*
                    * else if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0 &&
                    * roadWidth.compareTo(ROAD_WIDTH_EIGHTEEN_POINTTHREE) <= 0) { return
                    * BETWEEN_TWELVEPOINT_TWO_EIGHTEENPOINT_THREE; } else if (roadWidth.compareTo(ROAD_WIDTH_EIGHTEEN_POINTTHREE)
@@ -382,6 +403,31 @@ public class AdditionalFeature extends FeatureProcess {
         }
     }
 
+    private void validateRoadWidth(Plan pl) {
+    	ScrutinyDetail scrutinyDetail = getNewScrutinyDetail("Road Width & Description");
+    	if (pl.getPlanInformation() != null
+                && pl.getPlanInformation().getRoadWidth() != null 
+                && pl.getPlanInformation().getRoadWidth().compareTo(new BigDecimal(3)) >= 0) {
+            Map<String, String> details = new HashMap<>();
+            details.put(RULE_NO, RULE_56);
+            details.put(DESCRIPTION, ROAD_WIDTH_DESC);
+            details.put(PERMISSIBLE, ">= 3 M");
+            details.put(PROVIDED, pl.getPlanInformation().getRoadWidth().toString());
+            details.put(STATUS, Result.Accepted.getResultVal());
+            scrutinyDetail.getDetail().add(details);
+            pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
+        } else {
+            Map<String, String> details = new HashMap<>();
+            details.put(RULE_NO, RULE_56);
+            details.put(DESCRIPTION, ROAD_WIDTH_DESC);
+            details.put(PERMISSIBLE, ">= 3 M");
+            details.put(PROVIDED, pl.getPlanInformation().getRoadWidth().toString());
+            details.put(STATUS, Result.Not_Accepted.getResultVal());
+            scrutinyDetail.getDetail().add(details);
+            pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
+        }
+    }
+
     private void validateHeightOfBuilding(Plan pl, HashMap<String, String> errors, String typeOfArea,
             BigDecimal roadWidth) {
 
@@ -393,6 +439,8 @@ public class AdditionalFeature extends FeatureProcess {
                     "Block_" + block.getNumber() + "_" + "Height of Building");
             String requiredBuildingHeight = StringUtils.EMPTY;
             BigDecimal buildingHeight = block.getBuilding().getBuildingHeight();
+            DXFLWPolyline plotBoundary = ((PlotDetail) pl.getPlot()).getPolyLine();
+            int clrCode = plotBoundary.getColor();
 
             if (typeOfArea.equalsIgnoreCase(OLD)) {
 //                if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOUR) < 0) {
@@ -421,8 +469,35 @@ public class AdditionalFeature extends FeatureProcess {
 //                    requiredBuildingHeight = "<=" + permitedHeight.toString();
 //                    ruleNo = RULE_39;
 //                }
-            	isAccepted = buildingHeight.compareTo(SIXTEENPOINTFIVE) <= 0;
-                requiredBuildingHeight = "<= 16.5";
+            	if (clrCode==25) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY)>=0) {
+		            	isAccepted = buildingHeight.compareTo(TWENTYONE) <= 0;
+		                requiredBuildingHeight = "<= 21";
+                	}
+                }
+            	
+            	if (clrCode==3) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY)>=0) {
+		            	isAccepted = buildingHeight.compareTo(TWENTYONE) <= 0;
+		                requiredBuildingHeight = "<= 21";
+                	}
+                }
+            	
+            	if (clrCode==19) { 
+                	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY)<=0) {
+		            	isAccepted = buildingHeight.compareTo(TWENTYONE) <= 0;
+		                requiredBuildingHeight = "<= 21";
+                	}
+                }
+            	
+            	if (clrCode==24) { 
+            		if(pl.getPlot().getArea().compareTo(NINTY)>=0 
+//            				&& pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY)<=0
+            				) {
+		            	isAccepted = buildingHeight.compareTo(EIGHTEEN) <= 0;
+		                requiredBuildingHeight = "<= 18";
+                	}
+                }
             	
                 /*
                  * else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0 && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO)
@@ -459,8 +534,35 @@ public class AdditionalFeature extends FeatureProcess {
 //                    isAccepted = buildingHeight.compareTo(permitedHeight) <= 0;
 //                    requiredBuildingHeight = "<=" + permitedHeight.toString();
 //                } 
-            	isAccepted = buildingHeight.compareTo(SIXTEENPOINTFIVE) <= 0;
-                requiredBuildingHeight = "<= 16.5";
+            	if (clrCode==25) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY)>=0) {
+		            	isAccepted = buildingHeight.compareTo(TWENTYONE) <= 0;
+		                requiredBuildingHeight = "<= 21";
+                	}
+                }
+            	
+            	if (clrCode==3) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY)>=0) {
+		            	isAccepted = buildingHeight.compareTo(TWENTYONE) <= 0;
+		                requiredBuildingHeight = "<= 21";
+                	}
+                }
+            	
+            	if (clrCode==19) { 
+                	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY)<=0) {
+		            	isAccepted = buildingHeight.compareTo(TWENTYONE) <= 0;
+		                requiredBuildingHeight = "<= 21";
+                	}
+                }
+            	
+            	if (clrCode==24) { 
+            		if(pl.getPlot().getArea().compareTo(NINTY)>=0 
+//            				&& pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY)<=0
+            				) {
+		            	isAccepted = buildingHeight.compareTo(EIGHTEEN) <= 0;
+		                requiredBuildingHeight = "<= 18";
+                	}
+                }
                 /*
                    * else if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0 &&
                    * roadWidth.compareTo(ROAD_WIDTH_EIGHTEEN_POINTTHREE) <= 0) { return
@@ -518,7 +620,7 @@ public class AdditionalFeature extends FeatureProcess {
             if (!plinthHeights.isEmpty()) {
                 minPlinthHeight = plinthHeights.stream().reduce(BigDecimal::min).get();
                 maxPlinthHeight = plinthHeights.stream().reduce(BigDecimal::max).get();
-                if (minPlinthHeight.compareTo(BigDecimal.valueOf(0.45)) >= 0 && maxPlinthHeight.compareTo(BigDecimal.valueOf(1.5)) <= 0) {
+                if (minPlinthHeight.compareTo(BigDecimal.valueOf(0.45)) >= 0 && maxPlinthHeight.compareTo(BigDecimal.valueOf(2)) <= 0) {
                     isAccepted = true;
                 }
             } else {

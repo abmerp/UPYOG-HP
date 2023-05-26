@@ -34,16 +34,16 @@ INSERT INTO egbpa_sub_occupancy(id, code, name, ordernumber, isactive, createdby
 minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A1', 'Residential', 1, 't', 1, now(), now(), 1, 0, 65, 3, 4, (select id from egbpa_occupancy where code='A'), 'Residential A1- Single family');
 
 INSERT INTO egbpa_sub_occupancy(id, code, name, ordernumber, isactive, createdby, createddate, lastmodifieddate, lastmodifiedby, version, maxcoverage, 
-minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A2', 'Special Residential', 2, 't', 1, now(), now(), 1, 0, 65, 2.5, 4, (select id from egbpa_occupancy where code='A'), 'Special residential A2');
+minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A2', 'Detach', 2, 't', 1, now(), now(), 1, 0, 65, 2.5, 4, (select id from egbpa_occupancy where code='A'), 'Detach A2');
 
 INSERT INTO egbpa_sub_occupancy(id, code, name, ordernumber, isactive, createdby, createddate, lastmodifieddate, lastmodifiedby, version, maxcoverage, 
-minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A3', 'Hostel Educational', 3, 't', 1, now(), now(), 1, 0, 65, 5, 4, (select id from egbpa_occupancy where code='A'), 'Special residential A2- Hostels');
+minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A3', 'Hostel Educational', 3, 't', 1, now(), now(), 1, 0, 65, 5, 4, (select id from egbpa_occupancy where code='A'), 'Semi Detach A2');
 
 INSERT INTO egbpa_sub_occupancy(id, code, name, ordernumber, isactive, createdby, createddate, lastmodifieddate, lastmodifiedby, version, maxcoverage, 
 minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A4', 'Apartment/Flat', 4, 't', 1, now(), now(), 1, 0, 65, 3, 4, (select id from egbpa_occupancy where code='A'), 'Residential A1');
 
 INSERT INTO egbpa_sub_occupancy(id, code, name, ordernumber, isactive, createdby, createddate, lastmodifieddate, lastmodifiedby, version, maxcoverage, 
-minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A5', 'Professional Office', 5, 't', 1, now(), now(), 1, 0, 65, 3, 4, (select id from egbpa_occupancy where code='A'), 'Residential A1 - Professional office');
+minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'A5', 'Professional Office', 5, 't', 1, now(), now(), 1, 0, 65, 3, 4, (select id from egbpa_occupancy where code='A'), 'Row House A2');
 
 INSERT INTO egbpa_sub_occupancy(id, code, name, ordernumber, isactive, createdby, createddate, lastmodifieddate, lastmodifiedby, version, maxcoverage, 
 minfar, maxfar, occupancy, description)  VALUES (nextval('seq_egbpa_sub_occupancy'), 'B1', 'Educational', 6, 't', 1, now(), now(), 1, 0, 35, 2.5, 3, (select id from egbpa_occupancy where code='B'), 'Educational -B - Up to High Schools');

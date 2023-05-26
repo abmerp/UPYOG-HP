@@ -1,5 +1,5 @@
 update eg_occupancy set code='A1' where description='Residential';
-update eg_occupancy set code='A2' where description='Special Residential';
+update eg_occupancy set code='A2' where description='Detach';
 update eg_occupancy set code='B1' where description='Educational';
 update eg_occupancy set code='C' where description='Medical/Hospital';
 update eg_occupancy set code='D' where description='Assembly';
