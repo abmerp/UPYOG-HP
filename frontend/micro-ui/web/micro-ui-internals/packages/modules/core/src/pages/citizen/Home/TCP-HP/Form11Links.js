@@ -124,7 +124,7 @@ const Form11Links = () => {
             Renew Application
           </Link>
           </div>
-          <img src='https://live.staticflickr.com/65535/52927092455_c29fba2435_m.jpg' alt='landapplication' style={{width: '200px', height: '200px', marginLeft: '100px'}}/>
+          <img src='https://live.staticflickr.com/65535/52927092455_c29fba2435_m.jpg' alt='landapplication' style={{width: '220px', height: '220px', marginLeft: '200px', backgroundColor: '#ffffff'}}/>
           </div>
         </CardContent>
       </Card>
