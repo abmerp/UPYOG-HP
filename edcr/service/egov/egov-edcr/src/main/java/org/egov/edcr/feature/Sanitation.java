@@ -155,13 +155,15 @@ public class Sanitation extends FeatureProcess {
                   if(o!=null){          
                     switch (o.getCode()) {
                     case DxfFileConstants.A:
-                    case DxfFileConstants.A_SR:
+//                    case DxfFileConstants.A_SR:
+                    case DxfFileConstants.A_D:
                     case DxfFileConstants.A_AF:
                         if (sanityDetails.getTotalSPWC() == 0)
                             pl.addError(BLDG_PART_SPECIAL_WATER_CLOSET, getLocaleMessage(MSG_ERROR_MANDATORY,
                                     FEATURE_NAME, BLDG_PART_SPECIAL_WATER_CLOSET, b.getNumber()));
                         break;
-                    case DxfFileConstants.A_HE:
+//                    case DxfFileConstants.A_HE:
+                    case DxfFileConstants.A_SD:
                         commonSanitationValidations(pl, b, sanityDetails, o);
                         validateBathRoom(pl, b, sanityDetails);
                         break;
@@ -408,11 +410,13 @@ public class Sanitation extends FeatureProcess {
                             accepted = processSpecialWaterClosetForResidential(b, helper, scrutinyDetail,
                                     requiredSpWcMap, providedSpWcMap, failedAreaSpWcMap, failedDimensionSpWcMap);
                         break;
-                    case DxfFileConstants.A_SR:
+//                      case DxfFileConstants.A_SR:
+                    case DxfFileConstants.A_D:
                         processSpecialWaterCloset(b, requiredSpWcMap, providedSpWcMap, failedAreaSpWcMap,
                                 failedDimensionSpWcMap);
                         break;
-                    case DxfFileConstants.A_HE:
+//                    case DxfFileConstants.A_HE:
+                    case DxfFileConstants.A_SD:
                         helper.maleWc += carpetArea * 2 / (4.75 * 3 * 10);
                         helper.femaleWc += carpetArea / (4.75 * 3 * 8);
                         helper.urinal += carpetArea * 2 / (4.75 * 3 * 25);

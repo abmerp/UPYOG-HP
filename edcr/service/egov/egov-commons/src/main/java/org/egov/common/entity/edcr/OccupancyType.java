@@ -52,8 +52,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum OccupancyType {
 
     OCCUPANCY_A1("Residential"), // singlefamily,
-    OCCUPANCY_A2("Special Residential"), OCCUPANCY_A3("Hostel Educational"), OCCUPANCY_A4("Apartment/Flat"), OCCUPANCY_A5(
-            "Professional Office"), OCCUPANCY_B1("Educational"), OCCUPANCY_B2("Educational HighSchool"), OCCUPANCY_B3(
+//    OCCUPANCY_A2("Special Residential"), OCCUPANCY_A3("Hostel Educational"), OCCUPANCY_A5("Professional Office")
+    OCCUPANCY_A2("Detach"), OCCUPANCY_A3("Semi Detach"), OCCUPANCY_A4("Apartment/Flat"), OCCUPANCY_A5(
+            "Row Housing"), OCCUPANCY_B1("Educational"), OCCUPANCY_B2("Educational HighSchool"), OCCUPANCY_B3(
                     "Higher Educational Institute"), OCCUPANCY_C("Medical/Hospital"), OCCUPANCY_C1("Medical IP"), OCCUPANCY_C2(
                             "Medical OP"), OCCUPANCY_C3("Medical Admin"), OCCUPANCY_D("Assembly"), OCCUPANCY_D1(
                                     "Assembly Worship"), OCCUPANCY_D2("Bus Terminal"), OCCUPANCY_E(

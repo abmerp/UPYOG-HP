@@ -556,4 +556,3 @@ serviceMaps:
           - jsonPath: $.BPA.auditDetails.lastModifiedTime
 
           - jsonPath: $.BPA.applicationNo          
-

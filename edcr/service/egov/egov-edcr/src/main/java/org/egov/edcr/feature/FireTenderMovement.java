@@ -121,10 +121,11 @@ public class FireTenderMovement extends FeatureProcess {
                                 + yardNames.toString().substring(0, yardNames.length() - 2) + ".");
                         plan.addErrors(errors);
                     }
-                } else {
-                    errors.put("BLK_FTM_" + block.getNumber(), "Fire tender movement not defined for Block " + block.getNumber());
-                    plan.addErrors(errors);
-                }
+                } 
+//                else {
+//                    errors.put("BLK_FTM_" + block.getNumber(), "Fire tender movement not defined for Block " + block.getNumber());
+//                    plan.addErrors(errors);
+//                }
             }
         }
 
