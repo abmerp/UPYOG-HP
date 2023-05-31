@@ -39,6 +39,7 @@ import Form26 from "./TCPForms/forms/form26";
 import Form34 from "./TCPForms/forms/form34";
 import FormRoute from "./Home/FormRoutes";
 import CitizenProfile from "./Home/TCP-HP/Cards/CitizenProfile";
+import Form11Links  from "./Home/TCP-HP/Form11Links";
 
 
 const getTenants = (codes, tenants) => {
@@ -139,7 +140,7 @@ const Home = ({
           <Route path={`${path}/development-plan`}><Layout><DevelopmentPlan /></Layout></Route>
           <Route path={`${path}/applyOnline`}><Layout><ApplyOnline /></Layout></Route>
           <Route path={`${path}/feeCalculator`}><Layout><FormType /></Layout></Route>
-          <Route path={`${path}/form12`}><Form12 /></Route>
+          <Route path={`${path}/services/form12`}><Form12 /></Route>
           <FormRoute 
           path={`${path}/profile`} 
           component={() => 
@@ -153,11 +154,9 @@ const Home = ({
           handleUserDropdownSelection={handleUserDropdownSelection}
           logoUrl={logoUrl}
           />
-          
           }>
-
           </FormRoute>
-
+          <Route path={`${path}/services/form11links`}><Form11Links /></Route>
           <Route path={`${path}/services/form11`}><Form11 /></Route>
           <Route path={`${path}/services/form26`}><Form26 /></Route>
           <Route path={`${path}/services/form34`}><Form34 /></Route>
