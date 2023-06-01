@@ -149,15 +149,15 @@ public class BPAService {
 		RequestInfo requestInfo = bpaRequest.getRequestInfo();
 		String tenantId = bpaRequest.getBPA().getTenantId();
 		log.info(tenantId);
-	//	Object mdmsData = util.mDMSCall(requestInfo, tenantId);
+		Object mdmsData = util.mDMSCall(requestInfo, tenantId);
 		String serviceType = bpaRequest.getBPA().getServiceType();
 		Map<String, String> values = new HashMap<String, String>();
 //		values.put(BPAConstants.SERVICETYPE, "Form_12");
 //		String applicationType = ;
 		values.put(BPAConstants.APPLICATIONTYPE, bpaRequest.getBPA().getApplicationType());
 		String applicationType = values.get(BPAConstants.APPLICATIONTYPE);
-	//	bpaValidator.validateCreate2(bpaRequest, mdmsData, values);
-	//	enrichmentService.enrichBPACreateRequest2(bpaRequest, mdmsData, values);
+		bpaValidator.validateCreate2(bpaRequest, mdmsData, values);
+		enrichmentService.enrichBPACreateRequest2(bpaRequest, mdmsData, values);
 		wfIntegrator.callWorkFlow2(bpaRequest);
 		if(bpaRequest.getBPA().getDepartment().equals(BPAConstants.DEPARTMENT_TCP) &&
 				bpaRequest.getBPA().getApplicationType().equalsIgnoreCase(BPAConstants.APPLICATION_TYPE_FORM_26)) {
