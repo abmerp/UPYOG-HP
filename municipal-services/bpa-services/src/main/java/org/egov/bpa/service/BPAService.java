@@ -158,7 +158,7 @@ public class BPAService {
 		String applicationType = values.get(BPAConstants.APPLICATIONTYPE);
 		bpaValidator.validateCreate2(bpaRequest, mdmsData, values);
 		enrichmentService.enrichBPACreateRequest2(bpaRequest, mdmsData, values);
-		wfIntegrator.callWorkFlow2(bpaRequest);
+		//wfIntegrator.callWorkFlow2(bpaRequest);
 		if(bpaRequest.getBPA().getDepartment().equals(BPAConstants.DEPARTMENT_TCP) &&
 				bpaRequest.getBPA().getApplicationType().equalsIgnoreCase(BPAConstants.APPLICATION_TYPE_FORM_26)) {
 			//in TCP application fees is there only for form 26 and that is too just 200 rupees for all types of buildings.
