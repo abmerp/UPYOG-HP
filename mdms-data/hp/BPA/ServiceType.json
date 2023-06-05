@@ -1,0 +1,12 @@
+{
+    "tenantId": "hp",
+    "moduleName": "BPA",
+    "ServiceType": [
+       {
+        "code": "NEW_CONSTRUCTION",
+        "active": true,
+        "applicationType":["BUILDING_PLAN_SCRUTINY","BUILDING_OC_PLAN_SCRUTINY"]
+      }
+    ]
+  }
+  
