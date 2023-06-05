@@ -23,6 +23,7 @@ const InputContainer = ({
   uploadValidity,
   labelWidth,
   clickControl,
+  getDocumentData
 }) => {
   return (
     <div className="inputContainer">
@@ -66,12 +67,13 @@ const InputContainer = ({
           inputLabel={placeholder}
           label={label}
           data={data}
+          name={name}
         />
       ) : type === "upload" ? (
         <UploadButton error={uploadValidity} />
       ) : type === "htmlUpload" ? (
         <div className="uploadHtml">
-          <input type="file" />
+          <input type="file" name={name} onChange={(e) => getDocumentData(e?.target?.files[0], name)} />
           <h6 className="error">{uploadValidity}</h6>
         </div>
       ): type === "datePicker" ? (

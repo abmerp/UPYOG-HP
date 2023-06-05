@@ -324,3 +324,143 @@ export const PaymentHeads=[
   },  
 
 ]
+export const NotifiedArea=[
+  {
+    value:"Hatkoti",
+    label:"Hatkoti"
+  },
+  {
+    value:"Sarahan",
+    label:"Sarahan"
+  },
+  {
+    value:"Shoghi",
+    label:"Shoghi"
+  },
+  {
+    value:"Kufri",
+    label:"Kufri"
+  },
+  {
+    value:"Barog",
+    label:"Barog"
+  },
+  {
+    value:"Harat",
+    label:"Harat"
+  }
+]
+export const VillagesData=[
+  { 
+    value:"Nako",
+    label:"Nako"
+  },
+  {
+      value:"Kardang",
+      label:"Kardang"
+  },
+  {
+    value:"Chitkul",
+    label:"Chitkul"
+},
+{
+  value:"Kibber",
+  label:"KIbber"
+},
+{
+  value:"Komic",
+  label:"KOmic"
+},
+{
+  value:"Langza",
+  label:"Langza"
+},
+{
+  value:"Dhankar",
+  label:"Dhankar"
+},
+{
+  value:"Barot",
+  label:"Barot"
+},
+{
+  value:"Malana",
+  label:"Malana"
+}
+];
+export const WardData=[
+  { 
+    value:"Bharari",
+    label:"Bharari"
+  },
+  {
+      value:"Kaithu",
+      label:"Kaithu"
+  },
+  {
+    value:"Annadale",
+    label:"Annadale"
+},
+{
+  value:"Majhat",
+  label:"Majhat"
+},
+{
+  value:"Nabha",
+  label:"Nabha"
+},
+{
+  value:"Fagli",
+  label:"Fagli"
+},
+{
+  value:"Jakhu",
+  label:"Jakhu"
+},
+{
+  value:"Benmore",
+  label:"Benmore"
+},
+{
+  value:"Malyana",
+  label:"Malyana"
+}
+];
+export const TehsilData=[
+  { 
+    value:"Jawali",
+    label:"Jawali"
+  },
+  {
+      value:"Indora",
+      label:"Indora"
+  },
+  {
+    value:"Dehra",
+    label:"Dehra"
+},
+{
+  value:"Shahpur",
+  label:"Shahpur"
+},
+{
+  value:"Baroh",
+  label:"Baroh"
+},
+{
+  value:"Khundian",
+  label:"Khundian"
+},
+{
+  value:"Dadasiba",
+  label:"Dadasiba"
+},
+{
+  value:"Rakkar",
+  label:"Rakkar"
+},
+{
+  value:"Fatehpur",
+  label:"Fatehpur"
+}
+];
