@@ -38,9 +38,11 @@ const CitizenProfile = ({
   if (!tenantId) {
     history.push(`/digit-ui/citizen/select-language`);
   }
-
+  const userInfo = Digit.UserService.getUser();
+  const role = userInfo.info.roles[1].name
+  
   const allCitizenServicesProps = {
-    header: t("DASHBOARD_CITIZEN_SERVICES_LABEL"),
+    header: t(`${role}-Services`),
     sideOption: {
       name: t("DASHBOARD_VIEW_ALL_LABEL"),
       onClick: () => history.push("/digit-ui/citizen/all-services"),
@@ -174,7 +176,7 @@ const CitizenProfile = ({
 
       <div className="ServicesSection">
         <CardBasedFormsOptions {...allCitizenServicesProps} />
-        <CardBasedOptions {...allInfoAndUpdatesProps} />
+        {/* <CardBasedOptions {...allInfoAndUpdatesProps} /> */}
       </div>
 
       {/* {conditionsToDisableNotificationCountTrigger() ? (

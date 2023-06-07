@@ -5,22 +5,25 @@ import ButtonWrapper from "../../components/Button";
 import TextInput from "../../components/TextInput";
 import RadioButton from "../../components/RadioButton";
 import {
-  appealApplicationStatus,
   DistrictsData,
-  NamesOFULB,
   nameSuffix,
   propertyType,
   relationSuffix,
-  typeOfLandForDevelopment,
-  yesOrNo,
-  statesData
+  statesData,
+  NotifiedArea,
+  VillagesData,
+  WardData,
+  TehsilData
 } from "../../data";
 import InputContainer from "../../layout/inputContainer";
 import Checkboxes from "../../components/CheckBox";
 
-const Step1 = () => {
+const Step1 = ({step1Data}) => {
   const { handleSubmit, control } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    step1Data(data)
+  }
+
   return (
     <section className="container1">
       <div className="header">
@@ -86,7 +89,7 @@ const Step1 = () => {
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-                data={appealApplicationStatus}
+                data={NotifiedArea}
               />
               <InputContainer
                 label="Name of Village"
@@ -95,7 +98,7 @@ const Step1 = () => {
                 name="nameOfVillage"
                 mandatory
                 type="selectInput"
-                data={appealApplicationStatus}
+                data={VillagesData}
               />
                {/* <InputContainer
                 label="Name of ULB"
@@ -121,9 +124,10 @@ const Step1 = () => {
                 label="Name of Ward"
                 control={control}
                 placeholder="Select Name of Ward"
-                name="notifiedArea"
+                name="nameOfWard"
                 mandatory
                 type="selectInput"
+                data={WardData}
               />
             </div>
           </div> 
@@ -154,7 +158,7 @@ const Step1 = () => {
                 label="Mobile Number"
                 control={control}
                 placeholder="Enter Mobile Number"
-                name="mobileNumber"
+                name="applicantMobileNo"
                 mobileNumber
                 mandatory
                 type="textInput"
@@ -163,7 +167,7 @@ const Step1 = () => {
                 label="Email Id"
                 control={control}
                 placeholder="Enter Email Id"
-                name="mobileNumber"
+                name="emailId"
                 type="textInput"
               />
             </div>
@@ -172,14 +176,14 @@ const Step1 = () => {
                 label="Aadhar No."
                 control={control}
                 placeholder="Enter Aadhar No."
-                name="aadharNumber"
+                name="aadharNo"
                 type="textInput"
                 mandatory
               />
               <InputContainer
                 label="Upload Picture"
                 control={control}
-                name="picture"
+                name="uploadPhoto"
                 mandatory
                 type="upload"
                 uploadValidity="(png file only and Max file Size 1 MB)"
@@ -257,7 +261,7 @@ const Step1 = () => {
                 label="State :"
                 data={statesData}
                 placeholder="Select State"
-                name="state"
+                name="correspondenceState"
                 mandatory
                 type="selectInput"
                 multiColumn
@@ -268,7 +272,7 @@ const Step1 = () => {
                 label="District :"
                 data={DistrictsData}
                 placeholder="Select District"
-                name="state"
+                name="correspondenceDistrict"
                 mandatory
                 type="selectInput"
                 multiColumn
@@ -278,16 +282,17 @@ const Step1 = () => {
                 inputLabel="Select Tehsil"
                 label="Tehsil :"
                 placeholder="Select Tehsil"
-                name="state"
+                name="correspondenceTehsil"
                 mandatory
                 type="selectInput"
                 multiColumn
+                data={TehsilData}
               />
               <InputContainer
                 label="Town/Village/Ward : "
                 control={control}
                 placeholder="Enter Town/Village/Ward"
-                name="email"
+                name="correspondenceVillage"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -296,7 +301,7 @@ const Step1 = () => {
                 label="Address : "
                 control={control}
                 placeholder="Enter Address"
-                name="address"
+                name="correspondenceAddress"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -307,7 +312,7 @@ const Step1 = () => {
                 label=" Pincode : "
                 control={control}
                 placeholder="Enter Pincode"
-                name="email"
+                name="correspondencePinCode"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -330,7 +335,7 @@ const Step1 = () => {
                   size="small"
                   width="5.625vw"
                   select
-                  name="initialForCorrespondenceadressName"
+                  name="initialForPermanentadressName"
                   control={control}
                 >
                   {nameSuffix?.map((option) => (
@@ -344,7 +349,7 @@ const Step1 = () => {
                   variant="outlined"
                   size="small"
                   width="15.625vw"
-                  name="correspondenceAdressName"
+                  name="PermanentAdressName"
                   control={control}
                 />
               </div>
@@ -356,7 +361,7 @@ const Step1 = () => {
                   size="small"
                   width="5.625vw"
                   select
-                  name="initialForCorrespondenceadressGuardianName"
+                  name="initialForPermanentadressGuardianName"
                   control={control}
                 >
                   {relationSuffix?.map((option) => (
@@ -370,7 +375,7 @@ const Step1 = () => {
                   variant="outlined"
                   size="small"
                   width="15.625vw"
-                  name="correspondenceGuardianName"
+                  name="PermanentGuardianName"
                   control={control}
                 />
               </div>
@@ -380,7 +385,7 @@ const Step1 = () => {
                 label="State :"
                 data={statesData}
                 placeholder="Select State"
-                name="state"
+                name="permanentState"
                 mandatory
                 type="selectInput"
                 multiColumn
@@ -391,7 +396,7 @@ const Step1 = () => {
                 label="District :"
                 data={DistrictsData}
                 placeholder="Select District"
-                name="state"
+                name="permanentDistrict"
                 mandatory
                 type="selectInput"
                 multiColumn
@@ -401,16 +406,17 @@ const Step1 = () => {
                 inputLabel="Select Tehsil"
                 label="Tehsil :"
                 placeholder="Select Tehsil"
-                name="state"
+                name="permanentTehsil"
                 mandatory
                 type="selectInput"
                 multiColumn
+                data={TehsilData}
               />
               <InputContainer
                 label="Town/Village/Ward : "
                 control={control}
                 placeholder="Enter Town/Village/Ward"
-                name="email"
+                name="permanentVillage"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -419,7 +425,7 @@ const Step1 = () => {
                 label="Address : "
                 control={control}
                 placeholder="Enter Address"
-                name="address"
+                name="permanentAddress"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -429,7 +435,7 @@ const Step1 = () => {
                 label=" Pincode : "
                 control={control}
                 placeholder="Enter Pincode"
-                name="email"
+                name="permanentPincode"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -452,12 +458,13 @@ const Step1 = () => {
                 name="revenueVillageMohalla"
                 mandatory
                 type="selectInput"
+                data={VillagesData}
               />
               <InputContainer
                 label="Khasra No."
                 control={control}
                 placeholder="Enter Khasra No."
-                name="applicantName"
+                name="khasraNo"
                 type="textInput"
                 mandatory
               />
@@ -465,7 +472,7 @@ const Step1 = () => {
                 label="Khata No."
                 control={control}
                 placeholder="Enter Khata No."
-                name="applicantName"
+                name="khataNo"
                 type="textInput"
                 mandatory
               />
@@ -473,17 +480,17 @@ const Step1 = () => {
                 label="Khatauni No."
                 control={control}
                 placeholder="Enter Khatauni No."
-                name="applicantName"
+                name="khatoniNo"
                 type="textInput"
               />
               <InputContainer
                 label="Latitude/Longitude"
                 control={control}
                 placeholder="Enter Latitude/Longitude"
-                name="applicantName"
+                name="latitudeLongitude"
                 type="textInput"
               />
-              <InputContainer
+              {/* <InputContainer
                 label="District"
                 control={control}
                 placeholder="Select District"
@@ -491,7 +498,7 @@ const Step1 = () => {
                 mandatory
                 type="selectInput"
                 data={DistrictsData}
-              />
+              /> */}
               {/* <InputContainer
                 label="ULB Type"
                 control={control}
@@ -510,22 +517,22 @@ const Step1 = () => {
                 type="selectInput"
                 
               /> */}
-              <InputContainer
+              {/* <InputContainer
                 label="Name of Ward"
                 control={control}
                 placeholder="Select Name of Ward"
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-                
-              />
+                data={WardData}
+              /> */}
             </div>
             <div className="columnWrapper">
               <InputContainer
                 label="Area under Consideration (Sq.m)"
                 control={control}
                 placeholder="Enter Area under Consideration "
-                name="applicantName"
+                name="areaUnderConsideration"
                 mandatory
                 type="textInput"
               />
@@ -533,15 +540,15 @@ const Step1 = () => {
                 label="No. of Plot "
                 control={control}
                 placeholder="Enter No. of Plot "
-                name="applicantName"
+                name="noOfPlot"
                 mandatory
                 type="textInput"
               />
               <InputContainer
-                label="Area (Sq.M)"
+                label=" Plot Area (Sq.M) for development Activities"
                 control={control}
                 placeholder="Enter Area (Sq.M)"
-                name="applicantName"
+                name="plotAreaForSubDivisionalDevelopmentActivitiesInSqM"
                 mandatory
                 type="textInput"
               />
@@ -549,7 +556,7 @@ const Step1 = () => {
                 label="Total Plot Area (Sq.m)"
                 control={control}
                 placeholder="Enter Total Plot Area (Sq.m)"
-                name="applicantName"
+                name="totalPlotArea"
                 mandatory
                 type="textInput"
               />

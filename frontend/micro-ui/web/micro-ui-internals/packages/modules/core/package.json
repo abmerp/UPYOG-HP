@@ -25,6 +25,7 @@
     "@mui/material": "^5.13.0",
     "@mui/styles": "^5.12.3",
     "@mui/x-date-pickers": "^6.4.0",
+    "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "react": "17.0.2",
     "react-bootstrap": "^2.7.4",

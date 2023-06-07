@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ButtonWrapper from "../../components/Button";
 import RadioButton from "../../components/RadioButton";
@@ -6,9 +7,12 @@ import TextInput from "../../components/TextInput";
 import { yesOrNo } from "../../data";
 import "../../styles/Forms.css";
 
-const Step2 = () => {
+const Step2 = ({step2Data}) => {
   const { handleSubmit, control } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    step2Data(data)
+  }
+
   return (
     <section className="container1">
       <div className="headerContainer">
@@ -71,14 +75,14 @@ const Step2 = () => {
                 <div className="proposed">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumWidthOfPedestrian"
                     placeholder={"Enter Details"}
                   />
                 </div>
                 <div className="remarks">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumWidthOfPedestrianremarks"
                     placeholder={"Enter Details"}
                   />
                 </div>
@@ -94,14 +98,14 @@ const Step2 = () => {
                 <div className="proposed">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumWidthOfVehicularAccess"
                     placeholder={"Enter Details"}
                   />
                 </div>
                 <div className="remarks">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumWidthOfVehicularAccessremarks"
                     placeholder={"Enter Details"}
                   />
                 </div>
@@ -117,14 +121,14 @@ const Step2 = () => {
                 <div className="proposed">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumAreaForOpenGreenSpace"
                     placeholder={"Enter Details"}
                   />
                 </div>
                 <div className="remarks">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumAreaForOpenGreenSpaceremarks"
                     placeholder={"Enter Details"}
                   />
                 </div>
@@ -140,14 +144,14 @@ const Step2 = () => {
                 <div className="proposed">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumAreaForSoakPit"
                     placeholder={"Enter Details"}
                   />
                 </div>
                 <div className="remarks">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="minimumAreaForSoakPitRemarks"
                     placeholder={"Enter Details"}
                   />
                 </div>
@@ -165,14 +169,14 @@ const Step2 = () => {
                 <div className="proposed">
                   <RadioButton
                     control={control}
-                    name="proposed"
+                    name="orientationOfPlots"
                     data={yesOrNo}
                   />
                 </div>
                 <div className="remarks">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="orientationOfPlotsRemarks"
                     placeholder={"Enter Details"}
                   />
                 </div>
@@ -189,14 +193,14 @@ const Step2 = () => {
                 <div className="proposed">
                   <RadioButton
                     control={control}
-                    name="proposed"
+                    name="layoutOfPlots"
                     data={yesOrNo}
                   />
                 </div>
                 <div className="remarks">
                   <TextInput
                     control={control}
-                    name="proposed"
+                    name="layoutOfPlotsremarks"
                     placeholder={"Enter Details"}
                   />
                 </div>
