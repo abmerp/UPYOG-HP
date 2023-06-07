@@ -1,9 +1,9 @@
 {
-   "tenantId": "hp",
+   "tenantId": "hr",
     "moduleName": "Workflow",
     "BusinessServices": [
       {
-        "tenantId": "hp",
+        "tenantId": "hr",
         "businessService": "NewTL",
 		"business": "tl-services",
         "businessServiceSla": 172800000,
@@ -11,7 +11,7 @@
         "postUri": "",
         "states": [
 		 {
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": null,
           "state": null,
           "applicationStatus": null,
@@ -21,7 +21,7 @@
           "isStateUpdatable": true,
           "actions": [
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "INITIATE",
               "nextState": "INITIATED",
               "roles": [
@@ -31,7 +31,7 @@
           ]
         },
 		 {
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": null,
           "state": "INITIATED",
           "applicationStatus": "INITIATED",
@@ -41,7 +41,7 @@
           "isStateUpdatable": true,
           "actions": [
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "PAID",
               "nextState": "APPLIED",
               "roles": [
@@ -50,7 +50,7 @@
               ]
             },
 			 {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "CANCEL",
               "nextState": "",
               "roles": [
@@ -59,7 +59,7 @@
               ]
             },
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "INITIATE",
               "nextState": "INITIATED",
               "roles": [
@@ -70,7 +70,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": null,
           "state": "APPLIED",
           "applicationStatus": "APPLIED",
@@ -80,7 +80,7 @@
           "isStateUpdatable": true,
           "actions": [
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "FORWARD",
               "nextState": "DTP",
               "roles": [
@@ -90,7 +90,7 @@
           ]
         },
 		        {
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "DTP",
           "applicationStatus": "DTP",
@@ -101,7 +101,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "FORWARD",
               "nextState": "DEPARMENT",
               "roles": [
@@ -111,7 +111,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "DEPARMENT",
           "applicationStatus": "DEPARMENT",
@@ -122,7 +122,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "REMARKS",
               "nextState": "DTP(HQ)",
               "roles": [
@@ -132,7 +132,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "DTP(HQ)",
           "applicationStatus": "DTP(HQ)",
@@ -143,7 +143,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "FORWARD",
               "nextState": "JE(HQ)",
               "roles": [
@@ -153,7 +153,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "JE(HQ)",
           "applicationStatus": "JE(HQ)",
@@ -164,7 +164,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "REMARKS",
               "nextState": "ATP(HQ)",
               "roles": [
@@ -174,7 +174,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "ATP(HQ)",
           "applicationStatus": "ATP(HQ)",
@@ -185,7 +185,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "REMARKS",
               "nextState": "DTP(HQ)",
               "roles": [
@@ -195,7 +195,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "DTP(HQ)",
           "applicationStatus": "DTP(HQ)",
@@ -206,7 +206,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "CHECKED",
               "nextState": "STP (HQ)",
               "roles": [
@@ -216,7 +216,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "STP (HQ)",
           "applicationStatus": "STP (HQ)",
@@ -227,7 +227,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "REMARKS",
               "nextState": "CTP(HR)",
               "roles": [
@@ -237,7 +237,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "CTP(HR)",
           "applicationStatus": "CTP(HR)",
@@ -248,7 +248,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "FORWARD",
               "nextState": "DTCP(HR)",
               "roles": [
@@ -258,7 +258,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "DTCP(HR)",
           "applicationStatus": "DTCP(HR)",
@@ -269,7 +269,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "APPROVED",
               "nextState": "REVIEWED",
               "roles": [
@@ -277,7 +277,7 @@
               ]
             },
 			{
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "CANCEL",
               "nextState": "",
               "roles": [
@@ -287,7 +287,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "REVIEWED",
           "applicationStatus": "REVIEWED",
@@ -298,7 +298,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "FORWARD",
               "nextState": "DTP(Field)",
               "roles": [
@@ -309,7 +309,7 @@
           ]
         },
 		{
-          "tenantId": "hp",
+          "tenantId": "hr",
           "sla": 86400000,
           "state": "DTP(Field)",
           "applicationStatus": "DTP(Field)",
@@ -320,7 +320,7 @@
           "actions": [
            
             {
-              "tenantId": "hp",
+              "tenantId": "hr",
               "action": "FORWARD",
               "nextState": "DTP(Field)",
               "roles": [
