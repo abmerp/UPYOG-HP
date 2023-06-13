@@ -44,6 +44,9 @@ const Urls = {
     vehilceUpdate: "/vehicle/trip/v1/_update",
     vehicleTripCreate: "/vehicle/trip/v1/_create",
   },
+  form11: {
+    create: '/bpa-services/v1/bpa/_createForm'
+  },
 
   payment: {
     fetch_bill: "/billing-service/bill/v2/_fetchbill",

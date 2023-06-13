@@ -44,6 +44,7 @@ import ReceiptsService from "./services/elements/Receipts";
 import { EDCRService } from "./services/elements/EDCR";
 import { OBPSService } from "./services/elements/OBPS";
 import { NOCService } from "./services/elements/NOC";
+import { Form11Service } from "./services/elements/Form11";
 
 const setupLibraries = (Library, props) => {
   window.Digit = window.Digit || {};
@@ -73,6 +74,7 @@ const initLibraries = () => {
   setupLibraries("MCollectService", MCollectService);
   setupLibraries("PaymentService", PaymentService);
   setupLibraries("EDCRService", EDCRService);
+  setupLibraries("Form11Service", Form11Service)
   setupLibraries("OBPSService", OBPSService);
   setupLibraries("DateUtils", dateUtils);
   setupLibraries("WorkflowService", WorkflowService);
