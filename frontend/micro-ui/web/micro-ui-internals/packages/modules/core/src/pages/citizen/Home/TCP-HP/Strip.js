@@ -22,7 +22,7 @@ function Strip() {
   return (
     <AppBar position="static" style={{backgroundColor:'#fbfbfb', height: '36px', color: 'black', marginTop: '-75px'}}>
       <Toolbar>
-        <div style={{display: 'flex', flexDirection: 'row', marginRight: '20%'}}>
+        <div style={{display: 'flex', flexDirection: 'row', marginRight: '5%'}}>
           <BsFillVolumeUpFill className={classes.iconStyle}/>
           <DiAndroid className={classes.iconStyle}/>
           <AiFillWindows className={classes.iconStyle}/>

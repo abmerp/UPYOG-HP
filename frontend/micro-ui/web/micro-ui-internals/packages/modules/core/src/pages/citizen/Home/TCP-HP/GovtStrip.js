@@ -6,7 +6,7 @@ const GovtStrip = () => {
     <Box sx={{ height: 180, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', bgcolor: '#fff', color: 'black' }}>
         <Box sx={{ display: 'flex', flexDirection: 'row'}}>
         <div>
-          <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/logo1.png" alt="image2" style={{ width: '90px', height: '90px', margin: '20px 0px 20px -100%'}} />
+          <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/logo1.png" alt="image2" style={{ width: '90px', height: '90px', margin: '20px 0px 20px -25%'}} />
         </div>
           <div style={{display: 'flex', flexDirection: 'row', color: '#1F4A7C', width: '605px', height: 'auto', border: '7px solid #1F4A7C', position:'relative', marginRight:'50px'}}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
