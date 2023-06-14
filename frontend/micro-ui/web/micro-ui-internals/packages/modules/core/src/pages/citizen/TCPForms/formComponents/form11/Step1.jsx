@@ -120,7 +120,7 @@ const Step1 = ({step1Data}) => {
                 type="selectInput"
                 data={NamesOFULB}
               /> */}
-              <InputContainer
+              {/* <InputContainer
                 label="Name of Ward"
                 control={control}
                 placeholder="Select Name of Ward"
@@ -128,7 +128,7 @@ const Step1 = ({step1Data}) => {
                 mandatory
                 type="selectInput"
                 data={WardData}
-              />
+              /> */}
             </div>
           </div> 
         </div>
