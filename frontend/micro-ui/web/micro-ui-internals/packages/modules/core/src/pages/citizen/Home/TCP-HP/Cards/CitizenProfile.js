@@ -68,11 +68,11 @@ const CitizenProfile = ({
       //     Icon: <DropIcon/>,
       //     onClick: () => history.push("/digit-ui/citizen")
       // },
-      // {
-      //   name: t("CS_COMMON_INBOX_BPA"),
-      //   Icon: <OBPSIcon />,
-      //   onClick: () => history.push("/digit-ui/citizen/obps-home"),
-      // },
+      {
+        name: t("CS_COMMON_INBOX_BPA"),
+        Icon: <OBPSIcon />,
+        onClick: () => history.push("/digit-ui/citizen/obps-home"),
+      },
       {
         name: t("Application for permission of Subdivision/Development of land - Form11"),
         Icon: 'https://live.staticflickr.com/65535/52918330942_e84025ff6b_m.jpg',
