@@ -89,39 +89,62 @@ const OBPSEmployeeHomeCard = () => {
       Digit.SessionStorage.del("STAKEHOLDER.INBOX")
     }
   },[location.pathname])
-    const propsForModuleCard = useMemo(()=>({
-      Icon: <OBPSIconSolidBg />,
-      moduleName: t("MODULE_OBPS"),
-      kpis:[
-        {
-            count: !isInboxLoading && !isInboxLoadingOfStakeholder ? totalCount : "",
-            label: t("TOTAL_FSM"),
-            link: `/digit-ui/employee/obps/inbox`
-        },
-        {   count:"-",
-            label: t("TOTAL_NEARING_SLA"),
-            link: `/digit-ui/employee/obps/inbox`
-        }  
-      ],
-      links: [
-        {
-          count: isInboxLoadingOfStakeholder ? "" : dataOfStakeholder?.totalCount ,
-          label: t("ES_COMMON_STAKEHOLDER_INBOX_LABEL"),
-          link: `/digit-ui/employee/obps/stakeholder-inbox`,
-          field: "STAKEHOLDER"
-        },
-        {
-          count: isInboxLoading ? "" : dataOfBPA?.totalCount ,
-          label: t("ES_COMMON_OBPS_INBOX_LABEL"),
-          link: `/digit-ui/employee/obps/inbox`,
-          field: "BPA"
-        },
-        {
-          label: t("ES_COMMON_SEARCH_APPLICATION"),
-          link: `/digit-ui/employee/obps/search/application`
-        },
-      ]
-    }),[isInboxLoading, isInboxLoadingOfStakeholder, dataOfStakeholder, dataOfBPA, totalCount]);
+    const propsForModuleCard = useMemo(()=>(
+      // {
+      // Icon: <OBPSIconSolidBg />,
+      // moduleName: t("MODULE_OBPS"),
+      // kpis:[
+      //   {
+      //       count: !isInboxLoading && !isInboxLoadingOfStakeholder ? totalCount : "",
+      //       label: t("TOTAL_FSM"),
+      //       link: `/digit-ui/employee/obps/inbox`
+      //   },
+      //   {   count:"-",
+      //       label: t("TOTAL_NEARING_SLA"),
+      //       link: `/digit-ui/employee/obps/inbox`
+      //   }  
+      // ],
+      // links: [
+      //   {
+      //     count: isInboxLoadingOfStakeholder ? "" : dataOfStakeholder?.totalCount ,
+      //     label: t("ES_COMMON_STAKEHOLDER_INBOX_LABEL"),
+      //     link: `/digit-ui/employee/obps/stakeholder-inbox`,
+      //     field: "STAKEHOLDER"
+      //   },
+      //   {
+      //     count: isInboxLoading ? "" : dataOfBPA?.totalCount ,
+      //     label: t("ES_COMMON_OBPS_INBOX_LABEL"),
+      //     link: `/digit-ui/employee/obps/inbox`,
+      //     field: "BPA"
+      //   },
+      //   {
+      //     label: t("ES_COMMON_SEARCH_APPLICATION"),
+      //     link: `/digit-ui/employee/obps/search/application`
+      //   },
+      // ]
+      // },
+      {
+        Icon: <OBPSIconSolidBg />,
+        moduleName: t("Development of land - Form11"),
+        kpis:[
+          {
+              count: !isInboxLoading && !isInboxLoadingOfStakeholder ? totalCount : "",
+              label: t("Inbox"),
+              link: `/digit-ui/employee/obps/form11/inbox`
+          },
+          {   count:"-",
+              label: t("TOTAL_NEARING_SLA"),
+              link: `/digit-ui/employee/obps/form11/inbox`
+          }  
+        ],
+        links: [
+          {
+            label: t("ES_COMMON_SEARCH_APPLICATION"),
+            link: `/digit-ui/employee/obps/form11/inbox`
+          },
+        ]
+        }
+      ),[isInboxLoading, isInboxLoadingOfStakeholder, dataOfStakeholder, dataOfBPA, totalCount]);
 
     if (!checkingForStakeholderRoles) {
       propsForModuleCard.links = propsForModuleCard.links.filter(obj => {
@@ -135,7 +158,8 @@ const OBPSEmployeeHomeCard = () => {
       });
     }
   
-    return checkingForBPARoles || checkingForStakeholderRoles ? <EmployeeModuleCard {...propsForModuleCard} /> : null
+    // return checkingForBPARoles || checkingForStakeholderRoles ? <EmployeeModuleCard {...propsForModuleCard} /> : null
+    return <EmployeeModuleCard {...propsForModuleCard} /> 
   }
 
   export default OBPSEmployeeHomeCard

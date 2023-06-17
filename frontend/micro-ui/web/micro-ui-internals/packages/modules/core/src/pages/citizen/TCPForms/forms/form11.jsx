@@ -182,6 +182,9 @@ const Form11 = () => {
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDo=");
+const userToken = localStorage.getItem('token')
+const UserToken = Digit.UserService?.getUser()?.access_token
+console.log({userToken, UserToken, }, "ggggggggggg");
 
 var raw = JSON.stringify({
   "RequestInfo": {
@@ -193,7 +196,7 @@ var raw = JSON.stringify({
     "key": "",
     "msg_id": "",
     "requester_id": "",
-    "authToken": "8cbca251-f2d4-4dfa-97f8-8bc937be192f"
+    "authToken": userToken
   },
   "BPA": {
     "approvalNo": null,

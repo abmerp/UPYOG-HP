@@ -34,7 +34,9 @@ const Form11 = () => {
   }, {});
 
   // console.log("fffffffffff", applicantData.correspondencePinCode, applicantData.correspondenceAdressName, applicantData.correspondenceGuardianName);
-
+const userToken = localStorage.getItem('token')
+const UserToken = Digit.UserService?.getUser()?.access_token
+console.log({userToken, UserToken, }, "ggggggggggg");
   const handleSubmit = () => {
     // try {
     //   const formPayload = JSON.stringify({
@@ -182,7 +184,9 @@ const Form11 = () => {
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDo=");
-
+const userToken = localStorage.getItem('token')
+const UserToken = Digit.UserService?.getUser()?.access_token
+console.log({userToken, UserToken, }, "ggggggggggg");
 var raw = JSON.stringify({
   "RequestInfo": {
     "api_id": "1",
@@ -193,7 +197,7 @@ var raw = JSON.stringify({
     "key": "",
     "msg_id": "",
     "requester_id": "",
-    "authToken": "9bf9d0dc-1fc3-4767-9413-826d0c4d29bc"
+    "authToken": userToken
   },
   "BPA": {
     "approvalNo": null,
@@ -221,28 +225,7 @@ var raw = JSON.stringify({
         "pvtProfMobileNo":  applicantData && applicantData.applicantMobileNo,
         "nocApplicantInfo": null
       },
-      // "landAreaDetails": {
-      //   "district": applicantData && applicantData.district,
-      //   "notifiedArea": applicantData && applicantData.notifiedArea,
-      //   "category": "Residential",
-      //   "nameOfVillage": applicantData && applicantData.nameOfVillage,
-      //   "nameOfULB": "nameOfULB",
-      //   "nameOfWard": null,
-      //   "additionalLandAreaDetails": {
-      //     "Name": applicantData && applicantData.applicantName,
-      //     "Gender": "Male",
-      //     "Age": "48",
-      //     "Try": {
-      //       "address": applicantData &&  applicantData.correspondenceAddress,
-      //       "pin": applicantData && applicantData.permanentPincode
-      //     }
-      //   },
-      //   "applicantionInfo": {
-      //     "Name": "XXXXXXX",
-      //     "Gender": "Male",
-      //     "Age": "88"
-      //   }
-      // },
+      
       "landAreaDetails": {
         "district": "district",
         "notifiedArea": "TCP",
@@ -331,6 +314,7 @@ fetch(Urls.form11.create, requestOptions)
     setResponseData(result)
     // setApplicationNumber(result.BPA[0].applicationNo)
     console.log({result, responseData}, "rrrrr");
+    console.log(result.BPA, "ssssssssssssss");
   })
   .catch(error => console.log('error', error));
   }
