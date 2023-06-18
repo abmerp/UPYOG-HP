@@ -10,7 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 // import Acts from './Pages/Acts';
 import HomeIcon from '@mui/icons-material/Home';
 
-const Navbar= () => {
+const Navbar1= () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorEl1, setAnchorEl1] = React.useState(null);
   const [anchorElsnp, setAnchorElsnp] = React.useState(null);
@@ -238,4 +238,4 @@ const Navbar= () => {
   );
 };
 
-export default Navbar;
+export default Navbar1;

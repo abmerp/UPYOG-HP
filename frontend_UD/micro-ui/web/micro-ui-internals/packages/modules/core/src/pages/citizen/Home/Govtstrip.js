@@ -42,10 +42,10 @@ const GovtStrip = () => {
         <Typography variant="h6" className={classes.line1} sx={{marginTop: '120px', fontWeight: 'bold', fontSize: '12px', fontStyle: "italic", width: '450px'}}>e-Avedan Online Building Planning Permission in Urban local Bodies</Typography>
         </Box>
       <div style={{transform: 'translateX(180px)'}}>
-      <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/logo1.png" alt="image2" style={{ width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px' }} />
-      <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/emblem.png" alt="image3" style={{ width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px' }} />
-      <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/G20-theme-and-logo_1.png" alt="image4" style={{ width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px' }} />
-      <img src='https://www.hsvphry.org.in/assets/img/150-years-Mahatma-Gandhi-Logo.png' alt='image5' style={{width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px'}}/>
+      <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/logo1.png" alt="image2" style={{ width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px', display:'inline' }} />
+      <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/emblem.png" alt="image3" style={{ width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px', display:'inline' }} />
+      <img src="http://www.ud.hp.gov.in/sites/default/files/inline-images/G20-theme-and-logo_1.png" alt="image4" style={{ width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px', display:'inline' }} />
+      <img src='https://www.hsvphry.org.in/assets/img/150-years-Mahatma-Gandhi-Logo.png' alt='image5' style={{width: '50px', height: '50px', marginLeft: '20px', marginRight: '30px', display:'inline'}}/>
       </div>
     </Box>
   );

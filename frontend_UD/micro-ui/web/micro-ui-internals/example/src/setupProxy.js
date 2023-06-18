@@ -2,7 +2,8 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const createProxy = createProxyMiddleware({
  
-  target: process.env.REACT_APP_PROXY_API || "http://103.166.62.118:80",
+// target: process.env.REACT_APP_PROXY_API || "http://103.166.62.118:80",
+target: process.env.REACT_APP_PROXY_API || "http://3.111.16.234:80",
   changeOrigin: true,
 });
 
@@ -85,7 +86,8 @@ module.exports = function (app) {
     "/tl-services/SurrendOfLicenseRequest/_search",
     "/tl-services/ExtensionOfCLUPermissionRequest/_create",
     "/tl-services/ExtensionOfCLUPermissionRequest/_search",
-    "/egov-mdms-service/v1/_search"
+    "/egov-mdms-service/v1/_search",
+    "bpa-services/v1/bpa/_createForm"
   ].forEach((location) => app.use(location, createProxy));
   ["/mca/v1/companies", "/mca-directors/v1/companies", "/certificate/v3/pan/pancr"].forEach((location) => app.use(location, apiSetuProxy));
   // ["/egov-mdms-service/v1"].forEach((location) => app.use(location, LicProxy));

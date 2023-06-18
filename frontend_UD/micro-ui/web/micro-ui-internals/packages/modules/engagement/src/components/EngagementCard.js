@@ -132,8 +132,32 @@ const EngagementCard = () => {
     ],
   };
 
-  const engagementSubModulesProps = [propsForDocumentModuleCard, propsForEventsModuleCard, propsForPMBModuleCard, propsForSurveyModuleCard]
 
+  const propsForForm12ModuleCard = {
+    Icon: <DocumentIconSolid />,
+    moduleName: t("Form_12"),
+    kpis: [
+      {
+        count: totalDocsCount,
+        label: t("TOTAL_DOCUMENTS"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+    links: [
+      {
+        count: totalDocsCount,
+        label: t("ES_TITLE_INBOX"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+      {
+        label: t("NEW_DOCUMENT_TEXT"),
+        link: `/digit-ui/employee/engagement/documents/new-doc`,
+      },
+    ],
+  };
+
+  // const engagementSubModulesProps = [propsForDocumentModuleCard, propsForEventsModuleCard, propsForPMBModuleCard, propsForSurveyModuleCard,propsForForm12ModuleCard]
+  const engagementSubModulesProps = [propsForForm12ModuleCard]
 
   if (isEmployee) result = (
       <>

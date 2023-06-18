@@ -87,7 +87,7 @@ function OnlineUserServices() {
     <Button size="medium" style={{width:"150px",border:"1px solid blue",backgroundColor:"orange",color:"white",margin:"10px 0px 0px 100px"}}>Login</Button>
       </CardContent>
     </Card>
-    <Card style={{width: "400px", height: '400px', margin: '10px', alignItems:'center'}} className='cardHovered1'
+    <Card style={{width: "400px", height: '400px', margin: '10px', alignItems:'center',overflow:"auto",maxHeight:"380px",scrollbarWidth:"5px"}} className='cardHovered1'
      onMouseOver={()=>setState({ raised2: true, shadow2:3})} 
      onMouseOut={()=>setState({ raised2:false, shadow2:1 })} 
      raised={state.raised2} zdepth={state.shadow2}
@@ -101,13 +101,17 @@ function OnlineUserServices() {
       <CardContent style={{alignItems:"center", marginTop:"-17px"}}>
       <Grid container spacing={1} style={{ display: 'flex', flexDirection: 'column', margin: '0px 10px 10px 0px'}} justifyContent='space-between' rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Typography variant='body2'>Form of application for permission of Development of Land / Construction of Building. <strong>(Form - 12)</strong></Typography>
-        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="https://obpsud.hp.gov.in/form12 ">Apply Now</Link>
+        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="/digit-ui/citizen/obps/edcrscrutiny/apply">Apply Now</Link>
         <Typography variant='body2'>Form of application for permission of sub-division / development of land. <strong>(Form - 11)</strong></Typography>
-        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="https://obpsud.hp.gov.in/form11  ">Apply Now</Link>
+        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="/digit-ui/citizen/obps/home">Apply Now</Link>
         <Typography variant='body2'>Form Application for composition of offences under section 39-C read with sub-section (3) of section <strong>(Form - 26)</strong></Typography>
-        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="https://obpsud.hp.gov.in/form26">Apply Now</Link>
+        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="/digit-ui/citizen/obps/home">Apply Now</Link>
         <Typography variant='body2'>Registered citizen user may apply for NOC of water, Electricity and severage.</Typography>
-        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}}>Apply Now</Link>
+        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="/digit-ui/citizen/noc">Apply Now</Link>
+        <Typography variant='body2'>Registered citizen user may apply for Mobile Tower Application(Application For MObile Tower).</Typography>
+        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="/digit-ui/citizen/applicationformobiletower">Apply Now</Link>
+        <Typography variant='body2'>Registered citizen user may apply for Change of Land Use(Change of Land use).</Typography>
+        <Link style={{textDecoration:"none", color:"orange", textAlign:"center"}} to="/digit-ui/citizen/changeoflanduse">Apply Now</Link>
       </Grid>
      </CardContent>
     </Card>

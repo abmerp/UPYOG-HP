@@ -1,7 +1,7 @@
 {
   "name": "egovernments",
   "version": "1.5.4",
-  "main": "index.js",
+  "main": "index.js", 
   "workspaces": [
     "example",
     "packages/*",
@@ -76,9 +76,15 @@
     "@mui/lab": "^5.0.0-alpha.129",
     "@mui/material": "^5.13.0",
     "@mui/styles": "^5.12.3",
+    "@mui/x-date-pickers": "^6.4.0",
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.7",
     "lodash": "4.17.21",
     "microbundle-crl": "0.13.11",
     "react-bootstrap": "^2.7.4",
-    "react-icons": "^4.8.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
+    "react-scripts": "^5.0.1"
   }
 }
