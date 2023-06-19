@@ -22,12 +22,24 @@ import ApplicationDetails from "./ApplicationDetail";
 //import EdcrInbox from "./EdcrInbox";
 import OBPSResponse from "../employee/OBPSResponse";
 import Inbox from "../employee/Inbox";
+import FormRoute from "./ArchitectInbox/FormsRoute";
+import Form26 from "@egovernments/digit-ui-module-core/src/pages/citizen/FormsUD/forms/form26";
+// import Form11 from "@egovernments/digit-ui-module-core/src/pages/citizen/FormsUD/forms/form11";
+import FormsServices from "./ArchitectInbox/FormsServices";
+import Form11Link from "./ArchitectInbox/Form11Link";
+import Form26Link from "./ArchitectInbox/Form26Link";
+
+
+
+
+
 
 const App = ({ path }) => {
   const location = useLocation();
   const { t } = useTranslation();
 
   const BPACitizenHomeScreen = Digit?.ComponentRegistryService?.getComponent('BPACitizenHomeScreen');
+  // const FormsServices = Digit?.ComponentRegistryService?.getComponent('FormsServices');
   const CreateEDCR = Digit?.ComponentRegistryService?.getComponent('ObpsCreateEDCR');
   const CreateOCEDCR = Digit?.ComponentRegistryService?.getComponent('ObpsCreateOCEDCR');
   const NewBuildingPermit = Digit?.ComponentRegistryService?.getComponent('ObpsNewBuildingPermit');
@@ -46,7 +58,8 @@ const App = ({ path }) => {
     <React.Fragment>
        {!location.pathname.includes("response") && !location.pathname.includes("openlink/stakeholder") && !location.pathname.includes("/acknowledgement") && !isDocScreenAfterEdcr && <BackButton style={{ border: "none" }}>{t("CS_COMMON_BACK")}</BackButton>}
       <Switch>
-        <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreen} />
+        {/* <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreen} /> */}
+        <PrivateRoute path={`${path}/home`} component={FormsServices}/>
         <PrivateRoute path={`${path}/search/application`} component={(props) => <Search {...props} parentRoute={path} />} />
         <PrivateRoute path={`${path}/edcrscrutiny/apply`} component={CreateEDCR} />
         <PrivateRoute path={`${path}/edcrscrutiny/oc-apply`} component={CreateOCEDCR} />
@@ -64,6 +77,9 @@ const App = ({ path }) => {
         <PrivateRoute path={`${path}/sendbacktocitizen/bpa/:tenantId/:applicationNo`} component={BPASendBackToCitizen} />
         <PrivateRoute path={`${path}/sendbacktocitizen/ocbpa/:tenantId/:applicationNo`} component={OCSendBackToCitizen} />
         <PrivateRoute path={`${path}/response`} component={OBPSResponse} />
+        <FormRoute path={`${path}/form26link`} component={Form26Link}/>
+        <FormRoute path={`${path}/form11link`} component={Form11Link}/>
+        
       </Switch>
     </React.Fragment>
   )

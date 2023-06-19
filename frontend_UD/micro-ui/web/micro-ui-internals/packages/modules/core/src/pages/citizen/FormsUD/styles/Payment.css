@@ -1,0 +1,130 @@
+.mainContainer {
+    height: 100vh;
+    /* background-image: url("../assets/rupee.webp"); */
+}
+
+.mainContainer .mainHead {
+    background-color: rgb(34, 28, 28);
+    height: 4rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    padding-left: 3rem;
+    justify-content: space-between;
+    padding-right: 4rem;
+}
+
+.mainContainer .mainHead .iconGap {
+    display: flex;
+    gap: 3rem;
+
+}
+
+.mainContainer .mainSection {
+    text-align: center;
+}
+
+
+.mainContainer .mainSection h1 {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+    color: rgb(13, 3, 3);
+}
+
+.mainContainer .mainSection h1 span {
+    color: crimson;
+}
+
+.mainContainer .tableBody {
+    background-color: white;
+    width: 90%;
+    margin: 5rem auto;
+    border: 1px solid grey;
+}
+
+.mainContainer .tableBody .head {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: rgba(217, 212, 212, 0.455);
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    border-bottom: 1px solid grey;
+}
+
+.mainContainer .tableBody .table {
+    height: 2.6rem;
+    display: flex;
+    gap: 2rem;
+    border-bottom: 1px solid grey;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.mainContainer .tableBody .table .leftCol {
+    width: 60%;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 2rem;
+    align-items: center;
+    border-right: 1px solid grey;
+
+}
+
+.mainContainer .tableBody .table .rightCol {
+    width: 40%;
+    text-align: right;
+    padding-right: 4rem;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 2rem;
+    align-items: center;
+}
+
+.mainContainer .paymentMethod {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+.mainContainer .footerContainer {
+    margin-top: 4rem;
+}
+
+.notificationMainSection.mainSection {
+    color: blue;
+    background-color: rgba(154, 220, 242, 0.26);
+    border: 1px solid aqua;
+    margin-top: 4rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5rem;
+}
+
+.mainSection.bgGreen {
+    background-color: rgb(196, 229, 196);
+    border: 1px solid rgb(47, 255, 68);
+    color: rgb(42, 184, 85);
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.mainSection.bgGreen span {
+    color: crimson;
+}
+
+.mainContainer .wrapper {
+    text-align: center;
+    margin-top: 5rem;
+
+}

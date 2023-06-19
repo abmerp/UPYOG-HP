@@ -29,8 +29,8 @@
 
       &.city {
         margin-right: 8px;
-        height: 48px;
-        width: 48px;
+        height: 30px;
+        width: 30px;
       }
 
       &.state {
@@ -97,7 +97,7 @@
 
 .citizen {
   .main {
-    padding-top: 82px;
+    /* padding-top: 82px;*/
     min-height: calc(100vh - 90px);
   }
 }
@@ -283,14 +283,17 @@
     .main {
       gap: 0.3rem;
       width: 100%;
-      padding-top: 80px;
+      /*  padding-top: 80px; */
       padding-left: 16px;
       min-height: calc(100vh - 40px);
     }
 
     .center-container {
-      width: 70%;
+      /* width: 70%; */
       margin: 0 auto;
+      .nav-width{
+        width: 80%;
+      }
     }
   }
 }

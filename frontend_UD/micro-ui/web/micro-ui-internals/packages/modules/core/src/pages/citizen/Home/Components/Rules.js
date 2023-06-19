@@ -27,9 +27,7 @@ function Rules() {
             </tr>
         </table>
         </Grid>
-         
-     
-     </CardContent>
+          </CardContent>
     </Card>
     <NavbarFooter/>
     </div>

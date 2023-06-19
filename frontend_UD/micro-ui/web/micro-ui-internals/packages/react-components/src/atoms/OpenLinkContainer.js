@@ -5,12 +5,12 @@ import { NotificationBell } from "./svgindex";
 const OpenLinkContainer = ({ img,}) => {
   return (
     <div className="navbar">
-      <div className="center-container">
+      <div className="center-container" >
         <img
           className="city"
           id="topbar-logo" 
           crossOrigin="anonymous"
-          src={"https://cdn.jsdelivr.net/npm/@egovernments/digit-ui-css@1.0.7/img/m_seva_white_logo.png"}
+          src={"http://www.ud.hp.gov.in/sites/default/files/logo.png"}
           alt="mSeva"
         />
       </div>
@@ -23,7 +23,7 @@ OpenLinkContainer.propTypes = {
 };
 
 OpenLinkContainer.defaultProps = {
-  img: undefined,
+  img: "http://www.ud.hp.gov.in/sites/default/files/logo.png",
 };
 
 export default OpenLinkContainer;
