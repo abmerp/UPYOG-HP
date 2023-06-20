@@ -23,11 +23,11 @@
 @screen dt{
 
     .citizenAllServiceGrid{
+        flex-wrap: wrap;
         @apply grid grid-cols-2 gap-4;
       }
 
-    .CitizenHomeCard{
-       
+    .CitizenHomeCard{       
         min-width: 40%;
         margin-left: 0;
         @apply inline-block mr-lg p-lg align-top;

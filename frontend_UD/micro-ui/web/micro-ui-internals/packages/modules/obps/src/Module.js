@@ -56,6 +56,7 @@ import BPAAcknowledgement from "./pages/citizen/NewBuildingPermit/OBPSAcknowledg
 import OCBPAAcknowledgement from "./pages/citizen/OCBuildingPermit/OBPSAcknowledgement";
 import OCSendBackAcknowledgement from "./pages/citizen/OCSendBackToCitizen/Acknowledgement";
 import StakeholderAcknowledgement from "./pages/citizen/StakeholderRegistration/StakeholderAcknowledgement";
+import Form26 from "@egovernments/digit-ui-module-core/src/pages/citizen/FormsUD/forms/form26";
  
 
 const OBPSModule = ({ stateCode, userType, tenants }) => {
@@ -153,7 +154,8 @@ const componentsToRegister = {
   ObpsOCSendBackToCitizen : OCSendBackToCitizen,
   ObpsEdcrInbox : EdcrInbox,
   ObpsEmpApplicationDetail : EmpApplicationDetail,
-  ObpsEmployeeBpaApplicationDetail : EmployeeBpaApplicationDetail
+  ObpsEmployeeBpaApplicationDetail : EmployeeBpaApplicationDetail,
+  Form26
 }
 
 export const initOBPSComponents = () => {

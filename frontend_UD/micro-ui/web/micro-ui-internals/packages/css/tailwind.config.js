@@ -10,9 +10,12 @@ module.exports = {
     },
     colors: {
       primary: {
-        light: "#F18F5E",
-        main: "#F47738",
-        dark: "#C8602B",
+        // light: "#F18F5E",
+        // main: "#F47738",
+        // dark: "#C8602B",
+        light: "#22394D",
+        main: "#22394D",
+        dark: "#22394D",
       },
       secondary: "#22394D",
       text: {

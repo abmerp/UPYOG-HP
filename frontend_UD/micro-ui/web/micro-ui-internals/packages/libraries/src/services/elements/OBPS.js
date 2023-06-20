@@ -33,6 +33,17 @@ export const OBPSService = {
       params: {},
       auth: true,
     }),
+    createForm: (details, tenantId) =>
+    Request({
+      url: "/bpa-services/v1/bpa/_createForm",
+      data: details,
+      useCache: false,
+      setTimeParam: false,
+      userService: true,
+      method: "POST",
+      params: {},
+      auth: true,
+    }),
   NOCSearch: (tenantId, sourceRefId) =>
     Request({
       url: Urls.obps.nocSearch,

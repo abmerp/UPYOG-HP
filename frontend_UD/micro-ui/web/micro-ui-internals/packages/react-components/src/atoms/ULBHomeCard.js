@@ -21,10 +21,10 @@ const ULBHomeCard = (props) => {
                 style={{ minWidth: "100px", cursor: "pointer" }}
                 onClick={() => (i.link ? history.push(i.link) : location.assign(i.locate))}
                 children={
-                  <>
+                  <div>
                     {" "}
                     {i.icon} <p> {t(i.name)} </p>{" "}
-                  </>
+                  </div>
                 }
               ></Card>
             );

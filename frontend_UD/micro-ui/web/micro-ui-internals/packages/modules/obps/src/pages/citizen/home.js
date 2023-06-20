@@ -188,10 +188,12 @@ const BPACitizenHomeScreen = ({ parentRoute }) => {
   const homeScreen = (
     <div className="mainContent citizenAllServiceGrid">
       {homeDetails.map((data) => {
+        debugger;
         return (
           <div>
             {data.name === "employeeCard" ? <EmployeeModuleCard {...data} /> :
-              <CitizenHomeCard header={data.title} links={data.links} Icon={() => data.Icon} styles={data?.styles} />}
+              <CitizenHomeCard header={data.title} links={data.links} Icon={() => data.Icon} styles={data?.styles} />
+              }
           </div>
         )
       })}
