@@ -28,7 +28,7 @@ const SearchFields = ({register, control, reset, tenantId, t }) => {
         if(!found) applicationStatuses.push({code:status?.applicationStatus, i18nKey:`WF_NEWTL_${(status?.applicationStatus)}`})
     })
 
-    return <>
+    return <div>
         <SearchField>
             <label>{t("TL_HOME_SEARCH_RESULTS_APP_NO_LABEL")}</label>
             <TextInput name="applicationNumber" inputRef={register({})} />
@@ -109,6 +109,6 @@ const SearchFields = ({register, control, reset, tenantId, t }) => {
                 previousPage();
             }}>{t(`ES_COMMON_CLEAR_ALL`)}</p>
         </SearchField>
-    </>
+    </div>
 }
 export default SearchFields
