@@ -1,0 +1,110 @@
+.tableWrapper {
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 2vw;
+}
+
+.tableWrapper .row {
+    display: flex;
+    border-top: 1px solid #e0e0e0;
+    justify-content: center;
+}
+
+.tableWrapper .heading {
+    font-size: 1.1vw;
+    font-weight: 600;
+}
+
+/* .row:nth-child(2) {} */
+
+.tableWrapper .row .serial {
+    width: 4vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+}
+
+.tableWrapper .row .description {
+    padding: 0.938vw;
+    width: 20vw;
+    border-right: 1px solid #e0e0e0;
+}
+
+.tableWrapper .row .regulation {
+    width: 17vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+}
+
+.tableWrapper .row .proposed {
+    width: 17vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+}
+
+.tableWrapper .row .remarks {
+    width: 17vw;
+    padding: 0.938vw;
+    border-right: 1px solid #e0e0e0;
+}
+
+.tableWrapper .row .relaxation {
+    width: 8vw;
+    padding: 0.938vw;
+}
+
+.checkboxWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    margin-top: 1vw;
+    justify-content: center;
+    padding: 0.625vw;
+}
+
+.box p {
+    border: 1px solid #e0e0e0;
+    padding: 0.5vw;
+}
+
+.uploadHtml {
+    padding: 0.625vw;
+    border: 1px solid #e0e0e0;
+}
+
+.uploadHtml h6 {
+    margin-top: 0.5vw;
+}
+
+.subCol {
+    width: 33.3vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.subCol .first,
+.subCol .second {
+    width: 50%;
+    padding: 7px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.subCol .second {
+    font-weight: 600;
+}
+
+.table-image {
+    width: 10rem;
+    margin-top: 1rem;
+}

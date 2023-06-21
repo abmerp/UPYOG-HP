@@ -1,0 +1,264 @@
+.certificate-container {
+    padding: 10px;
+    width: 85vw;
+    margin: auto;
+    font-family: Roboto;
+}
+
+.certificate {
+    border: 8px solid brown;
+    padding: 15px;
+    height: max-content;
+    position: relative;
+}
+
+.certificate:after {
+    content: '';
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    background-size: 100%;
+    z-index: -1;
+}
+
+.certificate-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.certificate-header > h2 {
+    font-size: 1rem;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+}
+
+.certificate-header > .logo {
+    width: 150px;
+    height: 150px;
+    
+}
+
+.certificate-title {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.certificate-body {
+    text-align: center;
+    margin-top: 30px;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 48px;
+    color: #151718;
+    text-decoration: underline;
+
+}
+
+
+.certificate-date {
+    display: flex;
+    width: 90%;
+    margin: 1rem auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.certificate-to {
+    display: flex;
+    width: 90%;
+    /* margin: 1rem auto; */
+    justify-content: space-between;
+    align-items: justify;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.certificate-date > h2 {
+    font-size: 1.1rem;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+}
+
+.name {
+    display: flex;
+    width: 80%;
+    margin: 1rem auto;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    text-align: left;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 1rem auto;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    text-align: left;
+    font-size: 16px;
+    text-align:justify;
+    line-height: 30px;
+    margin-top: 50px;
+    color:#151718;
+    font-stretch:ultra-condensed;
+    font-weight: normal;
+
+
+}
+
+.body1{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 1rem auto;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    text-align: left;
+    font-size: 16px;
+    text-align:justify;
+    line-height: 15px;
+    margin-top: 50px;
+    color:#151718;
+    font-stretch:ultra-condensed;
+    font-weight: normal;
+
+
+}
+
+.srNo{
+    font-size:15px;
+    margin-left: 20px;
+    margin-top:5px;
+    
+
+}
+
+.applied-name {
+    margin-left: 1rem;
+    text-align: justify;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+    text-decoration-line: underline;
+    font-weight: 550;
+    font-size: 18;
+}
+
+.certificate-to > h5 {
+    margin-top: 2rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.certificate-signature {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.certificate-signature > img {
+    width: 300px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.list {
+    margin-top: 0.5rem;
+    width: 90%;
+    margin: auto;
+}
+
+.list h5 {
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 400;
+
+}
+
+.certificate-last {
+    display: flex;
+    /* //margin: 1rem auto; */
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+}
+
+
+.certificate-last img {
+    width: 250px;
+    height: 200px;
+    object-fit: contain;
+
+}
+
+.certificate:after {
+    content: '';
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    background-image: url("D:\upyog-components\src\assets\watermark.png"); 
+    /* background-image:url("https://obpsud.hp.gov.in/img/logoHP.png"); */
+
+    background-size: 30%;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+}
+
+.border-title{
+    text-decoration: none;
+    font-size: 18px;
+    border: 3px solid#004D00;
+    border-radius: 20px;
+    padding: 10px;
+    color: rgb(22, 173, 52);
+    font-weight: 700;
+    margin-top: 10px;
+    
+}
+.qrcode__container {
+    display: flex;
+    align-items: center;
+    border: 2px ridge black;
+    padding: 7px!important;
+  }
+
+  .mis {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+}
+
+.btnstyle2{
+    height: 29px;
+    text-align: center;
+    background-color: #F8F8F8;
+    border-radius: 3px;
+    border: 2px solid #E8E8E8;
+    font-size: 12px;
+}
+
+.mis-header{
+    text-decoration: none;
+    font-size: 18px;
+    border: 3px solid#004D00;
+    border-radius: 18px;
+    color: rgb(22, 173, 52);
+    font-weight: 700;
+    margin-top: 10px;
+    width:fit-content;
+    padding: 10px;
+    margin-left:37%;
+}
