@@ -9,7 +9,7 @@ const useForm11Inbox = ({ tenantId, filters, config }) => {
         tenantId,
 		processSearchCriteria: {
             moduleName: "BPA",
-			businessService: ["FORM11"],
+			businessService: ["FORM_11"],
             ...(applicationStatus?.length > 0 ? {status: applicationStatus} : {}),
             ...(uuid && Object.keys(uuid).length > 0 ? {assignee: uuid.code === "ASSIGNED_TO_ME" ? USER_UUID : ""} : {}),
         },

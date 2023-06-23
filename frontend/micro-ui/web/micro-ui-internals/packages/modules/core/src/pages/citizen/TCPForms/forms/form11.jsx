@@ -7,6 +7,8 @@ import Noc from "./noc";
 import { Button } from "@mui/material";
 import axios from "axios";
 import Urls from "@egovernments/digit-ui-libraries/src/services/atoms/urls";
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+
 
 const Form11 = () => {
   const [checkListData, setCheckListData] = useState({})
@@ -14,6 +16,7 @@ const Form11 = () => {
   const [applicantData, setApplicantData] = useState([])
   const [responseData, setResponseData] = useState({})
   const [applicationNumber, setApplicationNumber] = useState('')
+  const [open, setOpen] = useState(false)
 
   const step1Data = (data) => {
     setApplicantData(data)
@@ -36,6 +39,7 @@ const Form11 = () => {
   // console.log("fffffffffff", applicantData.correspondencePinCode, applicantData.correspondenceAdressName, applicantData.correspondenceGuardianName);
 
   const handleSubmit = () => {
+    setOpen(true)
     // try {
     //   const formPayload = JSON.stringify({
     //     "RequestInfo": {
@@ -336,12 +340,15 @@ fetch(Urls.form11.create, requestOptions)
     console.log({result, responseData}, "rrrrr");
   })
   .catch(error => console.log('error', error));
+  
   }
   
   useEffect(() => {
     console.log("ccccccc", checkListData, documentData, applicantData);
   }, [checkListData, documentData, applicantData])
-
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <div>
       <Step1 step1Data={step1Data} />
@@ -350,7 +357,32 @@ fetch(Urls.form11.create, requestOptions)
       <Step3 step3Data={step3Data}/>
       {/* <Noc /> */}
       <Button type="submit" style={{backgroundColor: '#1fa47c', color: 'white', marginLeft: '650px', marginBottom: '100px'}} onClick={handleSubmit} >Submit</Button>
+      <div>
+      <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      >
+      <DialogTitle id="alert-dialog-title">
+      {"Form - 11 Application submission details:"}
+      </DialogTitle>
+      <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+      Your Application has been submitted successfully.
+      Please note down your Application no - PBBPA20230614000200.
+      for further assistance.
+      </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+      <Button onClick={handleClose}>Back</Button>
+      <Button onClick={handleClose} autoFocus>
+      Close
+      </Button>
+      </DialogActions>
+      </Dialog>
     </div>
+</div>
   );
 };
 
