@@ -131,6 +131,7 @@ import useReceiptsUpdate from "./receipts/useReceiptsUpdate";
 import SearchMdmsTypes from "./obps/SearchMdmsTypes";
 import useOBPSMDMS from "./obps/useMDMS";
 import useOBPSSearch from "./obps/useOBPSSearch";
+import useForm11Inbox from './obps/useForm11Inbox'
 import useScrutinyDetails from "./obps/useScrutinyDetails";
 import useTenantsOBPS from "./obps/useTenants";
 import useNocDetails from "./obps/useNocDetails";
@@ -305,6 +306,7 @@ const obps = {
   useNocDetails: useNocDetails,
   useOBPSDocumentSearch,
   useObpsAPI,
+  useForm11Inbox,
   useBPADetails,
   useBPASearch,
   useBPAREGgetbill,

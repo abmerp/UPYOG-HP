@@ -1,6 +1,5 @@
 import { BPAHomeIcon, BPAIcon, CitizenHomeCard, EDCRIcon, EmployeeModuleCard, Loader, Toast } from "@egovernments/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
@@ -185,51 +184,22 @@ const BPACitizenHomeScreen = ({ parentRoute }) => {
       links: bpaLinks,
       styles: {minWidth: "90%", minHeight: "90%"}
     },
+    {
+      title: t("Development of sub-division of land - Form11"),
+      Icon: <BPAIcon className="fill-path-primary-main" />,
+      links: [
+        {
+          link: `form11`,
+          i18nKey: t("Apply for form 11"),
+        },
+        {
+          link: `form11-applications`,
+          i18nKey: t("view applications"),
+        },
+      ],
+      styles: {minWidth: "90%", minHeight: "90%"}
+    },
   ];
-  // const cards = [
-  //   {
-  //     title: 'Application for permission of Sub-division/Develoment of land',
-  //     applied: 'Applied: 140',
-  //     Approve: 'Approve: 30',
-  //     Rejected: 'Rejected: 12',
-  //     image: park
-  //   },
-  //   {
-  //     title: 'Application for building plan Permission',
-  //     applied: 'Applied: 143',
-  //     Approve: 'Approve: 40',
-  //     Rejected: 'Rejected: 22',
-  //     image: building
-  //   },
-  //   {
-  //     title: 'Application for composition of offences',
-  //     applied: 'Applied: 196',
-  //     Approve: 'Approve: 50',
-  //     Rejected: 'Rejected: 2',
-  //     image: foul,
-  //   },
-  //   {
-  //     title: 'Application for Real Estate Project',
-  //     applied: 'Applied: 218',
-  //     Approve: 'Approve: 20',
-  //     Rejected: 'Rejected: 42',
-  //     image: investment
-  //   },
-  //   {
-  //     title: 'Application for Change of Land Use',
-  //     applied: 'Applied: 76',
-  //     Approve: 'Approve: 10',
-  //     Rejected: 'Rejected: 12',
-  //     image: management
-  //   },
-  //   {
-  //     title: 'Application for permission of mobile tower',
-  //     applied: 'Applied: 96',
-  //     Approve: 'Approve: 17',
-  //     Rejected: 'Rejected: 32',
-  //     image: antina
-  //   }
-  // ];
 
   const homeScreen = (
     <div className="mainContent citizenAllServiceGrid">
@@ -246,52 +216,6 @@ const BPACitizenHomeScreen = ({ parentRoute }) => {
   sessionStorage.setItem("isPermitApplication", true);
   sessionStorage.setItem("isEDCRDisable", JSON.stringify(false));
   return homeScreen;
-  // return(
-  //   <Grid container>
-  //   <Grid item xs={12} md={2} sx={{ backgroundColor: '#1F4A7C', minHeight: '100vh' , marginTop: '10px'}}>
-  //     <Typography variant="h6" sx={{ color: '#fff', padding: '20px' }}>Services <span><img src={dropdown} alt='drop' style={{width: '18px', height: '18px', color: 'blue'}}/></span></Typography>
-  //     <Typography variant="h6" sx={{ color: '#fff', padding: '20px' }}>Reports <span><img src={dropdown} alt='drop' style={{width: '18px', height: '18px', color: '#fff'}}/></span></Typography>
-  //   </Grid>
-  //   <Grid item xs={12} md={10}>
-  //   <Card sx={{ backgroundColor: '#1f4a7c', margin: '20px' }}>
-  //   <CardContent>
-  //     <Grid container spacing={2}>
-  //       {cards.map((card, index) => (
-  //         <Grid item xs={12} sm={6} md={4} key={index}>
-  //           <Card sx={{ maxWidth: 345, width: '100%', height: '100%', margin: '10px', borderRadius:'10px',backgroundColor:'#F5F5FF', boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px'}}>
-  //             <CardContent>
-  //           <div style={{display: 'flex', flexDirection: 'row'}}>
-  //             <CardMedia
-  //                 component="img"
-  //                 image={card.image}
-  //                 alt={card.title}
-  //                 sx={{ height: '100px', width: '100px', margin: '10px' }}
-  //               />
-  //               <Typography variant="p" component="div" style={{color: '#000033', fontSize: '16px', fontWeight: 'bold', margin: '15px' }}>
-  //                 {card.title} 
-  //               </Typography>
-  //               </div>
-  //               <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: '10px'}}>
-  //               <Typography sx={{ mb: 1.5, marginTop: '20px 10px -10px 10px' }} color="text.secondary">
-  //                 {card.applied} <span><img src={check} alt='check' style={{width: '10px', height: '10px'}}/></span>
-  //               </Typography>
-  //               <Typography variant="body2" sx={{ mb: 1.5, marginTop: '20px 10px -10px 10px', fontWeight: 'bold' }}>
-  //                 {card.Approve} <span><img src={list} alt='list' style={{width: '10px', height: '10px'}}/></span>
-  //               </Typography>
-  //               <Typography variant="body2">
-  //                 {card.Rejected} <span><img src={remove} alt='remove' style={{width: '10px', height: '10px'}}/></span>
-  //               </Typography>
-  //               </div>
-  //             </CardContent>
-  //           </Card>
-  //         </Grid>
-  //       ))}
-  //     </Grid>
-  //   </CardContent>
-  // </Card>
-  // </Grid>
-  // </Grid>
-  // )
 };
 
 export default BPACitizenHomeScreen;
