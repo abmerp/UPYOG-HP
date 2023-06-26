@@ -1083,6 +1083,17 @@
       "isActive": true
     },
     {
+      "businessService": "BPA.FORM_11",
+      "code": "BPA.FORM_11",
+      "collectionModesNotAllowed": [
+        "DD"
+      ],
+      "partPaymentAllowed": false,
+      "isAdvanceAllowed": false,
+      "isVoucherCreationEnabled": true,
+      "isActive": true
+    },
+    {
       "businessService": "PT.MUTATION",
       "code": "PT.MUTATION",
       "collectionModesNotAllowed": [
