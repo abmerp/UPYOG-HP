@@ -132,7 +132,117 @@ const EngagementCard = () => {
     ],
   };
 
-  const engagementSubModulesProps = [propsForDocumentModuleCard, propsForEventsModuleCard, propsForPMBModuleCard, propsForSurveyModuleCard]
+  // const propsForForm11ModuleCard = {
+  //   Icon: <DocumentIconSolid />,
+  //   moduleName: t("Development of Land - Form11"),
+  //   kpis: [
+  //     {
+  //       count: totalDocsCount,
+  //       label: t("TOTAL_FORMS_APPLIED"),
+  //       link: `/digit-ui/employee/engagement/documents/inbox`,
+  //     },
+  //   ],
+  //   links: [
+  //     {
+  //       count: totalDocsCount,
+  //       label: t("ES_DOCS_COUNT"),
+  //       link: `/digit-ui/employee/engagement/documents/inbox`,
+  //     },
+  //   ],
+  // };
+  const propsForForm12ModuleCard = {
+    Icon: <DocumentIconSolid />,
+    moduleName: t("Building Plan Permission - Form12"),
+    kpis: [
+      {
+        count: totalDocsCount,
+        label: t("TOTAL_FORMS_APPLIED"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+    links: [
+      {
+        count: totalDocsCount,
+        label: t("ES_DOCS_COUNT"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+  };
+  const propsForForm26ModuleCard = {
+    Icon: <DocumentIconSolid />,
+    moduleName: t("Composition of offences - Form12"),
+    kpis: [
+      {
+        count: totalDocsCount,
+        label: t("TOTAL_FORMS_APPLIED"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+    links: [
+      {
+        count: totalDocsCount,
+        label: t("ES_DOCS_COUNT"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+  };
+
+  const propsForFormlandUseModuleCard = {
+    Icon: <DocumentIconSolid />,
+    moduleName: t("Change of land use"),
+    kpis: [
+      {
+        count: totalDocsCount,
+        label: t("TOTAL_FORMS_APPLIED"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+    links: [
+      {
+        count: totalDocsCount,
+        label: t("ES_DOCS_COUNT"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+  };
+  const propsForFormTowerModuleCard = {
+    Icon: <DocumentIconSolid />,
+    moduleName: t("Mobile Tower Application"),
+    kpis: [
+      {
+        count: totalDocsCount,
+        label: t("TOTAL_FORMS_APPLIED"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+    links: [
+      {
+        count: totalDocsCount,
+        label: t("ES_DOCS_COUNT"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+  };
+  const propsForForm16ModuleCard = {
+    Icon: <DocumentIconSolid />,
+    moduleName: t("Application of Appeal - Form16"),
+    kpis: [
+      {
+        count: totalDocsCount,
+        label: t("TOTAL_FORMS_APPLIED"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+    links: [
+      {
+        count: totalDocsCount,
+        label: t("ES_DOCS_COUNT"),
+        link: `/digit-ui/employee/engagement/documents/inbox`,
+      },
+    ],
+  };
+
+  const engagementSubModulesProps = [propsForForm12ModuleCard, propsForForm26ModuleCard, propsForFormlandUseModuleCard, propsForFormTowerModuleCard, propsForForm16ModuleCard ]
 
 
   if (isEmployee) result = (

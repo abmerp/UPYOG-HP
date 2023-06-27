@@ -2,7 +2,7 @@ import Urls from "../atoms/urls";
 import { Request } from "../atoms/Utils/Request";
 
 export const Form11Service = {
-  create: (data) =>
+  create: (data, headers) =>
     Request({
       url: Urls.form11.create,
       data: data,
@@ -13,6 +13,7 @@ export const Form11Service = {
       method: "POST",
     //   params: { tenantId },
       auth: true,
-      multipartFormData: true
+      multipartFormData: true,
+      headers: headers
     })
 };

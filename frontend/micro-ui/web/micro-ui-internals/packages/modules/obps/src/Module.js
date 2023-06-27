@@ -5,7 +5,8 @@ import { Loader, CitizenHomeCard, OBPSIcon, CitizenInfoLabel } from "@egovernmen
 import CitizenApp from "./pages/citizen";
 import Inbox from "./pages/employee/Inbox";
 import stakeholderInbox from "./pages/employee/stakeholderInbox";
-
+import Form11 from "./pages/citizen/TCPForms/forms/form11";
+import Form11Card from "./components/Form11Card";
 import BPACitizenHomeScreen from "./pages/citizen/home";
 import EDCRForm from "./pageComponents/EDCRForm";
 import BasicDetails from "./pageComponents/BasicDetails";
@@ -108,6 +109,8 @@ const componentsToRegister = {
   OBPSCard:OBPSEmployeeHomeCard,
   BPACitizenHomeScreen,
   EDCRForm,
+  Form11,
+  Form11Card,
   BasicDetails,
   DocsRequired,
   PlotDetails,

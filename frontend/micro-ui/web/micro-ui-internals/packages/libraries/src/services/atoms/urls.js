@@ -45,7 +45,8 @@ const Urls = {
     vehicleTripCreate: "/vehicle/trip/v1/_create",
   },
   form11: {
-    create: '/bpa-services/v1/bpa/_createForm'
+    create: '/bpa-services/v1/bpa/_createForm',
+    auth: '/user/oauth/token'
   },
 
   payment: {
