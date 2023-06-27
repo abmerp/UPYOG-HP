@@ -1133,8 +1133,7 @@ img, video {
   .card .card-text-primary, .card-emp .card-text-primary, .card span, .card-emp span {
     --text-opacity:1;
     color: #0b0c0c;
-    color: rgba(11, 12, 12, var(--text-opacity));
-  border-radius: 3px; }
+    color: rgba(11, 12, 12, var(--text-opacity)); }
   .card .card-text-button, .card-emp .card-text-button, .card .card-text-primary, .card-emp .card-text-primary {
     font-size: 16px;
     line-height: 24px; }
@@ -1359,8 +1358,7 @@ img, video {
     padding-top: 16px;
     max-width: 960px;
     min-width: 640px;
-    margin-left: 100px;
-  }
+    margin-left: auto }
     .card .card-header, .card-emp .card-header {
       font-size: 24px;
       color: #1f4a7c;
@@ -1842,9 +1840,7 @@ img, video {
     height: 2.5rem;
     --border-opacity:1;
     border: 1px solid #464646;
-    border-color: rgba(70, 70, 70, var(--border-opacity));
-    border-radius: 5px;
-  }
+    border-color: rgba(70, 70, 70, var(--border-opacity)); }
     .select-wrap .select input[type=text], .select-wrap .select .checkbox-wrap .input-emp[type=text], .checkbox-wrap .select-wrap .select .input-emp[type=text] {
       width: calc(100% - 32px);
       background-color: initial;
@@ -1984,9 +1980,7 @@ img, video {
   line-height: 20px;
   --text-opacity:1;
   color: #0b0c0c;
-  color: rgba(11, 12, 12, var(--text-opacity)); 
-  border-radius: 5px;
-}
+  color: rgba(11, 12, 12, var(--text-opacity)); }
 
 .employee-card-input--front {
   width: -webkit-fit-content !important;
@@ -3047,8 +3041,7 @@ img, video {
   --border-opacity:1;
   border-color: #464646;
   border-color: rgba(70, 70, 70, var(--border-opacity));
-  width: 100%; 
-  border-radius: 5px;}
+  width: 100%; }
   .upload-file div {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -4586,8 +4579,8 @@ img, video {
           background: rgba(244, 119, 56, 0.12);
           mix-blend-mode: normal;
           padding-top: 14px;
-          height: 5rem;
-          width: 5rem;
+          height: 4rem;
+          width: 4rem;
           border-radius: 9999px;
           cursor: pointer; }
         .CardBasedOptions .mainContent .CardBasedOptionsMainChildOption .ChildOptionImageWrapper svg {
@@ -8095,8 +8088,7 @@ input[type=number], .checkbox-wrap .input-emp[type=number] {
   .container1 .formContainer .formInputContainer .columnWrapper {
     gap: 1vw;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
   }
   
   .container1 .formContainer .formInputContainer .inputContainer .label {
@@ -8387,4 +8379,93 @@ input[type=number], .checkbox-wrap .input-emp[type=number] {
     width: 4vw;
     height: 4vw;
     object-fit: contain;
+  }
+
+  .citizen .citizen-strip-appbar{
+    height: 36px;
+    margin-top: -75px;
+  }
+
+  .citizen .strip-toolbar{
+    display: flex;
+    flex-direction: row;
+    margin-right: 5%;
+  }
+  .citizen .iconStyle{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #1f4a7c;
+    color: #1f4a7c;
+    margin: 5px;
+  }
+
+  .citizen .eService{
+    width: 200px;
+    margin: 10px;
+  }
+  .citizen .mapLogin{
+    width: 130px;
+    height: 35px;
+    margin: 0px 10px 30px 10px;
+    background-color: #207CBD;
+    color: white;
+  }
+  .citizen .skipmain{
+    font-size: 14px;
+    margin: 0px 20px 25px 20px;
+  }
+  .citizen .sizeIcon{
+    margin: 0px 15px 25px 0px;
+    width: 22px;
+    height: 22px;
+  }
+  .citizen .darkIcon{
+    margin: 0px 10px 25px 25px;
+    width: 22px;
+    height: 22px;
+  }
+  .citizen .defaultIcon{
+    margin: 0px 10px 25px 0px;
+    width: 22px;
+    height: 22px;
+  }
+  .citizen .hindiText{
+    margin-bottom: 25px;
+  }
+  .citizen .searchhere{
+    margin: 0px 0px 25px 20px;
+  }
+  .citizen .govtStripParentDiv{
+    height: 180;
+    display: 'flex'; 
+    justify-content: center; 
+    align-items: center;
+    flex-direction: row; 
+    background-color: #fff; 
+    color: 'black'
+  }
+  .citizen .govtStripParentDiv .govtStripboxDiv{
+    display: flex;
+    flex-direction: row;
+  }
+  .govtStripFirstDiv{
+    display: 'flex';
+    flex-direction: 'row';
+    color: '#1F4A7C';
+    width: '605px';
+    height: 'auto';
+    border: '7px solid #1F4A7C';
+    position:'relative';
+    margin-right:'50px';
+  }
+  .govtimageContainer{
+    margin: '10px';
+    display: 'flex'; 
+    flex-direction: 'row'
+  }
+  .tcpNavbar{
+    background: '#1F4A7C';
+     height: '44px';
+     margin-left: '15px'
   }

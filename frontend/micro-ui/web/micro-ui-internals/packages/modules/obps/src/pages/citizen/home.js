@@ -199,6 +199,25 @@ const BPACitizenHomeScreen = ({ parentRoute }) => {
       ],
       styles: {minWidth: "90%", minHeight: "90%"}
     },
+    {
+      title: t("Building Plan Permission - Form12"),
+      Icon: <BPAIcon className="fill-path-primary-main" />,
+      links: [
+        {
+          link: `form12`,
+          i18nKey: t("Apply for form 12"),
+        },
+        {
+          link: `edcrscrutiny/apply/home`,
+          i18nKey: t("Apply for Self-Certification Form-12 (Applicable for granting planning permission upto 500m2 of plot area for resendential use)"),
+        },
+        {
+          link: `form12-applications`,
+          i18nKey: t("view applications"),
+        },
+      ],
+      styles: {minWidth: "90%", minHeight: "90%"}
+    },
   ];
 
   const homeScreen = (

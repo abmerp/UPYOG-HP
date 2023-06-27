@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Switch, useLocation, Route } from "react-router-dom";
 import { PrivateRoute, BackButton } from "@egovernments/digit-ui-react-components";
 import Form11 from "./TCPForms/forms/form11";
+// import Form12 from "./TCPForms/forms/form12";
 // import NewBuildingPermit from "./NewBuildingPermit";
 // import CreateEDCR from "./EDCR";
 // import CreateOCEDCR from "./OCEDCR";
@@ -24,7 +25,16 @@ import ApplicationDetails from "./ApplicationDetail";
 import OBPSResponse from "../employee/OBPSResponse";
 import Inbox from "../employee/Inbox";
 import BPACitizenHomeScreens from "./home";
-
+import SelfCertificationPreview from "./TCPForms/forms/SelfCertification";
+import Step1 from "./TCPForms/formComponents/selfCertification/Step1";
+import Step2 from "./TCPForms/formComponents/selfCertification/Step2";
+import Step3 from "./TCPForms/formComponents/selfCertification/Step3";
+import Step4 from "./TCPForms/formComponents/selfCertification/Step4";
+import PayFee from "./TCPForms/selfCertificationPayment/PayFee";
+import Payment2 from "./TCPForms/selfCertificationPayment/payment2";
+import PaymentConfirm from "./TCPForms/selfCertificationPayment/PaymentConfirm";
+import SelfApproval from "./TCPForms/selfApprovalPortal/selfApproval";
+import SiteInspection from "./TCPForms/selfApprovalPortal/SiteInspectionReport";
 const App = ({ path }) => {
   const location = useLocation();
   const { t } = useTranslation();
@@ -67,6 +77,16 @@ const App = ({ path }) => {
         <PrivateRoute path={`${path}/sendbacktocitizen/ocbpa/:tenantId/:applicationNo`} component={OCSendBackToCitizen} />
         <PrivateRoute path={`${path}/response`} component={OBPSResponse} />
         <PrivateRoute path={`${path}/form11`} component={Form11} />
+        <PrivateRoute path={`${path}/form12/step1`} component={Step1} />
+        <PrivateRoute path={`${path}/form12/step2`} component={Step2} />
+        <PrivateRoute path={`${path}/form12/step3`} component={Step3} />
+        <PrivateRoute path={`${path}/form12/step4`} component={Step4} />
+        <PrivateRoute path={`${path}/form12/preview`} component={SelfCertificationPreview} />
+        <PrivateRoute path={`${path}/form12/payfee`} component={PayFee} />
+        <PrivateRoute path={`${path}/form12/payment`} component={Payment2} />
+        <PrivateRoute path={`${path}/form12/payconfirm`} component={PaymentConfirm} />
+        <PrivateRoute path={`${path}/form12/selfapprove`} component={SelfApproval} />
+        <PrivateRoute path={`${path}/form12/siteinspection`} component={SiteInspection} />
       </Switch>
     </React.Fragment>
   )
