@@ -107,6 +107,7 @@ public class SideYardService extends GeneralRule {
 	private static final BigDecimal PLOT_AREA_90 = BigDecimal.valueOf(90);
 	private static final BigDecimal PLOT_AREA_120 = BigDecimal.valueOf(120);
 	private static final BigDecimal PLOT_AREA_250 = BigDecimal.valueOf(250);
+	private static final BigDecimal PLOT_AREA_400 = BigDecimal.valueOf(400);
 	private static final BigDecimal PLOT_AREA_500 = BigDecimal.valueOf(500);
 
     private static final String SIDENUMBER = "Side Number";
@@ -516,6 +517,107 @@ public class SideYardService extends GeneralRule {
 			side2val = SIDEVALUE_ZERO;
             side1val = SIDEVALUE_ZERO;
 		}
+		
+		// SIDE SETBACK FOR 9 DP's
+		// DALHOUSIE & SOLAN & HAMIRPUR && BILASPUR
+		if (clrCode==37 || clrCode==40 || clrCode==42 || clrCode==44) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		//BADDI 
+		if (clrCode==45) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ZERO;
+              side1val = SIDEVALUE_ZERO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		// MANALI
+		if (clrCode==38) {
+    		if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		// UNA
+		if (clrCode==39) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_FOUR;
+                side1val = SIDEVALUE_FOUR;
+    		}
+    	}
+		//KASAULI
+				if (clrCode==41) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWOPOINTFIVE;
+		                side1val = SIDEVALUE_TWOPOINTFIVE;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				//PAONTA SAHIB
+				if (clrCode==43) {
+		    		if (plotArea.compareTo(PLOT_AREA_120) > 0 
+		    				&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
 
         if (max >= side1val.doubleValue())
             valid1 = true;
@@ -814,6 +916,101 @@ public class SideYardService extends GeneralRule {
 			side2val = SIDEVALUE_ZERO;
             side1val = SIDEVALUE_ZERO;
 		}
+		// SIDE SETBACK FOR 9 DP's
+		// DALHOUSIE & SOLAN & HAMIRPUR && BILASPUR
+		if (clrCode==37 || clrCode==40 || clrCode==42 || clrCode==44) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		//BADDI 
+		if (clrCode==45) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ZERO;
+              side1val = SIDEVALUE_ZERO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		// MANALI
+		if (clrCode==38) {
+    		if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		// UNA
+		if (clrCode==39) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_FOUR;
+                side1val = SIDEVALUE_FOUR;
+    		}
+    	}
+		//KASAULI
+				if (clrCode==41) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWOPOINTFIVE;
+		                side1val = SIDEVALUE_TWOPOINTFIVE;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				//PAONTA SAHIB
+				if (clrCode==43) {
+		    		if (plotArea.compareTo(PLOT_AREA_400) > 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    	}		
 
         if (max >= side1val.doubleValue())
             valid1 = true;
@@ -995,6 +1192,101 @@ public class SideYardService extends GeneralRule {
 			side2val = SIDEVALUE_ZERO;
             side1val = SIDEVALUE_ZERO;
 		}
+		         // SIDE SETBACK FOR 9 DP's
+				// DALHOUSIE & SOLAN & HAMIRPUR && BILASPUR
+				if (clrCode==37 || clrCode==40 || clrCode==42 || clrCode==44) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				
+				//BADDI 
+				if (clrCode==45) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_ZERO;
+		              side1val = SIDEVALUE_ZERO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				
+				// MANALI
+				if (clrCode==38) {
+		    		if (plotArea.compareTo(PLOT_AREA_120) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				// UNA
+				if (clrCode==39) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_ONEPOINTFIVE;
+		              side1val = SIDEVALUE_ONEPOINTFIVE;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_FOUR;
+		                side1val = SIDEVALUE_FOUR;
+		    		}
+		    	}
+				//KASAULI
+						if (clrCode==41) {
+				    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+									&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				              side2val = SIDEVALUE_TWO;
+				              side1val = SIDEVALUE_TWO;
+				    		}
+				    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+									&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				    			side2val = SIDEVALUE_TWOPOINTFIVE;
+				                side1val = SIDEVALUE_TWOPOINTFIVE;
+				    		}
+				    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				    			side2val = SIDEVALUE_THREE;
+				                side1val = SIDEVALUE_THREE;
+				    		}
+				    	}
+						//PAONTA SAHIB
+						if (clrCode==43) {
+				    		if (plotArea.compareTo(PLOT_AREA_400) > 0) {
+				    			side2val = SIDEVALUE_TWO;
+				                side1val = SIDEVALUE_TWO;
+				    		}
+				    	}
         if (max >= side1val.doubleValue())
             valid1 = true;
         if (min >= side2val.doubleValue())

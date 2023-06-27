@@ -143,6 +143,8 @@ public class Far extends FeatureProcess {
     private static final BigDecimal POINTSEVEN = BigDecimal.valueOf(0.7);
     private static final BigDecimal ONE = BigDecimal.valueOf(1);
     private static final BigDecimal ONE_POINTTWO = BigDecimal.valueOf(1.2);
+    private static final BigDecimal ONE_POINTTWOFIVE = BigDecimal.valueOf(1.25);
+    private static final BigDecimal ONE_POINTFIVEFIVE = BigDecimal.valueOf(1.55);
     private static final BigDecimal ONE_POINTFIVE = BigDecimal.valueOf(1.5);
     
     private static final BigDecimal ONE_POINTFOURFIVE = BigDecimal.valueOf(1.45);
@@ -159,10 +161,13 @@ public class Far extends FeatureProcess {
     private static final BigDecimal FIFTEEN = BigDecimal.valueOf(15);
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
     private static final BigDecimal ONEHUNDREDFIFTY = BigDecimal.valueOf(150);
+    private static final BigDecimal ONEHUNDREDTWENTY = BigDecimal.valueOf(120);
     private static final BigDecimal TWOHUNDREDFIFTY = BigDecimal.valueOf(250);
     private static final BigDecimal TWO_POINTFOUR = BigDecimal.valueOf(2.40);
     private static final BigDecimal THREEHUNDREDFIFTY = BigDecimal.valueOf(350);
     private static final BigDecimal FIVEHUNDRED = BigDecimal.valueOf(500);
+    private static final BigDecimal FOURHUNDRED = BigDecimal.valueOf(400);
+    
     private static final BigDecimal ONETHOUSAND = BigDecimal.valueOf(1000);
     private static final BigDecimal ROAD_WIDTH_TWO_POINTFOUR = BigDecimal.valueOf(2.4);
     private static final BigDecimal ROAD_WIDTH_TWO_POINTFOURFOUR = BigDecimal.valueOf(2.44);
@@ -1152,7 +1157,7 @@ public class Far extends FeatureProcess {
 		
 //		if (occupancyType.getType().getName().equals(OccupancyType.OCCUPANCY_A5)) {
 //        	   if(occupancyType.getType().getColor().equals(TWENTYFOUR)) {
-       if (clrCode==24) { 
+       if (clrCode == 24) { 
 //        if (pl.getPlot().getBuildingFootPrint().getColorCode()==24) {
 		    
 		    if (typeOfArea.equalsIgnoreCase(OLD)) {
@@ -1173,7 +1178,170 @@ public class Far extends FeatureProcess {
 		        }
 		    	}
 		   }
+       
+	    // code for other 9 Development plans--PLOT BOUNDARY COLOR
+	   	
+	   	//DALHOUSIE || HAMIRPUR || BILASPUR
+       if (clrCode == 37 || clrCode == 42 || clrCode == 44) { 
+ 		    
+ 		    if (typeOfArea.equalsIgnoreCase(OLD)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTFIVE.doubleValue());
+ 		            expectedResult = "<= 1.5";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+ 		            isAccepted = far.compareTo(ONE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE.doubleValue());
+ 		            expectedResult = "<= 1";
+ 		        }
+ 		     }
+ 		
+ 		    if (typeOfArea.equalsIgnoreCase(NEW)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTFIVE.doubleValue());
+ 		            expectedResult = "<= 1.5";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+ 		            isAccepted = far.compareTo(ONE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE.doubleValue());
+ 		            expectedResult = "<= 1";
+ 		        }
+ 		    }
+ 		 }
 
+     //MANALI
+       if (clrCode == 38) { 
+ 		    
+ 		    if (typeOfArea.equalsIgnoreCase(OLD)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTSEVENFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTSEVENFIVE.doubleValue());
+ 		            expectedResult = "<= 1.75";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+ 		    		isAccepted = far.compareTo(ONE_POINTFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTFIVE.doubleValue());
+ 		            expectedResult = "<= 1.5";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTTWOFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTTWOFIVE.doubleValue());
+ 		            expectedResult = "<= 1.25";
+ 		        }
+ 		     }
+ 		
+ 		    if (typeOfArea.equalsIgnoreCase(NEW)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTSEVENFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTSEVENFIVE.doubleValue());
+ 		            expectedResult = "<= 1.75";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+ 		    		isAccepted = far.compareTo(ONE_POINTFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTFIVE.doubleValue());
+ 		            expectedResult = "<= 1.5";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTTWOFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTTWOFIVE.doubleValue());
+ 		            expectedResult = "<= 1.25";
+ 		        }
+ 		    }
+ 		 }
+       
+     // UNA || SOLAN
+       if (clrCode == 39 || clrCode == 40) { 
+ 		    
+ 		    if (typeOfArea.equalsIgnoreCase(OLD)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) >= 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTSEVENFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTSEVENFIVE.doubleValue());
+ 		            expectedResult = "<= 1.75";
+ 		        }
+ 		     }
+ 		
+ 		    if (typeOfArea.equalsIgnoreCase(NEW)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) >= 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTSEVENFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTSEVENFIVE.doubleValue());
+ 		            expectedResult = "<= 1.75";
+ 		        }
+ 		    }
+ 		 }
+       
+     //BADDI&BROTIWALA&NALAGARH
+       if (clrCode == 45) { 
+ 		    
+ 		    if (typeOfArea.equalsIgnoreCase(OLD)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+ 		            isAccepted = far.compareTo(TWO) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(TWO.doubleValue());
+ 		            expectedResult = "<= 2";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+ 		    		isAccepted = far.compareTo(TWO) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(TWO.doubleValue());
+ 		            expectedResult = "<= 2";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTFIVEFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTFIVEFIVE.doubleValue());
+ 		            expectedResult = "<= 1.55";
+ 		        }
+ 		     }
+ 		
+ 		    if (typeOfArea.equalsIgnoreCase(NEW)) {
+ 		    	
+ 		    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+ 		            isAccepted = far.compareTo(TWO) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(TWO.doubleValue());
+ 		            expectedResult = "<= 2";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+ 		    		isAccepted = far.compareTo(TWO) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(TWO.doubleValue());
+ 		            expectedResult = "<= 2";
+ 		        }
+ 		    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+ 		            isAccepted = far.compareTo(ONE_POINTFIVEFIVE) <= 0;
+ 		            pl.getFarDetails().setPermissableFar(ONE_POINTFIVEFIVE.doubleValue());
+ 		            expectedResult = "<= 1.55";
+ 		        }
+ 		    }
+ 		 }
+       
+    // PAONTA SAHIB
+       if (clrCode == 43) { 
+		    
+		    if (typeOfArea.equalsIgnoreCase(OLD)) {
+		    	
+		    	if(pl.getPlot().getArea().compareTo(FOURHUNDRED) > 0) {
+		            isAccepted = far.compareTo(ONE_POINTSEVENFIVE) <= 0;
+		            pl.getFarDetails().setPermissableFar(ONE_POINTSEVENFIVE.doubleValue());
+		            expectedResult = "<= 1.75";
+		        }
+		    	
+		     }
+		
+		    if (typeOfArea.equalsIgnoreCase(NEW)) {
+		    	
+		    	if(pl.getPlot().getArea().compareTo(FOURHUNDRED) > 0) {
+		            isAccepted = far.compareTo(ONE_POINTSEVENFIVE) <= 0;
+		            pl.getFarDetails().setPermissableFar(ONE_POINTSEVENFIVE.doubleValue());
+		            expectedResult = "<= 1.75";
+		        }
+		    }
+		 }
+          
         String occupancyName = occupancyType.getType().getName();
         if (errors.isEmpty() && StringUtils.isNotBlank(expectedResult)) {
             buildResult(pl, occupancyName, far, typeOfArea, roadWidth, expectedResult, isAccepted);

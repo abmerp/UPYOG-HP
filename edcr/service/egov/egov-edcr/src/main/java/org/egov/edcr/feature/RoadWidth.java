@@ -50,6 +50,8 @@
 package org.egov.edcr.feature;
 
 import static org.egov.edcr.constants.DxfFileConstants.B;
+import static org.egov.edcr.constants.DxfFileConstants.A;
+import static org.egov.edcr.constants.DxfFileConstants.A_R;
 import static org.egov.edcr.constants.DxfFileConstants.D;
 import static org.egov.edcr.constants.DxfFileConstants.F;
 import static org.egov.edcr.constants.DxfFileConstants.F_CB;
@@ -77,6 +79,7 @@ public class RoadWidth extends FeatureProcess {
     private static final String RULE_34 = "34-1";
     public static final String ROADWIDTH_DESCRIPTION = "Minimum Road Width";
     public static final BigDecimal TWELVE_POINT_TWENTY = BigDecimal.valueOf(12.20);
+    public static final BigDecimal THREE = BigDecimal.valueOf(3.0);
     public static final String NEW = "NEW";
 
     @Override
@@ -145,12 +148,14 @@ public class RoadWidth extends FeatureProcess {
     public Map<String, BigDecimal> getOccupancyValues() {
 
         Map<String, BigDecimal> roadWidthValues = new HashMap<>();
-        roadWidthValues.put(B, TWELVE_POINT_TWENTY);
-        roadWidthValues.put(D, TWELVE_POINT_TWENTY);
-        roadWidthValues.put(G, TWELVE_POINT_TWENTY);
-        roadWidthValues.put(F, TWELVE_POINT_TWENTY);
-        roadWidthValues.put(F_RT, TWELVE_POINT_TWENTY);
-        roadWidthValues.put(F_CB, TWELVE_POINT_TWENTY);
+        roadWidthValues.put(A, THREE);
+        roadWidthValues.put(A_R, THREE);
+        roadWidthValues.put(B, THREE);
+        roadWidthValues.put(D, THREE);
+        roadWidthValues.put(G, THREE);
+        roadWidthValues.put(F, THREE);
+        roadWidthValues.put(F_RT, THREE);
+        roadWidthValues.put(F_CB, THREE);
         return roadWidthValues;
 
     }

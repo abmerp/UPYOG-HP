@@ -67,6 +67,7 @@ public class Chimney extends FeatureProcess {
 	private static final Logger LOG = LogManager.getLogger(Chimney.class);
 	private static final String RULE_44_D = "44-d";
 	public static final String CHIMNEY_DESCRIPTION = "Chimney";
+	public static final String SLOPING_ROOF_DESCRIPTION = "Sloping Roof";
 
 	@Override
 	public Plan validate(Plan pl) {
@@ -78,7 +79,7 @@ public class Chimney extends FeatureProcess {
 	public Plan process(Plan pl) {
 
 		ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
-		scrutinyDetail.setKey("Common_Chimney");
+		scrutinyDetail.setKey("Common_Sloping Roof");
 		scrutinyDetail.addColumnHeading(1, RULE_NO);
 		scrutinyDetail.addColumnHeading(2, DESCRIPTION);
 		scrutinyDetail.addColumnHeading(3, VERIFIED);
@@ -95,18 +96,18 @@ public class Chimney extends FeatureProcess {
 			if (b.getChimneys() != null && !b.getChimneys().isEmpty()) {
 				minHeight = b.getChimneys().stream().reduce(BigDecimal::min).get();
 
-				if (minHeight.compareTo(new BigDecimal(1)) <= 0) {
-					details.put(DESCRIPTION, CHIMNEY_DESCRIPTION);
-					details.put(VERIFIED, "Verified whether chimney height is <= 1 meters");
-					details.put(ACTION, "Not included chimney height(" + minHeight + ") to building height");
+				if (minHeight.compareTo(new BigDecimal(2.75)) <= 0) {
+					details.put(DESCRIPTION, SLOPING_ROOF_DESCRIPTION);
+					details.put(VERIFIED, "Verified whether Sloping Roof height is <= 2.75 meters");
+					details.put(ACTION, "Not included Sloping Roof height(" + minHeight + ") to building height");
 					details.put(STATUS, Result.Accepted.getResultVal());
 					scrutinyDetail.getDetail().add(details);
 					pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
 				} else {
-					details.put(DESCRIPTION, CHIMNEY_DESCRIPTION);
-					details.put(VERIFIED, "Verified whether chimney height is <= 1 meters");
-					details.put(ACTION, "Included chimney height(" + minHeight + ") to building height");
-					details.put(STATUS, Result.Verify.getResultVal());
+					details.put(DESCRIPTION, SLOPING_ROOF_DESCRIPTION);
+					details.put(VERIFIED, "Verified whether Sloping Roof height is <= 2.75 meters");
+					details.put(ACTION, "Included Sloping Roof height(" + minHeight + ") to building height");
+					details.put(STATUS, Result.Not_Accepted.getResultVal());
 					scrutinyDetail.getDetail().add(details);
 					pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
 				}
