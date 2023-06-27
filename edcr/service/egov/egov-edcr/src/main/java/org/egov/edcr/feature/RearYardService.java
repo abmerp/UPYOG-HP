@@ -117,9 +117,12 @@ public class RearYardService extends GeneralRule {
 
 	private static final BigDecimal PLOT_AREA_150 = BigDecimal.valueOf(150);
 	private static final BigDecimal PLOT_AREA_90 = BigDecimal.valueOf(90);
+	private static final BigDecimal PLOT_AREA_20 = BigDecimal.valueOf(20);
 	private static final BigDecimal PLOT_AREA_120 = BigDecimal.valueOf(120);
 	private static final BigDecimal PLOT_AREA_250 = BigDecimal.valueOf(250);
+	private static final BigDecimal PLOT_AREA_400 = BigDecimal.valueOf(400);
 	private static final BigDecimal PLOT_AREA_500 = BigDecimal.valueOf(500);
+	private static final BigDecimal PLOT_AREA_600 = BigDecimal.valueOf(600);
 
 	public static final String BSMT_REAR_YARD_DESC = "Basement Rear Setback";
 	private static final int PLOTAREA_300 = 300;
@@ -295,6 +298,30 @@ public class RearYardService extends GeneralRule {
 													occupancy.getTypeHelper(), rearYardResult, errors);
 										}
 						            }
+						            
+						         // REAR SETBACK FOR 9 DP's
+						            if (clrCode == 38) {
+										if (plotArea.compareTo(PLOT_AREA_120) >= 0) {
+											checkRearYardUptoToSixteenMts(setback, block.getBuilding(), pl, block,
+													setback.getLevel(), plot, REAR_YARD_DESC, min, mean,
+													occupancy.getTypeHelper(), rearYardResult, errors);
+										}
+						            }
+						            if (clrCode == 37||clrCode == 39||clrCode == 40||clrCode == 41||clrCode == 42
+						            		||clrCode == 44||clrCode == 45) {
+										if (plotArea.compareTo(PLOT_AREA_150) >= 0) {
+											checkRearYardUptoToSixteenMts(setback, block.getBuilding(), pl, block,
+													setback.getLevel(), plot, REAR_YARD_DESC, min, mean,
+													occupancy.getTypeHelper(), rearYardResult, errors);
+										}
+						            }
+						            if (clrCode == 43) {
+										if (plotArea.compareTo(PLOT_AREA_20) > 0) {
+											checkRearYardUptoToSixteenMts(setback, block.getBuilding(), pl, block,
+													setback.getLevel(), plot, REAR_YARD_DESC, min, mean,
+													occupancy.getTypeHelper(), rearYardResult, errors);
+										}
+						            }
 								
 								} 
 //								else if (G.equalsIgnoreCase(occupancy.getTypeHelper().getType().getCode())) {
@@ -432,6 +459,50 @@ public class RearYardService extends GeneralRule {
 					) 
 				minVal = REARYARDMINIMUM_DISTANCE_1_5;
 		}
+        
+     // REAR SETBACK FOR 9 DP's
+        //DALHOUSIE & SOLAN & HAMIRPUR & BILASPUR & BADDI
+        if (clrCode == 37 || clrCode == 40 || clrCode == 42 || clrCode == 44 || clrCode == 45) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_3;
+		}}
+        //MANALI
+        if (clrCode == 38) {
+        	if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_3;
+		}}
+        //UNA
+        if (clrCode == 39) {
+        	if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_1_5;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+		}}
+        //KASAULI
+        if (clrCode == 41) {
+        	if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2_5;
+		}}
+        //PAONTA SAHIB 
+        if (clrCode == 43) {
+        	if (plotArea.compareTo(PLOT_AREA_20) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			}}
 
 		valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
 		/*
@@ -579,6 +650,50 @@ public class RearYardService extends GeneralRule {
 					) 
 				minVal = REARYARDMINIMUM_DISTANCE_1_5;
 		}
+        
+         // REAR SETBACK FOR 9 DP's
+        //DALHOUSIE & SOLAN & HAMIRPUR & BILASPUR & BADDI
+        if (clrCode == 37 || clrCode == 40 || clrCode == 42 || clrCode == 44 || clrCode == 45) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_3;
+		}}
+        //MANALI
+        if (clrCode == 38) {
+        	if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_3;
+		}}
+        //UNA
+        if (clrCode == 39) {
+        	if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_1_5;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+		}}
+        //KASAULI
+        if (clrCode == 41) {
+        	if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2_5;
+		}}
+        //PAONTA SAHIB 
+        if (clrCode == 43) {
+        	if (plotArea.compareTo(PLOT_AREA_20) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			}}
 
 		valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
 		/*
@@ -729,6 +844,50 @@ public class RearYardService extends GeneralRule {
 					) 
 				minVal = REARYARDMINIMUM_DISTANCE_1_5;
 		}
+        
+         // REAR SETBACK FOR 9 DP's
+        //DALHOUSIE & SOLAN & HAMIRPUR & BILASPUR & BADDI
+        if (clrCode == 37 || clrCode == 40 || clrCode == 42 || clrCode == 44 || clrCode == 45) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_3;
+		}}
+        //MANALI
+        if (clrCode == 38) {
+        	if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_3;
+		}}
+        //UNA
+        if (clrCode == 39) {
+        	if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_1_5;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+		}}
+        //KASAULI
+        if (clrCode == 41) {
+        	if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2_5;
+		}}
+        //PAONTA SAHIB 
+        if (clrCode == 43) {
+        	if (plotArea.compareTo(PLOT_AREA_20) > 0) {
+				minVal = REARYARDMINIMUM_DISTANCE_2;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			}}
 
 		valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
 		/*

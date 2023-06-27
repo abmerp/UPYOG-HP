@@ -120,8 +120,10 @@ public class FrontYardService extends GeneralRule {
 	public static final BigDecimal ROAD_WIDTH_TWELVE_POINTTWO = BigDecimal.valueOf(12.2);
 	private static final BigDecimal PLOT_AREA_150 = BigDecimal.valueOf(150);
 	private static final BigDecimal PLOT_AREA_90 = BigDecimal.valueOf(90);
+	private static final BigDecimal PLOT_AREA_20 = BigDecimal.valueOf(20);
 	private static final BigDecimal PLOT_AREA_120 = BigDecimal.valueOf(120);
 	private static final BigDecimal PLOT_AREA_250 = BigDecimal.valueOf(250);
+	private static final BigDecimal PLOT_AREA_400 = BigDecimal.valueOf(400);
 	private static final BigDecimal PLOT_AREA_500 = BigDecimal.valueOf(500);
 
 	public static final String BSMT_FRONT_YARD_DESC = "Basement Front Yard";
@@ -284,6 +286,33 @@ public class FrontYardService extends GeneralRule {
 														occupancy.getTypeHelper(), frontYardResult, errors);
 											}
 							            }
+							            
+							             // FRONT SETBACK FOR 9 DP's
+							            if (clrCode == 38) {
+											if (plotArea.compareTo(PLOT_AREA_120) >= 0) {
+												checkFrontYardUptoSixteenMts(setback, block.getBuilding(), buildingHeight, pl,
+														setback.getLevel(), block, plot, FRONT_YARD_DESC, min, mean,
+														occupancy.getTypeHelper(), frontYardResult, errors);
+											}
+							            }
+							            
+							            if (clrCode == 37||clrCode == 39||clrCode == 40||clrCode == 41||clrCode == 42
+							            		||clrCode == 44||clrCode == 45) {
+											if (plotArea.compareTo(PLOT_AREA_150) >= 0) {
+												checkFrontYardUptoSixteenMts(setback, block.getBuilding(), buildingHeight, pl,
+														setback.getLevel(), block, plot, FRONT_YARD_DESC, min, mean,
+														occupancy.getTypeHelper(), frontYardResult, errors);
+											}
+							            }
+							            
+							            if (clrCode == 43) {
+											if (plotArea.compareTo(PLOT_AREA_20) > 0) {
+												checkFrontYardUptoSixteenMts(setback, block.getBuilding(), buildingHeight, pl,
+														setback.getLevel(), block, plot, FRONT_YARD_DESC, min, mean,
+														occupancy.getTypeHelper(), frontYardResult, errors);
+											}
+							            }
+							            
 									}
 //									else if (buildingHeight.compareTo(BigDecimal.valueOf(21)) <= 0
 //											&& block.getBuilding().getFloorsAboveGround()
@@ -468,6 +497,60 @@ public class FrontYardService extends GeneralRule {
 			minVal = FRONTYARDMINIMUM_DISTANCE_0;
 			}
 		}
+        
+        
+        // FRONT SETBACK FOR 9 DP's
+        // DALHOUSIE && KASAULI && HAMIRPUR && BILASPUR && BADDI
+        if (clrCode == 37 || clrCode == 41 || clrCode == 42 || clrCode == 44 || clrCode == 45) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		 }
+	   }
+        
+        // MANALI
+        if (clrCode == 38) {
+			if (plotArea.compareTo(PLOT_AREA_120) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+		 }
+	   }
+        
+        //UNA
+        if (clrCode == 39) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_2;
+				else if (plotArea.compareTo(PLOT_AREA_250) > 0
+						&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		}}
+        
+      //SOLAN
+        if (clrCode == 40) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				else if (plotArea.compareTo(PLOT_AREA_250) > 0
+						&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_4;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		}}
+        
+        //PAONTA SAHIB
+        if (clrCode == 43) {
+			if (plotArea.compareTo(PLOT_AREA_20) > 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+		}
+        
 
 		/*
 		 * if (-1 == level) { rule = BSMT_FRONT_YARD_DESC; subRuleDesc =
@@ -825,6 +908,58 @@ public class FrontYardService extends GeneralRule {
 		 * if (-1 == level) { rule = BSMT_FRONT_YARD_DESC; subRuleDesc =
 		 * SUB_RULE_24_12_DESCRIPTION; subRule = SUB_RULE_24_12; }
 		 */
+        
+     // FRONT SETBACK FOR 9 DP's
+        // DALHOUSIE && KASAULI && HAMIRPUR && BILASPUR && BADDI
+        if (clrCode == 37 || clrCode == 41 || clrCode == 42 || clrCode == 44 || clrCode == 45) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		 }
+	   }
+        
+        // MANALI
+        if (clrCode == 38) {
+			if (plotArea.compareTo(PLOT_AREA_120) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+		 }
+	   }
+        
+        //UNA
+        if (clrCode == 39) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_2;
+				else if (plotArea.compareTo(PLOT_AREA_250) > 0
+						&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		}}
+        
+      //SOLAN
+        if (clrCode == 40) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				else if (plotArea.compareTo(PLOT_AREA_250) > 0
+						&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_4;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		}}
+        
+        //PAONTA SAHIB
+        if (clrCode == 43) {
+			if (plotArea.compareTo(PLOT_AREA_20) > 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+		}
 
 		valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
 
@@ -892,6 +1027,58 @@ public class FrontYardService extends GeneralRule {
 		 * if (-1 == level) { rule = BSMT_FRONT_YARD_DESC; subRuleDesc =
 		 * SUB_RULE_24_12_DESCRIPTION; subRule = SUB_RULE_24_12; }
 		 */
+        
+     // FRONT SETBACK FOR 9 DP's
+        // DALHOUSIE && KASAULI && HAMIRPUR && BILASPUR && BADDI
+        if (clrCode == 37 || clrCode == 41 || clrCode == 42 || clrCode == 44 || clrCode == 45) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		 }
+	   }
+        
+        // MANALI
+        if (clrCode == 38) {
+			if (plotArea.compareTo(PLOT_AREA_120) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+		 }
+	   }
+        
+        //UNA
+        if (clrCode == 39) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_2;
+				else if (plotArea.compareTo(PLOT_AREA_250) > 0
+						&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		}}
+        
+      //SOLAN
+        if (clrCode == 40) {
+			if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+				else if (plotArea.compareTo(PLOT_AREA_250) > 0
+						&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_4;
+				valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
+			} else if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				minVal = FRONTYARDMINIMUM_DISTANCE_5;
+		}}
+        
+        //PAONTA SAHIB
+        if (clrCode == 43) {
+			if (plotArea.compareTo(PLOT_AREA_20) > 0) 
+				minVal = FRONTYARDMINIMUM_DISTANCE_3;
+		}
 
 		valid = validateMinimumAndMeanValue(min, mean, minVal, meanVal);
 

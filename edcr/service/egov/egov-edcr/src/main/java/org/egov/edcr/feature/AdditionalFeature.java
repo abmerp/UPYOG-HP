@@ -93,14 +93,20 @@ public class AdditionalFeature extends FeatureProcess {
     private static final BigDecimal ONE_POINTFIVE = BigDecimal.valueOf(1.5);
     private static final BigDecimal THREE = BigDecimal.valueOf(3);
     private static final BigDecimal FOUR = BigDecimal.valueOf(4);
+    private static final BigDecimal FIVE = BigDecimal.valueOf(5);
     private static final BigDecimal SIX = BigDecimal.valueOf(6);
     private static final BigDecimal SEVEN = BigDecimal.valueOf(7);
     private static final BigDecimal TEN = BigDecimal.valueOf(10);
     private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
     private static final BigDecimal NINETEEN = BigDecimal.valueOf(19);
+    private static final BigDecimal FIFTEENPOINTTHREE = BigDecimal.valueOf(15.3);
+    private static final BigDecimal EIGHTEENPOINTEIGHT = BigDecimal.valueOf(18.8);
+    private static final BigDecimal FIFTEENPOINTFIVE = BigDecimal.valueOf(15.5);
+    private static final BigDecimal FOURHUNDRED = BigDecimal.valueOf(400);
 
     private static final BigDecimal TWENTYONE = BigDecimal.valueOf(21);
     private static final BigDecimal EIGHTEEN = BigDecimal.valueOf(18);
+    private static final BigDecimal SIXTEEN = BigDecimal.valueOf(16);
     private static final BigDecimal ONEHUNDREDFIFTY = BigDecimal.valueOf(150);
     private static final BigDecimal TWOHUNDREDFIFTY = BigDecimal.valueOf(250);
     private static final BigDecimal NINTY = BigDecimal.valueOf(90);
@@ -312,6 +318,9 @@ public class AdditionalFeature extends FeatureProcess {
                     "Block_" + block.getNumber() + "_" + "Number of Floors");
             BigDecimal floorAbvGround = block.getBuilding().getFloorsAboveGround();
             String requiredFloorCount = StringUtils.EMPTY;
+            
+            DXFLWPolyline plotBoundary = ((PlotDetail) pl.getPlot()).getPolyLine();
+            int clrCode = plotBoundary.getColor();
 
             if (typeOfArea.equalsIgnoreCase(OLD)) {
 //                if (roadWidth.compareTo(ROAD_WIDTH_TWO_POINTFOUR) < 0) {
@@ -337,6 +346,18 @@ public class AdditionalFeature extends FeatureProcess {
             	
                   isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
                   requiredFloorCount = "<= 4";
+                  
+                  // MANALI + UNA + SOLAN + BADDI BROTIWALA NALAGARH
+                  if (clrCode==38 || clrCode==39 || clrCode==40 || clrCode==45) { 
+                	  isAccepted = floorAbvGround.compareTo(FIVE) <= 0;
+                      requiredFloorCount = "<= 5";
+                  }
+                  
+                  //PAUNTA SAHIB
+                  if (clrCode==43) { 
+                	  isAccepted = floorAbvGround.compareTo(THREE) <= 0;
+                      requiredFloorCount = "<= 3";
+                  }
              
                 /*
                    * else if (roadWidth.compareTo(ROAD_WIDTH_NINE_POINTONE) >= 0 &&
@@ -371,7 +392,18 @@ public class AdditionalFeature extends FeatureProcess {
             	
                   isAccepted = floorAbvGround.compareTo(FOUR) <= 0;
                   requiredFloorCount = "<= 4";
+                  
+               // MANALI + UNA + SOLAN + BADDI BROTIWALA NALAGARH
+                  if (clrCode==38 || clrCode==39 || clrCode==40 || clrCode==45) { 
+                	  isAccepted = floorAbvGround.compareTo(FIVE) <= 0;
+                      requiredFloorCount = "<= 5";
+                  }
             			
+                //PAUNTA SAHIB
+                  if (clrCode==43) { 
+                	  isAccepted = floorAbvGround.compareTo(THREE) <= 0;
+                      requiredFloorCount = "<= 3";
+                  }
             			
                 /*
                    * else if (roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0 &&
@@ -408,6 +440,7 @@ public class AdditionalFeature extends FeatureProcess {
     	if (pl.getPlanInformation() != null
                 && pl.getPlanInformation().getRoadWidth() != null 
                 && pl.getPlanInformation().getRoadWidth().compareTo(new BigDecimal(3)) >= 0) {
+   
             Map<String, String> details = new HashMap<>();
             details.put(RULE_NO, RULE_56);
             details.put(DESCRIPTION, ROAD_WIDTH_DESC);
@@ -416,7 +449,7 @@ public class AdditionalFeature extends FeatureProcess {
             details.put(STATUS, Result.Accepted.getResultVal());
             scrutinyDetail.getDetail().add(details);
             pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
-        } else {
+    	} else {
             Map<String, String> details = new HashMap<>();
             details.put(RULE_NO, RULE_56);
             details.put(DESCRIPTION, ROAD_WIDTH_DESC);
@@ -425,9 +458,9 @@ public class AdditionalFeature extends FeatureProcess {
             details.put(STATUS, Result.Not_Accepted.getResultVal());
             scrutinyDetail.getDetail().add(details);
             pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
-        }
+        } 
     }
-
+    
     private void validateHeightOfBuilding(Plan pl, HashMap<String, String> errors, String typeOfArea,
             BigDecimal roadWidth) {
 
@@ -513,6 +546,44 @@ public class AdditionalFeature extends FeatureProcess {
                  * (roadWidth.compareTo(ROAD_WIDTH_TWENTYSEVEN_POINTFOUR) >= 0 && roadWidth.compareTo(ROAD_WIDTH_THIRTY_POINTFIVE)
                  * <= 0) { return BETWEEN_TENTYSEVENPOINT_FOUR_THRITYPOINT_FIVE; }
                  */
+            	
+            	// code for other 9 Development plans--PLOT BOUNDARY COLOR
+            	
+            	//DALHOUSIE
+            	if (clrCode==37) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(FIFTEENPOINTTHREE) <= 0;
+		                requiredBuildingHeight = "<= 15.3";
+                	}
+                }
+            	// SOLAN
+            	if (clrCode==40) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(EIGHTEENPOINTEIGHT) <= 0;
+		                requiredBuildingHeight = "<= 18.8";
+                	}
+                }
+            	// HAMIRPUR
+            	if (clrCode==42) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(FIFTEENPOINTFIVE) <= 0;
+		                requiredBuildingHeight = "<= 15.5";
+                	}
+                }
+            	// PAONTA SAHIB
+            	if (clrCode==43) { 
+                	if(pl.getPlot().getArea().compareTo(FOURHUNDRED) > 0) {
+		            	isAccepted = buildingHeight.compareTo(SIXTEEN) <= 0;
+		                requiredBuildingHeight = "<= 16";
+                	}
+                }
+            	// BILASPUR
+            	if (clrCode==44) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(EIGHTEENPOINTEIGHT) <= 0;
+		                requiredBuildingHeight = "<= 18.8";
+                	}
+                }
 
             }
 
@@ -576,6 +647,44 @@ public class AdditionalFeature extends FeatureProcess {
                    * roadWidth.compareTo(ROAD_WIDTH_THIRTY_POINTFIVE) <= 0) { return
                    * BETWEEN_TENTYSEVENPOINT_FOUR_THRITYPOINT_FIVE; }
                    */
+            	
+            	// code for other 9 Development plans--PLOT BOUNDARY COLOR
+            	
+            	//DALHOUSIE
+            	if (clrCode==37) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(FIFTEENPOINTTHREE) <= 0;
+		                requiredBuildingHeight = "<= 15.3";
+                	}
+                }
+            	// SOLAN
+            	if (clrCode==40) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(EIGHTEENPOINTEIGHT) <= 0;
+		                requiredBuildingHeight = "<= 18.8";
+                	}
+                }
+            	// HAMIRPUR
+            	if (clrCode==42) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(FIFTEENPOINTFIVE) <= 0;
+		                requiredBuildingHeight = "<= 15.5";
+                	}
+                }
+            	// PAONTA SAHIB
+            	if (clrCode==43) { 
+                	if(pl.getPlot().getArea().compareTo(FOURHUNDRED) > 0) {
+		            	isAccepted = buildingHeight.compareTo(SIXTEEN) <= 0;
+		                requiredBuildingHeight = "<= 16";
+                	}
+                }
+            	// BILASPUR
+            	if (clrCode==44) { 
+                	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0) {
+		            	isAccepted = buildingHeight.compareTo(EIGHTEENPOINTEIGHT) <= 0;
+		                requiredBuildingHeight = "<= 18.8";
+                	}
+                }
 
             }
 
