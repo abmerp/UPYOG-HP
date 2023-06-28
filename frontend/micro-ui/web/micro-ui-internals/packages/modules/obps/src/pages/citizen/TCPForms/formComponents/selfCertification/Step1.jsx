@@ -11,7 +11,12 @@ import {
   typeOfLandForDevelopment,
   yesOrNo,
   DistrictsData,
-  NamesOFULB
+  NotifiedArea,
+  NamesOFULB,
+  VillagesData,
+  WardData,
+  statesData,
+  TehsilData
 } from "../../data";
 import InputContainer from "../../layout/inputContainer";
 import Checkboxes from "../../components/CheckBox";
@@ -25,6 +30,7 @@ const Step1 = () => {
   const { handleSubmit, control } = useForm();
   const history = useHistory()
   const onSubmit = (data) => {
+    // onNext(data)
     history.push(`step2`)
   }
   const isPreview = window.location.href.includes('preview')
@@ -97,14 +103,15 @@ const Step1 = () => {
                 type="selectInput"
                 data={DistrictsData}
               />
-                {/* <InputContainer
+                <InputContainer
                 label="Name of ULB"
                 control={control}
                 placeholder="Select Name of ULB"
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-              /> */}
+                data={NamesOFULB}
+              />
               <InputContainer
                 label="Notified Area "
                 control={control}
@@ -112,7 +119,7 @@ const Step1 = () => {
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-                data={appealApplicationStatus}
+                data={NotifiedArea}
               />
               <InputContainer
                 label="Name of Village "
@@ -121,12 +128,12 @@ const Step1 = () => {
                 name="nameOfVillage"
                 mandatory
                 type="selectInput"
-                data={appealApplicationStatus}
+                data={VillagesData}
               />
               
             </div>
             <div className="columnWrapper">
-             {/* <InputContainer
+             <InputContainer
                 label="ULB Type"
                 control={control}
                 placeholder="Select ULB Type"
@@ -134,7 +141,7 @@ const Step1 = () => {
                 mandatory
                 type="selectInput"
                 data={NamesOFULB}
-              /> */}
+              />
               <InputContainer
                 label="Name of Ward"
                 control={control}
@@ -142,7 +149,7 @@ const Step1 = () => {
                 name="notifiedArea"
                 mandatory
                 type="selectInput"
-               
+                data={WardData}
               />
             </div>
           </div>
@@ -181,7 +188,7 @@ const Step1 = () => {
                 label="Email Id"
                 control={control}
                 placeholder="Enter Email Id"
-                name="mobileNumber"
+                name="emailId"
                 type="textInput"
               />
             </div>
@@ -273,21 +280,20 @@ const Step1 = () => {
                 control={control}
                 inputLabel="Select State"
                 label="State :"
-                data={yesOrNo}
                 placeholder="Select State"
-                name="state"
+                name="correspondenceState"
                 mandatory
                 type="selectInput"
                 multiColumn
+                data={statesData}
               />
               <InputContainer
                 control={control}
                 inputLabel="Select District"
                 label="District :"
                 data={DistrictsData}
-              
                 placeholder="Select District"
-                name="state"
+                name="correspondenceDistrict"
                 mandatory
                 type="selectInput"
                 multiColumn
@@ -297,16 +303,17 @@ const Step1 = () => {
                 inputLabel="Select Tehsil"
                 label="Tehsil :"
                 placeholder="Select Tehsil"
-                name="state"
+                name="correspondenceTehsil"
                 mandatory
                 type="selectInput"
                 multiColumn
+                data={TehsilData}
               />
               <InputContainer
                 label="Town/Village/Ward : "
                 control={control}
                 placeholder="Enter Town/Village/Ward"
-                name="email"
+                name="correspondenceVillage"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -315,7 +322,7 @@ const Step1 = () => {
                 label="Address : "
                 control={control}
                 placeholder="Enter Address"
-                name="address"
+                name="correspondenceAddress"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -326,7 +333,7 @@ const Step1 = () => {
                 label=" Pincode : "
                 control={control}
                 placeholder="Enter Pincode"
-                name="email"
+                name="correspondencePincode"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -349,7 +356,7 @@ const Step1 = () => {
                   size="small"
                   width="5.625vw"
                   select
-                  name="initialForCorrespondenceadressName"
+                  name="initialForPermanentadressName"
                   control={control}
                 >
                   {nameSuffix?.map((option) => (
@@ -363,7 +370,7 @@ const Step1 = () => {
                   variant="outlined"
                   size="small"
                   width="15.625vw"
-                  name="correspondenceAdressName"
+                  name="permanentAdressName"
                   control={control}
                 />
               </div>
@@ -375,7 +382,7 @@ const Step1 = () => {
                   size="small"
                   width="5.625vw"
                   select
-                  name="initialForCorrespondenceadressGuardianName"
+                  name="initialForpermanentGuardianName"
                   control={control}
                 >
                   {relationSuffix?.map((option) => (
@@ -389,7 +396,7 @@ const Step1 = () => {
                   variant="outlined"
                   size="small"
                   width="15.625vw"
-                  name="correspondenceGuardianName"
+                  name="permanentGuardianName"
                   control={control}
                 />
               </div>
@@ -397,12 +404,12 @@ const Step1 = () => {
                 control={control}
                 inputLabel="Select State"
                 label="State :"
-                data={yesOrNo}
                 placeholder="Select State"
-                name="state"
+                name="permanentState"
                 mandatory
                 type="selectInput"
                 multiColumn
+                data={statesData}
               />
               <InputContainer
                 control={control}
@@ -410,7 +417,7 @@ const Step1 = () => {
                 label="District :"
                 data={DistrictsData}
                 placeholder="Select District"
-                name="state"
+                name="permanentDistrict"
                 mandatory
                 type="selectInput"
                 multiColumn
@@ -420,25 +427,27 @@ const Step1 = () => {
                 inputLabel="Select Tehsil"
                 label="Tehsil :"
                 placeholder="Select Tehsil"
-                name="state"
+                name="permanentTehsil"
                 mandatory
                 type="selectInput"
                 multiColumn
+                data={TehsilData}
               />
               <InputContainer
                 label="Town/Village/Ward : "
                 control={control}
                 placeholder="Enter Town/Village/Ward"
-                name="email"
+                name="permanentVillage"
                 mandatory
                 type="textInput"
                 multiColumn
+                data={VillagesData}
               />
               <InputContainer
                 label="Address : "
                 control={control}
                 placeholder="Enter Address"
-                name="address"
+                name="permanentAddress"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -448,7 +457,7 @@ const Step1 = () => {
                 label=" Pincode : "
                 control={control}
                 placeholder="Enter Pincode"
-                name="email"
+                name="permanentPincode"
                 mandatory
                 type="textInput"
                 multiColumn
@@ -472,13 +481,13 @@ const Step1 = () => {
                 name="revenueVillageMohalla"
                 mandatory
                 type="textInput"
-                data={appealApplicationStatus}
+                data={VillagesData}
               />
               <InputContainer
                 label="Khasra No."
                 control={control}
                 placeholder="Enter Khasra No."
-                name="applicantName"
+                name="khasraNo"
                 type="textInput"
                 mandatory
               />
@@ -486,7 +495,7 @@ const Step1 = () => {
                 label="Khata No."
                 control={control}
                 placeholder="Enter Khata No."
-                name="applicantName"
+                name="khataNo"
                 mandatory
                 type="textInput"
               />
@@ -494,21 +503,21 @@ const Step1 = () => {
                 label="Khatauni No."
                 control={control}
                 placeholder="Enter Khatauni No."
-                name="applicantName"
+                name="khatoniNo"
                 type="textInput"
               />
               <InputContainer
                 label="Latitude/Longitude"
                 control={control}
                 placeholder="Enter Latitude/Longitude"
-                name="applicantName"
+                name="latitudeLongitude"
                 type="textInput"
               />
               <InputContainer
                 label="Area (Sq.M)"
                 control={control}
                 placeholder="Enter Area (Sq.M)"
-                name="applicantName"
+                name="area"
                 mandatory
                 type="textInput"
               />
@@ -516,7 +525,7 @@ const Step1 = () => {
                 label="Total Plot Area (Sq.m)"
                 control={control}
                 placeholder="Enter Total Plot Area (Sq.m)"
-                name="applicantName"
+                name="totalPlotArea"
                 mandatory
                 type="textInput"
               />
@@ -539,7 +548,7 @@ const Step1 = () => {
                 label="Case Reference No."
                 control={control}
                 placeholder="Enter Case Reference No."
-                name="applicantName"
+                name="caseReferenceNumber"
                 mandatory
                 type="textInput"
               />
@@ -547,14 +556,14 @@ const Step1 = () => {
                 label="No. of Plot "
                 control={control}
                 placeholder="Enter No. of Plot "
-                name="applicantName"
+                name="noOfPlot"
                 mandatory
                 type="textInput"
               />
               <InputContainer
                 label="Subdivision approval supporting document"
                 control={control}
-                name="picture"
+                name="subdivisionalApprovalDocument"
                 mandatory
                 type="htmlUpload"
                 uploadValidity="(pdf file only and Max file Size 10 MB)"
@@ -568,7 +577,7 @@ const Step1 = () => {
               <InputContainer
                 label="Property is ancestral "
                 control={control}
-                name="gender"
+                name="ancestralProperty"
                 mandatory
                 data={yesOrNo}
                 type="radioButton"
@@ -577,7 +586,7 @@ const Step1 = () => {
               <InputContainer
                 label="Ancestral Property document Upload"
                 control={control}
-                name="picture"
+                name="ancestralPropertyDocument"
                 mandatory
                 type="htmlUpload"
                 uploadValidity="(pdf file only and Max file Size 10 MB)"
@@ -591,10 +600,10 @@ const Step1 = () => {
                 label="District"
                 control={control}
                 placeholder="Select District"
-                name="revenueVillageMohalla"
+                name="landProposedDistrict"
                 mandatory
                 type="selectInput"
-                data={propertyType}
+                data={DistrictsData}
               />
               {/* <InputContainer
                 label="ULB Type"
@@ -617,24 +626,25 @@ const Step1 = () => {
                 label="Name of Ward"
                 control={control}
                 placeholder="Select Name of Ward"
-                name="notifiedArea"
+                name="landProposedDistrict"
                 mandatory
                 type="selectInput"
+                data={WardData}
               />
               <InputContainer
                 label="Area Type "
                 control={control}
                 placeholder="Select Area Type "
-                name="revenueVillageMohalla"
+                name="landProposedArea"
                 mandatory
                 type="selectInput"
-                data={propertyType}
+                data={VillagesData}
               />
               <InputContainer
                 label="Maximum Permissible Ground Coverage (In Sq.m) "
                 control={control}
                 placeholder="Enter Details"
-                name="revenueVillageMohalla"
+                name="landProposedArea"
                 mandatory
                 type="textInput"
               />
@@ -642,7 +652,7 @@ const Step1 = () => {
                 label="Applied land use"
                 control={control}
                 placeholder="Select"
-                name="revenueVillageMohalla"
+                name="landProposedUse"
                 mandatory
                 type="selectInput"
                 data={propertyType}
@@ -651,7 +661,7 @@ const Step1 = () => {
                 label="Property Type  "
                 control={control}
                 placeholder="Select Property Type "
-                name="revenueVillageMohalla"
+                name="landProposedPropertyType"
                 mandatory
                 type="selectInput"
                 data={propertyType}
@@ -660,7 +670,7 @@ const Step1 = () => {
                 label="Proposal submitted for "
                 control={control}
                 placeholder="Select "
-                name="revenueVillageMohalla"
+                name="landProposedproposal"
                 mandatory
                 type="selectInput"
                 data={propertyType}
@@ -670,7 +680,7 @@ const Step1 = () => {
                 label="Type of Construction "
                 control={control}
                 placeholder="Select"
-                name="revenueVillageMohalla"
+                name="landProposedConstruction"
                 mandatory
                 type="selectInput"
                 data={propertyType}
@@ -680,7 +690,7 @@ const Step1 = () => {
                 label="Plot Area for Sub-division/ Development Activity(sq.m) "
                 control={control}
                 placeholder="Enter Details"
-                name="revenueVillageMohalla"
+                name="landProposedActivity"
                 mandatory
                 type="textInput"
               />
@@ -697,7 +707,7 @@ const Step1 = () => {
                 label="No. of Blocks  "
                 control={control}
                 placeholder="1"
-                name="revenueVillageMohalla"
+                name="buildupArea"
                 mandatory
                 type="textInput"
               />
@@ -736,7 +746,7 @@ const Step1 = () => {
                       label="Enter Floor Type"
                       variant="outlined"
                       size="small"
-                      name="correspondenceAdressName"
+                      name="blockFloor"
                       control={control}
                     />
                   </td>
@@ -745,7 +755,7 @@ const Step1 = () => {
                       label=" Enter Floor Area "
                       variant="outlined"
                       size="small"
-                      name="correspondenceAdressName"
+                      name="blockFloorArea"
                       control={control}
                     />
                   </td>
@@ -755,6 +765,7 @@ const Step1 = () => {
                       inputLabel="Select Land Use Type"
                       label="Select Land Use Type"
                       data={yesOrNo}
+                      name="blockLandUse"
                     />
                   </td>
                   <td>
@@ -762,7 +773,7 @@ const Step1 = () => {
                       label=" Enter Parking Area"
                       variant="outlined"
                       size="small"
-                      name="correspondenceAdressName"
+                      name="blockParkingArea"
                       control={control}
                     />
                   </td>
@@ -786,7 +797,7 @@ const Step1 = () => {
               <InputContainer
                 label="whether Change of Land Usee involved Yes /No "
                 control={control}
-                name="gender"
+                name="changeofLanduse"
                 mandatory
                 data={yesOrNo}
                 type="radioButton"
@@ -797,7 +808,7 @@ const Step1 = () => {
                 label="If yes "
                 control={control}
                 placeholder="Select"
-                name="revenueVillageMohalla"
+                name="changeofLanduseType"
                 mandatory
                 type="selectInput"
                 data={typeOfLandForDevelopment}
@@ -836,7 +847,7 @@ const Step1 = () => {
                       label="Enter Plot No"
                       variant="outlined"
                       size="small"
-                      name="correspondenceAdressName"
+                      name="plotNumber"
                       control={control}
                     />
                   </td>
@@ -845,7 +856,7 @@ const Step1 = () => {
                       label=" Enter Plot Area"
                       variant="outlined"
                       size="small"
-                      name="correspondenceAdressName"
+                      name="plotArea"
                       control={control}
                     />
                   </td>
@@ -854,7 +865,8 @@ const Step1 = () => {
                       control={control}
                       inputLabel="Select Type of Land Development"
                       label="Select Type of Land Development"
-                      data={yesOrNo}
+                      data={propertyType}
+                      name="typeOfLandDevelopment"
                     />
                   </td>
 

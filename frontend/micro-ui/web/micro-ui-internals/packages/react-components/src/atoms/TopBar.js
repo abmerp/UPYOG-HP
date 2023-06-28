@@ -14,7 +14,7 @@ const TopBar = ({ img, isMobile, logoUrl, onLogout, toggleSidebar, ulb, userDeta
           src={"https://live.staticflickr.com/65535/52920926187_23343e8ece_m.jpg"}
           alt="mSeva"
         />
-        <h3>{cityOfCitizenShownBesideLogo}</h3>
+        {/* <h3>{cityOfCitizenShownBesideLogo}</h3> */}
         <div className="RightMostTopBarOptions">
           {!hideNotificationIconOnSomeUrlsWhenNotLoggedIn ? <div className="EventNotificationWrapper" onClick={onNotificationIconClick}>
             { notificationCountLoaded && notificationCount ? <span><p>{notificationCount}</p></span> : null }
