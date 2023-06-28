@@ -42,7 +42,7 @@ public class MdmsClientService {
 		for (Map.Entry<String, List<MasterDetail>> entry : masterDetails.entrySet()) {
 			ModuleDetail moduleDetail = ModuleDetail.builder().moduleName(entry.getKey())
 					.masterDetails(entry.getValue()).build();
-
+			System.out.println("MDMS KEY>>>>>>>>>"+entry.getKey()+"   MDMS VALUE  >>>>>"+entry.getValue());
 			moduleDetails.add(moduleDetail);
 
 			MdmsCriteria mdmsCriteria = MdmsCriteria.builder().tenantId(tenantId).moduleDetails(moduleDetails).build();
@@ -56,7 +56,9 @@ public class MdmsClientService {
 		log.info("mdmsCriteriaReq:" + mdmsCriteriaReq);
 		MdmsResponse mdmsResponse = null;
 		try {
+			  System.out.println("MDMS SEARCH URI >>>>>>>>>>>>>>"+ mdmsSearchUri);
 			  mdmsResponse = restTemplate.postForObject(mdmsHost.concat(mdmsSearchUri), mdmsCriteriaReq, MdmsResponse.class);
+
 		} catch (HttpClientErrorException ex) {
 			ex.printStackTrace();
 			String excep = ex.getResponseBodyAsString();
