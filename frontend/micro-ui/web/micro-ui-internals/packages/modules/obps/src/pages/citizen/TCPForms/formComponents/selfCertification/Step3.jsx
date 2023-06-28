@@ -17,7 +17,7 @@ const Step3 = () => {
   const isPreview = window.location.href.includes('preview')
   return (
     <section className="container1">
-      <div className="headerContainer">
+      {/* <div className="headerContainer">
         <div className="buttonWrapper">
           <ButtonWrapper
             variant="contained"
@@ -45,7 +45,7 @@ const Step3 = () => {
           />
         </div>
         <h5 className="mandatoryInfo">(*) Indicates Mandatory Field</h5>
-      </div>
+      </div> */}
       <div className="straightLine" />
 
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -56,7 +56,7 @@ const Step1 = () => {
         Pradesh Town and Country Planning Act, 1977 (Act No. 12 of 1977) for
         Development of Land/Construction of Building.
       </div>
-      <div className="headerContainer">
+      {/* <div className="headerContainer">
         <div className="buttonWrapper">
           <ButtonWrapper
             variant="contained"
@@ -84,7 +84,7 @@ const Step1 = () => {
           />
         </div>
         <h5 className="mandatoryInfo">(*) Indicates Mandatory Field</h5>
-      </div>
+      </div> */}
       <div className="straightLine" />
 
       <form onSubmit={handleSubmit(onSubmit)}>

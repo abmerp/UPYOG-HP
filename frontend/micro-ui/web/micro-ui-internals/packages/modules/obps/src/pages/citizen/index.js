@@ -36,6 +36,7 @@ import PaymentConfirm from "./TCPForms/selfCertificationPayment/PaymentConfirm";
 import SelfApproval from "./TCPForms/selfApprovalPortal/selfApproval";
 import SiteInspection from "./TCPForms/selfApprovalPortal/SiteInspectionReport";
 import Form12 from "./TCPForms/forms/form12";
+import SelfCertificationHome from "./TCPForms/forms/SelfCertificationHome";
 const App = ({ path }) => {
   const location = useLocation();
   const { t } = useTranslation();
@@ -78,7 +79,7 @@ const App = ({ path }) => {
         <PrivateRoute path={`${path}/sendbacktocitizen/ocbpa/:tenantId/:applicationNo`} component={OCSendBackToCitizen} />
         <PrivateRoute path={`${path}/response`} component={OBPSResponse} />
         <PrivateRoute path={`${path}/form11`} component={Form11} />
-        <PrivateRoute path={`${path}/form12`} component={Form12} />
+        {/* <PrivateRoute path={`${path}/form12`} component={Form12} /> */}
         <PrivateRoute path={`${path}/form12/step1`} component={Step1} />
         <PrivateRoute path={`${path}/form12/step2`} component={Step2} />
         <PrivateRoute path={`${path}/form12/step3`} component={Step3} />
@@ -89,6 +90,7 @@ const App = ({ path }) => {
         <PrivateRoute path={`${path}/form12/payconfirm`} component={PaymentConfirm} />
         <PrivateRoute path={`${path}/form12/selfapprove`} component={SelfApproval} />
         <PrivateRoute path={`${path}/form12/siteinspection`} component={SiteInspection} />
+        <PrivateRoute path={`${path}/form12/selfcertification`} component={SelfCertificationHome} />
       </Switch>
     </React.Fragment>
   )
