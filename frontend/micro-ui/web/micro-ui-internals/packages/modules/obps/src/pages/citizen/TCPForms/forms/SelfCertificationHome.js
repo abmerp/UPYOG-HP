@@ -3,145 +3,107 @@ import Step1 from "../formComponents/selfCertification/Step1";
 import Step2 from "../formComponents/selfCertification/Step2";
 import Step3 from "../formComponents/selfCertification/Step3";
 import Step4 from "../formComponents/selfCertification/Step4";
-import ButtonWrapper from "../components/Button";
 import SiteInspectionReport from "../selfApprovalPortal/SiteInspectionReport";
 import SelfApproval from "../selfApprovalPortal/selfApproval";
-import ApprovalLetterUD from "../certificates/ApprovalLetterUD";
+import { Tabs, Tab } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import Summary from "../formComponents/selfCertification/Summary";
+import PaymentConfirm from "../screens/PaymentConfirm";
+
+const useStyles = makeStyles({
+  tabsContainer: {
+    display: 'flex-end',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: '20px',
+    backgroundColor:'#1F4A7C',
+    color: 'white'
+  },
+  tab: {
+    padding: '10px 20px',
+    margin: '5px',
+    cursor: 'pointer',
+    color: 'white',
+    borderRadius: '5px',
+    border: 'none',
+    outline: 'none',
+  },
+  selectedTab: {
+    backgroundColor: 'white',
+  },
+  subtabsContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '10px',
+    backgroundColor: '#f5f5ff',
+    color: 'black'
+  },
+  subtab: {
+    padding: '10px 20px',
+    margin: '5px',
+    cursor: 'pointer',
+    backgroundColor: 'lightgray',
+    borderRadius: '5px',
+    border: 'none',
+    outline: 'none',
+  },
+});
+
 
 const SelfCertificationHome = () => {
-    const [applicantInfo, setApplicantInfo] = useState(true)
-    const [privateProf, setPrivateProf] = useState(false)
-    const [checkList, setCheckList] = useState(false)
-    const [document, setDocument] = useState(false)
-    const [summary, setSummary] = useState(false)
-    const [demand, setDemand] = useState(false)
-    const [selfApproval, setSelfApproval] = useState(false)
-    const [siteInspectionReport, setSiteInspectionReport] = useState(false)
+    const [activeTab, setActiveTab] = useState(0);
+    const [subActiveTab, setSubActiveTab] = useState(0);
+    const classes = useStyles();
 
-    const handleApplication = () => {
-        return null
-    }
-    const handleSummary = () => {
-        return null
-    }
-    const handleDemand = () => {
-        setDemand(true)
-    }
-    const handleApproval = () => {
-        setSelfApproval(true)
-        setApplicantInfo(false)
-    }
-    const handleSiteReport = () => {
-        setSiteInspectionReport(true)
-        setApplicantInfo(false)
-    }
+    const handleTabChange = (event, newValue) => {
+      setActiveTab(newValue);
+    };
+  
+    const handleSubTabChange = (event, newValue) => {
+      setSubActiveTab(newValue)
+    };
 
-    const handleApplicantInfo = () => {
-        setDocument(false)
-        setApplicantInfo(true)
-        setCheckList(false)
-        setPrivateProf(false)
-    }
-    const handlePrivateProfessional = () => {
-        setDocument(false)
-        setApplicantInfo(false)
-        setCheckList(false)
-        setPrivateProf(true)
-    }
-    const handleCheckList = () => {
-        setDocument(false)
-        setApplicantInfo(false)
-        setCheckList(true)
-        setPrivateProf(false)
-    }
-    const handleDocuments = () => {
-        setDocument(true)
-        setApplicantInfo(false)
-        setCheckList(false)
-        setPrivateProf(false)
-    }
+    
 
   return (
     <React.Fragment>
-    <div className="headerContainer">
-        <div className="buttonWrapper">
-          <ButtonWrapper
-            variant="contained"
-            color="success"
-            size="medium"
-            label="Applicantion Form"
-            onClick={handleApplication}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="Form Summary"
-            onClick={handleSummary}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="Demand and Payment"
-            onClick={handleDemand}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="Self-Approval"
-            onClick={handleApproval}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="SiteInspection-Report"
-            onClick={handleSiteReport}
-          />
+     <div className={classes.tabsContainer}>
+      <Tabs
+        value={activeTab}
+        onChange={handleTabChange}
+        centered
+      >
+        <Tab label="Application Form" className={classes.tab} style={{color: 'white'}}/>
+        <Tab label="Form Summary" className={classes.tab} style={{color: 'white'}}/>
+        <Tab label="Demand and Payment" className={classes.tab} style={{color: 'white'}}/>
+        <Tab label="Self-Approval" className={classes.tab} style={{color: 'white'}}/>
+        <Tab label="Site Inspection Report" className={classes.tab} style={{color: 'white'}}/>
+      </Tabs>
+      </div>
+      {activeTab === 0 && (
+         <div className={classes.subtabsContainer}>
+        <Tabs
+          value={subActiveTab}
+          onChange={handleSubTabChange}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab label="Applicant Information" className={classes.subtabsContainer} />
+          <Tab label="Private Professional Information" className={classes.subtabsContainer}/>
+          <Tab label="CheckList" className={classes.subtabsContainer}/>
+          <Tab label="Documents" className={classes.subtabsContainer}/>
+        </Tabs>
         </div>
-    </div>
-    <div className="straightLine" />
-    <div className="headerContainer">
-        <div className="buttonWrapper">
-          <ButtonWrapper
-            variant="contained"
-            color="success"
-            size="medium"
-            label="Applicant Information"
-            onClick={handleApplicantInfo}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="Private Professional Information"
-            onClick={handlePrivateProfessional}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="Checklist"
-            onClick={handleCheckList}
-          />
-          <ButtonWrapper
-            variant="contained"
-            color="primary"
-            size="medium"
-            label="Documents"
-            onClick={handleDocuments}
-          />
-        </div>
-        {/* <h5 className="mandatoryInfo">(*) Indicates Mandatory Field</h5> */}
-    </div>
-      {applicantInfo && <Step1 />} 
-      {privateProf && <Step2 />} 
-      {checkList && <Step3 />}  
-      {document && <Step4 />} 
-      {siteInspectionReport && <SiteInspectionReport />} 
-      {selfApproval && <SelfApproval />}
+      )}
+
+      {activeTab === 1 && <div><Summary /></div>}
+      {activeTab === 2 && <div><PaymentConfirm /></div>}
+      {activeTab === 3 && <div><SelfApproval /></div>}
+      {activeTab === 4 && <div><SiteInspectionReport /></div>}
+      {activeTab === 0 && subActiveTab === 0 && <div><Step1 /></div>}
+      {activeTab === 0 && subActiveTab === 1 && <div><Step2 /></div>}
+      {activeTab === 0 && subActiveTab === 2 && <div><Step3 /></div>}
+      {activeTab === 0 && subActiveTab === 3 && <div><Step4 /></div>}
     </React.Fragment>
   );
 };

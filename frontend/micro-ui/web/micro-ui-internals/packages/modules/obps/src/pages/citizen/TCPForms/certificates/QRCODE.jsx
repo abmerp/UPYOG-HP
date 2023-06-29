@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { QRCodeCanvas } from "qrcode.react";
+// import { QRCodeCanvas } from "qrcode.react";
 
 const QrCode = () => {
   const [value, setValue] = useState("");
@@ -23,19 +23,20 @@ const QrCode = () => {
     setValue(e.target.value);
   };
 
-  const qrcode = (
-    <QRCodeCanvas
-      id="qrCode"
-      value="8"
-      size={100}
-      bgColor={"#ffffff"}
-      level={"H"}
-    />
-  );
+  // const qrcode = (
+  //   <QRCodeCanvas
+  //     id="qrCode"
+  //     value="8"
+  //     size={100}
+  //     bgColor={"#ffffff"}
+  //     level={"H"}
+  //   />
+  // );
 
   return (
     <div className="qrcode__container">
-      <div ref={qrRef}>{qrcode}</div>
+      {/* <div ref={qrRef}>{qrcode}</div> */}
+      
     </div>
   );
 };

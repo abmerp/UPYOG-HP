@@ -1,48 +1,22 @@
 import React from "react";
-import SettingsIcon from "@mui/icons-material/Settings";
-import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
-import ButtonWrapper from "../components/Button";
-import { ArrowForward } from "@mui/icons-material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Card, CardSubHeader, CardHeader, SubmitBar } from "@egovernments/digit-ui-react-components";
+import { useTranslation } from "react-i18next";
 const SelfApproval = () => {
+  const { t } = useTranslation();
   const history = useHistory()
   const handleSubmit = () => {
     history.push(`siteinspection`)
   }
   return (
     <section className="mainContainer">
-      <div className="mainHead">
-        Home &gt; Dashboard
-        <span>AmitaShree Malik</span>
-        <span className="iconGap">
-          <SettingsIcon />
-          <CircleNotificationsIcon />
-        </span>
-      </div>
       <div className="wrapper">
-        <h1>Self Certificate Confirmation</h1>
-        <div className="mainSection bgGreen">
-          <h2>
-            By Clicking on Approve Button, It is declared that you are granting planning permission upto 500 m2 of plot area for resendial use
-          </h2>
-          <div className="footerContainer">
-            <div className="buttonWrapper">
-              <ButtonWrapper
-                variant="contained"
-                color="warning"
-                size="large"
-                label={
-                  <React.Fragment>
-                    Approve
-                    <ArrowForward />
-                  </React.Fragment>
-                }
-                type="submit"
-                onClick={handleSubmit}
-              />
-            </div>
-          </div>
-        </div>
+      <Card style={{paddingRight:"16px"}}>
+      <CardHeader>{t("Self Certificate Confirmation")}</CardHeader> 
+      <hr style={{color:"#cccccc",backgroundColor:"#cccccc",height:"2px",marginTop:"20px",marginBottom:"20px"}}/>
+      <CardSubHeader>{t("By Clicking on Approve Button, It is declared that you are granting planning permission upto 500m2 of plot area for resedential use")}</CardSubHeader> 
+      <SubmitBar label={t("Approve")} />
+      </Card>
       </div>
     </section>
   );
