@@ -37,7 +37,7 @@ import PaymentConfirm from "./TCPForms/selfCertificationPayment/PaymentConfirm";
 // import SiteInspection from "./TCPForms/SelfApprovalPortal/SiteInspectionReport";
 import Form12 from "./TCPForms/forms/form12";
 import SelfCertificationHome from "./TCPForms/forms/SelfCertificationHome";
-import SelfApproval from "./TCPForms/SelfApprovalPortal/SelfApproval";
+// import SelfApproval from "./TCPForms/SelfApprovalPortal/SelfApproval";
 const App = ({ path }) => {
   const location = useLocation();
   const { t } = useTranslation();
@@ -89,7 +89,7 @@ const App = ({ path }) => {
         <PrivateRoute path={`${path}/form12/payfee`} component={PayFee} />
         <PrivateRoute path={`${path}/form12/payment`} component={Payment2} />
         <PrivateRoute path={`${path}/form12/payconfirm`} component={PaymentConfirm} />
-        <PrivateRoute path={`${path}/form12/selfapprove`} component={SelfApproval} />
+        {/* <PrivateRoute path={`${path}/form12/selfapprove`} component={SelfApproval} /> */}
         {/* <PrivateRoute path={`${path}/form12/siteinspection`} component={SiteInspection} /> */}
         <PrivateRoute path={`${path}/form12/selfcertification`} component={SelfCertificationHome} />
       </Switch>
