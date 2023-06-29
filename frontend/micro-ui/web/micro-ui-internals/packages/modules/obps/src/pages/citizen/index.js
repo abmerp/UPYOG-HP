@@ -33,10 +33,11 @@ import Step4 from "./TCPForms/formComponents/selfCertification/Step4";
 import PayFee from "./TCPForms/selfCertificationPayment/PayFee";
 import Payment2 from "./TCPForms/selfCertificationPayment/payment2";
 import PaymentConfirm from "./TCPForms/selfCertificationPayment/PaymentConfirm";
-import SelfApproval from "./TCPForms/selfApprovalPortal/selfApproval";
-import SiteInspection from "./TCPForms/selfApprovalPortal/SiteInspectionReport";
+
+import SiteInspection from "./TCPForms/SelfApprovalPortal/SiteInspectionReport";
 import Form12 from "./TCPForms/forms/form12";
 import SelfCertificationHome from "./TCPForms/forms/SelfCertificationHome";
+import SelfApproval from "./TCPForms/SelfApprovalPortal/SelfApproval";
 const App = ({ path }) => {
   const location = useLocation();
   const { t } = useTranslation();

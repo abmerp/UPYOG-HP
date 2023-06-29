@@ -3,9 +3,9 @@ import Step1 from "../formComponents/selfCertification/Step1";
 import Step2 from "../formComponents/selfCertification/Step2";
 import Step3 from "../formComponents/selfCertification/Step3";
 import Step4 from "../formComponents/selfCertification/Step4";
-import SiteInspectionReport from "../selfApprovalPortal/SiteInspectionReport";
-import SelfApproval from "../selfApprovalPortal/selfApproval";
-import { Tabs, Tab } from '@mui/material';
+import SiteInspectionReport from "../SelfApprovalPortal/SiteInspectionReport";
+import SelfApproval from "../SelfApprovalPortal/SelfApproval";
+import { Tabs, Tab, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Summary from "../formComponents/selfCertification/Summary";
 import PaymentConfirm from "../screens/PaymentConfirm";
@@ -16,37 +16,44 @@ const useStyles = makeStyles({
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginBottom: '20px',
-    backgroundColor:'#1F4A7C',
+    backgroundColor:'#BFBFBF',
     color: 'white'
   },
   tab: {
     padding: '10px 20px',
     margin: '5px',
     cursor: 'pointer',
-    color: 'white',
+    color: 'pink',
     borderRadius: '5px',
     border: 'none',
     outline: 'none',
+    backgroundColor:'gray',
   },
   selectedTab: {
-    backgroundColor: 'white',
+    backgroundColor: 'gray', // Set background color for the selected tab
+    color: 'white',
   },
   subtabsContainer: {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: '10px',
-    backgroundColor: '#f5f5ff',
+    backgroundColor: '#F2F2F2',
     color: 'black'
   },
-  subtab: {
-    padding: '10px 20px',
-    margin: '5px',
-    cursor: 'pointer',
-    backgroundColor: 'lightgray',
-    borderRadius: '5px',
-    border: 'none',
-    outline: 'none',
-  },
+  // subtab: {
+  //   padding: '10px 20px',
+  //   margin: '5px',
+  //   cursor: 'pointer',
+  //   backgroundColor: 'lightgray',
+  //   borderRadius: '5px',
+  //   border: 'none',
+  //   outline: 'none',
+  // },
+  // tabDivider: {
+  //   backgroundColor: 'gray',
+  //   width: '1px',
+  //   height: '100%',
+  // }
 });
 
 
@@ -69,15 +76,17 @@ const SelfCertificationHome = () => {
     <React.Fragment>
      <div className={classes.tabsContainer}>
       <Tabs
+        className={activeTab ? classes.selectedTab : classes.tab}
         value={activeTab}
         onChange={handleTabChange}
         centered
+        TabIndicatorProps={{ children: <Divider className={classes.tabDivider} orientation="vertical" /> }}
       >
-        <Tab label="Application Form" className={classes.tab} style={{color: 'white'}}/>
-        <Tab label="Form Summary" className={classes.tab} style={{color: 'white'}}/>
-        <Tab label="Demand and Payment" className={classes.tab} style={{color: 'white'}}/>
-        <Tab label="Self-Approval" className={classes.tab} style={{color: 'white'}}/>
-        <Tab label="Site Inspection Report" className={classes.tab} style={{color: 'white'}}/>
+        <Tab label="Application Form" />
+        <Tab label="Form Summary"/>
+        <Tab label="Demand and Payment"/>
+        <Tab label="Self-Approval"/>
+        <Tab label="Site Inspection Report"/>
       </Tabs>
       </div>
       {activeTab === 0 && (
