@@ -27,7 +27,18 @@ const SiteInspectionReport = () => {
                 uploadValidity="(pdf file only and Max file Size 30 MB)"
               />
             </div>
+            <div className="columnWrapper">
+              <InputContainer
+                label="Remarks"
+                control={control}
+                placeholder="Give your remarks"
+                name="remarks"
+                mandatory
+                type="textInput"
+              />
+             </div>
           </div>
+          
         </div>
         <div className="footerContainer">
           <div className="buttonWrapper">
