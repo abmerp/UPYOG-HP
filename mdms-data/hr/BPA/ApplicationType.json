@@ -8,6 +8,10 @@
     },{
       "code":"BUILDING_OC_PLAN_SCRUTINY",
       "active":true
+    },
+    {
+      "code":"BPA_FORM_11",
+      "active":true
     }
   ]
 }

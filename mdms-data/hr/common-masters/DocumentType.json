@@ -17,7 +17,8 @@
     {
       "code": "APPL.ADDRESSPROOF.ELECTRICITYBILL",
       "active": true
-    },{
+    },
+    {
       "code": "APPL.ADDRESSPROOF.PASSPORT",
       "active": true
     },
@@ -25,37 +26,47 @@
       "code": "APPL.LTR.LTR",
       "active": true
     },
-     {
+    {
       "code": "APPL.TDP.TDP",
       "active": true
-    },{
+    },
+    {
       "code": "APPL.LAC.LAC",
       "active": true
-    },{
+    },
+    {
       "code": "APPL.SSC.SSC",
       "active": true
-    },{
+    },
+    {
       "code": "APPL.LSVS.LSVS",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.SITP.SITP",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.RP.RP",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.FP.FP",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.SCP.SCP",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.EP.EP",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.SECP.SECP",
       "active": true
-    },{
+    },
+    {
       "code": "BPD.PP.PP",
       "active": true
     },
@@ -70,21 +81,24 @@
     {
       "code": "NOC.AGRICULTURE_WATERBODY.FTL",
       "active": true
-    },{
+    },
+    {
       "code": "FI.FIR.FIR",
       "active": true
     },
     {
       "code": "FI.SINS.SINS",
       "active": true
-    },{
+    },
+    {
       "code": "FI.SISS.SISS",
       "active": true
     },
     {
       "code": "FI.SIES.SIES",
       "active": true
-    },{
+    },
+    {
       "code": "FI.SIWS.SIWS",
       "active": true
     },
@@ -103,7 +117,8 @@
     {
       "code": "APPL.BUILDING_DIAGRAM.FLOOR_PLAN",
       "active": true
-    },{
+    },
+    {
       "code": "APPL.LOCALBODY.MUNCIPAL_APPROVAL",
       "active": true
     },
@@ -116,53 +131,186 @@
       "active": true
     },
     {
-      "code" : "OWNERIDPROOF",
-      "allowedFormat" : ["image/*", ".pdf", ".png", ".jpeg"],
+      "code": "OWNERIDPROOF",
+      "allowedFormat": [
+        "image/*",
+        ".pdf",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 6000
     },
     {
-      "code" : "OWNERSHIPPROOF",
-      "allowedFormat" : ["image/*", ".pdf", ".png", ".jpeg"],
+      "code": "OWNERSHIPPROOF",
+      "allowedFormat": [
+        "image/*",
+        ".pdf",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 6000
     },
     {
-      "code" : "OWNERPHOTO",
-      "allowedFormat" : ["image/*", ".png", ".jpeg"],
+      "code": "OWNERPHOTO",
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 3000
     },
     {
-      "code" : "OLDLICENCENO",
-      "allowedFormat" : ["image/*", ".pdf", ".png", ".jpeg"],
+      "code": "OLDLICENCENO",
+      "allowedFormat": [
+        "image/*",
+        ".pdf",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 6000
     },
     {
       "code": "COURTORDER",
       "active": true,
-      "allowedFormat" : ["image/*", ".png", ".jpeg"],
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 3000
     },
     {
       "code": "SELFDECLARATION",
       "active": true,
-      "allowedFormat" : ["image/*", ".png", ".jpeg"],
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 3000
     },
     {
       "code": "GOVTNOTIFICATION",
       "active": true,
-      "allowedFormat" : ["image/*", ".png", ".jpeg"],
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 3000
     },
     {
       "code": "OFFICENOTEORDER",
       "active": true,
-      "allowedFormat" : ["image/*", ".png", ".jpeg"],
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
       "maxFileSize": 3000
     },
     {
       "code": "GOVTNOTIFICATION",
       "active": true,
-      "allowedFormat" : ["image/*", ".png", ".jpeg"],
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.JAMAL.DOC",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.CONVEYANCE",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.DEMARCATION",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.TATIMA",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.LOCATION_PLAN",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.SITE_PLAN",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.PROPOSED_CONSOLIDATED_MAP",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
+      "maxFileSize": 3000
+    },
+    {
+      "code": "BPA.FORM11.CONTOURING_MAP",
+      "active": true,
+      "allowedFormat": [
+        "image/*",
+        ".png",
+        ".jpeg",
+        ".jpg",
+        ".pdf"
+      ],
       "maxFileSize": 3000
     }
   ]

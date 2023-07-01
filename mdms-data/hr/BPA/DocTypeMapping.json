@@ -7471,6 +7471,58 @@
           "order": 14
         }
       ]
+    },
+    {
+      "applicationType": "FORM_11",
+      "ServiceType": "FORM_11",
+      "RiskType": "LOW",
+      "WFState": "INITIATE",
+      "docTypes": [
+        {
+          "code": "BPA.FORM11.JAMAL.DOC",
+          "required": true,
+          "allow": "true",
+          "order": 1
+        },
+        {
+          "code": "BPA.FORM11.CONVEYANCE",
+          "required": true,
+          "allow": "true",
+          "order": 2
+        },
+        {
+          "code": "BPA.FORM11.DEMARCATION",
+          "required": true,
+          "allow": "true",
+          "order": 3
+        },
+        {
+          "code": "BPA.FORM11.TATIMA",
+          "required": true,
+          "allow": "true",
+          "order": 4
+        },
+        {
+          "code": "BPA.FORM11.LOCATION_PLAN",
+          "required": true,
+          "order": 5
+        },
+        {
+          "code": "BPA.FORM11.SITE_PLAN",
+          "required": true,
+          "order": 6
+        },
+        {
+          "code": "BPA.FORM11.PROPOSED_CONSOLIDATED_MAP",
+          "required": true,
+          "order": 7
+        },
+        {
+          "code": "BPA.FORM11.CONTOURING_MAP",
+          "required": true,
+          "order": 8
+        }
+      ]
     }
   ]
 }

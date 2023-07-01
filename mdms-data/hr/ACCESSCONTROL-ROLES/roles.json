@@ -424,6 +424,31 @@
       "description": "BPA Services workflow document & field inspection verifier"
     },
     {
+      "code": "BPA_VERIFIER1",
+      "name": "Services verifier",
+      "description": "BPA Services workflow document & field inspection verifier"
+    },
+    {
+      "code": "BPA_VERIFIER2",
+      "name": "Services verifier",
+      "description": "BPA Services workflow document & field inspection verifier"
+    },
+    {
+      "code": "BPA_VERIFIER3",
+      "name": "Services verifier",
+      "description": "BPA Services workflow document & field inspection verifier"
+    },
+    {
+      "code": "BPA_VERIFIER4",
+      "name": "Services verifier",
+      "description": "BPA Services workflow document & field inspection verifier"
+    },
+    {
+      "code": "BPA_VERIFIER5",
+      "name": "Services verifier",
+      "description": "BPA Services workflow document & field inspection verifier"
+    },
+    {
       "code": "WS_CEMP",
       "name": "WS Counter Employee",
       "description": "WS counter employee can take action as citizen"
