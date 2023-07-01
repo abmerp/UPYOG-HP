@@ -6,7 +6,7 @@
   "private": true,
   "homepage": "digit-ui/",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "PORT=3001 react-scripts start"
   },
   "devDependencies": {
     "@egovernments/digit-ui-libraries":"^1.4.0",
