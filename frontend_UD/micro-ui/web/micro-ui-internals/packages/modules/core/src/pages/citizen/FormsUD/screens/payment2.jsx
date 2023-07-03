@@ -4,8 +4,12 @@ import ButtonWrapper from "../components/Button";
 import "../styles/Payment.css";
 
 const Payment2 = () => {
+
+function handlePay() {
+      console.log("Payment Done")    
+}
   return (
-    <section className="mainContainer">
+    <section className="mainContainer" style={{overflow:screenX}}>
       <div className="mainHead">Home &gt; Process Payment</div>
 
       <div className="mainSection">
@@ -38,13 +42,14 @@ const Payment2 = () => {
             size="medium"
             label="Modify"
           />
-          <ButtonWrapper
-            variant="contained"
-            color="success"
-            size="medium"
-            label="Pay"
-            type="submit"
-          />
+        <ButtonWrapper
+              variant="contained"
+              color="success"
+              size="medium"
+              label="Pay"
+              type="submit"
+              onClick={handlePay}
+            />
         </div>
       </div>
     </section>

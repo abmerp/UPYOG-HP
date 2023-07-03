@@ -44,7 +44,7 @@ const Step3 = (props) => {
   return (
     <section className="container1">
       <div className="headerContainer">
-        <div className="buttonWrapper">
+        {/* <div className="buttonWrapper">
           <ButtonWrapper
             variant="contained"
             color="primary"
@@ -69,7 +69,7 @@ const Step3 = (props) => {
             size="medium"
             label="Documents"
           />
-        </div>
+        </div> */}
         <h5 className="mandatoryInfo">(*) Indicates Mandatory Field</h5>
       </div>
       <div className="straightLine" />

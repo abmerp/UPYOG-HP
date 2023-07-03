@@ -183,7 +183,7 @@
   }
 
   .card {
-    margin-right: 150px;
+    margin-right: 0px;
     padding-right: 10px;
     padding-left: 16px;
     padding-top: 16px;
@@ -193,7 +193,7 @@
     
     
     .card-header {
-      @apply text-heading-xl-dt;
+      @apply text-heading-l-dt;
       
     }
 
@@ -202,7 +202,7 @@
     }
 
     .card-caption {
-      @apply text-caption-xl-dt;
+      @apply text-caption-l-dt;
     }
 
     .card-text,

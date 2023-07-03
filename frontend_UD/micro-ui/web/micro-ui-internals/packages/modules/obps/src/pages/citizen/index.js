@@ -28,6 +28,10 @@ import Form26 from "@egovernments/digit-ui-module-core/src/pages/citizen/FormsUD
 import FormsServices from "./ArchitectInbox/FormsServices";
 import Form11Link from "./ArchitectInbox/Form11Link";
 import Form26Link from "./ArchitectInbox/Form26Link";
+import CheckPage from "./StakeholderRegistration/CheckPage";
+import Actions from "@egovernments/digit-ui-module-core/src/pages/citizen/Home/Components/Actions";
+import Payment2 from "@egovernments/digit-ui-module-core/src/pages/citizen/FormsUD/screens/payment2";
+import Summary from "@egovernments/digit-ui-module-core/src/pages/citizen/Home/Components/Summary";
 
 
 
@@ -58,8 +62,8 @@ const App = ({ path }) => {
     <React.Fragment>
        {!location.pathname.includes("response") && !location.pathname.includes("openlink/stakeholder") && !location.pathname.includes("/acknowledgement") && !isDocScreenAfterEdcr && <BackButton style={{ border: "none" }}>{t("CS_COMMON_BACK")}</BackButton>}
       <Switch>
-        {/* <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreen} /> */}
-        <PrivateRoute path={`${path}/home`} component={FormsServices}/>
+        <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreen} />
+        {/* <PrivateRoute path={`${path}/home`} component={FormsServices}/> */}
         <PrivateRoute path={`${path}/search/application`} component={(props) => <Search {...props} parentRoute={path} />} />
         <PrivateRoute path={`${path}/edcrscrutiny/apply`} component={CreateEDCR} />
         <PrivateRoute path={`${path}/edcrscrutiny/oc-apply`} component={CreateOCEDCR} />
@@ -79,8 +83,11 @@ const App = ({ path }) => {
         <PrivateRoute path={`${path}/response`} component={OBPSResponse} />
         <FormRoute path={`${path}/form26link`} component={Form26Link}/>
         <FormRoute path={`${path}/form11link`} component={Form11Link}/>
+        {/* <FormRoute path={`${path}/action`} component={Actions} /> */}
+        <FormRoute path={`${path}/payment2`} component={Payment2} />
+        <FormRoute path={`${path}/action`} component={Summary} />
         
-      </Switch>
+        </Switch>
     </React.Fragment>
   )
 }

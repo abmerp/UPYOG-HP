@@ -12,14 +12,14 @@ import {
 
   import { useHistory, useRouteMatch } from "react-router-dom";
 
-  // import { convertEpochToDateDMY, stringReplaceAll, getOrderDocuments } from "../../../../../utils";
+//   import { convertEpochToDateDMY, stringReplaceAll, getOrderDocuments } from "../../../../../utils";
 
-  // import DocumentsPreview from "../../../../../../../templates/ApplicationDetails/components/DocumentsPreview";
-
-
+//   import DocumentsPreview from "../../../../../../../templates/ApplicationDetails/components/DocumentsPreview";
 
 
-  const Actions = () => {
+
+
+  const Summary = () => {
 
     const { t } = useTranslation();
 
@@ -543,4 +543,4 @@ import {
 
  
 
-  export default Actions;
+  export default Summary;
