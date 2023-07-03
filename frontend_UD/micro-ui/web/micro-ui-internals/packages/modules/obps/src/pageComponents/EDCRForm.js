@@ -17,7 +17,6 @@ const EDCRForm = ({ t, config, onSelect, userType, formData, ownerIndex = 0, add
     const [showToast, setShowToast] = useState(null);
     const history = useHistory();
 
-
     let validation = { };
 
 

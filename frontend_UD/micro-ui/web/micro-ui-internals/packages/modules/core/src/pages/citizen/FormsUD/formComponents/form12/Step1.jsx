@@ -3,6 +3,7 @@ import { MenuItem } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ButtonWrapper from "../../components/Button";
 import TextInput from "../../components/TextInput";
+
 import {
   appealApplicationStatus,
   nameSuffix,
@@ -21,13 +22,15 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
 
 const Step1 = (props) => {
+
+
   const { handleSubmit, control } = useForm();
   const onSubmit = (data) => {
     props.formData.step1Data = data;
     console.log(data);
     console.log(props.formData);
-    // let currentStep = props.step.currentStep;
-    // props.step.currentStep=(currentStep+1);
+   let currentStep = props.step.currentStep;
+    //  props.step.currentStep=(currentStep+1);
     props.changeStep(1);
   }
   const[showMessage,setShowMessage]=useState(true);
@@ -52,8 +55,9 @@ const Step1 = (props) => {
         Pradesh Town and Country Planning Act, 1977 (Act No. 12 of 1977) for
         Development of Land/Construction of Building.
       </div>
+
       <div className="headerContainer">
-        <div className="buttonWrapper">
+    <div className="buttonWrapper">
           <ButtonWrapper
             variant="contained"
             color="success"
@@ -870,7 +874,7 @@ const Step1 = (props) => {
         </div> */}
 
         <div className="footerContainer">
-          <div className="buttonWrapper">
+          {/* <div className="buttonWrapper">
             <ButtonWrapper
               variant="contained"
               color="warning"
@@ -890,7 +894,7 @@ const Step1 = (props) => {
               size="medium"
               label="Reset"
             />
-          </div>
+          </div> */}
         </div>
       </form>
     </section>
