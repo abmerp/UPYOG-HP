@@ -1,5 +1,5 @@
 import {
-    Calender, CardBasedOptions, CardBasedFormsOptions, CaseIcon, ComplaintIcon, DocumentIcon, HomeIcon, Loader, OBPSIcon, PTIcon, StandaloneSearchBar, WhatsNewCard
+    Calender, CardBasedOptions, CardBasedFormsOptions, CaseIcon,SurveyIconSolid, ComplaintIcon, DocumentIcon, HomeIcon, Loader, OBPSIcon, PTIcon, StandaloneSearchBar, WhatsNewCard
 } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -75,42 +75,42 @@ const CitizenProfile = ({
       // },
       {
         name: t("Application for permission of Subdivision/Development of land - Form11"),
-        Icon: 'https://live.staticflickr.com/65535/52918330942_e84025ff6b_m.jpg',
+        Icon: <OBPSIcon />,
         onClick: () => history.push("/digit-ui/citizen/services/form11links"),
       },
       {
         name: t("Application for building plan Permission - Form12"),
-        Icon: 'https://live.staticflickr.com/65535/52919069089_4f9b54e131_m.jpg',
+        Icon: <OBPSIcon />,
         onClick: () => history.push("/digit-ui/citizen/obps/home"),
       },
       {
         name: t("Application for composition of offences - Form26"),
-        Icon: 'https://live.staticflickr.com/65535/52919298260_7d4f971a64_m.jpg',
+        Icon: <ComplaintIcon />,
         onClick: () => history.push("/digit-ui/citizen/services/form26"),
       },
       {
         name: t("Application for Real Estate Project - Form34"),
-        Icon: 'https://live.staticflickr.com/65535/52919069129_39ee000a4a_m.jpg',
+        Icon: <PTIcon />,
         onClick: () => history.push("/digit-ui/citizen/services/form34"),
       },
       {
         name: t("Application for Change of Land Use"),
-        Icon: 'https://live.staticflickr.com/65535/52919371468_12b6c2f069_m.jpg',
+        Icon: <DocumentIcon />,
         onClick: () => history.push("/digit-ui/citizen/services/form34"),
       },
       {
         name: t("Application for permission of mobile tower"),
-        Icon: 'https://live.staticflickr.com/65535/52919069099_3e46737a47_m.jpg',
+        Icon: <SurveyIconSolid />,
         onClick: () => history.push("/digit-ui/citizen/services/form11"),
       },
       {
         name: t("Application for Appeal -Form 16"),
-        Icon: 'https://live.staticflickr.com/65535/52926586726_37783830c6_m.jpg',
+        Icon: <PTIcon />,
         onClick: () => history.push("/digit-ui/citizen/services/form16"),
       },
       {
         name: t("Application for NOC"),
-        Icon: 'https://live.staticflickr.com/65535/52925993062_4896170e72_m.jpg',
+        Icon: <ComplaintIcon />,
         onClick: () => history.push("/digit-ui/citizen/services/form11"),
       },
      
@@ -175,7 +175,7 @@ const CitizenProfile = ({
       </div>
 
       <div className="ServicesSection">
-        <CardBasedFormsOptions {...allCitizenServicesProps} />
+        <CardBasedOptions {...allCitizenServicesProps} />
         {/* <CardBasedOptions {...allInfoAndUpdatesProps} /> */}
       </div>
 

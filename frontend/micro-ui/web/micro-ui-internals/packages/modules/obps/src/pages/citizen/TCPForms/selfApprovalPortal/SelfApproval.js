@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 const SelfApproval = () => {
   const { t } = useTranslation();
   const handleSubmit = () => {
-    window.open(`https://tcp.hp.gov.in/Application//uploadDocuments/notification/Notice20160928_174624.pdf`)
+    window.open(`https://pdfhost.io/v/kXKIgTQUO_Form12_certificate`)
   }
   return (
     <section className="mainContainer">

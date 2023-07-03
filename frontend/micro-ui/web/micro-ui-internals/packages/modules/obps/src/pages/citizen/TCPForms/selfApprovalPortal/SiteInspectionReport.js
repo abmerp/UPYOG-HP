@@ -15,6 +15,7 @@ const SiteInspectionReport = () => {
         <div className="formContainer">
           <div className="formHeaderContainer">
             <h2 className="formHeading">Upload Site Inspection Report</h2>
+            <p>Please Upload Site Inspection Report within 15 days of Approval*</p>
           </div>
           <div className="formInputContainer">
             <div className="columnWrapper">
