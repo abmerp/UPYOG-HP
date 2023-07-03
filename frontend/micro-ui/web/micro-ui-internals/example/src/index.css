@@ -1985,8 +1985,8 @@ img, video {
     padding-right: 300px;
     padding-left: 16px;
     padding-top: 16px;
-    max-width: 960px;
-    min-width: 640px;
+    max-width: 1080px;
+    min-width: 940px;
      }
     .card .card-header, .card-emp .card-header {
       font-size: 24px;

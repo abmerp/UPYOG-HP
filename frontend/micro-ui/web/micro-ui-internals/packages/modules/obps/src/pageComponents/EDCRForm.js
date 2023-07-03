@@ -48,7 +48,18 @@ const EDCRForm = ({ t, config, onSelect, userType, formData, ownerIndex = 0, add
             })
             if (Array.isArray(list?.[0]?.tenants)) list?.[0]?.tenants.reverse();
             let sortTenants = sortDropdownNames(list?.[0]?.tenants, "code", t)
-            setCitymoduleList(sortTenants);
+            const HPtenant = [
+                {
+                    "code": "hp.shimla",
+                    "i18nKey": "Shimla"
+                },
+                {
+                    "code": "hp.dharmasala",
+                    "i18nKey": "Dharmasala"
+                }
+            ]
+            // setCitymoduleList(sortTenants);
+            setCitymoduleList(HPtenant)
         }
     }, [citymodules]);
 
