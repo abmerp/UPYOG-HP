@@ -95,10 +95,23 @@
                 "INITIATED": "/employee/egov-bpa/search-preview?applicationNumber=^WFBID^&tenantId=^WFTNID^",
                 "DEFAULT": "/employee/egov-bpa/search-preview?applicationNumber=^WFBID^&tenantId=^WFTNID^"
               }
-        },{
+        },
+        {
             "moduleName": "BPA",
             "BusinessService": "BPA_OC",
             "roles": ["BPA_ARCHITECT", "BPA_ENGINEER","BPA_BUILDER","BPA_STRUCTURALENGINEER","BPA_TOWNPLANNER","BPA_SUPERVISOR"],
+            "active": true,
+            "locality":true,
+            "localityModule":"bpa-services",
+            "redirectConfig": {
+                "INITIATED": "/employee/oc-bpa/search-preview?applicationNumber=^WFBID^&tenantId=^WFTNID^",
+                "DEFAULT": "/employee/oc-bpa/search-preview?applicationNumber=^WFBID^&tenantId=^WFTNID^"
+              }
+        },
+        {
+            "moduleName": "BPA",
+            "BusinessService": "BPA_FORM_11",
+            "roles": ["BPA_ARCHITECT", "BPA_VERIFIER1","BPA_VERIFIER2","BPA_VERIFIER3","BPA_VERIFIER4","BPA_VERIFIER5","BPA_APPROVER"],
             "active": true,
             "locality":true,
             "localityModule":"bpa-services",
