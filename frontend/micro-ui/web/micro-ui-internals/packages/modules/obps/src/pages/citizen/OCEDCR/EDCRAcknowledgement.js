@@ -12,27 +12,27 @@ const EDCRAcknowledgement = (props) => {
     if (props?.data?.type == "ERROR" && !showToast) setShowToast(true); 
   }, [props?.data?.data]);
 
-  // if (props?.data?.type == "ERROR") {
-  //   return (
-  //     <Card style={{ padding: "0px" }}>
-  //       <Banner
-  //         message={t("CS_BPA_APPLICATION_FAILED")}
-  //         applicationNumber={""}
-  //         info={""}
-  //         successful={false}
-  //         infoStyles={{ fontSize: "18px", lineHeight: "21px", fontWeight: "bold", textAlign: "center", padding: "0px 15px" }}
-  //         applicationNumberStyles={{ fontSize: "24px", lineHeight: "28px", fontWeight: "bold", marginTop: "10px" }}
-  //         style={{ width: "100%", padding: "10px" }}
-  //       />
-  //       <div style={{ padding: "10px", paddingBottom: "10px" }}>
-  //         <Link to={`/digit-ui/citizen`} >
-  //           <SubmitBar label={t("CORE_COMMON_GO_TO_HOME")} />
-  //         </Link>
-  //       </div>
-  //       {showToast ? <Toast error={"error"} label={t(props?.data?.data)} onClose={() => setShowToast(null)} isDleteBtn={true}/> : null}
-  //     </Card>
-  //   )
-  // }
+  if (props?.data?.type == "ERROR") {
+    return (
+      <Card style={{ padding: "0px" }}>
+        <Banner
+          message={t("CS_BPA_APPLICATION_FAILED")}
+          applicationNumber={""}
+          info={""}
+          successful={false}
+          infoStyles={{ fontSize: "18px", lineHeight: "21px", fontWeight: "bold", textAlign: "center", padding: "0px 15px" }}
+          applicationNumberStyles={{ fontSize: "24px", lineHeight: "28px", fontWeight: "bold", marginTop: "10px" }}
+          style={{ width: "100%", padding: "10px" }}
+        />
+        <div style={{ padding: "10px", paddingBottom: "10px" }}>
+          <Link to={`/digit-ui/citizen`} >
+            <SubmitBar label={t("CORE_COMMON_GO_TO_HOME")} />
+          </Link>
+        </div>
+        {showToast ? <Toast error={"error"} label={t(props?.data?.data)} onClose={() => setShowToast(null)} isDleteBtn={true}/> : null}
+      </Card>
+    )
+  }
   
   sessionStorage.setItem("isEDCRDisable", JSON.stringify(true));
   sessionStorage.setItem("isPermitApplication", true);
@@ -64,7 +64,7 @@ const EDCRAcknowledgement = (props) => {
 
   return (
     <div>
-      {/* {edcrData?.status == "Accepted" ? */}
+      {edcrData?.status == "Accepted" ?
         <Card style={{ padding: "0px" }}>
           <Banner
             message={t("BPA_OC_EDCR_ACKNOWLEDGEMENT_SUCCESS_MESSAGE_LABEL")}
@@ -94,7 +94,7 @@ const EDCRAcknowledgement = (props) => {
             </Link>
           </div>
         </Card> 
-        {/* :
+        :
         <Card style={{ padding: "0px" }}>
           <Banner
             message={t("BPA_OC_EDCR_ACKNOWLEDGEMENT_REJECTED_MESSAGE_LABEL")}
@@ -118,8 +118,14 @@ const EDCRAcknowledgement = (props) => {
               <SubmitBar label={t("CORE_COMMON_GO_TO_HOME")} />
             </Link>
           </div>
-        </Card> */}
-      {/* } */}
+          <div style={{padding: "10px", paddingBottom: "10px"}}>
+          <Link to={{pathname: `/digit-ui/citizen/obps/form12/selfcertification`, state: bpaLinks}} replace>
+            <SubmitBar label={t("APPLY_FOR_FORM12")} onSubmit={() => (sessionStorage.setItem("clickOnBPAApplyAfterEDCR",true))}/>
+            <CardText className="button-sub-text"  style={{fontSize: "14px", lineHeight: "16px", textAlign: "center", margin: "0px", marginTop: "4px", fontWeight: "400", color: "#0B0C0C"}}>{t("BPA_FOR_NEW_CONSTRUCTION_LABEL")}</CardText>
+            </Link>
+          </div>
+        </Card>
+       } 
     </div>
   );
 };

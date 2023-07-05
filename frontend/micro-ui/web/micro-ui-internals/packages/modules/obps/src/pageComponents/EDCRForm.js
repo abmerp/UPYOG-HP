@@ -55,7 +55,7 @@ const EDCRForm = ({ t, config, onSelect, userType, formData, ownerIndex = 0, add
                 },
                 {
                     "code": "hp.dharmasala",
-                    "i18nKey": "Dharmasala"
+                    "i18nKey": "Dharmashala"
                 }
             ]
             // setCitymoduleList(sortTenants);
