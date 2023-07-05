@@ -171,6 +171,10 @@ public class BPAService {
 			bpaRequest.getBPA().setStatus("");
 			wfIntegrator.callWorkFlow2(bpaRequest);
 		}
+		else
+		{
+			wfIntegrator.callWorkFlow2(bpaRequest);
+		}
 		repository.save2(bpaRequest);
 		return bpaRequest.getBPA();
 		
