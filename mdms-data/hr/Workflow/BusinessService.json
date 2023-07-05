@@ -25,6 +25,7 @@
               "action": "INITIATE",
               "nextState": "VERIFICATION1PENDING",
               "roles": [
+                "BPA_VERIFIER1",
                 "BPA_ARCHITECT"
               ]
             }
@@ -43,9 +44,9 @@
             {
               "tenantId": "hr",
               "action": "FORWARD",
-              "nextState": "VERIFICATION1PENDING",
+              "nextState": "VERIFICATION2PENDING",
               "roles": [
-                "BPA_VERIFIER1"
+                "BPA_VERIFIER2"
               ]
             },
             {
@@ -53,7 +54,8 @@
               "action": "CANCEL",
               "nextState": "",
               "roles": [
-                "BPA_VERIFIER1"
+              	"BPA_VERIFIER1",
+                "BPA_VERIFIER2"
               ]
             },
             {
@@ -62,26 +64,6 @@
               "nextState": "VERIFICATION1PENDING",
               "roles": [
                 "BPA_ARCHITECT"
-              ]
-            }
-          ]
-        },
-        {
-          "tenantId": "hr",
-          "sla": null,
-          "state": "VERIFICATION1PENDING",
-          "applicationStatus": "Verification Step 2 Pending",
-          "docUploadRequired": false,
-          "isStartState": false,
-          "isTerminateState": false,
-          "isStateUpdatable": true,
-          "actions": [
-            {
-              "tenantId": "hr",
-              "action": "FORWARD",
-              "nextState": "VERIFICATION2PENDING",
-              "roles": [
-                "BPA_VERIFIER2"
               ]
             }
           ]
