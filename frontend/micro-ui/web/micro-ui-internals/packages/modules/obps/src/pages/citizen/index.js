@@ -34,7 +34,7 @@ import PayFee from "./TCPForms/selfCertificationPayment/PayFee";
 import Payment2 from "./TCPForms/selfCertificationPayment/payment2";
 import PaymentConfirm from "./TCPForms/selfCertificationPayment/PaymentConfirm";
 
-// import SiteInspection from "./TCPForms/SelfApprovalPortal/SiteInspectionReport";
+
 import Form12 from "./TCPForms/forms/form12";
 import SelfCertificationHome from "./TCPForms/forms/SelfCertificationHome";
 // import SelfApproval from "./TCPForms/SelfApprovalPortal/SelfApproval";

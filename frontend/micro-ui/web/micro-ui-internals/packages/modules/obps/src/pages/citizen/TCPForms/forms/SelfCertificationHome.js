@@ -3,12 +3,12 @@ import Step1 from "../formComponents/selfCertification/Step1";
 import Step2 from "../formComponents/selfCertification/Step2";
 import Step3 from "../formComponents/selfCertification/Step3";
 import Step4 from "../formComponents/selfCertification/Step4";
-import SiteInspectionReport from "../SelfApprovalPortal/SiteInspectionReport";
 import SelfApproval from "../SelfApprovalPortal/SelfApproval";
 import { Tabs, Tab, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Summary from "../formComponents/selfCertification/Summary";
 import PaymentConfirm from "../screens/PaymentConfirm";
+import SiteInspectionReport from "../SelfApprovalPortal/SiteInspectionReport";
 
 const useStyles = makeStyles({
   tabsContainer: {
