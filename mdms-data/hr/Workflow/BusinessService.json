@@ -26,7 +26,8 @@
               "nextState": "VERIFICATION1PENDING",
               "roles": [
                 "BPA_VERIFIER1",
-                "BPA_ARCHITECT"
+                "BPA_ARCHITECT",
+                "CITIZEN"
               ]
             }
           ]
@@ -63,7 +64,8 @@
               "action": "INITIATE",
               "nextState": "VERIFICATION1PENDING",
               "roles": [
-                "BPA_ARCHITECT"
+                "BPA_ARCHITECT",
+                "CITIZEN"
               ]
             }
           ]
@@ -183,7 +185,8 @@
               "action": "",
               "nextState": "END",
               "roles": [
-                "CITIZEN"
+                "CITIZEN",
+                "BPA_ARCHITECT"
               ]
             }
           ]
