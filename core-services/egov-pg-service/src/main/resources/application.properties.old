@@ -68,7 +68,7 @@ egov.bankaccountservice.path=egf-master/bankaccounts/_search
 egov.businessdetailsservice.host=http://tcp.abm.com:8443
 egov.businessdetailsservice.path=/egov-common-masters/businessDetails/_search?tenantId={tenantId}&businessDetailsCodes={businessDetailsCodes}
 ##----------------------------- AXIS GATEWAY CONFIGURATIONS ------------------------------#
-axis.active=false
+axis.active=true
 axis.currency=INR
 axis.locale=en_IN
 axis.merchant.id=
@@ -82,7 +82,7 @@ axis.merchant.vpc.command.status=queryDR
 axis.url.debit=https://migs.mastercard.com.au/vpcpay
 axis.url.status=https://migs.mastercard.com.au/vpcdps
 ##----------------------------- PAYTM GATEWAY CONFIGURATIONS ------------------------------#
-paytm.active=false
+paytm.active=true
 paytm.merchant.id=
 paytm.merchant.secret.key=
 paytm.merchant.industry.type=Retail
@@ -91,7 +91,7 @@ paytm.merchant.website=WEBSTAGING
 paytm.url.debit=https://securegw-stage.paytm.in/theia/processTransaction
 paytm.url.status=https://securegw-stage.paytm.in/merchant-status/getTxnStatus
 ##-----------------------------Nic gateway--------------------------------------------------#
-nic.active=false
+nic.active=true
 nic.DTO=03
 nic.STO=00
 nic.DDO=1321
@@ -111,7 +111,7 @@ phonepe.merchant.host=mercury-uat.phonepe.com
 phonepe.url.debit=/v3/debit
 phonepe.url.status=/v3/transaction
 ##----------------------------- PAYGOV GATEWAY CONFIGURATIONS ------------------------------#
-paygov.active=false
+paygov.active=true
 paygov.messagetype=0100
 paygov.currency=INR
 paygov.merchant.id=UATNIUACG0000001435
@@ -133,7 +133,7 @@ egov.default.citizen.url=http://103.166.62.118:3001/digit-ui/citizen
 egov.pgdetail.host=http://tcp.abm.com:8443
 egov.pgdetail.path=/pg-detail/_get
 ##----------------------------- PHONEPE GATEWAY CONFIGURATIONS ------------------------------#
-payu.active=false
+payu.active=true
 payu.merchant.key=
 payu.merchant.salt=
 payu.url=test.payu.in
@@ -144,19 +144,11 @@ payu.path.status=merchant/postservice.php
 management.endpoints.web.base-path=/\
 
 ##----------------------------- HDFC CONFIGURATION ------------------------------#
-hdfc.active=false
+hdfc.active=true
 hdfc.merchant.id=671926
 hdfc.working.Key=03546C5B3910D4B99141C69D9A16F2AE
 hdfc.access.code=AVQZ50IJ28AH12ZQHA
 hdfc.redirect.URL=https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction
-
-##----------------------------- SBI GATEWAY CONFIGURATIONS ------------------------------#
-sbi.active=true
-sbi.merchant.id=1000356
-sbi.encryption.Key=bZgaVQWO1pxRvHyzsr8FXtUudhkM3gkrEAKykxqhP7A=
-sbi.aggregator.id=SBIEPAY
-sbi.redirect.URL=https://test.sbiepay.sbi
-
 ##----------------------------- USER SERVICE CONFIGURATIONS ------------------------------#
 #egov.userservice.host=http://egov-user.egov:8080/
 egov.userservice.host=http://tcp.abm.com:8443/
