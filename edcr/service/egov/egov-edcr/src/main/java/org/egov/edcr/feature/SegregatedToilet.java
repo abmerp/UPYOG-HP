@@ -96,7 +96,7 @@ public class SegregatedToilet extends FeatureProcess {
         BigDecimal maxHeightOfBuilding = BigDecimal.ZERO;
         BigDecimal maxNumOfFloorsOfBuilding = BigDecimal.ZERO;
 
-        if (pl.getSegregatedToilet() != null && !pl.getSegregatedToilet().getDistancesToMainEntrance().isEmpty())
+        if (pl.getSegregatedToilet() != null && !pl.getSegregatedToilet().getDistancesToMainEntrance().isEmpty()) {
             minDimension = pl.getSegregatedToilet().getDistancesToMainEntrance().stream().reduce(BigDecimal::min).get();
 
         for (Block b : pl.getBlocks()) {
@@ -110,7 +110,7 @@ public class SegregatedToilet extends FeatureProcess {
                 }
             }
         }
-
+        
         if (pl.getVirtualBuilding() != null && (pl.getVirtualBuilding().getMostRestrictiveFarHelper() != null
                 && pl.getVirtualBuilding().getMostRestrictiveFarHelper().getType() != null
                 && ((StringUtils
@@ -166,9 +166,10 @@ public class SegregatedToilet extends FeatureProcess {
             }
 
         }
-
+        }
         return pl;
     }
+    
 
     @Override
     public Map<String, Date> getAmendments() {
