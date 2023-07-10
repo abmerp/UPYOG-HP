@@ -157,7 +157,8 @@ const Home = () => {
     //   ) : null}
     // </div>
     <Switch> 
-      <Route path='/*'><Layout>
+      <Route path='/*'>
+      <Layout>
         <ImageSlider images={images}/>
         <NewsTicker />
         <Card />

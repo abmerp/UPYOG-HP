@@ -37,7 +37,7 @@ const OurServices = () => {
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row', width: '800px'}}>
         <Link to='/digit-ui/citizen/profile' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src='https://live.staticflickr.com/65535/52909336816_1d851aeda4_m.jpg' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px -60px', objectFit: 'cover'}} />
+        <img src='https://github.com/SuryodayABM/TCP-Image/blob/main/Images/architect.png?raw=true' alt="mSeva" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px -60px', objectFit: 'cover'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '50px 20px 12px', color: '#001A00'}}>
           Registered Technical Private Professionals
         </Typography>
@@ -45,7 +45,7 @@ const OurServices = () => {
         </Link>
         <Link to='/digit-ui/citizen/applyOnline' style={{textDecoration: 'none'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src='https://live.staticflickr.com/65535/52909644208_e67ec38e49_m.jpg' alt="onlineServices" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px', marginLeft: '-60px',objectFit: 'cover'}} />
+        <img src='https://github.com/SuryodayABM/TCP-Image/blob/main/Images/onlineService.png?raw=true' alt="onlineServices" id="topbar-logo"  style={{width: '80px', height: 'auto', padding: '10px', margin: '10px', marginLeft: '-60px',objectFit: 'cover'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '10px', marginTop: '50px', color: '#001A00'}}>
           Online Services
         </Typography>
@@ -54,7 +54,7 @@ const OurServices = () => {
         <br></br>
         <Link to='/digit-ui/employee' style={{textDecoration: 'none', cursor: 'pointer'}}>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'row'}}>
-        <img src='https://live.staticflickr.com/65535/52909190521_952c8ec76a_m.jpg' alt="Online User Services" style={{width: '80px', height: 'auto', padding: '10px', margin: '10px'}} />
+        <img src='https://github.com/SuryodayABM/TCP-Image/blob/main/Images/computer-worker.png?raw=true' alt="Online User Services" style={{width: '80px', height: 'auto', padding: '10px', margin: '10px'}} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', fontWeight: 'bold', margin: '50px 15px 10px 10px', marginTop: '50px', color: '#001A00'}}>
           Officer Login
         </Typography>
@@ -65,7 +65,7 @@ const OurServices = () => {
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'row'}}>
         <Link to='/digit-ui/citizen/feeCalculator' style={{textDecoration: 'none', cursor: 'pointer'}}>
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <img src='https://live.staticflickr.com/65535/52909341549_17ea8a427d_m.jpg' alt="Fee Calculator" style={{width: '80px', height: '80px', padding: '5px', margin: '10px'}}/>
+        <img src='https://github.com/SuryodayABM/TCP-Image/blob/main/Images/fee.png?raw=true' alt="Fee Calculator" style={{width: '80px', height: '80px', padding: '5px', margin: '10px'}}/>
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '30px 40px 10px 10px', color: '#001A00'}}>
           Fee Calculator
         </Typography>
@@ -73,7 +73,7 @@ const OurServices = () => {
         </Link>
         <br></br>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'row'}}>
-        <img src='https://live.staticflickr.com/65535/52908614842_764c4b6a72_m.jpg' alt="Check/ Track application status" style={{width: '80px', height: '80px', padding: '5px', margin: '10px', cursor: 'pointer'}} onClick={handleOpen} />
+        <img src='https://github.com/SuryodayABM/TCP-Image/blob/main/Images/project-status.png?raw=true' alt="Check/ Track application status" style={{width: '80px', height: '80px', padding: '5px', margin: '10px', cursor: 'pointer'}} onClick={handleOpen} />
         <Typography variant="body1" component="p" style={{fontSize: '15px', padding: '5px', fontWeight: 'bold', margin: '30px 0px 10px 10px', color: '#001A00', cursor: 'pointer'}} onClick={handleOpen}>
           Check Application Status
         </Typography>
