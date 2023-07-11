@@ -61,6 +61,7 @@ import org.egov.common.entity.edcr.Result;
 import org.egov.common.entity.edcr.ScrutinyDetail;
 import org.egov.edcr.constants.DxfFileConstants;
 import org.egov.infra.utils.StringUtils;
+import org.jfree.util.Log;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -96,9 +97,12 @@ public class SegregatedToilet extends FeatureProcess {
         BigDecimal maxHeightOfBuilding = BigDecimal.ZERO;
         BigDecimal maxNumOfFloorsOfBuilding = BigDecimal.ZERO;
 
-        if (pl.getSegregatedToilet() != null && !pl.getSegregatedToilet().getDistancesToMainEntrance().isEmpty()) {
-            minDimension = pl.getSegregatedToilet().getDistancesToMainEntrance().stream().reduce(BigDecimal::min).get();
-
+        Log.info("The Distances To Main Entrance=> " +pl.getSegregatedToilet().getDistancesToMainEntrance());
+        if (pl.getSegregatedToilet() != null && pl.getSegregatedToilet().getDistancesToMainEntrance() != null
+        		&& !pl.getSegregatedToilet().getDistancesToMainEntrance().isEmpty()) 
+        	minDimension = pl.getSegregatedToilet().getDistancesToMainEntrance().stream().reduce(BigDecimal::min).get();
+        	Log.info("Min Dimensions are==> " +minDimension);
+        
         for (Block b : pl.getBlocks()) {
             if (b.getBuilding().getBuildingHeight() != null) {
                 if (b.getBuilding() != null && b.getBuilding().getBuildingHeight().compareTo(maxHeightOfBuilding) > 0) {
@@ -165,7 +169,6 @@ public class SegregatedToilet extends FeatureProcess {
                 pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
             }
 
-        }
         }
         return pl;
     }
