@@ -4,10 +4,13 @@ update egbpa_occupancy set colorcode=11 where name='Storage';
 
 
 update egbpa_sub_occupancy set colorcode=25, code='A-R' where name='Residential';
-update egbpa_sub_occupancy set colorcode=3, code='A-SR' where name='Special Residential';
-update egbpa_sub_occupancy set colorcode=19, code='A-HE' where name='Hostel Educational';
+--update egbpa_sub_occupancy set colorcode=3, code='A-SR' where name='Special Residential';
+--update egbpa_sub_occupancy set colorcode=19, code='A-HE' where name='Hostel Educational';
+update egbpa_sub_occupancy set colorcode=3, code='A-D' where name='Detach';
+update egbpa_sub_occupancy set colorcode=19, code='A-SD' where name='Semi Detach';
 update egbpa_sub_occupancy set colorcode=2, code='A-AF' where name='Apartment/Flat';
-update egbpa_sub_occupancy set colorcode=24, code='A-PO' where name='Professional Office';
+--update egbpa_sub_occupancy set colorcode=24, code='A-PO' where name='Professional Office';
+update egbpa_sub_occupancy set colorcode=24, code='A-RH' where name='Row Housing';
 
 update egbpa_sub_occupancy set name='Primary school' where code='B1';
 update egbpa_sub_occupancy set colorcode=4, code='B-PS' where name='Primary school';

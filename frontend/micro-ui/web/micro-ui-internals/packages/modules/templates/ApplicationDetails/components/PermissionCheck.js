@@ -79,7 +79,7 @@ const PermissionCheck = ({ permissions, t }) => {
         />}
        </div>
       ))}
-      <LinkButton style={{ color: "#a82227", maxWidth: "10%", /* float: "right", marginTop: "-50px", */ marginRight: "3%" }} label={t(`BPA_ADD_MORE`)} onClick={handleAdd} />
+      <LinkButton style={{ color: "#1F4A7C", maxWidth: "10%", /* float: "right", marginTop: "-50px", */ marginRight: "3%" }} label={t(`BPA_ADD_MORE`)} onClick={handleAdd} />
     </div>
   )
 }

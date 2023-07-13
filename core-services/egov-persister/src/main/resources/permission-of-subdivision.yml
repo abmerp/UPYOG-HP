@@ -1,0 +1,113 @@
+serviceMaps:
+  serviceName: permission-of-subdivision
+  mappings:
+  - version: 1.0
+    name: hrms
+    description: Persists permission of subdivision details in the table
+    fromTopic: save-permission-of-subdivision
+    isTransaction: true
+    queryMaps:
+    - query: INSERT INTO eg_subdivision_permission(id, la_district, notifiedArea, nameOfVillage, nameOfULB, nameOfWard, applicantName, guardianName, applicantMobileNo, aadharNo, uploadPhoto, addMoreApplicant, emailId, pvtProfMobileNo, name, type, guardianName, state, district, tehsil, townVillageWard, address, pin, revenueVillageMohalla, khatoniNo, khasraNo, khataNo, latitudeLongitude, totalPlotArea, areaUnderConsideration, noOfPlot, pvtProfessionalInfo, useType, propertyType, plotAreaForSubDivisionalDevelopmentActivitiesInSqM, whetherChangeOfLandUseInvolved, minimumWidthOfPedestrian, minimumWidthOfVehicularAccess, minimumAreaForOpenGreenSpace, minimumAreaForSoakPit, orientationOfPlots, layoutOfPlots, jamabandhiDocument, conveyanceDeed, demarcationReport, tatimaDocuments, locationPlan, sitePlan, proposedConsolidatedMap1, copyOfContouringPlan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+      basePath: Subdivision.*
+      jsonMaps:
+
+      - jsonPath: $.Subdivision.*.id
+
+      - jsonPath: $.Subdivision.*.landAreaDetails.district
+
+      - jsonPath: $.Subdivision.*.landAreaDetails.notifiedArea
+
+      - jsonPath: $.Subdivision.*.landAreaDetails.nameOfVillage
+
+      - jsonPath: $.Subdivision.*.landAreaDetails.nameOfULB
+
+      - jsonPath: $.Subdivision.*.landAreaDetails.nameOfWard
+
+      - jsonPath: $.Subdivision.*.applicantInfo.applicantName
+
+      - jsonPath: $.Subdivision.*.applicantInfo.guardianName
+
+      - jsonPath: $.Subdivision.*.applicantInfo.applicantMobileNo
+
+      - jsonPath: $.Subdivision.*.applicantInfo.aadharNo
+
+      - jsonPath: $.Subdivision.*.applicantInfo.uploadPhoto
+
+      - jsonPath: $.Subdivision.*.applicantInfo.addMoreApplicant
+
+      - jsonPath: $.Subdivision.*.applicantInfo.emailId
+      
+      - jsonPath: $.Subdivision.*.applicantInfo.pvtProfMobileNo
+
+      - jsonPath: $.Subdivision.*.name
+
+      - jsonPath: $.Subdivision.*.type
+
+      - jsonPath: $.Subdivision.*.guardianName
+
+      - jsonPath: $.Subdivision.*.state
+
+      - jsonPath: $.Subdivision.*.district
+
+      - jsonPath: $.Subdivision.*.tehsil
+
+      - jsonPath: $.Subdivision.*.townVillageWard
+
+      - jsonPath: $.Subdivision.*.address
+
+      - jsonPath: $.Subdivision.*.pin
+      
+      - jsonPath: $.Subdivision.*.descriptionOfLand.revenueVillageMohalla
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.khatoniNo
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.khasraNo
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.khataNo
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.latitudeLongitude
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.totalPlotArea
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.areaUnderConsideration
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.noOfPlot
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.pvtProfessionalInfo
+      
+      - jsonPath: $.Subdivision.*.descriptionOfLand.useType
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.propertyType
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.plotAreaForSubDivisionalDevelopmentActivitiesInSqM
+
+      - jsonPath: $.Subdivision.*.descriptionOfLand.whetherChangeOfLandUseInvolved
+      
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionChecklist.minimumWidthOfPedestrian
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionChecklist.minimumWidthOfVehicularAccess
+      
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionChecklist.minimumAreaForOpenGreenSpace
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionChecklist.minimumAreaForSoakPit
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionChecklist.orientationOfPlots
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionChecklist.layoutOfPlots
+      
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.jamabandhiDocument
+      
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.conveyanceDeed
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.demarcationReport
+      
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.tatimaDocuments
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.locationPlan
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.sitePlan
+
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.proposedConsolidatedMap1
+      
+      - jsonPath: $.Subdivision.*.permissionOfSubdivisionUploadDoc.copyOfContouringPlan

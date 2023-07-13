@@ -5,14 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.egov.MDMSApplicationRunnerImpl;
-import org.egov.infra.mdms.utils.MDMSConstants;
 import org.egov.mdms.model.MasterDetail;
 import org.egov.mdms.model.MdmsCriteriaReq;
 import org.egov.mdms.model.ModuleDetail;
-import org.egov.tracer.model.CustomException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,110 +20,186 @@ import net.minidev.json.JSONArray;
 @Service
 @Slf4j
 public class MDMSService {
-    public Map<String, Map<String, JSONArray>> searchMaster(MdmsCriteriaReq mdmsCriteriaReq) {
 
-        Map<String, Map<String, Map<String, JSONArray>>> tenantIdMap = MDMSApplicationRunnerImpl.getTenantMap();
+	/**
+	 * Service method to collect master data from tenantIdMap and apply filter as
+	 * per the request
+	 * 
+	 * @param mdmsCriteriaReq
+	 * @return Map<String, Map<String, JSONArray>> masterData
+	 */
 
-        String tenantId = mdmsCriteriaReq.getMdmsCriteria().getTenantId();
 
-        Map<String, Map<String, JSONArray>> stateLevel = null;
-        Map<String, Map<String, JSONArray>> ulbLevel = null;
+	public String serviceURl;
+	@Value("${jamabandi.service.key}")
+	public String key;
+	@Value("${jamabandi.service.sCode}")
+	public String stateCode;
 
-        if (tenantId.contains(".")) {
-            String array[] = tenantId.split("\\.");
-            stateLevel = tenantIdMap.get(array[0]);
-            ulbLevel = tenantIdMap.get(tenantId);
-            if (ulbLevel == null)
-                throw new CustomException("Invalid_tenantId.MdmsCriteria.tenantId", "Invalid Tenant Id");
-        } else {
-            stateLevel = tenantIdMap.get(tenantId);
-            if (stateLevel == null)
-                throw new CustomException("Invalid_tenantId.MdmsCriteria.tenantId", "Invalid Tenant Id");
-        }
+	public Map<String, Map<String, JSONArray>> searchMaster(MdmsCriteriaReq mdmsCriteriaReq) {
 
-        List<ModuleDetail> moduleDetails = mdmsCriteriaReq.getMdmsCriteria().getModuleDetails();
-        Map<String, Map<String, JSONArray>> responseMap = new HashMap<>();
-        for (ModuleDetail moduleDetail : moduleDetails) {
-            List<MasterDetail> masterDetails = moduleDetail.getMasterDetails();
+		Map<String, Map<String, Map<String, JSONArray>>> tenantIdMap = MDMSApplicationRunnerImpl.getTenantMap();
 
-            if (stateLevel != null || ulbLevel != null) {
-                if (stateLevel != null && ulbLevel == null) {
-                    if (stateLevel.get(moduleDetail.getModuleName()) == null)
-                        continue;
-                } else if (ulbLevel != null && stateLevel == null) {
-                    if (ulbLevel.get(moduleDetail.getModuleName()) == null)
-                        continue;
-                }
-                if (stateLevel != null || ulbLevel != null) {
-                    if (stateLevel.get(moduleDetail.getModuleName()) == null
-                            && ulbLevel.get(moduleDetail.getModuleName()) == null)
-                        continue;
-                }
-            }
+		String tenantId = mdmsCriteriaReq.getMdmsCriteria().getTenantId();
+		log.info(" 	 : " + tenantId);
 
-            Map<String, JSONArray> finalMasterMap = new HashMap<>();
+		/*
+		 * local tenantId replica for backtracking to parent tenant when child tenant is
+		 * empty
+		 */
+		String tenantIdWithData = tenantId;
 
-            for (MasterDetail masterDetail : masterDetails) {
-                // JSONArray masterData = masters.get(masterDetail.getName());
-                JSONArray masterData = null;
-                try {
-                    masterData = getMasterData(stateLevel, ulbLevel, moduleDetail.getModuleName(),
-                            masterDetail.getName(), tenantId);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    log.error("Exception occurred while reading master data", e);
-                }
-                if (masterData == null)
-                    continue;
+		int countOfSubTenant = StringUtils.countOccurrencesOf(tenantId, ".");
+		Map<String, Map<String, JSONArray>> tenantData = tenantIdMap.get(tenantId);
+		Map<String, Map<String, JSONArray>> responseMap = new HashMap<>();
 
-                if (masterDetail.getFilter() != null)
-                    masterData = filterMaster(masterData, masterDetail.getFilter());
+		/*
+		 * if the tenantId doesn't contain a separator
+		 */
+		if (countOfSubTenant == 0) {
 
-                finalMasterMap.put(masterDetail.getName(), masterData);
-            }
-            responseMap.put(moduleDetail.getModuleName(), finalMasterMap);
-        }
-        return responseMap;
-    }
+			if (tenantData != null) {
+				getDataForTenatId(mdmsCriteriaReq, tenantIdWithData, responseMap);
+			}
+		} else {
+			/*
+			 * if the tenantId contains separator, it will be backtracked until a tenant
+			 * with data is found
+			 */
+			for (int i = countOfSubTenant; i >= 0; i--) {
 
-    private JSONArray getMasterData(Map<String, Map<String, JSONArray>> stateLevel,
-                                    Map<String, Map<String, JSONArray>> ulbLevel, String moduleName, String masterName, String tenantId) throws Exception {
+				/*
+				 * pick new tenantId data only from the second loop
+				 */
+				if (i < countOfSubTenant)
+					tenantData = tenantIdMap.get(tenantIdWithData);
 
-        Map<String, Map<String, Object>> masterConfigMap = MDMSApplicationRunnerImpl.getMasterConfigMap();
+				if (tenantData == null) {
+					/*
+					 * trim the tenantId by "." separator to take the parent tenantId
+					 */
+					tenantIdWithData = tenantIdWithData.substring(0, tenantIdWithData.lastIndexOf("."));
+				} else {
+					getDataForTenatId(mdmsCriteriaReq, tenantIdWithData, responseMap);
+					break;
+				}
+			}
+		}
+		return responseMap;
+	}
 
-        Map<String, Object> moduleData = masterConfigMap.get(moduleName);
-        Boolean isStateLevel = false;
+	/**
+	 * method to filter module & master data from the given tenantId data
+	 * 
+	 * @param mdmsCriteriaReq
+	 * @param tenantId
+	 * @param responseMap
+	 */
+	public void getDataForTenatId(MdmsCriteriaReq mdmsCriteriaReq, String tenantId,
+			Map<String, Map<String, JSONArray>> responseMap) {
 
-        Object masterData = null;
-        ObjectMapper mapper = new ObjectMapper();
-        if (moduleData != null)
-            masterData = moduleData.get(masterName);
+		List<ModuleDetail> moduleDetails = mdmsCriteriaReq.getMdmsCriteria().getModuleDetails();
+		for (ModuleDetail moduleDetail : moduleDetails) {
 
-        if (null != masterData) {
-            try {
-                isStateLevel = JsonPath.read(mapper.writeValueAsString(masterData),
-                        MDMSConstants.STATE_LEVEL_JSONPATH);
-            } catch (Exception e) {
-                log.error("Error while determining state level, falling back to false state.");
-                isStateLevel = false;
-            }
-        }
-        log.info("MasterName... " + masterName + "isStateLevelConfiguration.." + isStateLevel);
-        if (ulbLevel == null || isStateLevel) {
-            if (stateLevel.get(moduleName) != null) {
-                return stateLevel.get(moduleName).get(masterName);
-            } else {
-                return null;
-            }
-        } else if (ulbLevel != null && ulbLevel.get(moduleName) != null) {
-            return ulbLevel.get(moduleName).get(masterName);
-        } else {
-            return null;
-        }
-    }
+			List<MasterDetail> masterDetails = moduleDetail.getMasterDetails();
+			Map<String, JSONArray> finalMasterMap = new HashMap<>();
 
-    public JSONArray filterMaster(JSONArray masters, String filterExp) {
-        JSONArray filteredMasters = JsonPath.read(masters, filterExp);
-        return filteredMasters;
-    }
+			for (MasterDetail masterDetail : masterDetails) {
+
+				JSONArray masterData = null;
+				try {
+					masterData = getMasterDataFromTenantData(moduleDetail.getModuleName(), masterDetail.getName(),
+							tenantId);
+				} catch (Exception e) {
+					log.error("Exception occurred while reading master data", e);
+				}
+
+				if (masterData == null)
+					continue;
+
+				if (masterDetail.getFilter() != null)
+					masterData = filterMaster(masterData, masterDetail.getFilter());
+
+				finalMasterMap.put(masterDetail.getName(), masterData);
+			}
+			responseMap.put(moduleDetail.getModuleName(), finalMasterMap);
+		}
+	}
+
+	/**
+	 * Method to collect master data from module data Automatically backtracks to
+	 * parent tenant if data is not found for the master for the given tenantId
+	 * 
+	 * @param moduleName
+	 * @param masterName
+	 * @param tenantId
+	 * @return {@link JSONArray} jsonArray
+	 * @throws Exception
+	 */
+	private JSONArray getMasterDataFromTenantData(String moduleName, String masterName, String tenantId)
+			throws Exception {
+
+		JSONArray jsonArray = null;
+		/*
+		 * local tenantId for backtracking parent tenant if data not available for given
+		 * master
+		 */
+		String localTenantId = tenantId;
+		Map<String, Map<String, Map<String, JSONArray>>> tenantIdMap = MDMSApplicationRunnerImpl.getTenantMap();
+		Map<String, Map<String, JSONArray>> data;
+
+		int subTenatCount = StringUtils.countOccurrencesOf(tenantId, ".");
+
+		for (int i = subTenatCount; i >= 0; i--) {
+
+			data = tenantIdMap.get(localTenantId);
+			if (data.get(moduleName) != null && data.get(moduleName).get(masterName) != null) {
+				jsonArray = data.get(moduleName).get(masterName);
+				/*
+				 * break and stop backtracking if data is found
+				 */
+				break;
+			} else {
+				/*
+				 * trim the tenantId by "." separator to take the parent tenantId
+				 */
+				localTenantId = localTenantId.substring(0, localTenantId.lastIndexOf("."));
+			}
+		}
+
+		log.info("ModuleName.... " + moduleName + " : MasterName.... " + masterName);
+		return jsonArray;
+	}
+
+	/*
+	 * Disabled isStateLevel tenant key and enabled backtracking for data true by
+	 * default
+	 */
+
+//	public Boolean isMasterBacktracingEnabled(String moduleName, String masterName) {
+//		Map<String, Map<String, Object>> masterConfigMap = MDMSApplicationRunnerImpl.getMasterConfigMap();
+//
+//		Map<String, Object> moduleData = masterConfigMap.get(moduleName);
+//		Boolean isStateLevel = false;
+//
+//		Object masterData = null;
+//		if (moduleData != null)
+//			masterData = moduleData.get(masterName);
+//
+//		if (null != masterData) {
+//			try {
+//				isStateLevel = JsonPath.read(mapper.writeValueAsString(masterData), MDMSConstants.STATE_LEVEL_JSONPATH);
+//			} catch (Exception e) {
+//				log.error("isStateLevelEnabled field missing default false value will be set");
+//			}
+//		}
+//		return isStateLevel;
+//	}
+
+	public JSONArray filterMaster(JSONArray masters, String filterExp) {
+		JSONArray filteredMasters = JsonPath.read(masters, filterExp);
+		return filteredMasters;
+	}
+
+
 }

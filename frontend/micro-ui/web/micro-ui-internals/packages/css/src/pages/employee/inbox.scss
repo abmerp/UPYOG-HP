@@ -28,14 +28,12 @@
     .link {
       @apply p-sm text-primary-main items-center;
       display: flex !important;
-      color: #a82227 !important;
     }
 
     .inbox-total {
       padding: 4px;
       display: table;
       @apply whitespace-normal text-center text-white w-8 h-8 bg-primary-main rounded-full ml-xs;
-      background-color: #a82227 !important;
     }
   }
 
@@ -44,7 +42,6 @@
     .link {
       padding: 0 !important;
       padding-bottom: 4px !important;
-      color: #a82227 !important;
       svg {
         @apply ml-sm;
       }
@@ -217,9 +214,7 @@
       margin-left: 46px;
 
       .link {
-        color:#a82227 !important;
         @apply p-sm text-primary-main;
-        
       }
     }
   }
@@ -234,7 +229,7 @@
         @apply bg-white;
         svg {
           path {
-            fill: #a82227;
+            fill: #1F4A7C;
           }
         }
       }
@@ -442,65 +437,19 @@
 @screen dt {
   .complaint-links-container .header .removeBorderRadiusLogo {
     border-radius: 2px !important;
-    background-color: #a82227
   }
 }
 @screen dt {
   .customEmployeeCard {
-    width: 320px !important;
-    height: 220px !important;
+    width: 273px !important;
+    height: 263px !important;
   }
 }
 .employeeTotalLink{
-  color: #a82227;
-  
-  font-size: 12px;
+  color: #505A5F;
+  font-size: 16px;
 }
 
 .inboxLinksFSM {
   margin: 0 !important;
-}
-.complaint-links-container .body .link{
-  color: #a82227 !important;
-}
-
-.employee .customEmployeeCard:nth-child(odd){
-  .employeeCustomCard{
-    background-image: url("https://in-egov-assets.s3.ap-south-1.amazonaws.com/images/top-red-card.png");
-    background-size: cover
-  }
-}
-.employee .customEmployeeCard:nth-child(even){
-  .employeeCustomCard{
-background-image: url("https://in-egov-assets.s3.ap-south-1.amazonaws.com/images/top-green-card.png");
-background-size: cover
-  }
-}
-.employee .employeeCustomCard {
-  border-radius: 4%;
-    .employeeCustomCard {
-      border-radius: 4%;
-  }
-}
-.employee-card-banner{
-    background-color: white;
-    width: 88%;
-    margin: 0 auto;
-    bottom: 0px;
-    position: absolute;
-    margin-bottom: -10%;
-    left: 6%;
-    box-shadow: 1px 5px 6px 0px #e3e4e3;
-    border-radius: 10px;
-}
-.text-employee-card{
-  font-size: 1.5rem;
-  font-weight: 700;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  position: absolute;
-  top:10%;
-  padding-left: 10%;
-  color: white !important;
-  width: 300px;
-
 }

@@ -70,7 +70,7 @@ public class OverHangs extends FeatureProcess {
 
     private static final Logger LOG = LogManager.getLogger(OverHangs.class);
     private static final String RULE_45 = "45";
-    public static final String OVERHANGS_DESCRIPTION = "Minimum width of chajja";
+    public static final String OVERHANGS_DESCRIPTION = "Maximum width of chajja";
     private static final String FLOOR = "Floor";
 
     @Override
@@ -86,7 +86,7 @@ public class OverHangs extends FeatureProcess {
         details.put(RULE_NO, RULE_45);
         details.put(DESCRIPTION, OVERHANGS_DESCRIPTION);
 
-        BigDecimal minWidth = BigDecimal.ZERO;
+        BigDecimal maxWidth = BigDecimal.ZERO;
 
         for (Block b : pl.getBlocks()) {
 
@@ -105,19 +105,19 @@ public class OverHangs extends FeatureProcess {
                         List<BigDecimal> widths = floor.getOverHangs().stream().map(overhang -> overhang.getWidth())
                                 .collect(Collectors.toList());
 
-                        minWidth = widths.stream().reduce(BigDecimal::min).get();
+                        maxWidth = widths.stream().reduce(BigDecimal::max).get();
 
-                        if (minWidth.compareTo(new BigDecimal("0.75")) > 0) {
+                        if (maxWidth.compareTo(new BigDecimal("0.45")) < 0) {
                             details.put(FLOOR, floor.getNumber().toString());
-                            details.put(PERMISSIBLE, ">0.75");
-                            details.put(PROVIDED, minWidth.toString());
+                            details.put(PERMISSIBLE, "<0.45");
+                            details.put(PROVIDED, maxWidth.toString());
                             details.put(STATUS, Result.Accepted.getResultVal());
                             scrutinyDetail.getDetail().add(details);
                             pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
                         } else {
                             details.put(FLOOR, floor.getNumber().toString());
-                            details.put(PERMISSIBLE, ">0.75");
-                            details.put(PROVIDED, minWidth.toString());
+                            details.put(PERMISSIBLE, "<0.45");
+                            details.put(PROVIDED, maxWidth.toString());
                             details.put(STATUS, Result.Not_Accepted.getResultVal());
                             scrutinyDetail.getDetail().add(details);
                             pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);

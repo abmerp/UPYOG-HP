@@ -55,7 +55,7 @@ import static org.egov.edcr.constants.DxfFileConstants.D;
 import static org.egov.edcr.constants.DxfFileConstants.F;
 import static org.egov.edcr.constants.DxfFileConstants.G;
 import static org.egov.edcr.constants.DxfFileConstants.I;
-import static org.egov.edcr.constants.DxfFileConstants.A_PO;
+import static org.egov.edcr.constants.DxfFileConstants.A_RH;
 import static org.egov.edcr.utility.DcrConstants.OBJECTNOTDEFINED;
 import static org.egov.edcr.utility.DcrConstants.SIDE_YARD1_DESC;
 import static org.egov.edcr.utility.DcrConstants.SIDE_YARD2_DESC;
@@ -76,15 +76,19 @@ import org.egov.common.entity.edcr.ScrutinyDetail;
 import org.egov.common.entity.edcr.SetBack;
 import org.egov.common.entity.edcr.Yard;
 import org.egov.edcr.constants.DxfFileConstants;
+import org.egov.edcr.entity.blackbox.PlotDetail;
 import org.egov.infra.utils.StringUtils;
+import org.kabeja.dxf.DXFLWPolyline;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SideYardService extends GeneralRule {
 
     private static final BigDecimal SIDEVALUE_ONE = BigDecimal.valueOf(1);
+    private static final BigDecimal SIDEVALUE_ZERO = BigDecimal.valueOf(0);
     private static final BigDecimal SIDEVALUE_ONE_TWO = BigDecimal.valueOf(1.2);
     private static final BigDecimal SIDEVALUE_ONEPOINTFIVE = BigDecimal.valueOf(1.5);
+    private static final BigDecimal SIDEVALUE_ONEPOINTSEVENFIVE = BigDecimal.valueOf(1.75);
     private static final BigDecimal SIDEVALUE_ONEPOINTEIGHT = BigDecimal.valueOf(1.8);
     private static final BigDecimal SIDEVALUE_TWO = BigDecimal.valueOf(2);
     private static final BigDecimal SIDEVALUE_TWOPOINTFIVE = BigDecimal.valueOf(2.5);
@@ -99,6 +103,12 @@ public class SideYardService extends GeneralRule {
     private static final BigDecimal SIDEVALUE_EIGHT = BigDecimal.valueOf(8);
     private static final BigDecimal SIDEVALUE_NINE = BigDecimal.valueOf(9);
     private static final BigDecimal SIDEVALUE_TEN = BigDecimal.valueOf(10);
+    private static final BigDecimal PLOT_AREA_150 = BigDecimal.valueOf(150);
+	private static final BigDecimal PLOT_AREA_90 = BigDecimal.valueOf(90);
+	private static final BigDecimal PLOT_AREA_120 = BigDecimal.valueOf(120);
+	private static final BigDecimal PLOT_AREA_250 = BigDecimal.valueOf(250);
+	private static final BigDecimal PLOT_AREA_400 = BigDecimal.valueOf(400);
+	private static final BigDecimal PLOT_AREA_500 = BigDecimal.valueOf(500);
 
     private static final String SIDENUMBER = "Side Number";
     private static final String MINIMUMLABEL = "Minimum distance ";
@@ -222,53 +232,57 @@ public class SideYardService extends GeneralRule {
                             for (final Occupancy occupancy : block.getBuilding().getTotalArea()) {
                                 scrutinyDetail.setKey("Block_" + block.getName() + "_" + "Side Setback");
 
-                                if (setback.getLevel() < 0) {
-                                    scrutinyDetail.setKey("Block_" + block.getName() + "_" + "Basement Side Yard");
-
-                                    checkSideYardBasement(pl, block.getBuilding(), buildingHeight, block.getName(),
-                                            setback.getLevel(), plot, minlength, max, minMeanlength, maxMeanLength,
-                                            occupancy.getTypeHelper(), sideYard1Result, sideYard2Result);
-
-                                }
+//                                if (setback.getLevel() < 0) {
+//                                    scrutinyDetail.setKey("Block_" + block.getName() + "_" + "Basement Side Yard");
+//
+//                                    checkSideYardBasement(pl, block.getBuilding(), buildingHeight, block.getName(),
+//                                            setback.getLevel(), plot, minlength, max, minMeanlength, maxMeanLength,
+//                                            occupancy.getTypeHelper(), sideYard1Result, sideYard2Result);
+//
+//                                }
 
                                 if ((occupancy.getTypeHelper().getSubtype() != null
                                         && (A_R.equalsIgnoreCase(occupancy.getTypeHelper().getSubtype().getCode())
                                         || A_AF.equalsIgnoreCase(occupancy.getTypeHelper().getSubtype().getCode())
-                                        || A_PO.equalsIgnoreCase(occupancy.getTypeHelper().getSubtype().getCode())))
+                                        || A_RH.equalsIgnoreCase(occupancy.getTypeHelper().getSubtype().getCode())))
                                         || F.equalsIgnoreCase(occupancy.getTypeHelper().getType().getCode())) {
-                                    if (buildingHeight.compareTo(BigDecimal.valueOf(10)) <= 0 && block.getBuilding()
-                                            .getFloorsAboveGround().compareTo(BigDecimal.valueOf(3)) <= 0) {
+                                    if (buildingHeight.compareTo(BigDecimal.valueOf(21)) <= 0 && block.getBuilding()
+                                            .getFloorsAboveGround().compareTo(BigDecimal.valueOf(6)) <= 0) {
                                         checkSideYardUptoTenMts(pl, block.getBuilding(), buildingHeight,
                                                 block.getName(), setback.getLevel(), plot, minlength, max,
                                                 minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
                                                 sideYard1Result, sideYard2Result);
-                                    } else if (buildingHeight.compareTo(BigDecimal.valueOf(12)) <= 0
-                                            && block.getBuilding().getFloorsAboveGround()
-                                                    .compareTo(BigDecimal.valueOf(4)) <= 0) {
-                                        checkSideYardUptoTwelveMts(pl, block.getBuilding(), buildingHeight,
-                                                block.getName(), setback.getLevel(), plot, minlength, max,
-                                                minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
-                                                sideYard1Result, sideYard2Result, errors);
-                                    } else if (buildingHeight.compareTo(BigDecimal.valueOf(16)) <= 0) {
-                                        checkSideYardUptoSixteenMts(pl, block.getBuilding(), buildingHeight,
-                                                block.getName(), setback.getLevel(), plot, minlength, max,
-                                                minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
-                                                sideYard1Result, sideYard2Result, errors);
-                                    } else if (buildingHeight.compareTo(BigDecimal.valueOf(16)) > 0) {
-                                        checkSideYardAboveSixteenMts(pl, block.getBuilding(), buildingHeight,
-                                                block.getName(), setback.getLevel(), plot, minlength, max,
-                                                minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
-                                                sideYard1Result, sideYard2Result);
-                                    }
-                                } else if (G.equalsIgnoreCase(occupancy.getTypeHelper().getType().getCode())) {
-                                    checkSideYardForIndustrial(pl, block.getBuilding(), buildingHeight, block.getName(),
-                                            setback.getLevel(), plot, minlength, max, minMeanlength, maxMeanLength,
-                                            occupancy.getTypeHelper(), sideYard1Result, sideYard2Result);
-                                } else {
-                                    checkSideYardForOtherOccupancies(pl, block.getBuilding(), buildingHeight,
-                                            block.getName(), setback.getLevel(), plot, minlength, max, minMeanlength,
-                                            maxMeanLength, occupancy.getTypeHelper(), sideYard1Result, sideYard2Result);
-                                }
+                                    } 
+//                                    else if (buildingHeight.compareTo(BigDecimal.valueOf(12)) <= 0
+//                                            && block.getBuilding().getFloorsAboveGround()
+//                                                    .compareTo(BigDecimal.valueOf(4)) <= 0) {
+//                                        checkSideYardUptoTwelveMts(pl, block.getBuilding(), buildingHeight,
+//                                                block.getName(), setback.getLevel(), plot, minlength, max,
+//                                                minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
+//                                                sideYard1Result, sideYard2Result, errors);
+//                                    } 
+//                                    else if (buildingHeight.compareTo(BigDecimal.valueOf(16)) <= 0) {
+//                                        checkSideYardUptoSixteenMts(pl, block.getBuilding(), buildingHeight,
+//                                                block.getName(), setback.getLevel(), plot, minlength, max,
+//                                                minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
+//                                                sideYard1Result, sideYard2Result, errors);
+//                                    } 
+//                                    else if (buildingHeight.compareTo(BigDecimal.valueOf(16)) > 0) {
+//                                        checkSideYardAboveSixteenMts(pl, block.getBuilding(), buildingHeight,
+//                                                block.getName(), setback.getLevel(), plot, minlength, max,
+//                                                minMeanlength, maxMeanLength, occupancy.getTypeHelper(),
+//                                                sideYard1Result, sideYard2Result);
+//                                    }
+                                } 
+//                                else if (G.equalsIgnoreCase(occupancy.getTypeHelper().getType().getCode())) {
+//                                    checkSideYardForIndustrial(pl, block.getBuilding(), buildingHeight, block.getName(),
+//                                            setback.getLevel(), plot, minlength, max, minMeanlength, maxMeanLength,
+//                                            occupancy.getTypeHelper(), sideYard1Result, sideYard2Result);
+//                                } else {
+//                                    checkSideYardForOtherOccupancies(pl, block.getBuilding(), buildingHeight,
+//                                            block.getName(), setback.getLevel(), plot, minlength, max, minMeanlength,
+//                                            maxMeanLength, occupancy.getTypeHelper(), sideYard1Result, sideYard2Result);
+//                                }
 
                             }
 
@@ -391,10 +405,11 @@ public class SideYardService extends GeneralRule {
         BigDecimal side1val = BigDecimal.ZERO;
 
         BigDecimal widthOfPlot = pl.getPlanInformation().getWidthOfPlot();
-
+        BigDecimal plotArea = pl.getPlot().getArea();
+        
         if (mostRestrictiveOccupancy.getSubtype() != null && (A_R.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
                 || A_AF.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
-                || A_PO.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode()))) {
+                || A_RH.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode()))) {
             if (pl.getPlanInformation() != null && pl.getPlanInformation().getRoadWidth() != null
                     && StringUtils.isNotBlank(pl.getPlanInformation().getLandUseZone())
                     && DxfFileConstants.COMMERCIAL.equalsIgnoreCase(pl.getPlanInformation().getLandUseZone())
@@ -405,7 +420,7 @@ public class SideYardService extends GeneralRule {
             } else {
                 checkResidentialUptoTenMts(pl, blockName, level, min, max, minMeanlength, maxMeanLength,
                         mostRestrictiveOccupancy, sideYard1Result, sideYard2Result, rule, subRule, valid2, valid1,
-                        side2val, side1val, widthOfPlot);
+                        side2val, side1val, plotArea);
             }
         }else if (F.equalsIgnoreCase(mostRestrictiveOccupancy.getType().getCode())) {
             checkCommercialUptoSixteen(blockName, level, min, max, minMeanlength, maxMeanLength,
@@ -417,39 +432,192 @@ public class SideYardService extends GeneralRule {
     private void checkResidentialUptoTenMts(Plan pl, String blockName, Integer level, final double min, final double max,
             double minMeanlength, double maxMeanLength, final OccupancyTypeHelper mostRestrictiveOccupancy,
             SideYardResult sideYard1Result, SideYardResult sideYard2Result, String rule, String subRule, Boolean valid2,
-            Boolean valid1, BigDecimal side2val, BigDecimal side1val, BigDecimal widthOfPlot) {
-        if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) <= 0) {
-            if (pl.getErrors().containsKey(SIDE_YARD_2_NOTDEFINED)) {
-                pl.getErrors().remove(SIDE_YARD_2_NOTDEFINED);
-            }
-            if (pl.getErrors().containsKey(SIDE_YARD_1_NOTDEFINED)) {
-                pl.getErrors().remove(SIDE_YARD_1_NOTDEFINED);
-            }
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(15)) <= 0) {
-            side2val = SIDEVALUE_SEVENTYFIVE;
-            side1val = SIDEVALUE_SEVENTYFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(15)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(21)) <= 0) {
-            side2val = SIDEVALUE_ONE;
-            side1val = SIDEVALUE_ONE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(21)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(27)) <= 0) {
-            side2val = SIDEVALUE_ONEPOINTFIVE;
-            side1val = SIDEVALUE_ONEPOINTFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(27)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(33)) <= 0) {
-            side2val = SIDEVALUE_ONEPOINTFIVE;
-            side1val = SIDEVALUE_ONEPOINTFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(33)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(39)) <= 0) {
-            side2val = SIDEVALUE_TWO;
-            side1val = SIDEVALUE_TWO;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(39)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(45)) <= 0) {
-            side2val = SIDEVALUE_TWO;
-            side1val = SIDEVALUE_TWO;
-        }
+            Boolean valid1, BigDecimal side2val, BigDecimal side1val, BigDecimal plotArea) {
+    	
+//        if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) <= 0) {
+//            if (pl.getErrors().containsKey(SIDE_YARD_2_NOTDEFINED)) {
+//                pl.getErrors().remove(SIDE_YARD_2_NOTDEFINED);
+//            }
+//            if (pl.getErrors().containsKey(SIDE_YARD_1_NOTDEFINED)) {
+//                pl.getErrors().remove(SIDE_YARD_1_NOTDEFINED);
+//            }
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(15)) <= 0) {
+//            side2val = SIDEVALUE_SEVENTYFIVE;
+//            side1val = SIDEVALUE_SEVENTYFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(15)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(21)) <= 0) {
+//            side2val = SIDEVALUE_ONE;
+//            side1val = SIDEVALUE_ONE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(21)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(27)) <= 0) {
+//            side2val = SIDEVALUE_ONEPOINTFIVE;
+//            side1val = SIDEVALUE_ONEPOINTFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(27)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(33)) <= 0) {
+//            side2val = SIDEVALUE_ONEPOINTFIVE;
+//            side1val = SIDEVALUE_ONEPOINTFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(33)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(39)) <= 0) {
+//            side2val = SIDEVALUE_TWO;
+//            side1val = SIDEVALUE_TWO;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(39)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(45)) <= 0) {
+//            side2val = SIDEVALUE_TWO;
+//            side1val = SIDEVALUE_TWO;
+//        }
+    	DXFLWPolyline plotBoundary = ((PlotDetail) pl.getPlot()).getPolyLine();
+        int clrCode = plotBoundary.getColor();
+        
+    	if (clrCode==25) {
+    		if (plotArea.compareTo(PLOT_AREA_150) >= 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		if (clrCode==3) {
+			if (plotArea.compareTo(PLOT_AREA_150) >= 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}		
+		}
+		if (clrCode==19) {
+			if (plotArea.compareTo(PLOT_AREA_120) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+			if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				side2val = SIDEVALUE_ONEPOINTSEVENFIVE;
+	              side1val = SIDEVALUE_ONEPOINTSEVENFIVE;
+			}
+		}
+		if (clrCode == 24) {
+			if (plotArea.compareTo(PLOT_AREA_90) >= 0) 
+			side2val = SIDEVALUE_ZERO;
+            side1val = SIDEVALUE_ZERO;
+		}
+		
+		// SIDE SETBACK FOR 9 DP's
+		// DALHOUSIE & SOLAN & HAMIRPUR && BILASPUR
+		if (clrCode==37 || clrCode==40 || clrCode==42 || clrCode==44) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		//BADDI 
+		if (clrCode==45) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ZERO;
+              side1val = SIDEVALUE_ZERO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		// MANALI
+		if (clrCode==38) {
+    		if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		// UNA
+		if (clrCode==39) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_FOUR;
+                side1val = SIDEVALUE_FOUR;
+    		}
+    	}
+		//KASAULI
+				if (clrCode==41) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWOPOINTFIVE;
+		                side1val = SIDEVALUE_TWOPOINTFIVE;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				//PAONTA SAHIB
+				if (clrCode==43) {
+		    		if (plotArea.compareTo(PLOT_AREA_120) > 0 
+		    				&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
 
         if (max >= side1val.doubleValue())
             valid1 = true;
@@ -478,7 +646,7 @@ public class SideYardService extends GeneralRule {
 
         if ((mostRestrictiveOccupancy.getSubtype() != null
                 && A_R.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
-                || A_PO.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode()))
+                || A_RH.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode()))
                 || F.equalsIgnoreCase(mostRestrictiveOccupancy.getType().getCode())) {
             if (plot.getArea().compareTo(BigDecimal.valueOf(PLOTAREA_300)) <= 0) {
                 side2val = SIDEVALUE_THREE;
@@ -640,10 +808,10 @@ public class SideYardService extends GeneralRule {
         BigDecimal side1val = BigDecimal.ZERO;
 
         BigDecimal widthOfPlot = pl.getPlanInformation().getWidthOfPlot();
-
+        BigDecimal plotArea = pl.getPlot().getArea();
         if (mostRestrictiveOccupancy.getSubtype() != null && A_R.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
                 || A_AF.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
-                || A_PO.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())) {
+                || A_RH.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())) {
             if (pl.getPlanInformation() != null && pl.getPlanInformation().getRoadWidth() != null
                     && StringUtils.isNotBlank(pl.getPlanInformation().getLandUseZone())
                     && DxfFileConstants.COMMERCIAL.equalsIgnoreCase(pl.getPlanInformation().getLandUseZone())
@@ -654,7 +822,7 @@ public class SideYardService extends GeneralRule {
             } else {
                 checkResidentialUptoTwelveMts(pl, blockName, level, min, max, minMeanlength, maxMeanLength,
                         mostRestrictiveOccupancy, sideYard1Result, sideYard2Result, errors, rule, subRule, valid2,
-                        valid1, side2val, side1val, widthOfPlot);
+                        valid1, side2val, side1val, plotArea);
             }
         }else if (F.equalsIgnoreCase(mostRestrictiveOccupancy.getType().getCode())) {
             checkCommercialUptoSixteen(blockName, level, min, max, minMeanlength, maxMeanLength,
@@ -667,36 +835,182 @@ public class SideYardService extends GeneralRule {
             final double max, double minMeanlength, double maxMeanLength,
             final OccupancyTypeHelper mostRestrictiveOccupancy, SideYardResult sideYard1Result,
             SideYardResult sideYard2Result, HashMap<String, String> errors, String rule, String subRule, Boolean valid2,
-            Boolean valid1, BigDecimal side2val, BigDecimal side1val, BigDecimal widthOfPlot) {
-        if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) <= 0) {
-            errors.put("uptoTwelveHeightUptoTenWidthSideYard",
-                    "No construction shall be permitted if width of plot is less than 10 and building height less than 12 having floors upto G+3.");
-            pl.addErrors(errors);
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(15)) <= 0) {
-            side2val = SIDEVALUE_ONEPOINTFIVE;
-            side1val = SIDEVALUE_ONEPOINTFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(15)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(21)) <= 0) {
-            side2val = SIDEVALUE_ONEPOINTFIVE;
-            side1val = SIDEVALUE_ONEPOINTFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(21)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(27)) <= 0) {
-            side2val = SIDEVALUE_TWO;
-            side1val = SIDEVALUE_TWO;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(27)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(33)) <= 0) {
-            side2val = SIDEVALUE_TWOPOINTFIVE;
-            side1val = SIDEVALUE_TWOPOINTFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(33)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(39)) <= 0) {
-            side2val = SIDEVALUE_THREE;
-            side1val = SIDEVALUE_THREE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(39)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(45)) <= 0) {
-            side2val = SIDEVALUE_THREEPOINTSIX;
-            side1val = SIDEVALUE_THREEPOINTSIX;
-        }
+            Boolean valid1, BigDecimal side2val, BigDecimal side1val, BigDecimal plotArea) {
+//        if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) <= 0) {
+//            errors.put("uptoTwelveHeightUptoTenWidthSideYard",
+//                    "No construction shall be permitted if width of plot is less than 10 and building height less than 12 having floors upto G+3.");
+//            pl.addErrors(errors);
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(15)) <= 0) {
+//            side2val = SIDEVALUE_ONEPOINTFIVE;
+//            side1val = SIDEVALUE_ONEPOINTFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(15)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(21)) <= 0) {
+//            side2val = SIDEVALUE_ONEPOINTFIVE;
+//            side1val = SIDEVALUE_ONEPOINTFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(21)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(27)) <= 0) {
+//            side2val = SIDEVALUE_TWO;
+//            side1val = SIDEVALUE_TWO;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(27)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(33)) <= 0) {
+//            side2val = SIDEVALUE_TWOPOINTFIVE;
+//            side1val = SIDEVALUE_TWOPOINTFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(33)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(39)) <= 0) {
+//            side2val = SIDEVALUE_THREE;
+//            side1val = SIDEVALUE_THREE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(39)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(45)) <= 0) {
+//            side2val = SIDEVALUE_THREEPOINTSIX;
+//            side1val = SIDEVALUE_THREEPOINTSIX;
+//        }
+    	DXFLWPolyline plotBoundary = ((PlotDetail) pl.getPlot()).getPolyLine();
+        int clrCode = plotBoundary.getColor();
+        
+    	if (clrCode==25) {
+    		if (plotArea.compareTo(PLOT_AREA_150) >= 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		if (clrCode==3) {
+			if (plotArea.compareTo(PLOT_AREA_150) >= 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}		
+		}
+		if (clrCode==19) {
+			if (plotArea.compareTo(PLOT_AREA_120) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+			if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				side2val = SIDEVALUE_ONEPOINTSEVENFIVE;
+	              side1val = SIDEVALUE_ONEPOINTSEVENFIVE;
+			}
+		}
+		if (clrCode == 24) {
+			if (plotArea.compareTo(PLOT_AREA_90) >= 0) 
+			side2val = SIDEVALUE_ZERO;
+            side1val = SIDEVALUE_ZERO;
+		}
+		// SIDE SETBACK FOR 9 DP's
+		// DALHOUSIE & SOLAN & HAMIRPUR && BILASPUR
+		if (clrCode==37 || clrCode==40 || clrCode==42 || clrCode==44) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		//BADDI 
+		if (clrCode==45) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ZERO;
+              side1val = SIDEVALUE_ZERO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		
+		// MANALI
+		if (clrCode==38) {
+    		if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_TWO;
+              side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		// UNA
+		if (clrCode==39) {
+    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_FOUR;
+                side1val = SIDEVALUE_FOUR;
+    		}
+    	}
+		//KASAULI
+				if (clrCode==41) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWOPOINTFIVE;
+		                side1val = SIDEVALUE_TWOPOINTFIVE;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				//PAONTA SAHIB
+				if (clrCode==43) {
+		    		if (plotArea.compareTo(PLOT_AREA_400) > 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    	}		
 
         if (max >= side1val.doubleValue())
             valid1 = true;
@@ -724,10 +1038,11 @@ public class SideYardService extends GeneralRule {
         BigDecimal side1val = SIDEVALUE_ONE_TWO;
 
         BigDecimal widthOfPlot = pl.getPlanInformation().getWidthOfPlot();
-
+        BigDecimal plotArea = pl.getPlot().getArea();
+        
         if (mostRestrictiveOccupancy.getSubtype() != null && A_R.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
                 || A_AF.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())
-                || A_PO.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())) {
+                || A_RH.equalsIgnoreCase(mostRestrictiveOccupancy.getSubtype().getCode())) {
             if (pl.getPlanInformation() != null && pl.getPlanInformation().getRoadWidth() != null
                     && StringUtils.isNotBlank(pl.getPlanInformation().getLandUseZone())
                     && DxfFileConstants.COMMERCIAL.equalsIgnoreCase(pl.getPlanInformation().getLandUseZone())
@@ -738,7 +1053,7 @@ public class SideYardService extends GeneralRule {
             } else {
                 checkResidentialUptoSixteen(pl, blockName, level, min, max, minMeanlength, maxMeanLength,
                         mostRestrictiveOccupancy, sideYard1Result, sideYard2Result, errors, subRule, valid2, valid1,
-                        side2val, side1val, widthOfPlot);
+                        side2val, side1val, plotArea);
             }
         } else if (F.equalsIgnoreCase(mostRestrictiveOccupancy.getType().getCode())) {
             checkCommercialUptoSixteen(blockName, level, min, max, minMeanlength, maxMeanLength,
@@ -796,37 +1111,182 @@ public class SideYardService extends GeneralRule {
             final double max, double minMeanlength, double maxMeanLength,
             final OccupancyTypeHelper mostRestrictiveOccupancy, SideYardResult sideYard1Result,
             SideYardResult sideYard2Result, HashMap<String, String> errors, String rule, Boolean valid2, Boolean valid1,
-            BigDecimal side2val, BigDecimal side1val, BigDecimal widthOfPlot) {
-        if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) <= 0) {
-            errors.put("uptoSixteenHeightUptoTenWidthSideYard",
-                    "No construction shall be permitted if width of plot is less than 10 and building height less than 16 having floors upto G+4.");
-            pl.addErrors(errors);
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(15)) <= 0) {
-            side2val = SIDEVALUE_ONEPOINTEIGHT;
-            side1val = SIDEVALUE_ONEPOINTEIGHT;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(15)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(21)) <= 0) {
-            side2val = SIDEVALUE_TWO;
-            side1val = SIDEVALUE_TWO;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(21)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(27)) <= 0) {
-            side2val = SIDEVALUE_TWOPOINTFIVE;
-            side1val = SIDEVALUE_TWOPOINTFIVE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(27)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(33)) <= 0) {
-            side2val = SIDEVALUE_THREE;
-            side1val = SIDEVALUE_THREE;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(33)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(39)) <= 0) {
-            side2val = SIDEVALUE_THREEPOINTSIX;
-            side1val = SIDEVALUE_THREEPOINTSIX;
-        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(39)) > 0
-                && widthOfPlot.compareTo(BigDecimal.valueOf(45)) <= 0) {
-            side2val = SIDEVALUE_FOUR;
-            side1val = SIDEVALUE_FOUR;
-        }
-
+            BigDecimal side2val, BigDecimal side1val, BigDecimal plotArea) {
+//        if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) <= 0) {
+//            errors.put("uptoSixteenHeightUptoTenWidthSideYard",
+//                    "No construction shall be permitted if width of plot is less than 10 and building height less than 16 having floors upto G+4.");
+//            pl.addErrors(errors);
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(10)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(15)) <= 0) {
+//            side2val = SIDEVALUE_ONEPOINTEIGHT;
+//            side1val = SIDEVALUE_ONEPOINTEIGHT;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(15)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(21)) <= 0) {
+//            side2val = SIDEVALUE_TWO;
+//            side1val = SIDEVALUE_TWO;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(21)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(27)) <= 0) {
+//            side2val = SIDEVALUE_TWOPOINTFIVE;
+//            side1val = SIDEVALUE_TWOPOINTFIVE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(27)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(33)) <= 0) {
+//            side2val = SIDEVALUE_THREE;
+//            side1val = SIDEVALUE_THREE;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(33)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(39)) <= 0) {
+//            side2val = SIDEVALUE_THREEPOINTSIX;
+//            side1val = SIDEVALUE_THREEPOINTSIX;
+//        } else if (widthOfPlot.compareTo(BigDecimal.valueOf(39)) > 0
+//                && widthOfPlot.compareTo(BigDecimal.valueOf(45)) <= 0) {
+//            side2val = SIDEVALUE_FOUR;
+//            side1val = SIDEVALUE_FOUR;
+//        }
+    	DXFLWPolyline plotBoundary = ((PlotDetail) pl.getPlot()).getPolyLine();
+        int clrCode = plotBoundary.getColor();
+        
+    	if (clrCode==25) {
+    		if (plotArea.compareTo(PLOT_AREA_150) >= 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}
+    	}
+		if (clrCode==3) {
+			if (plotArea.compareTo(PLOT_AREA_150) >= 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+					&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+    			side2val = SIDEVALUE_TWO;
+                side1val = SIDEVALUE_TWO;
+    		}
+    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+    			side2val = SIDEVALUE_THREE;
+                side1val = SIDEVALUE_THREE;
+    		}		
+		}
+		if (clrCode==19) {
+			if (plotArea.compareTo(PLOT_AREA_120) <= 0) {
+              side2val = SIDEVALUE_ONEPOINTFIVE;
+              side1val = SIDEVALUE_ONEPOINTFIVE;
+    		}
+			if (plotArea.compareTo(PLOT_AREA_120) > 0
+					&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				side2val = SIDEVALUE_ONEPOINTSEVENFIVE;
+	              side1val = SIDEVALUE_ONEPOINTSEVENFIVE;
+			}
+		}
+		if (clrCode == 24) {
+			if (plotArea.compareTo(PLOT_AREA_90) >= 0) 
+			side2val = SIDEVALUE_ZERO;
+            side1val = SIDEVALUE_ZERO;
+		}
+		         // SIDE SETBACK FOR 9 DP's
+				// DALHOUSIE & SOLAN & HAMIRPUR && BILASPUR
+				if (clrCode==37 || clrCode==40 || clrCode==42 || clrCode==44) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				
+				//BADDI 
+				if (clrCode==45) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_ZERO;
+		              side1val = SIDEVALUE_ZERO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				
+				// MANALI
+				if (clrCode==38) {
+		    		if (plotArea.compareTo(PLOT_AREA_120) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_TWO;
+		              side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_THREE;
+		                side1val = SIDEVALUE_THREE;
+		    		}
+		    	}
+				// UNA
+				if (clrCode==39) {
+		    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+							&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+		              side2val = SIDEVALUE_ONEPOINTFIVE;
+		              side1val = SIDEVALUE_ONEPOINTFIVE;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+							&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+		    			side2val = SIDEVALUE_TWO;
+		                side1val = SIDEVALUE_TWO;
+		    		}
+		    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+		    			side2val = SIDEVALUE_FOUR;
+		                side1val = SIDEVALUE_FOUR;
+		    		}
+		    	}
+				//KASAULI
+						if (clrCode==41) {
+				    		if (plotArea.compareTo(PLOT_AREA_150) > 0
+									&& plotArea.compareTo(PLOT_AREA_250) <= 0) {
+				              side2val = SIDEVALUE_TWO;
+				              side1val = SIDEVALUE_TWO;
+				    		}
+				    		if (plotArea.compareTo(PLOT_AREA_250) > 0
+									&& plotArea.compareTo(PLOT_AREA_500) <= 0) {
+				    			side2val = SIDEVALUE_TWOPOINTFIVE;
+				                side1val = SIDEVALUE_TWOPOINTFIVE;
+				    		}
+				    		if (plotArea.compareTo(PLOT_AREA_500) > 0) {
+				    			side2val = SIDEVALUE_THREE;
+				                side1val = SIDEVALUE_THREE;
+				    		}
+				    	}
+						//PAONTA SAHIB
+						if (clrCode==43) {
+				    		if (plotArea.compareTo(PLOT_AREA_400) > 0) {
+				    			side2val = SIDEVALUE_TWO;
+				                side1val = SIDEVALUE_TWO;
+				    		}
+				    	}
         if (max >= side1val.doubleValue())
             valid1 = true;
         if (min >= side2val.doubleValue())

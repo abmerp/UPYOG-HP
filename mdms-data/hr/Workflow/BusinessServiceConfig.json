@@ -1,0 +1,30 @@
+{
+  "tenantId": "hr",
+  "moduleName": "Workflow",
+  "BusinessServiceConfig": [
+    {
+      "code": "NEWTL",
+      "isStateLevel": true
+    },
+    {
+      "code": "BUILDER",
+      "isStateLevel": true
+    },
+    {
+      "code": "FIRENOC",
+      "isStateLevel": true
+    },
+    {
+      "code": "SERVICE_PLAN",
+      "isStateLevel": true
+    },
+    {
+      "code": "ELECTRICAL_PLAN",
+      "isStateLevel": true
+    },
+    {
+      "code": "BPA_FORM_11",
+      "isStateLevel": true
+    }
+  ]
+}

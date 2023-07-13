@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode	
 public class RequestInfo {
 
     private String apiId;

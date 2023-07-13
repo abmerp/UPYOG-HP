@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import Search from "./Search";
 import OBPSResponse from "./OBPSResponse";
 import StakeholderResponse from "./StakeholderResponse";
+import Form11Inbox from "./TCPForms/Form11/Inbox";
 
 const OBPSBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
@@ -81,6 +82,8 @@ const EmployeeApp = ({ path }) => {
         <PrivateRoute path={`${path}/bpa/:id`} component={BpaApplicationDetail} />
         <PrivateRoute path={`${path}/response`} component={OBPSResponse} />
         <PrivateRoute path={`${path}/stakeholder-response`} component={StakeholderResponse} />
+        <PrivateRoute path={`${path}/form11/inbox`} component={Form11Inbox} />
+
       </Switch>
     </Fragment>
   )

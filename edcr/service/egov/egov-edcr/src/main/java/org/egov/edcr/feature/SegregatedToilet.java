@@ -68,8 +68,9 @@ public class SegregatedToilet extends FeatureProcess {
 
     private static final Logger LOG = LogManager.getLogger(SegregatedToilet.class);
     private static final String RULE_59_10  = "59-10-i";
-    public static final String SEGREGATEDTOILET_DESCRIPTION = "Num. of segregated toilets";
-    public static final String SEGREGATEDTOILET_DIMENSION_DESCRIPTION = "Segregated toilet distance from main entrance";
+//    public static final String SEGREGATEDTOILET_DESCRIPTION = "Num. of segregated toilets";
+//    public static final String SEGREGATEDTOILET_DIMENSION_DESCRIPTION = "Segregated toilet distance from main entrance";
+    public static final String TOE_WALL_DESCRIPTION = "Toe wall height";
 
     @Override
     public Plan validate(Plan pl) {
@@ -81,7 +82,7 @@ public class SegregatedToilet extends FeatureProcess {
     public Plan process(Plan pl) {
 
         ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
-        scrutinyDetail.setKey("Common_Segregated Toilet");
+        scrutinyDetail.setKey("Common_Hill Cut and Toe Wall");
         scrutinyDetail.addColumnHeading(1, RULE_NO);
         scrutinyDetail.addColumnHeading(2, DESCRIPTION);
         scrutinyDetail.addColumnHeading(3, REQUIRED);
@@ -95,9 +96,12 @@ public class SegregatedToilet extends FeatureProcess {
         BigDecimal maxHeightOfBuilding = BigDecimal.ZERO;
         BigDecimal maxNumOfFloorsOfBuilding = BigDecimal.ZERO;
 
-        if (pl.getSegregatedToilet() != null && !pl.getSegregatedToilet().getDistancesToMainEntrance().isEmpty())
-            minDimension = pl.getSegregatedToilet().getDistancesToMainEntrance().stream().reduce(BigDecimal::min).get();
-
+        LOG.info("The Distances To Main Entrance=> " +pl.getSegregatedToilet().getDistancesToMainEntrance());
+        if (pl.getSegregatedToilet() != null && pl.getSegregatedToilet().getDistancesToMainEntrance() != null
+        		&& !pl.getSegregatedToilet().getDistancesToMainEntrance().isEmpty()) 
+        	minDimension = pl.getSegregatedToilet().getDistancesToMainEntrance().stream().reduce(BigDecimal::min).get();
+        	LOG.info("Min Dimensions are==> " +minDimension);
+        
         for (Block b : pl.getBlocks()) {
             if (b.getBuilding().getBuildingHeight() != null) {
                 if (b.getBuilding() != null && b.getBuilding().getBuildingHeight().compareTo(maxHeightOfBuilding) > 0) {
@@ -109,7 +113,7 @@ public class SegregatedToilet extends FeatureProcess {
                 }
             }
         }
-
+        
         if (pl.getVirtualBuilding() != null && (pl.getVirtualBuilding().getMostRestrictiveFarHelper() != null
                 && pl.getVirtualBuilding().getMostRestrictiveFarHelper().getType() != null
                 && ((StringUtils
@@ -131,33 +135,33 @@ public class SegregatedToilet extends FeatureProcess {
                         && pl.getVirtualBuilding().getTotalBuitUpArea() != null
                         && pl.getVirtualBuilding().getTotalBuitUpArea().compareTo(new BigDecimal(500)) >= 0)))) {
 
-            if (pl.getSegregatedToilet() != null && pl.getSegregatedToilet().getSegregatedToilets() != null
-                    && !pl.getSegregatedToilet().getSegregatedToilets().isEmpty()) {
-                details.put(DESCRIPTION, SEGREGATEDTOILET_DESCRIPTION);
-                details.put(REQUIRED, "1");
-                details.put(PROVIDED, String.valueOf(pl.getSegregatedToilet().getSegregatedToilets().size()));
-                details.put(STATUS, Result.Accepted.getResultVal());
-                scrutinyDetail.getDetail().add(details);
-                pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
-            } else {
-                details.put(DESCRIPTION, SEGREGATEDTOILET_DESCRIPTION);
-                details.put(REQUIRED, "1");
-                details.put(PROVIDED, "0");
-                details.put(STATUS, Result.Not_Accepted.getResultVal());
-                scrutinyDetail.getDetail().add(details);
-                pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
-            }
+//            if (pl.getSegregatedToilet() != null && pl.getSegregatedToilet().getSegregatedToilets() != null
+//                    && !pl.getSegregatedToilet().getSegregatedToilets().isEmpty()) {
+//                details.put(DESCRIPTION, SEGREGATEDTOILET_DESCRIPTION);
+//                details.put(REQUIRED, "1");
+//                details.put(PROVIDED, String.valueOf(pl.getSegregatedToilet().getSegregatedToilets().size()));
+//                details.put(STATUS, Result.Accepted.getResultVal());
+//                scrutinyDetail.getDetail().add(details);
+//                pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
+//            } else {
+//                details.put(DESCRIPTION, SEGREGATEDTOILET_DESCRIPTION);
+//                details.put(REQUIRED, "1");
+//                details.put(PROVIDED, "0");
+//                details.put(STATUS, Result.Not_Accepted.getResultVal());
+//                scrutinyDetail.getDetail().add(details);
+//                pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
+//            }
 
-            if (minDimension != null && minDimension.compareTo(new BigDecimal(200)) >= 0) {
-                details.put(DESCRIPTION, SEGREGATEDTOILET_DIMENSION_DESCRIPTION);
-                details.put(REQUIRED, ">= 200");
+            if (minDimension != null && minDimension.compareTo(new BigDecimal(3.5)) <= 0) {
+                details.put(DESCRIPTION, TOE_WALL_DESCRIPTION);
+                details.put(REQUIRED, "<= 3.5");
                 details.put(PROVIDED, minDimension.toString());
                 details.put(STATUS, Result.Accepted.getResultVal());
                 scrutinyDetail.getDetail().add(details);
                 pl.getReportOutput().getScrutinyDetails().add(scrutinyDetail);
             } else {
-                details.put(DESCRIPTION, SEGREGATEDTOILET_DIMENSION_DESCRIPTION);
-                details.put(REQUIRED, ">= 200");
+                details.put(DESCRIPTION, TOE_WALL_DESCRIPTION);
+                details.put(REQUIRED, "<= 3.5");
                 details.put(PROVIDED, minDimension.toString());
                 details.put(STATUS, Result.Not_Accepted.getResultVal());
                 scrutinyDetail.getDetail().add(details);
@@ -165,9 +169,9 @@ public class SegregatedToilet extends FeatureProcess {
             }
 
         }
-
         return pl;
     }
+    
 
     @Override
     public Map<String, Date> getAmendments() {

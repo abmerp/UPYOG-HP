@@ -44,7 +44,7 @@ public class WorkflowValidator {
     public void validateRequest(RequestInfo requestInfo, List<ProcessStateAndAction> processStateAndActions){
         String tenantId = processStateAndActions.get(0).getProcessInstanceFromRequest().getTenantId();
         String businessServiceCode = processStateAndActions.get(0).getProcessInstanceFromRequest().getBusinessService();
-        BusinessService businessService = businessUtil.getBusinessService(tenantId,businessServiceCode);
+        BusinessService businessService = businessUtil.getBusinessService(requestInfo,tenantId,businessServiceCode);
         validateAction(requestInfo,processStateAndActions,businessService);
         validateDocuments(processStateAndActions);
         validateAssignes(requestInfo, processStateAndActions);
@@ -115,7 +115,7 @@ public class WorkflowValidator {
                 List<String> stateLevelRoles = tenantIdToRoles.get(stateLevelTenant);
                 roles.addAll(stateLevelRoles);
             }
-
+            
             Action action = processStateAndAction.getAction();
             if(action==null && !processStateAndAction.getCurrentState().getIsTerminateState())
                 throw new CustomException("INVALID ACTION","Action not found for businessIds: "+
@@ -138,9 +138,9 @@ public class WorkflowValidator {
 
             /*Checks if the user has role to take action*/
             if(action!=null && isStateChanging && !isRoleAvailable)
-                throw new CustomException("INVALID ROLE","User is not authorized to perform action");
+                throw new CustomException("INVALID ROLE","User is not authorized to perform action "+action.getAction()+" isRoleAvailable--"+isRoleAvailable+" isStateChanging "+isStateChanging +"tenantIdToRoles"+tenantIdToRoles);
             if(action!=null && !isStateChanging && !util.isRoleAvailable(roles,util.rolesAllowedInService(businessService)))
-                throw new CustomException("INVALID ROLE","User is not authorized to perform action");
+                throw new CustomException("INVALID ROLE","User is not authorized to perform action "+action.getAction()+" isRoleAvailable--"+isRoleAvailable+" isStateChanging "+isStateChanging +"tenantIdToRoles"+tenantIdToRoles);
 
 
 

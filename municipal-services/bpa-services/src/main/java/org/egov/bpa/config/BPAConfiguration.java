@@ -343,4 +343,21 @@ public class BPAConfiguration {
 
 	@Value("${egov.shortener.url}")
 	private String shortenerURL;
+	
+	// Application Save Config
+	@Value("${persister.save.Application.topic}")
+	private String saveApplicationTopic;
+	
+	
+	// Application Update Config
+		@Value("${persister.update.Application.topic}")
+		private String updateApplicationTopic;
+		
+ // For Application number
+		
+		@Value("${egov.idgen.bpa.form.applicationNum.name}")
+		private String BPAapplicationNumberIdgenName;
+		
+		@Value("${egov.idgen.bpa.form.applicationNum.format}")
+		private String BPAapplicationNumberIdgenFormat;
 }

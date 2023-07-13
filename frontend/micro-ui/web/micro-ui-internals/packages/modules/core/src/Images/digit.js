@@ -143,4 +143,5 @@ export const digitImg =
   "sl4yMKJwSC2ocTn0/abLZ693ItoDz44IPRTU1Ng9n+rnPfx4nMjo+6lStX+pSq40JCKG9bFyhIRq" +
   "E6fyVOKoNE0cHURrQk2xydnbadeFE+yMvLC0pyIqbCgpcEoyN5AxsQ7ufQu2HKd4BQaz82QezYsc" +
   "PVb9mdFVH78EuEXcgJEQ9oJzFYLJaojo4OcfLkyaGU1SxMmDBhwoQJEyZMmDBhwoQJEyZMmDA/cP" +
+  "onlineService.png"+
   "4ffyGJt9D+/HMAAAAASUVORK5CYII=";

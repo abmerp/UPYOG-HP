@@ -167,10 +167,13 @@ public class ExitWidth extends FeatureProcess {
                                 }
                                 if (occupancyTypeHelper.equals(DxfFileConstants.A)
                                         || occupancyTypeHelper.equals(DxfFileConstants.A_R) ||
-                                        occupancyTypeHelper.equals(DxfFileConstants.A_SR)
-                                        || occupancyTypeHelper.equals(DxfFileConstants.A_HE) ||
+//                                        occupancyTypeHelper.equals(DxfFileConstants.A_SR)
+//                                        || occupancyTypeHelper.equals(DxfFileConstants.A_HE) ||
+                                        occupancyTypeHelper.equals(DxfFileConstants.A_D)
+                                        || occupancyTypeHelper.equals(DxfFileConstants.A_SD) ||
                                         occupancyTypeHelper.equals(DxfFileConstants.A_AF)
-                                        || occupancyTypeHelper.equals(DxfFileConstants.A_PO)) {
+//                                        || occupancyTypeHelper.equals(DxfFileConstants.A_PO)) {
+                                        || occupancyTypeHelper.equals(DxfFileConstants.A_RH)) {
                                     value = VAL_0_75;
                                 } else {
                                     value = VAL_1_2;
@@ -227,15 +230,18 @@ public class ExitWidth extends FeatureProcess {
                             if (occupancyTypeHelper.equals(DxfFileConstants.A) ||
                                     occupancyTypeHelper.equals(DxfFileConstants.A_R)
                                     || occupancyTypeHelper.equals(DxfFileConstants.A_AF) ||
-                                    occupancyTypeHelper.equals(DxfFileConstants.A_PO)) {
+//                                    occupancyTypeHelper.equals(DxfFileConstants.A_PO)) {
+                                    occupancyTypeHelper.equals(DxfFileConstants.A_RH)) {
                                 occupantLoadDivisonFactor = BigDecimal.valueOf(12.5);
                                 occupantLoad = getOccupantLoadOfAFloor(occupancy, occupantLoadDivisonFactor);
                                 BigDecimal noOfDoors = BigDecimal.valueOf(75);
                                 BigDecimal noOfOccupantsPerUnitExitWidthOfStairWay = BigDecimal.valueOf(25);
                                 maxOccupantsAllowedThrghExits = getMaximumNumberOfOccupantsAllwdThroughExits(flr, noOfDoors,
                                         noOfOccupantsPerUnitExitWidthOfStairWay);
-                            } else if (occupancyTypeHelper.equals(DxfFileConstants.A_SR)
-                                    || occupancyTypeHelper.equals(DxfFileConstants.A_HE)) {
+//                            } else if (occupancyTypeHelper.equals(DxfFileConstants.A_SR)
+//                                    || occupancyTypeHelper.equals(DxfFileConstants.A_HE)) {
+                            } else if (occupancyTypeHelper.equals(DxfFileConstants.A_D)
+                                    || occupancyTypeHelper.equals(DxfFileConstants.A_SD)) {
                                 occupantLoadDivisonFactor = BigDecimal.valueOf(4);
                                 occupantLoad = getOccupantLoadOfAFloor(occupancy,
                                         occupantLoadDivisonFactor);

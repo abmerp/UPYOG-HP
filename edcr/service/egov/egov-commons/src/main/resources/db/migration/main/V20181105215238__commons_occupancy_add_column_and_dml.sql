@@ -6,10 +6,10 @@ ALTER TABLE eg_occupancy ADD CONSTRAINT fk_eg_occupancy_parent FOREIGN KEY (pare
 ALTER TABLE eg_occupancy ADD COLUMN additionaldescription character varying(1024);
 
 update eg_occupancy set additionaldescription ='Residential A1- Single family' where code='A1';
-update eg_occupancy set additionaldescription ='Special residential A2' where code='A2';
-update eg_occupancy set additionaldescription ='Special residential A2- Hostels' where code='A3';
+update eg_occupancy set additionaldescription ='Detach A2' where code='A2';
+update eg_occupancy set additionaldescription ='Semi Detach A2' where code='A3';
 update eg_occupancy set additionaldescription ='Residential A1' where code='A4';
-update eg_occupancy set additionaldescription ='Residential A1 - Professional office' where code='A5';
+update eg_occupancy set additionaldescription ='Row Housing A2' where code='A5';
 update eg_occupancy set additionaldescription ='Educational -B - Up to High Schools' where code='B1';
 update eg_occupancy set additionaldescription ='Educational -B-Higher Secondary/ Junior Technical ' where code='B2';
 update eg_occupancy set additionaldescription ='Educational -B-Higher education/ Research' where code='B3';

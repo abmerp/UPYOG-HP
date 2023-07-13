@@ -1,0 +1,3382 @@
+{
+  "tenantId": "hp",
+  "moduleName": "common-masters",
+  "Purpose": [
+     {
+      "purposeId": 74,
+      "name": "AFFORDABLE HOUSING PROJECT",
+      "purposeCode": "AGH",
+      "caseType_id": 1,
+      "description": "AFFORDABLE HOUSING PROJECT",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": 1,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "2.25",
+      "licenseFeeCharges": "1.75",
+      "externalDevelopmentCharges": "1.75",
+      "conversionCharges": "1.75",
+      "stateInfrastructureDevelopmentCharges": "1.75",
+      "information":"Minimum 92% of total applied area and Maximum 98% of total applied area",
+	    "minimumPermissible":"92",
+      "maximumPermissible":"98",
+      "fars":[
+
+        {
+          "far":2.25
+        }
+      ],
+      "purposes":[
+        {
+          "purposeCode":"CPRS",
+		  "minimumPermissible":"2",
+          "maximumPermissible":"8"
+        }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+        
+     },
+    {
+      "purposeId": 83,
+      "name": "Affordable residential plotted under DDJAY policy",
+      "purposeCode": "DDJAY_APHP",
+      "caseType_id": 1,
+      "description": "Deen Dayal Jan Awas Yojna-Affordable Plotted 2016",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": 0,
+      "disableRemarks": "",
+      "scrutinyFeeCharges": 1.75,      
+      "licenseFeeCharges": 1.75,      
+      "externalDevelopmentCharges": 1.75,      
+      "conversionCharges": 1.75,      
+      "stateInfrastructureDevelopmentCharges":1.75,
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "minimumPermissible":"96",
+	  "maximumPermissible":"98",
+    "information":"Minimum 96% of total applied area and Maximum 98% of total applied area",
+      "purposes":[
+        {
+          "purposeCode":"CGRPL",
+		  "minimumPermissible":"2",
+          "maximumPermissible":"4",
+          "isActive": 1
+        }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	   {
+      "purposeId": 91,
+      "name": "Commercial Component",
+      "purposeCode": "CGRPL",
+      "caseType_id": 1,
+      "description": "Plotted",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges":1.75,
+      "licenseFeeCharges":1.75,
+      "conversionCharges": 1.75,      
+      "externalDevelopmentCharges": 1.75,       
+      "stateInfrastructureDevelopmentCharges":1.75,
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "information":"Minimum 2% of total applied area and Maximum 4% of total applied area",
+     "minimumPermissible":"0",
+          "maximumPermissible":"100",
+   
+      "purposes":[
+        {
+          "purposeCode":"CPRS",
+		      "minimumPermissible":"0",
+          "maximumPermissible":"100"
+        },
+          {
+            "purposeCode":"CIRS",
+            "minimumPermissible":"0",
+			      "maximumPermissible":"100"
+          }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    
+    },
+     
+  
+	  {   
+      "purposeId": 78,
+      "name": "Commercial Integrated in commercial sector/belt",
+      "purposeCode": "CICS",
+      "caseType_id": 1,
+      "description": "Comm. Integrated",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "1.75",
+      "licenseFeeCharges": "1.75",
+      "externalDevelopmentCharges": "1.75",
+      "conversionCharges": "1.75",
+      "stateInfrastructureDevelopmentCharges": "1.75",
+      "information":"",
+      "minimumPermissible":"0",
+	  "maximumPermissible":"0",
+      "fars":[
+      {
+        "far":"1.75" 
+      
+      }]
+    },
+	
+	{
+      "purposeId": 63,
+      "name": "Commercial Plotted in commercial sector/belt",
+      "purposeCode": "CPCS",
+      "caseType_id":0,
+      "description": "Comm. Plotted",
+      "isActive": false,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": 1,
+      "disableRemarks": "",
+      "scrutinyFeeCharges": "1.50",
+      "licenseFeeCharges": "1.50",
+      "externalDevelopmentCharges": "1.50",
+      "conversionCharges": "1.50",
+      "stateInfrastructureDevelopmentCharges": "1.50",
+      "information":"",
+      "minimumPermissible":"0",
+	  "maximumPermissible":"0",
+      "fars":[{
+        "far":"1.5"
+      }],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+  
+    {
+      "purposeId": 64,
+      "name": "IILP Integrated Undustrail Licenceing Policy",
+      "purposeCode": "IPULP",
+      "caseType_id": 1,
+      "description": "Industrial colony",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "",
+      
+      "licenseFeeCharges":"",
+      
+      "externalDevelopmentCharges": "",
+      
+      "conversionCharges": "",
+      "information":"",
+      
+      "stateInfrastructureDevelopmentCharges": "",
+      "IDWPerAcreInLakhsForPlottedComponent":0,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	 {
+      "purposeId": 91,
+      "name": "Industrial group",
+      "purposeCode": "IRGPL",
+      "caseType_id": 1,
+      "description": "Plotted",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges":1.75,
+      "licenseFeeCharges":1.75,
+      "conversionCharges": 1.75,      
+      "externalDevelopmentCharges": 1.75,       
+      "stateInfrastructureDevelopmentCharges":1.75,
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "information":"",
+     "minimumPermissible":"0",
+	  "maximumPermissible":"100",
+   
+      "purposes":[
+        {
+          "purposeCode":"CGRPL",
+		  "minimumPermissible":"0.00",
+          "maximumPermissible":"25",
+          "isActive": 1
+        },
+          {
+            "purposeCode":"RGPL",
+			"minimumPermissible":"0.0",
+            "maximumPermissible":"10"
+          }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    
+    },
+		 {
+      "purposeId": 64,
+      "name": "Industrial Plotted colony ",
+      "purposeCode": "IPA",
+      "caseType_id": 1,
+      "description": "Industrial colony",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": 1.50,
+      
+      "licenseFeeCharges": 1.50,
+      
+      "externalDevelopmentCharges": 1.50,
+      
+      "conversionCharges": 1.50,
+      
+      "stateInfrastructureDevelopmentCharges": 1.50,
+      "IDWPerAcreInLakhsForPlottedComponent":0,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "information":"",
+	  "minimumPermissible":"80",
+	  "maximumPermissible":"100",
+      "purposes":[
+        
+          {
+            "purposeCode":"IRGPL",
+			"manimumPermissible":"0.0",
+            "maximumPermissible":"20"
+          }
+           
+                
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+		 {
+      "purposeId": 2,
+      "name": "Integrated Component",
+      "purposeCode": "CIRS",
+      "caseType_id": 1,
+      "description": "Comm. Integrated",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "1.75",
+      "licenseFeeCharges": "1.75",
+      "externalDevelopmentCharges": "1.75",
+      "conversionCharges": "1.75",
+      "stateInfrastructureDevelopmentCharges": "1.75",
+      "information":"",
+      "minimumPermissible":"0",
+	  "maximumPermissible":"0",
+      "fars":[
+      {
+        "far":"1.75" 
+      },
+      {
+        "far":"1.5" 
+      }
+],
+"documents":[
+ 
+      {
+        "documentName": "Copy of SPA/GPA/Board Resolution",
+        "isActive": true
+      },
+      {
+        "documentName": "Consent degree certificate of Architect",
+        "isActive": true
+      },
+      {
+        "documentName": "Consent degree certificate of Engineer",
+        "isActive": true
+      },
+      {
+        "documentName": "Collaboration document",
+        "isActive": true
+      },
+      {
+        "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+        "isActive": true
+      },
+      {
+        "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+        "isActive": true
+      },
+      {
+        "documentName": "Upload affidavit",
+        "isActive": true
+      },
+      {
+        "documentName": "Upload RERA registration",
+        "isActive": true
+      },
+      {
+        "documentName": "Court orders, if any, affecting land",
+        "isActive": true
+      },
+      {
+        "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+        "isActive": true
+      },
+      {
+        "documentName": "Upload copy of Gift Deed/ Hibbanama",
+        "isActive": true
+      },
+      {
+        "documentName": "Land Schedule",
+        "isActive": true
+      },
+      {
+        "documentName": "Copy of Mutation",
+        "isActive": true
+      },
+      {
+        "documentName": "Copy of Jamabandhi",
+        "isActive": true
+      },
+      {
+        "documentName": "Details of Lease/Patta, if any",
+        "isActive": false
+      },
+      {
+        "documentName": "Copy of Shajra Plan",
+        "isActive": true
+      },
+      {
+        "documentName": "Add sales deed/ exchange deed",
+        "isActive": true
+      },
+    
+      {
+        "documentName": "Undertaking",
+        "isActive": true
+      },
+      {
+        "documentName": "Development Plan",
+        "isActive": true
+      },
+      {
+        "documentName": "Explanatory falsete",
+        "isActive": true
+      },
+      {
+        "documentName": "Guide Map",
+        "isActive": true
+      },
+      {
+        "documentName": "Indemnity Bond",
+        "isActive": true
+      },
+      {
+        "documentName": "Any other documents",
+        "isActive": false
+      },
+      {
+        "documentName": "Upload previously approved layout plan",
+        "isActive": true
+      },
+      {
+        "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+        "isActive": true
+      }
+    ]
+    },
+     {
+      "purposeId": 6,
+      "name": "IT/Cyber City",
+      "purposeCode": "ITC",
+      "caseType_id": 1,
+      "description": "Cyber City",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 37.5,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": 150,
+      
+      "licenseFeeCharges": 150,
+      
+      "externalDevelopmentCharges":150,
+      
+      "conversionCharges": 150,
+      
+      "stateInfrastructureDevelopmentCharges": 150,
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":0,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+	   "minimumPermissible":"96",
+          "maximumPermissible":"100",
+      "fars":[{
+        "far":"2.5"
+      }],
+      "purposes":[
+        {
+          "purposeCode":"CIRS",
+		  "minimumPermissible":"0",
+          "maximumPermissible":"4"
+        }         
+                
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	{
+      "purposeId": 5,
+      "name": "IT/Cyber Park",
+      "purposeCode": "ITP",
+      "caseType_id": 1,
+      "description": "Cyber Park",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 37.5,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": 150,
+      
+      "licenseFeeCharges": 150,
+      
+      "externalDevelopmentCharges": 150,
+      
+      "conversionCharges": 150,
+      
+      "stateInfrastructureDevelopmentCharges": 150,
+      "IDWPerAcreInLakhsForPlottedComponent":0,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "information":"",
+	  "minimumPermissible":"96",
+          "maximumPermissible":"100",
+      "fars":[{
+        "far":"2.5"
+      }],
+      "purposes":[
+        {
+          "purposeCode":"CIRS",
+		  "minimumPermissible":"0",
+          "maximumPermissible":"4"
+        }         
+                
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	 {
+      "purposeId": 87,
+      "name": "Low Density Eco-friendly Colony(LDEF)",
+      "purposeCode": "LDEF",
+      "caseType_id": 1,
+      "description": "Low Density Eco-Friendly Colony(LDEF)",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "",
+      
+      "licenseFeeCharges": "",
+    
+      "externalDevelopmentCharges": "",
+    
+      "conversionCharges": "",
+    
+      "stateInfrastructureDevelopmentCharges":"",
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+       "minimumPermissible":"",
+	     "maximumPermissible":"100",
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+      
+    
+    },
+	
+    {
+      "purposeId": 84,
+      "name": "Mixed Land Use (Commercial/Residential) in commercial zone",
+      "purposeCode": "MLU-CZ",
+      "caseType_id": 1,
+      "description": "Mixed Land use in Comm Zone with Minority Resi Use",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "",
+      "licenseFeeCharges": "",
+      "externalDevelopmentCharges": "",
+      "conversionCharges": "",
+      "stateInfrastructureDevelopmentCharges": "",
+      "information":"",
+      "fars":[
+        {
+        "far":"2.50"
+      },
+      {
+        "far":"1.75" 
+      },      
+      {
+        "value3":"3.50" 
+      }
+    ],
+      "purposes":[
+        {
+          "purposeCode":"CPRS",
+          "maximumPermissible":"70"
+        },
+          {
+            "purposeCode":"RPL",
+            "maximumPermissible":"30"
+          }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+   
+	 {
+      "purposeId": 89,
+      "name": "New Integrated Licencing Policy (NILP) for Commercial",
+      "purposeCode": "NILPC",
+      "caseType_id": 1,
+      "description": "New Integrated Licencing Policy (NILP) for Commercial",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "",
+      
+      "licenseFeeCharges": "",
+            
+      "externalDevelopmentCharges": "",
+           
+      "conversionCharges": "",
+           
+      "stateInfrastructureDevelopmentCharges":"",
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "information":"",
+      "minimumPermissible":"96",
+      "maximumPermissible":"100",
+      "fars":[{
+        "far":"1.25"
+      }],
+      "purposes":[
+        {
+          "purposeCode":"CIRS",
+		  "minimumPermissible":"0",
+          "maximumPermissible":"4"
+        }    
+                
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]     
+    },
+	
+    {
+      "purposeId": 86,
+      "name": "New Integrated Licencing Policy (NILP) for Residential Use",
+      "purposeCode": "NILP",
+      "caseType_id": 1,
+      "description": "New Integrated Licencing Policy (NILP) for Residential",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "1.75",
+      "licenseFeeCharges": "1.75",
+      "externalDevelopmentCharges": "1.75",
+      "conversionCharges": "1.75",
+      "stateInfrastructureDevelopmentCharges": "1.75",
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+	  "minimumPermissible":"96",
+      "maximumPermissible":"100",
+      "fars":[{
+        "far":"1.25"
+      }],
+      "purposes":[
+        {
+          "purposeCode":"CIRS",
+		  "minimumPermissible":"0",
+          "maximumPermissible":"4"
+        }    
+                
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	{
+      "purposeId": 94,
+      "name": "Plotted Component",
+      "purposeCode": "CPRS",
+      "caseType_id": 1,
+      "description": "Comm. Plotted",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": 0,
+      "disableRemarks": "",
+      "scrutinyFeeCharges": 1.50,
+      
+      "licenseFeeCharges": 1.50,
+             
+      "externalDevelopmentCharges": 1.50,
+            
+      "conversionCharges": 1.50,
+             
+      "stateInfrastructureDevelopmentCharges":1.50,
+      "IDWPerAcreInLakhsForPlottedComponent":0,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "information":"",
+      "minimumPermissible":"0",
+	  "maximumPermissible":"0",
+      "fars":[{
+        "far":"1.5"
+      }] ,
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	 {
+      "purposeId": 91,
+      "name": "Residential group",
+      "purposeCode": "RGPL",
+      "caseType_id": 1,
+      "description": "Plotted",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges":1.75,
+      "licenseFeeCharges":1.75,
+      "conversionCharges": 1.75,      
+      "externalDevelopmentCharges": 1.75,       
+      "stateInfrastructureDevelopmentCharges":1.75,
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+       "information":"",
+		"minimumPermissible":"0",
+       "maximumPermissible":"100",
+   
+      "purposes":[
+        {
+          "purposeCode":"AGH",
+		  "minimumPermissible":"0",
+          "maximumPermissible":"100"
+        },
+          {
+            "purposeCode":"DDJAY_APHP",
+            "minimumPermissible":"0",
+			"maximumPermissible":"100"
+          }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    
+    },
+     
+ 
+	 {
+      "purposeId": 73,
+      "name": "Residential Group Housing",
+      "purposeCode": "RGP",
+      "caseType_id": 1,
+      "description": "Group Housing",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges":1.75,
+      
+      "licenseFeeCharges": 1.50,
+      
+      "externalDevelopmentCharges": 1.50,
+      
+      "conversionCharges": 1.50,
+      
+      "stateInfrastructureDevelopmentCharges": 1.50,
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":0,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+	  "maximumPermissible":"100",
+	  "minimumPermissible":"99.5",
+      "fars":[{
+        "far":"1.75"
+      }],
+      "purposes":[{
+        
+          "purposeCode":"CIRS",
+		  "minimumPermissible":"0.0",
+          "maximumPermissible":"0.5"
+        }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+    
+	{
+      "purposeId": 1,
+      "name": "Residential Plotted Colony",
+      "purposeCode": "RPL",
+      "caseType_id": 1,
+      "description": "Plotted",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 1,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges":1.75,
+      "licenseFeeCharges":1.75,
+      "conversionCharges": 1.75,      
+      "externalDevelopmentCharges": 1.75,       
+      "stateInfrastructureDevelopmentCharges":1.75,
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,   
+      "minimumPermissible":"86",
+	  "maximumPermissible":"100",
+      "purposes":[
+        
+        {
+          "purposeCode":"CGRPL",
+		  "minimumPermissible":"0",
+          "maximumPermissible":"4",
+          "isActive": 1
+        },
+          {
+            "purposeCode":"RGP",
+            "maximumPermissible":"10",
+            "isActive": 1
+          }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in pdf. (applicable in case of the plotted colony list )",
+              "isActive": true
+            },
+            {
+              "documentName": "Layout plan in .dxf",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    
+    },
+     {
+      "purposeId": 113,
+      "name": "Retirement Housing",
+      "purposeCode": "RHP",
+      "caseType_id": 1,
+      "description": "Retirement Housing Project",
+      "isActive": 0,
+      "edcPercentage": null,
+      "idwPercentage": null,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": 1,
+      "disableRemarks": "",
+      "scrutinyFeeCharges": "",
+      "licenseFeeCharges": "",
+      "externalDevelopmentCharges": "",
+      "conversionCharges": "",
+      "stateInfrastructureDevelopmentCharges": "",
+      "information":"",
+	  "minimumPermissible":"96",
+      "maximumPermissible":"100",
+      "fars":[{
+        "far":"2.25"
+      }
+    ],
+      "purposes":[
+        {
+          "purposeCode":"CICS",
+		  "minimumPermissible":"0.0",
+          "maximumPermissible":"4"
+        }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+ 
+    {
+      "purposeId": 91,
+      "name": "Transit Oriented Development (TOD)-Comm",
+      "purposeCode": "TODCOMM",
+      "caseType_id": 1,
+      "description": "Transit Oriented Development (TOD)-Comm",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": 0,
+      "disableRemarks": "",
+      "scrutinyFeeCharges": 3.5,
+      
+      "licenseFeeCharges": 3.5,
+           
+      "externalDevelopmentCharges": 3.5,
+           
+      "conversionCharges": 3.5,
+          
+      "stateInfrastructureDevelopmentCharges":3.5,
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "fars":[
+        {
+          "far":1.75
+        }
+      ],
+      "purposes":[
+        {
+          "purposeCode":"CPRS",
+          "maximumPermissible":""
+        },
+        {
+          "purposeCode":"MLU-CZ",
+          "maximumPermissible":""
+        }
+         
+      ],
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+             
+            },
+    {
+      "purposeId": 92,
+      "name": "Transit Oriented Development (TOD)-IT",
+      "purposeCode": "TODIT",
+      "caseType_id": 1,
+      "description": "Transit Oriented Development (TOD)-IT",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": "",
+      
+      "licenseFeeCharges": "",
+      
+      "externalDevelopmentCharges":"",
+      
+      "conversionCharges": "",
+      
+      "stateInfrastructureDevelopmentCharges": "",
+      "information":"",
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+    {
+      "purposeId": 93,
+      "name": "Transit Oriented Development (TOD)-Mix Use Development with majority Commercial",
+      "purposeCode": "TODMUD",
+      "caseType_id": 1,
+      "description": "Transit Oriented Development (TOD)-Mix Use",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": 0,
+      "disableRemarks": "Transit Oriented Development (TOD)-Mix Use Development",
+      "scrutinyFeeCharges": "",
+      "licenseFeeCharges": "",
+      "externalDevelopmentCharges": "",
+      "conversionCharges": "",
+      "stateInfrastructureDevelopmentCharges": "",
+      "information":"",
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+    {
+      "purposeId": 93,
+      "name": "Transit Oriented Development (TOD)-Mix Use Development with majority Group Housing",
+      "purposeCode": "TODMGH",
+      "caseType_id": 1,
+      "description": "Transit Oriented Development (TOD)-Mix Use with majority Group Housing",
+      "isActive": 0,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": 0,
+      "disableRemarks": "Transit Oriented Development (TOD)-Mix Use Development",
+      "information":"",
+      "scrutinyFeeCharges": "",
+      "licenseFeeCharges": "",
+      "externalDevelopmentCharges": "",
+      "conversionCharges": "",
+      "stateInfrastructureDevelopmentCharges": "",
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    },
+	 {
+      "purposeId": 90,
+      "name": "Transit Oriented Development (TOD)-RGH",
+      "purposeCode": "TODGH",
+      "caseType_id": 1,
+      "description": "Transit Oriented Development (TOD)-RGH",
+      "isActive": 1,
+      "edcPercentage": 25,
+      "idwPercentage": 25,
+      "plotTypeId": 2,
+      "isDisableForNewEntry": null,
+      "disableRemarks": null,
+      "scrutinyFeeCharges": 3.5,
+      
+      "licenseFeeCharges": 3.5,
+      
+      "externalDevelopmentCharges": 3.5,
+      
+      "conversionCharges": 3.5,
+      
+      "stateInfrastructureDevelopmentCharges": 3.5,
+      "information":"",
+      "IDWPerAcreInLakhsForPlottedComponent":20,
+      "IDWPerAcreInLakhsForCommercialComponent":50,
+      "documents":[
+       
+            {
+              "documentName": "Copy of SPA/GPA/Board Resolution",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Architect",
+              "isActive": true
+            },
+            {
+              "documentName": "Consent degree certificate of Engineer",
+              "isActive": true
+            },
+            {
+              "documentName": "Collaboration document",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of spa/GPA/ board resolution to sign collaboration agreement on behalf of land owners",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload SPA/GPA of authorized signatory on behalf of developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload affidavit",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload RERA registration",
+              "isActive": true
+            },
+            {
+              "documentName": "Court orders, if any, affecting land",
+              "isActive": true
+            },
+            {
+              "documentName": "Any insolvency/liquidation proceedings against Land Owner(s)/collaborating developer",
+              "isActive": true
+            },
+            {
+              "documentName": "Upload copy of Gift Deed/ Hibbanama",
+              "isActive": true
+            },
+            {
+              "documentName": "Land Schedule",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Mutation",
+              "isActive": true
+            },
+            {
+              "documentName": "Copy of Jamabandhi",
+              "isActive": true
+            },
+            {
+              "documentName": "Details of Lease/Patta, if any",
+              "isActive": false
+            },
+            {
+              "documentName": "Copy of Shajra Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Add sales deed/ exchange deed",
+              "isActive": true
+            },
+          
+            {
+              "documentName": "Undertaking",
+              "isActive": true
+            },
+            {
+              "documentName": "Development Plan",
+              "isActive": true
+            },
+            {
+              "documentName": "Explanatory falsete",
+              "isActive": true
+            },
+            {
+              "documentName": "Guide Map",
+              "isActive": true
+            },
+            {
+              "documentName": "Indemnity Bond",
+              "isActive": true
+            },
+            {
+              "documentName": "Any other documents",
+              "isActive": false
+            },
+            {
+              "documentName": "Upload previously approved layout plan",
+              "isActive": true
+            },
+            {
+              "documentName": "enclose Self-certified falsen-Encumbrance Certificate",
+              "isActive": true
+            }
+          ]
+    }
+
+     
+  
+  ]
+}

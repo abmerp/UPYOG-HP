@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.egov.bpa.calculator.web.models.bpa.BPA;
+import org.egov.bpa.calculator.web.models.bpa.BpaV2;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,10 @@ public class CalulationCriteria {
 	@JsonProperty("BPA")
 	@Valid
 	private BPA bpa = null;
+	
+	@JsonProperty("bpaV2")
+	@Valid
+	private BpaV2 bpaV2 = null;
 
 	@JsonProperty("applicationNo")
 	@Size(min = 2, max = 64)

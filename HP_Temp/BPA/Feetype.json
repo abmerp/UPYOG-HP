@@ -1,0 +1,47 @@
+{
+  "tenantId": "hr",
+  "moduleName": "BPA",
+  "Feetype": [
+    {
+      "Department": "TCP",
+      "ProcessingFee": true,
+       "AplicationFee": false,
+      "ApplicationType": "FORM_11",
+      "muncipalLimitResidental": 2.5,
+      "muncipalLimitNotResidental": 2.5,
+      "OutOfMuncipalLimitResidental": 1.0,
+      "OutOfMuncipalLimitNotResidental": 1.0
+      
+    },
+    {
+      "Department": "TCP",
+      "ProcessingFee": true,
+       "AplicationFee": false,
+      "ApplicationType": "FORM_12",
+       "muncipalLimitResidental": 8.0,
+      "muncipalLimitNotResidental": 10.0,
+      "OutOfMuncipalLimitResidental": 5.0,
+      "OutOfMuncipalLimitNotResidental": 8.0
+    },
+    {
+      "Department": "TCP",
+      "ProcessingFee": true,
+      "AplicationFee": false,
+      "ApplicationType": "FORM_26",
+      "muncipalLimitResidental": 1.0,
+      "muncipalLimitNotResidental": 2.0,
+      "OutOfMuncipalLimitResidental": 3.0,
+      "OutOfMuncipalLimitNotResidental": 4.0
+    },
+    {
+      "Department": "TCPP",
+      "ProcessingFee": false,
+      "AplicationFee": true,
+      "ApplicationType": "FORM_34",
+       "muncipalLimitResidental": 5.0,
+      "muncipalLimitNotResidental": 6.0,
+      "OutOfMuncipalLimitResidental": 7.0,
+      "OutOfMuncipalLimitNotResidental": 8.0
+    }
+  ]
+}

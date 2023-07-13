@@ -16,7 +16,9 @@ import org.egov.bpa.config.BPAConfiguration;
 import org.egov.bpa.repository.ServiceRequestRepository;
 import org.egov.bpa.web.model.AuditDetails;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.RequestInfoWrapper;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.mdms.model.MasterDetail;
@@ -103,6 +105,7 @@ public class BPAUtil {
 		bpaMasterDtls.add(MasterDetail.builder().name(BPAConstants.CalculationType).build());
 		bpaMasterDtls.add(MasterDetail.builder().name(BPAConstants.CHECKLIST_NAME).build());
 		bpaMasterDtls.add(MasterDetail.builder().name(BPAConstants.NOC_TYPE_MAPPING).build());
+		bpaMasterDtls.add(MasterDetail.builder().name("BussinessService").build());
 		ModuleDetail bpaModuleDtls = ModuleDetail.builder().masterDetails(bpaMasterDtls)
 				.moduleName(BPAConstants.BPA_MODULE).build();
 
@@ -239,6 +242,35 @@ public class BPAUtil {
 			throw new CustomException("PARSING ERROR", "Failed to parse the response using jsonPath: " + BILL_AMOUNT);
 		}
 	}
+	
+	
+	public BigDecimal getDemandAmount2(BPARequestV2 bpaRequest) {
+		BpaV2 bpa = bpaRequest.getBPA();
+		RequestInfo requestInfo = bpaRequest.getRequestInfo();
+		LinkedHashMap responseMap = (LinkedHashMap) serviceRequestRepository.fetchResult(getBillUri2(bpa),
+				new RequestInfoWrapper(requestInfo));
+		JSONObject jsonObject = new JSONObject(responseMap);
+		double amount = 0.0;
+		try {
+			JSONArray demandArray = (JSONArray) jsonObject.get("Demands");
+			if (demandArray != null && demandArray.length() > 0) {
+				JSONObject firstElement = (JSONObject) demandArray.get(0);
+				if (firstElement != null) {
+					JSONArray demandDetails = (JSONArray) firstElement.get("demandDetails");
+					if (demandDetails != null) {
+						for (int i = 0; i < demandDetails.length(); i++) {
+							JSONObject object = (JSONObject) demandDetails.get(i);
+							Double taxAmt = Double.valueOf((object.get("taxAmount").toString()));
+							amount = amount + taxAmt;
+						}
+					}
+				}
+			}
+			return BigDecimal.valueOf(amount);
+		} catch (Exception e) {
+			throw new CustomException("PARSING ERROR", "Failed to parse the response using jsonPath: " + BILL_AMOUNT);
+		}
+	}
 
 	/**
 	 * gererate bill url with the query params
@@ -259,12 +291,39 @@ public class BPAUtil {
 		return builder;
 	}
 	
+	public StringBuilder getBillUri2(BpaV2 bpa) {
+		String code = getFeeBusinessSrvCode2(bpa);
+
+		StringBuilder builder = new StringBuilder(config.getBillingHost());
+		builder.append(config.getDemandSearchEndpoint());
+		builder.append("?tenantId=");
+		builder.append(bpa.getTenantId());
+		builder.append("&consumerCode=");
+		builder.append(bpa.getApplicationNo());
+		builder.append("&businessService=");
+		builder.append(code);
+		return builder;
+	}
+	
 	/**
 	 * return the FeeBusiness Service code based on the BPA workflowCode, BPA Status
 	 * @param bpa
 	 * @return
 	 */
 	public String getFeeBusinessSrvCode(BPA bpa) {
+		Map<String, Map<String, String>> wfStBSrvMap = config.getWorkflowStatusFeeBusinessSrvMap();
+		String businessSrvCode = null;
+		Map<String, String> statusBusSrvMap = wfStBSrvMap.get(bpa.getBusinessService());
+		if (!CollectionUtils.isEmpty(statusBusSrvMap)) {
+			if (bpa.getStatus() != null) {
+				businessSrvCode = statusBusSrvMap.get(bpa.getStatus());
+			} 
+		}
+		return businessSrvCode;
+		
+	}
+	
+	public String getFeeBusinessSrvCode2(BpaV2 bpa) {
 		Map<String, Map<String, String>> wfStBSrvMap = config.getWorkflowStatusFeeBusinessSrvMap();
 		String businessSrvCode = null;
 		Map<String, String> statusBusSrvMap = wfStBSrvMap.get(bpa.getBusinessService());

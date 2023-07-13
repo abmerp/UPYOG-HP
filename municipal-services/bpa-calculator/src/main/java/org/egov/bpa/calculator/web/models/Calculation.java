@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.egov.bpa.calculator.web.models.bpa.BPA;
+import org.egov.bpa.calculator.web.models.bpa.BpaV2;
 import org.egov.bpa.calculator.web.models.demand.TaxHeadEstimate;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,9 @@ public class Calculation {
 
 	@JsonProperty("BPA")
 	private BPA bpa = null;
+	
+	@JsonProperty("BpaV2")
+	private BpaV2 bpaV2 = null;
 
 	@NotNull
 	@JsonProperty("tenantId")

@@ -1,19 +1,18 @@
 package org.egov.web.notification.sms.service.impl;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.security.KeyManagementException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -26,9 +25,15 @@ import org.egov.web.notification.sms.models.Sms;
 import org.egov.web.notification.sms.service.BaseSMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -42,42 +47,24 @@ public class NICSMSServiceImpl extends BaseSMSService {
 	private SSLContext sslContext;
 
 	@PostConstruct
-	private void postConstruct() {
+
+	public void postConstruct() {
 		log.info("postConstruct() start");
 		try {
 			sslContext = SSLContext.getInstance("TLSv1.2");
 			if (smsProperties.isVerifyCertificate()) {
 				log.info("checking certificate");
-				/*
-				 * KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType()); //File
-				 * file = new File(System.getenv("JAVA_HOME")+"/lib/security/cacerts"); File
-				 * file = ResourceUtils.getFile("classpath:smsgwsmsgovin.cer"); InputStream is =
-				 * new FileInputStream(file); trustStore.load(is, "changeit".toCharArray());
-				 * TrustManagerFactory trustFactory = TrustManagerFactory
-				 * .getInstance(TrustManagerFactory.getDefaultAlgorithm());
-				 * trustFactory.init(trustStore);
-				 * 
-				 * TrustManager[] trustManagers = trustFactory.getTrustManagers();
-				 * sslContext.init(null, trustManagers, null);
-				 */
+				KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+				// File file = new File(System.getenv("JAVA_HOME")+"/lib/security/cacerts");
+				File file = new File(getClass().getClassLoader().getResource("smsgwsmsgovin.cer").getFile());
+				InputStream is = new FileInputStream(file);
+				trustStore.load(is, "changeit".toCharArray());
+				TrustManagerFactory trustFactory = TrustManagerFactory
+						.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+				trustFactory.init(trustStore);
 
-				try (InputStream is = getClass().getClassLoader().getResourceAsStream("smsgwsmsgovin.cer")) {
-					CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-					X509Certificate caCert = (X509Certificate) certFactory.generateCertificate(is);
-
-					KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-					trustStore.load(null);
-					trustStore.setCertificateEntry("caCert", caCert);
-
-					TrustManagerFactory trustFactory = TrustManagerFactory
-							.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-					trustFactory.init(trustStore);
-
-					TrustManager[] trustManagers = trustFactory.getTrustManagers();
-					sslContext.init(null, trustManagers, null);
-				} catch (KeyManagementException | IllegalStateException | CertificateException | KeyStoreException | IOException e) {
-					log.error("Not able to load SMS certificate from the specified path {}", e.getMessage());
-				}
+				TrustManager[] trustManagers = trustFactory.getTrustManagers();
+				sslContext.init(null, trustManagers, null);
 			} else {
 				log.info("not checking certificate");
 				TrustManager tm = new X509TrustManager() {
@@ -107,69 +94,78 @@ public class NICSMSServiceImpl extends BaseSMSService {
 
 	protected void submitToExternalSmsService(Sms sms) {
 		log.info("submitToExternalSmsService() start");
-		try {
+		Map<String, Object> map = new HashMap<String, Object>();
 
-			String final_data = "";
-			final_data += "username=" + smsProperties.getUsername();
-			final_data += "&pin=" + smsProperties.getPassword();
+		map.put("MobileNo", sms.getMobileNumber());
+	
+	
+	String smsBody = sms.getMessage();
+	String[ ] smsContent = smsBody.split("#");
+		if (smsBody.split("#").length > 1) {
+			String templateId = smsBody.split("#")[1];
 
-			String smsBody = sms.getMessage();
+			sms.setTemplateId(templateId);
+			smsBody = smsBody.split("#")[0];
+			map.put("TemplateId", templateId);
 
-			if (smsBody.split("#").length > 1) {
-				String templateId = smsBody.split("#")[1];
+		} else if (StringUtils.isEmpty(sms.getTemplateId())) {
+			log.info("No template Id, Message Not sent" + smsBody);
+			return;
+		} else {
+			map.put("TemplateId", sms.getTemplateId());
+		}
+		
+		map.put("Content", smsBody);
 
-				sms.setTemplateId(templateId);
-				smsBody = smsBody.split("#")[0];
-
-			} else if (StringUtils.isEmpty(sms.getTemplateId())) {
-				log.info("No template Id, Message Not sent" + smsBody);
-				return;
-			}
-
-			String message = "" + smsBody;
-			message = URLEncoder.encode(message, "UTF-8");
-
-			final_data += "&message=" + message;
-			final_data += "&mnumber=91" + sms.getMobileNumber();
-			final_data += "&signature=" + smsProperties.getSenderid();
-			final_data += "&dlt_entity_id=" + smsProperties.getSmsEntityId();
-			if (null == sms.getTemplateId()) {
-				final_data += "&dlt_template_id=" + smsProperties.getSmsDefaultTmplid();
-			} else
-				final_data += "&dlt_template_id=" + sms.getTemplateId();
-
-			if (smsProperties.isSmsEnabled()) {
-				HttpsURLConnection conn = (HttpsURLConnection) new URL(smsProperties.getUrl() + "?" + final_data)
-						.openConnection();
-				conn.setSSLSocketFactory(sslContext.getSocketFactory());
-				conn.setDoOutput(true);
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.connect();
-				final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				final StringBuffer stringBuffer = new StringBuffer();
-				String line;
-				while ((line = rd.readLine()) != null) {
-					stringBuffer.append(line);
-				}
-				log.info("conn: " + conn.toString());
-				if (smsProperties.isDebugMsggateway()) {
-					log.info("sms api url : " + smsProperties.getUrl());
-					log.info("sms response: " + stringBuffer.toString());
-					log.info("sms data: " + final_data);
-				}
-				rd.close();
-				conn.disconnect();
-			} else {
-				log.info("SMS Data: " + final_data);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Error occurred while sending SMS to : " + sms.getMobileNumber(), e);
+		map.put("Purpose", sms.getCategory());
+		log.info("OPT DAta " + map);
+		if (smsProperties.isSmsEnabled()) {
+			sendSMS(map);
 		}
 	}
 
-	private boolean textIsInEnglish(String text) {
+	public String getAuthToken() {
+
+		HttpHeaders headers = new HttpHeaders();
+		Map<String, Object> map = new HashMap<String, Object>();
+		String tokenn = "";
+		map.put("userId", smsProperties.tpUserId);
+		map.put("tpUserId", smsProperties.tcptpUserId);
+		map.put("emailid", smsProperties.tcpEmailId);
+		headers.set("access_key", smsProperties.tcpAccessKey);
+		headers.set("secret_key", smsProperties.tcpSecretKey);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+
+		ResponseEntity<Map> response = restTemplate.postForEntity(smsProperties.tcpurl + smsProperties.tcpAuthToken,
+				entity, Map.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+
+			log.info("Token No\n" + response);
+			tokenn = (String) response.getBody().get("Value");
+
+		}
+		return tokenn;
+	}
+
+	public ResponseEntity<Map> sendSMS(Map<String, Object> request) {
+
+		request.put("UserloginId", smsProperties.tpUserId);
+		request.put("ModuleId", smsProperties.moduleId);
+		request.put("TokenId", getAuthToken());
+
+		log.info("request info\n" + request);
+		ResponseEntity<Map> response = restTemplate.postForEntity(smsProperties.tcpurl + smsProperties.smsurl, request,
+				Map.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			log.info("SMS NOTIFICATION\n" + response.getBody().get("Value"));
+		}
+		return response;
+	}
+
+	public boolean textIsInEnglish(String text) {
 		ArrayList<Character.UnicodeBlock> english = new ArrayList<>();
 		english.add(Character.UnicodeBlock.BASIC_LATIN);
 		english.add(Character.UnicodeBlock.LATIN_1_SUPPLEMENT);

@@ -1,0 +1,349 @@
+{
+  "tenantId": "hp",
+  "moduleName": "tenant",
+  "citymodule": [
+    {
+      "module": "FSM",
+      "code": "FSM",
+      "active": false,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "Payment",
+      "code": "Payment",
+      "active": true,
+      "order": 1,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "Receipts",
+      "code": "Receipts",
+      "active": true,
+      "order": 3,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "NOC",
+      "code": "NOC",
+      "active": true,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "DSS",
+      "code": "DSS",
+      "active": true,
+      "order": 6,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.kurukshetra"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "Engagement",
+      "code": "Engagement",
+      "active": true,
+      "order": 3,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "MCollect",
+      "code": "MCollect",
+      "active": true,
+      "order": 1,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "HRMS",
+      "code": "HRMS",
+      "active": true,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "QuickPayLinks",
+      "code": "QuickPayLinks",
+      "active": true,
+      "order": 1,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "BPAAPPLY",
+      "code": "BPAAPPLY",
+      "active": true,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "BPAREG",
+      "code": "BPAREG",
+      "active": true,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.punchkula"
+        },
+        {
+          "code": "hr.jind"
+        }
+      ]
+    },
+    {
+      "module": "OBPS",
+      "code": "OBPS",
+      "active": true,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.punchkula"
+        },
+        {
+          "code": "hr.jind"
+        }
+      ]
+    },
+    {
+      "module": "UC",
+      "code": "UC",
+      "active": false,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "hr.jind",
+          "name": "Jind"
+        },
+        {
+          "code": "hr.hisar",
+          "name": "Hisar"
+        },
+        {
+          "code": "hr.punchkula",
+          "name": "punchkula"
+        }
+      ]
+    },
+    {
+      "module": "NDSS",
+      "code": "NDSS",
+      "active": true,
+      "order": 5,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.kurukshetra"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "CommonPT",
+      "code": "CommonPT",
+      "active": false,
+      "order": 3,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "Bills",
+      "code": "Bills",
+      "active": true,
+      "order": 3,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "Reports",
+      "code": "Reports",
+      "active": true,
+      "order": 4,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.hisar"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "CF",
+      "code": "CF",
+      "active": false,
+      "order": 1,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "CF",
+      "code": "CF",
+      "active": false,
+      "order": 1,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    },
+    {
+      "module": "BR",
+      "code": "BR",
+      "active": false,
+      "order": 1,
+      "tenants": [
+        {
+          "code": "hr.jind"
+        },
+        {
+          "code": "hr.ambala"
+        },
+        {
+          "code": "hr.punchkula"
+        }
+      ]
+    }
+  ]
+}

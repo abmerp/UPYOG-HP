@@ -11,6 +11,7 @@ import org.egov.bpa.util.BPAConstants;
 import org.egov.bpa.util.BPAErrorConstants;
 import org.egov.bpa.web.model.BPA;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.RequestInfoWrapper;
 import org.egov.bpa.web.model.NOC.Noc;
 import org.egov.bpa.web.model.NOC.NocRequest;
@@ -132,6 +133,23 @@ public class NocService {
 			throw new CustomException(BPAErrorConstants.NOC_SERVICE_EXCEPTION, " Unable to fetch the NOC records");
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Noc> fetchNocRecords2(BPARequestV2 bpaRequest) {
+
+		StringBuilder url = getNOCWithSourceRef2(bpaRequest);
+
+		RequestInfoWrapper requestInfoWrapper = RequestInfoWrapper.builder().requestInfo(bpaRequest.getRequestInfo())
+				.build();
+		LinkedHashMap<String, Object> responseMap = null;
+		try {
+			responseMap = (LinkedHashMap<String, Object>) serviceRequestRepository.fetchResult(url, requestInfoWrapper);
+			NocResponse nocResponse = mapper.convertValue(responseMap, NocResponse.class);
+			return nocResponse.getNoc();
+		} catch (Exception e) {
+			throw new CustomException(BPAErrorConstants.NOC_SERVICE_EXCEPTION, " Unable to fetch the NOC records");
+		}
+	}
 
 	/**
 	 * fetch the noc records with sourceRefId
@@ -149,6 +167,19 @@ public class NocService {
 		uri.append(bpaRequest.getBPA().getApplicationNo());
 		return uri;
 	}
+	private StringBuilder getNOCWithSourceRef2(BPARequestV2 bpaRequest) {
+		StringBuilder uri = new StringBuilder(config.getNocServiceHost());
+		uri.append(config.getNocSearchEndpoint());
+		uri.append("?tenantId=");
+		uri.append(bpaRequest.getBPA().getTenantId());
+		NocRequest nocRequest = new NocRequest();
+		nocRequest.setRequestInfo(bpaRequest.getRequestInfo());
+		uri.append("&sourceRefId=");
+		uri.append(bpaRequest.getBPA().getApplicationNo());
+		return uri;
+	}
+	
+	
 
 	/**
 	 * Calls the iniate  workflow for the applicable noc records

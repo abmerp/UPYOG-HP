@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
+
 const BPACitizenHomeScreen = ({ parentRoute }) => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData.code);
@@ -162,25 +163,59 @@ const BPACitizenHomeScreen = ({ parentRoute }) => {
       className: "CitizenHomeCard",
       styles: {padding: "0px", minWidth: "90%", minHeight: "90%"}
     },
+    // {
+    //   title: t("ACTION_TEST_EDCR_SCRUTINY"),
+    //   Icon: <EDCRIcon className="fill-path-primary-main" />,
+    //   links: [
+    //     {
+    //       link: `edcrscrutiny/apply`,
+    //       i18nKey: t("BPA_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
+    //     },
+    //     {
+    //       link: `edcrscrutiny/oc-apply`,
+    //       i18nKey: t("BPA_OC_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
+    //     },
+    //   ],
+    //   styles: {minWidth: "90%", minHeight: "90%"}
+    // },
+    // {
+    //   title: t("ACTION_TEST_BPA_STAKE_HOLDER_HOME"),
+    //   Icon: <BPAIcon className="fill-path-primary-main" />,
+    //   links: bpaLinks,
+    //   styles: {minWidth: "90%", minHeight: "90%"}
+    // },
+    // {
+    //   title: t("Development of sub-division of land - Form11"),
+    //   Icon: <BPAIcon className="fill-path-primary-main" />,
+    //   links: [
+    //     {
+    //       link: `form11`,
+    //       i18nKey: t("Apply for form 11"),
+    //     },
+    //     {
+    //       link: `form11-applications`,
+    //       i18nKey: t("view applications"),
+    //     },
+    //   ],
+    //   styles: {minWidth: "90%", minHeight: "90%"}
+    // },
     {
-      title: t("ACTION_TEST_EDCR_SCRUTINY"),
-      Icon: <EDCRIcon className="fill-path-primary-main" />,
+      title: t("Building Plan Permission - Form12"),
+      Icon: <BPAIcon className="fill-path-primary-main" />,
       links: [
         {
-          link: `edcrscrutiny/apply`,
-          i18nKey: t("BPA_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
+          link: `form12`,
+          i18nKey: t("Apply for form 12"),
         },
         {
-          link: `edcrscrutiny/oc-apply`,
-          i18nKey: t("BPA_OC_PLAN_SCRUTINY_FOR_NEW_CONSTRUCTION_LABEL"),
+          link: `edcrscrutiny/apply/home`,
+          i18nKey: t("Apply for Self-Certification Form-12 (Applicable for granting planning permission upto 500m2 of plot area for resendential use)"),
+        },
+        {
+          link: `form12-applications`,
+          i18nKey: t("view applications"),
         },
       ],
-      styles: {minWidth: "90%", minHeight: "90%"}
-    },
-    {
-      title: t("ACTION_TEST_BPA_STAKE_HOLDER_HOME"),
-      Icon: <BPAIcon className="fill-path-primary-main" />,
-      links: bpaLinks,
       styles: {minWidth: "90%", minHeight: "90%"}
     },
   ];

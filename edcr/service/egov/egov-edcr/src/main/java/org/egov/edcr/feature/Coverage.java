@@ -57,13 +57,16 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.egov.common.entity.edcr.Block;
+import org.egov.common.entity.edcr.Floor;
 import org.egov.common.entity.edcr.Measurement;
 import org.egov.common.entity.edcr.OccupancyType;
 import org.egov.common.entity.edcr.Plan;
 import org.egov.common.entity.edcr.Result;
 import org.egov.common.entity.edcr.ScrutinyDetail;
+import org.egov.edcr.entity.blackbox.PlotDetail;
 import org.egov.edcr.utility.DcrConstants;
 import org.egov.infra.utils.StringUtils;
+import org.kabeja.dxf.DXFLWPolyline;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -76,8 +79,19 @@ public class Coverage extends FeatureProcess {
     private static final String RULE_DESCRIPTION_KEY = "coverage.description";
     private static final String RULE_EXPECTED_KEY = "coverage.expected";
     private static final String RULE_ACTUAL_KEY = "coverage.actual";
+    
    // private static final BigDecimal ThirtyFive = BigDecimal.valueOf(35);
-    private static final BigDecimal Forty = BigDecimal.valueOf(40);
+    private static final BigDecimal SIXTYSIX = BigDecimal.valueOf(66);
+    private static final BigDecimal FIFTYFIVE = BigDecimal.valueOf(55);
+    private static final BigDecimal FORTYFIVE = BigDecimal.valueOf(45);
+    private static final BigDecimal FIFTY = BigDecimal.valueOf(50);
+    private static final BigDecimal FORTY = BigDecimal.valueOf(40);
+    private static final BigDecimal SIXTY = BigDecimal.valueOf(60);
+    private static final BigDecimal SEVENTY = BigDecimal.valueOf(70);
+    private static final BigDecimal SEVENTYFIVE = BigDecimal.valueOf(75);
+    private static final BigDecimal TWENTYFIVEOFMAXCOVERAGE = BigDecimal.valueOf(25);
+//    private static final BigDecimal THIRTYFIVE = BigDecimal.valueOf(35);
+//    private static final BigDecimal FIFTY = BigDecimal.valueOf(50);
 	/*
 	 * private static final BigDecimal FortyFive = BigDecimal.valueOf(45); private
 	 * static final BigDecimal Sixty = BigDecimal.valueOf(60); private static final
@@ -89,6 +103,18 @@ public class Coverage extends FeatureProcess {
     public static final String RULE_38 = "38";
     private static final BigDecimal ROAD_WIDTH_TWELVE_POINTTWO = BigDecimal.valueOf(12.2);
     private static final BigDecimal ROAD_WIDTH_THIRTY_POINTFIVE = BigDecimal.valueOf(30.5);
+
+	private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
+	private static final BigDecimal ONEHUNDREDFIFTY = BigDecimal.valueOf(150);
+	private static final BigDecimal ONEHUNDREDTWENTY = BigDecimal.valueOf(120);
+	private static final BigDecimal TWOHUNDREDFIFTY = BigDecimal.valueOf(250);
+	private static final BigDecimal THREEHUNDREDFIFTY = BigDecimal.valueOf(350);
+	private static final BigDecimal SIXHUNDRED = BigDecimal.valueOf(600);
+	private static final BigDecimal FIVEHUNDRED = BigDecimal.valueOf(500);
+	private static final BigDecimal FOURHUNDRED = BigDecimal.valueOf(400);
+	private static final BigDecimal ONETHOUSAND = BigDecimal.valueOf(1000);
+	private static final BigDecimal SEVENTYFIVE_PERCENT = BigDecimal.valueOf(0.75);
+	private static final BigDecimal SIXTYSIX_PERCENT = BigDecimal.valueOf(0.66);
     
     @Override
     public Plan validate(Plan pl) {
@@ -105,8 +131,16 @@ public class Coverage extends FeatureProcess {
         validate(pl);
         BigDecimal totalCoverage = BigDecimal.ZERO;
         BigDecimal totalCoverageArea = BigDecimal.ZERO;
+        
+        boolean isAccepted = false;
+        String expectedResult = StringUtils.EMPTY;
+        
+        DXFLWPolyline plotBoundary = ((PlotDetail) pl.getPlot()).getPolyLine();
+        int clrCode = plotBoundary.getColor();
 
         for (Block block : pl.getBlocks()) {
+        	for(Floor floor : block.getBuilding().getFloors())
+        	{
             BigDecimal coverageAreaWithoutDeduction = BigDecimal.ZERO;
             BigDecimal coverageDeductionArea = BigDecimal.ZERO;
 
@@ -114,6 +148,7 @@ public class Coverage extends FeatureProcess {
                 coverageAreaWithoutDeduction = coverageAreaWithoutDeduction.add(coverage.getArea());
             }
             for (Measurement deduct : block.getCoverageDeductions()) {
+
                 coverageDeductionArea = coverageDeductionArea.add(deduct.getArea());
             }
             if (block.getBuilding() != null) {
@@ -132,7 +167,7 @@ public class Coverage extends FeatureProcess {
             }
 
         }
-
+       
       //  pl.setCoverageArea(totalCoverageArea);
         // use plotBoundaryArea
         if (pl.getPlot() != null && pl.getPlot().getArea().doubleValue() > 0)
@@ -142,12 +177,98 @@ public class Coverage extends FeatureProcess {
         if (pl.getVirtualBuilding() != null) {
             pl.getVirtualBuilding().setTotalCoverageArea(totalCoverageArea);
         }
+        
 
-       BigDecimal roadWidth = pl.getPlanInformation().getRoadWidth();
-       if(roadWidth != null && roadWidth.compareTo(ROAD_WIDTH_TWELVE_POINTTWO) >= 0
-				&& roadWidth.compareTo(ROAD_WIDTH_THIRTY_POINTFIVE) <= 0) {
-        processCoverage(pl, StringUtils.EMPTY, totalCoverage, Forty);
-       }
+      // BigDecimal roadWidth = pl.getPlanInformation().getRoadWidth();
+      
+      //*** Implementation for GROUND COVERAGE as per Himachal Pradesh
+//        if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY)<=0) {
+//       	 processCoverage(pl, StringUtils.EMPTY, totalCoverage, SEVENTYFIVE, TWENTYFIVEOFMAXCOVERAGE);
+//        }
+//    	
+//    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY)>=0) {
+//    		 processCoverage(pl, StringUtils.EMPTY, totalCoverage, SIXTYSIX, TWENTYFIVEOFMAXCOVERAGE);
+//        }
+    	
+    	// DALHOUSIE & HAMIRPUR
+    	if (clrCode == 37 || clrCode == 42) {
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+	   		   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTYFIVE, TWENTYFIVEOFMAXCOVERAGE);
+	        }
+	    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FORTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+    	}
+    	//MANALI
+    	if (clrCode == 38) {
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+	   		   processCoverage(pl, StringUtils.EMPTY, totalCoverage, SIXTY, TWENTYFIVEOFMAXCOVERAGE);
+	        }
+	    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTYFIVE, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+    	}
+    	//SOLAN
+    	if (clrCode == 40) {
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+	   		   processCoverage(pl, StringUtils.EMPTY, totalCoverage, SIXTY, TWENTYFIVEOFMAXCOVERAGE);
+	        }
+	    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FORTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+    	}
+    	//KASAULI
+    	if (clrCode == 41) {
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+	   		   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+	        }
+	    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FORTYFIVE, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FORTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+    	}
+    	//BILASPUR
+    	if (clrCode == 44) {
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+	   		   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+	        }
+	    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FIVEHUNDRED) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(FIVEHUNDRED) > 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FORTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }	
+    	}
+    	//PAUNTA SAHIB
+    	if (clrCode == 43) {
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY) <= 0) {
+	   		   processCoverage(pl, StringUtils.EMPTY, totalCoverage, SEVENTYFIVE, TWENTYFIVEOFMAXCOVERAGE);
+	        }
+	    	if(pl.getPlot().getArea().compareTo(ONEHUNDREDTWENTY) > 0 && pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, SEVENTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(TWOHUNDREDFIFTY) > 0 && pl.getPlot().getArea().compareTo(FOURHUNDRED) <= 0) {
+		   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, SIXTY, TWENTYFIVEOFMAXCOVERAGE);
+		    }
+	    	if(pl.getPlot().getArea().compareTo(FOURHUNDRED) > 0 && pl.getPlot().getArea().compareTo(SIXHUNDRED) <= 0) {
+			   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FIFTY, TWENTYFIVEOFMAXCOVERAGE);
+			}
+	    	if(pl.getPlot().getArea().compareTo(SIXHUNDRED) > 0) {
+			   	   processCoverage(pl, StringUtils.EMPTY, totalCoverage, FORTY, TWENTYFIVEOFMAXCOVERAGE);
+			}
+    	}
+      
 		/*
 		 * // for weighted coverage if (pl.getPlot().getArea().doubleValue() >= 5000) {
 		 * BigDecimal provideCoverage = BigDecimal.ZERO; BigDecimal weightedArea =
@@ -200,6 +321,7 @@ public class Coverage extends FeatureProcess {
 			 * mostRestrictiveOccupancy.getOccupancyTypeVal(), totalCoverage, Eighty);
 			 * break; default: break; } } } }
 			 */
+        }
         return pl;
     }
 
@@ -222,13 +344,13 @@ public class Coverage extends FeatureProcess {
 	 * 
 	 * case OCCUPANCY_H: return Eighty; default: return BigDecimal.ZERO; } }
 	 */
-    private void processCoverage(Plan pl, String occupancy, BigDecimal coverage, BigDecimal upperLimit) {
+    private void processCoverage(Plan pl, String occupancy, BigDecimal coverage, BigDecimal upperLimit, BigDecimal lowerLimit) {
         ScrutinyDetail scrutinyDetail = new ScrutinyDetail();
         scrutinyDetail.setKey("Common_Coverage");
         scrutinyDetail.setHeading("Coverage in Percentage");
         scrutinyDetail.addColumnHeading(1, RULE_NO);
         scrutinyDetail.addColumnHeading(2, DESCRIPTION);
-        //scrutinyDetail.addColumnHeading(3, OCCUPANCY);
+        scrutinyDetail.addColumnHeading(3, OCCUPANCY);
         scrutinyDetail.addColumnHeading(4, PERMISSIBLE);
         scrutinyDetail.addColumnHeading(5, PROVIDED);
         scrutinyDetail.addColumnHeading(6, STATUS);
@@ -236,11 +358,11 @@ public class Coverage extends FeatureProcess {
         String desc = getLocaleMessage(RULE_DESCRIPTION_KEY, upperLimit.toString());
         String actualResult = getLocaleMessage(RULE_ACTUAL_KEY, coverage.toString());
         String expectedResult = getLocaleMessage(RULE_EXPECTED_KEY, upperLimit.toString());
-        if (coverage.doubleValue() <= upperLimit.doubleValue()) {
+        if (coverage.doubleValue() <= upperLimit.doubleValue() && coverage.doubleValue() >= lowerLimit.doubleValue()) {
             Map<String, String> details = new HashMap<>();
             details.put(RULE_NO, RULE_38);
             details.put(DESCRIPTION, desc);
-           // details.put(OCCUPANCY, occupancy);
+            details.put(OCCUPANCY, occupancy);
             details.put(PERMISSIBLE, expectedResult);
             details.put(PROVIDED, actualResult);
             details.put(STATUS, Result.Accepted.getResultVal());
@@ -251,7 +373,7 @@ public class Coverage extends FeatureProcess {
             Map<String, String> details = new HashMap<>();
             details.put(RULE_NO, RULE_38);
             details.put(DESCRIPTION, desc);
-           // details.put(OCCUPANCY, occupancy);
+            details.put(OCCUPANCY, occupancy);
             details.put(PERMISSIBLE, expectedResult);
             details.put(PROVIDED, actualResult);
             details.put(STATUS, Result.Not_Accepted.getResultVal());

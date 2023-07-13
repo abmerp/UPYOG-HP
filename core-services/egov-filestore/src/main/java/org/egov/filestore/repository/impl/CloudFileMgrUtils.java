@@ -161,6 +161,7 @@ public class CloudFileMgrUtils {
 	 */
 	public Boolean isFileAnImage(String filePath) {
 		Boolean isFileAnImage = false;
+		//TODO
 		if (filePath.split("[\\.]").length > 1) {
 			String extension = filePath.substring(filePath.lastIndexOf('.') + 1, filePath.length());
 			if (fileStoreConfig.getImageFormats().contains(extension))

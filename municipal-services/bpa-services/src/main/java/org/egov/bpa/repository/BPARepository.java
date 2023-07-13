@@ -7,8 +7,11 @@ import org.egov.bpa.config.BPAConfiguration;
 import org.egov.bpa.producer.Producer;
 import org.egov.bpa.repository.querybuilder.BPAQueryBuilder;
 import org.egov.bpa.repository.rowmapper.BPARowMapper;
+import org.egov.bpa.repository.rowmapper.BPARowMapper2;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.BPASearchCriteria;
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,11 @@ public class BPARepository {
 
 	@Autowired
 	private BPARowMapper rowMapper;
+	
+	@Autowired
+	private BPARowMapper2 rowMapper2;
+	
+	
 
 	/**
 	 * Pushes the request on save topic through kafka
@@ -40,7 +48,17 @@ public class BPARepository {
 	 *            The bpa create request
 	 */
 	public void save(BPARequest bpaRequest) {
-		producer.push(config.getSaveTopic(), bpaRequest);
+//		producer.push(config.getSaveTopic(), bpaRequest);
+		producer.push(config.getSaveApplicationTopic(), bpaRequest);
+		
+		
+	}
+	
+	public void save2(BPARequestV2 bpaRequest) {
+//		producer.push(config.getSaveTopic(), bpaRequest);
+		producer.push(config.getSaveApplicationTopic(), bpaRequest);
+		
+		
 	}
 
 	/**
@@ -68,6 +86,32 @@ public class BPARepository {
 			producer.push(config.getUpdateWorkflowTopic(), new BPARequest(requestInfo, bpaForStatusUpdate));
 
 	}
+	
+	public void update2(BPARequestV2 bpaRequest, boolean isStateUpdatable) {
+		RequestInfo requestInfo = bpaRequest.getRequestInfo();
+
+		BpaV2 bpaForStatusUpdate = null;
+		BpaV2 bpaForUpdate = null;
+
+		BpaV2 bpa = bpaRequest.getBPA();
+
+		if (isStateUpdatable) {
+			bpaForUpdate = bpa;
+		} else {
+			bpaForStatusUpdate = bpa;
+		}
+		if (bpaForUpdate != null)
+//			producer.push(config.getUpdateTopic(), new BPARequest2(requestInfo, bpaForUpdate));
+			producer.push(config.getUpdateApplicationTopic(), new BPARequestV2(requestInfo, bpaForUpdate));
+		
+
+		if (bpaForStatusUpdate != null)
+//			producer.push(config.getUpdateWorkflowTopic(), new BPARequest2(requestInfo, bpaForStatusUpdate));
+		producer.push(config.getUpdateApplicationTopic(), new BPARequestV2(requestInfo, bpaForStatusUpdate));
+
+		
+
+	}
 
 	/**
 	 * BPA search in database
@@ -80,6 +124,13 @@ public class BPARepository {
 		List<Object> preparedStmtList = new ArrayList<>();
 		String query = queryBuilder.getBPASearchQuery(criteria, preparedStmtList, edcrNos, false);
 		List<BPA> BPAData = jdbcTemplate.query(query, preparedStmtList.toArray(), rowMapper);
+		return BPAData;
+	}
+	
+	public List<BpaV2> getBPAData2(BPASearchCriteria criteria, List<String> edcrNos) {
+		List<Object> preparedStmtList = new ArrayList<>();
+		String query = queryBuilder.getBPASearchQuery(criteria, preparedStmtList, edcrNos, false);
+		List<BpaV2> BPAData = jdbcTemplate.query(query, preparedStmtList.toArray(), rowMapper2);
 		return BPAData;
 	}
 	

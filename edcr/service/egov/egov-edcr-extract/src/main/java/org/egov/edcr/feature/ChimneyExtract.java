@@ -34,7 +34,7 @@ public class ChimneyExtract extends FeatureExtract {
     public PlanDetail extract(PlanDetail planDetail) {
         BigDecimal minHeight, increasedHeight;
         for (Block block : planDetail.getBlocks()) {
-            String layerName = String.format(layerNames.getLayerName("LAYER_NAME_CHIMNEY"), block.getNumber());
+            String layerName = String.format(layerNames.getLayerName("LAYER_NAME_SLOPING_ROOF_HT"), block.getNumber());
             block.setChimneys(Util.getListOfDimensionValueByLayer(planDetail,
                     layerName));
 

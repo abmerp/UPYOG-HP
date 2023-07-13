@@ -1,0 +1,57 @@
+serviceMaps:
+  serviceName: TransferOfLicence
+  mappings:
+  - version: 1.0
+    name: transfer-of-licence
+    description: transfer of licence
+    fromTopic: save-transfer-of-licence
+    isTransaction: true
+    queryMaps:
+    - query: INSERT INTO public.eg_transfer_of_licence_service(id, license_no, application_number, tenant_id, action, businessservice, additiona_details, created_by, last_modify_by, created_time, last_modified_time, status, tcpapplicationnumber, tcpcasenumber, tcpdairynumber, newadditionaldetails)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+      basePath: $
+      jsonMaps:
+      - jsonPath: $.id
+      - jsonPath: $.licenseNo
+      - jsonPath: $.applicationNumber
+      - jsonPath: $.tenantId
+      - jsonPath: $.action
+      - jsonPath: $.businessService
+      - jsonPath: $.additionalDetails
+        type: JSON
+        dbType: JSONB
+      - jsonPath: $.auditDetails.createdBy
+      - jsonPath: $.auditDetails.lastModifiedBy
+      - jsonPath: $.auditDetails.createdTime
+      - jsonPath: $.auditDetails.lastModifiedTime
+      - jsonPath: $.status
+      - jsonPath: $.tcpApplicationNumber
+      - jsonPath: $.tcpCaseNumber
+      - jsonPath: $.tcpDairyNumber
+      - jsonPath: $.newAdditionalDetails
+        type: JSON
+        dbType: JSONB
+  - version: 1.0
+    name: transfer-of-licence
+    description: transfer of licence
+    fromTopic: update-transfer-of-licence
+    isTransaction: true
+    queryMaps:
+    - query: UPDATE public.eg_transfer_of_licence_service SET tenant_id=?, action=?, businessservice=?, additiona_details=?, status=?, tcpapplicationnumber=?, tcpcasenumber=?, tcpdairynumber=?, newadditionaldetails=? WHERE application_number=? OR id=?;
+      basePath: Transfer
+      jsonMaps:
+    
+      - jsonPath: $.Transfer.tenantId
+      - jsonPath: $.Transfer.action
+      - jsonPath: $.Transfer.businessService
+      - jsonPath: $.Transfer.additionalDetails
+        type: JSON
+        dbType: JSONB
+      - jsonPath: $.Transfer.status
+      - jsonPath: $.Transfer.tcpApplicationNumber
+      - jsonPath: $.Transfer.tcpCaseNumber
+      - jsonPath: $.Transfer.tcpDairyNumber
+      - jsonPath: $.Transfer.newAdditionalDetails
+        type: JSON
+        dbType: JSONB
+      - jsonPath: $.Transfer.applicationNumber
+      - jsonPath: $.Transfer.id

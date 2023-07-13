@@ -79,7 +79,7 @@ const EDCRAcknowledgement = (props) => {
           {/* <CardText style={{ padding: "0px 8px" }}>{t("EDCR_ACKNOWLEDGEMENT_SUCCESS_MESSAGE_TEXT_LABEL")}</CardText> */}
           <div className="primary-label-btn d-grid" style={{ marginLeft: "unset", marginBottom: "10px", padding: "0px 8px" }} onClick={printReciept}>
             <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.3334 8H14V0H6.00002V8H0.666687L10 17.3333L19.3334 8ZM0.666687 20V22.6667H19.3334V20H0.666687Z" fill="#a82227" />
+              <path d="M19.3334 8H14V0H6.00002V8H0.666687L10 17.3333L19.3334 8ZM0.666687 20V22.6667H19.3334V20H0.666687Z" fill="#1F4A7C" />
             </svg>
             {t("EDCR_DOWNLOAD_SCRUTINY_REPORT_LABEL")}
           </div>
@@ -93,7 +93,8 @@ const EDCRAcknowledgement = (props) => {
               <LinkButton label={t("CORE_COMMON_GO_TO_HOME")} />
             </Link>
           </div>
-        </Card> :
+        </Card> 
+        :
         <Card style={{ padding: "0px" }}>
           <Banner
             message={t("BPA_OC_EDCR_ACKNOWLEDGEMENT_REJECTED_MESSAGE_LABEL")}
@@ -108,7 +109,7 @@ const EDCRAcknowledgement = (props) => {
           <CardText style={{ padding: "0px 8px", marginBottom: "10px" }}>{`${t("PDF_STATIC_LABEL_CONSOLIDATED_BILL_CONSUMER_ID_TL")} - ${edcrData?.applicationNumber}`}</CardText>
           <div className="primary-label-btn d-grid" style={{ marginLeft: "unset", marginBottom: "10px", padding: "0px 8px" }} onClick={printReciept}>
             <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.3334 8H14V0H6.00002V8H0.666687L10 17.3333L19.3334 8ZM0.666687 20V22.6667H19.3334V20H0.666687Z" fill="#a82227" />
+              <path d="M19.3334 8H14V0H6.00002V8H0.666687L10 17.3333L19.3334 8ZM0.666687 20V22.6667H19.3334V20H0.666687Z" fill="#1F4A7C" />
             </svg>
             {t("EDCR_DOWNLOAD_SCRUTINY_REPORT_LABEL")}
           </div>
@@ -117,8 +118,14 @@ const EDCRAcknowledgement = (props) => {
               <SubmitBar label={t("CORE_COMMON_GO_TO_HOME")} />
             </Link>
           </div>
+          <div style={{padding: "10px", paddingBottom: "10px"}}>
+          <Link to={{pathname: `/digit-ui/citizen/obps/form12/selfcertification`, state: bpaLinks}} replace>
+            <SubmitBar label={t("APPLY_FOR_FORM12")} onSubmit={() => (sessionStorage.setItem("clickOnBPAApplyAfterEDCR",true))}/>
+            <CardText className="button-sub-text"  style={{fontSize: "14px", lineHeight: "16px", textAlign: "center", margin: "0px", marginTop: "4px", fontWeight: "400", color: "#0B0C0C"}}>{t("BPA_FOR_NEW_CONSTRUCTION_LABEL")}</CardText>
+            </Link>
+          </div>
         </Card>
-      }
+       } 
     </div>
   );
 };

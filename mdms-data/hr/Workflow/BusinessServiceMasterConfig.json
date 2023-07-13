@@ -1,0 +1,40 @@
+{
+  "tenantId": "hr",
+  "moduleName": "Workflow",
+  "BusinessServiceMasterConfig": [
+    {
+      "businessService": "NewTL",
+      "active": "true",
+      "isStatelevel": "true"
+    },
+    {
+      "businessService": "BUILDER",
+      "active": "true",
+      "isStatelevel": "true"
+    },
+    {
+      "businessService": "PGR",
+      "active": "true",
+      "isStatelevel": "true"
+    },
+    {
+      "businessService": "DisconnectSWConnection1",
+      "active": "true",
+      "isStatelevel": "false"
+    },
+    {
+      "businessService": "SERVICE_PLAN",
+      "active": "true",
+      "isStatelevel": "true"
+    },
+    {
+      "businessService": "ELECTRICAL_PLAN",
+      "active": "true",
+      "isStatelevel": "true"
+    },
+    {
+      "code": "BPA_FORM_11",
+      "isStateLevel": true
+    }
+  ]
+}

@@ -28,12 +28,12 @@ public class SegregatedToiletExtract extends FeatureExtract {
         ArrayList<MeasurementDetail> segregatedToiletMeasurement = new ArrayList<>();
 
         List<DXFLWPolyline> segregatedToilets = Util.getPolyLinesByLayer(pl.getDoc(),
-                layerNames.getLayerName("LAYER_NAME_SEGREGATED_TOILET"));
+                layerNames.getLayerName("LAYER_NAME_HILL_CUT_TOE_WALL"));
         for (DXFLWPolyline pline : segregatedToilets)
             segregatedToiletMeasurement.add(new MeasurementDetail(pline, true));
 
         List<BigDecimal> distanceToMainEntrance = Util.getListOfDimensionValueByLayer(pl,
-                layerNames.getLayerName("LAYER_NAME_SEGREGATED_TOILET"));
+                layerNames.getLayerName("LAYER_NAME_HILL_CUT_TOE_WALL"));
 
         segregatedToilet.setDistancesToMainEntrance(distanceToMainEntrance);
         pl.setSegregatedToilet(segregatedToilet);

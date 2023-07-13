@@ -343,7 +343,9 @@ public class BPAConstants {
 	
 	public static final String BUILDING_PLAN_OC = "BUILDING_OC_PLAN_SCRUTINY";
 
-	public static final String BPA_OC_MODULE_CODE = "BPA_OC";
+//	public static final String BPA_OC_MODULE_CODE = "BPA_OC";
+	
+	public static final String BPA_OC_MODULE_CODE = "BPA_HP_BELOW_200";
 
 	public static final String OC_OCCUPANCY = "$.edcrDetail[0].planDetail.planInformation.occupancy";
 
@@ -354,6 +356,8 @@ public class BPAConstants {
 	public static final String SERVICETYPE = "serviceType";
 	
 	public static final String APPLICATIONTYPE = "applicationType";
+	
+	 public static final String MDMS_BUSSINES_SERVICE_PATH = "$.MdmsRes.BPA.BussinessService";
 	
 	public static final String PERMIT_NO = "permitNumber";
 
@@ -380,5 +384,12 @@ public class BPAConstants {
 	public static final String CHANNEL = "Channel";
 
 	public static final String BPA_BUSINESSSERVICE = "BPA";
-
+	
+	public static final String DEPARTMENT_TCP = "TCP";
+	public static final String DEPARTMENT_SADA = "SADA";
+	public static final String APPLICATION_TYPE_FORM_26 = "Form 26: For Composition of Offences";
+	public static final String TCP_STATE_INPROGRESS = "INPROGRESS";
+	public static final String TCP_ACTION_APPLY = "APPLY";
+	public static final String TCP_STATE_PENDING_AT_DRAFTSMAN = "PENDING_AT_DRAFTSMAN_VERIFICATION";
+	public static final String TCP_ACTION_SKIP_APPLICATION_FEE_PAYMENT = "FORWARD_TO_DEPARTMENT";
 }

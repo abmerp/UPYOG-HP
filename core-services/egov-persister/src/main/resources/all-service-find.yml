@@ -1,0 +1,39 @@
+serviceMaps:
+ serviceName: document detail
+ mappings:
+ - version: 1.0
+   name: document-detail
+   description: document detail
+   fromTopic: save-document-detail
+   isTransaction: true
+   queryMaps:
+    - query: INSERT INTO public.eg_additional_documents(id, licence_number, additional_details, created_by, created_time, last_modify_by, last_modified_time, business_service, type, username, developername) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+      basePath: $
+      jsonMaps:
+
+       - jsonPath: $.id
+
+       - jsonPath: $.licenceNumber
+
+       - jsonPath: $.additionalDetails
+         type: JSON
+         dbType: JSONB
+
+       - jsonPath: $.auditDetails.createdBy
+
+       - jsonPath: $.auditDetails.createdTime
+
+       - jsonPath: $.auditDetails.lastModifiedBy
+       
+       - jsonPath: $.auditDetails.lastModifiedTime
+
+       - jsonPath: $.businessService
+       
+       - jsonPath: $.type
+       
+       - jsonPath: $.userName
+       
+       - jsonPath: $.developerName
+
+      
+     

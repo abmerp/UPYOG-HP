@@ -203,18 +203,18 @@ public class FireStair extends FeatureProcess {
                     }
                 }
 
-                if (!fireStairAbsent.isEmpty()) {
-                    for (String error : fireStairAbsent) {
-                        errors.put("Fire Stair " + error, "Fire stair not defined in " + error);
-                        plan.addErrors(errors);
-                    }
-                }
+//                if (!fireStairAbsent.isEmpty()) {
+//                    for (String error : fireStairAbsent) {
+//                        errors.put("Fire Stair " + error, "Fire stair not defined in " + error);
+//                        plan.addErrors(errors);
+//                    }
+//                }
 
-                if (block.getBuilding().getIsHighRise() && fireStairCount == 0) {
-                    errors.put("FireStair not defined in blk " + block.getNumber(), "FireStair not defined in block "
-                            + block.getNumber() + ", it is mandatory for building with height more than 15m.");
-                    plan.addErrors(errors);
-                }
+//                if (block.getBuilding().getIsHighRise() && fireStairCount == 0) {
+//                    errors.put("FireStair not defined in blk " + block.getNumber(), "FireStair not defined in block "
+//                            + block.getNumber() + ", it is mandatory for building with height more than 15m.");
+//                    plan.addErrors(errors);
+//                }
 
                 /*
                  * boolean isAbuting = abutingList.stream().anyMatch(aBoolean -> aBoolean == true); if (occupancyType != null) {

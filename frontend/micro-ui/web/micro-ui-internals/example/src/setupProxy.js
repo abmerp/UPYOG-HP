@@ -1,13 +1,22 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const createProxy = createProxyMiddleware({
-  //target: process.env.REACT_APP_PROXY_API || "https://uat.digit.org",
-  // target: process.env.REACT_APP_PROXY_API || "https://qa.digit.org",
-  target: process.env.REACT_APP_PROXY_API || "https://qa.digit.org",
+ 
+  target: process.env.REACT_APP_PROXY_API || "http://3.111.16.234",
   changeOrigin: true,
 });
-const assetsProxy = createProxyMiddleware({
-  target: process.env.REACT_APP_PROXY_ASSETS || "https://qa.digit.org",
+
+const apiSetuProxy = createProxyMiddleware({
+  target: process.env.REACT_APP_PROXY_SETU || "https://apisetu.gov.in>",
+  changeOrigin: true,
+});
+
+const GetCluDetails = createProxyMiddleware({
+  target: process.env.REACT_APP_PROXY_SCRUTINY_EG || "http://182.79.97.53:81",
+  changeOrigin: true,
+});
+const FormCreateAPI = createProxyMiddleware({
+  target: process.env.REACT_APP_PROXY_SCRUTINY_EG || "http://3.111.16.234:80",
   changeOrigin: true,
 });
 module.exports = function (app) {
@@ -52,6 +61,38 @@ module.exports = function (app) {
     "/egov-survey-services",
     "/ws-services",
     "/sw-services",
+    "/user/developer/_getAuthorizedUser",
+    "/user/developer/_getDeveloperById",
+    "/land-services/new/_create",
+    "/egov-mdms-service/v1/_district",
+    "/egov-mdms-service/v1/_tehsil",
+    "/egov-mdms-service/v1/_village",
+    "/egov-mdms-service/v1/_must",
+    "/egov-mdms-service/v1/_owner",
+    "/filestore/v1/files",
+    "/land-services/_calculate",
+    "/user/developer/_getAuthorizedUser",
+    "/land-services/new/licenses/_get",
+    "/land-services/electric/plan/_create",
+    "/land-services/serviceplan/_create",
+    "/pb-egov-assets",
+    "/user/developer",
+    "/land-services/egscrutiny",
+    "/land-services/new/licenses",
+    "/pb-egov-assets",
+    "/user/developer",
+    "/land-services/egscrutiny",
+    "/land-services/new/licenses",
+    "/tl-services/SurrendOfLicenseRequest/_create",
+    "/tl-services/SurrendOfLicenseRequest/_update",
+    "/tl-services/SurrendOfLicenseRequest/_search",
+    "/tl-services/ExtensionOfCLUPermissionRequest/_create",
+    "/tl-services/ExtensionOfCLUPermissionRequest/_search",
+    "/egov-mdms-service/v1/_search",
   ].forEach((location) => app.use(location, createProxy));
-  ["/pb-egov-assets"].forEach((location) => app.use(location, assetsProxy));
+  ["/mca/v1/companies", "/mca-directors/v1/companies", "/certificate/v3/pan/pancr"].forEach((location) => app.use(location, apiSetuProxy));
+  // ["/egov-mdms-service/v1"].forEach((location) => app.use(location, LicProxy));
+  ["/api/cis/GetCluDetails", "/api/cis/GetLicenceDetails"].forEach((location) => app.use(location, GetCluDetails));
+  ["/api/cis/GetCluDetails", "/api/cis/GetLicenceDetails"].forEach((location) => app.use(location, GetCluDetails));
+  ["/bpa-services/v1/bpa/_createForm"].forEach((location) => app.use(location, FormCreateAPI));
 };

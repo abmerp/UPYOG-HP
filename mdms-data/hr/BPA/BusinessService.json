@@ -1,0 +1,41 @@
+{
+  "tenantId": "hr",
+  "moduleName": "BPA",
+  "BussinessService": [
+    {
+      "Department": "TCP",
+      "Category": "Residential",
+      "FromArea": 0.0,
+      "ToArea": 200.0,
+      "BussinessServiceName": "BPA_TCP_1"
+    },
+    {
+      "Department": "TCP",
+      "Category": "Residential",
+      "FromArea": 200.0,
+      "ToArea": 500.0,
+      "BussinessServiceName": "BPA_TCP_2"
+    },
+    {
+      "Department": "TCP",
+      "Category": "Residential",
+      "FromArea": 500.0,
+      "ToArea": 2500.0,
+      "BussinessServiceName": "BPA_TCP_3"
+    },
+    {
+      "Department": "TCP",
+      "Category": "Residential",
+      "FromArea": 2500.0,
+      "ToArea": 1000000.0,
+      "BussinessServiceName": "BPA_TCP_4"
+    },
+    {
+      "Department": "TCP",
+      "Category": "Residential",
+      "FromArea": 2500.0,
+      "ToArea": 1000000.0,
+      "BussinessServiceName": "BPA_FORM_11"
+    }
+  ]
+}

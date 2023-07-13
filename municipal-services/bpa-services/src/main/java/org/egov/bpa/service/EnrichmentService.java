@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.egov.bpa.config.BPAConfiguration;
 import org.egov.bpa.repository.IdGenRepository;
@@ -23,8 +26,9 @@ import org.egov.bpa.util.BPAUtil;
 import org.egov.bpa.validator.MDMSValidator;
 import org.egov.bpa.web.model.AuditDetails;
 import org.egov.bpa.web.model.BPA;
+import org.egov.bpa.web.model.BpaV2;
 import org.egov.bpa.web.model.BPARequest;
-
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.Workflow;
 import org.egov.bpa.web.model.edcr.RequestInfoWrapper;
 import org.egov.bpa.web.model.idgen.IdResponse;
@@ -107,7 +111,13 @@ public class EnrichmentService {
 				bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_LOW_MODULE_CODE);
 			}
 		} else {
-			bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_OC_MODULE_CODE);
+//			========Here Write the Code Take bussiness-Service-name Dynamically By MDMS Configuration
+//			bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_OC_MODULE_CODE);
+			bpaRequest.getBPA().setBusinessService(bussineServiceName(bpaRequest.getBPA(), mdmsData));
+			
+			
+			
+			
 			bpaRequest.getBPA().setLandId(values.get("landId"));
 		}
 		if (bpaRequest.getBPA().getLandInfo() != null) {
@@ -122,6 +132,77 @@ public class EnrichmentService {
 			});
 		setIdgenIds(bpaRequest);
 	}
+	
+	
+	public void enrichBPACreateRequest2(BPARequestV2 bpaRequest, Object mdmsData, Map<String, String> values) {
+		RequestInfo requestInfo = bpaRequest.getRequestInfo();
+		AuditDetails auditDetails = bpaUtil.getAuditDetails(requestInfo.getUserInfo().getUuid(), true);
+		bpaRequest.getBPA().setAuditDetails(auditDetails);
+		bpaRequest.getBPA().setId(UUID.randomUUID().toString());
+
+		bpaRequest.getBPA().setAccountId(bpaRequest.getBPA().getAuditDetails().getCreatedBy());
+		String applicationType = values.get(BPAConstants.APPLICATIONTYPE);
+		if (applicationType.equalsIgnoreCase(BPAConstants.BUILDING_PLAN)) {
+			if (!bpaRequest.getBPA().getRiskType().equalsIgnoreCase(BPAConstants.LOW_RISKTYPE)) {
+				bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_MODULE_CODE);
+			} else {
+				bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_LOW_MODULE_CODE);
+			}
+		} else {
+//			=========Here Write the Code Take bussiness-Service-name Dynamically By MDMS Configuration
+//			bpaRequest.getBPA().setBusinessService(BPAConstants.BPA_OC_MODULE_CODE);
+			bpaRequest.getBPA().setBusinessService(bussineServiceName2(bpaRequest.getBPA(), mdmsData));
+			
+
+			
+			
+			
+//			====For CreateForm API=============
+			if (!CollectionUtils.isEmpty(bpaRequest.getBPA().getApplcationDetail().getDocuments()))
+				bpaRequest.getBPA().getApplcationDetail().getDocuments().forEach(document -> {
+					if (document.getId() == null) {
+						document.setId(UUID.randomUUID().toString());
+					}
+				});
+//			====For CreateForm API=============
+		setIdgenIds2(bpaRequest);
+	}
+		}
+	
+	
+	 private String bussineServiceName(BPA bpa, Object mdmsData){
+    	 Map defaultMap = new HashMap();
+    	 List jsonOutput = JsonPath.read(mdmsData, BPAConstants.MDMS_BUSSINES_SERVICE_PATH);
+    	 String filterExp = "$.[?((@.Department == '"+ bpa.getLandInfo().getLandAreaDetails().getNotifiedArea()+"') &&  "
+    	 		+ "@.Category == '"+bpa.getLandInfo().getLandAreaDetails().getCategory()+"')]";
+         List<Object> calTypes = JsonPath.read(jsonOutput, filterExp);
+         
+         Float plotArea = bpa.getLandInfo().getDescriptionOfLand().getTotalPlotArea();
+			filterExp = "$.[?((@.FromArea < " + plotArea + " && @.ToArea >= " + plotArea + ") || (@.FromArea < "
+					+ plotArea + " ))].BussinessServiceName";
+//
+			List<String> riskTypes = JsonPath.read(calTypes, filterExp);
+			
+    	 
+    	 return riskTypes.get(0);
+    }
+	 
+	 private String bussineServiceName2(BpaV2 bpa, Object mdmsData){
+    	 Map defaultMap = new HashMap();
+    	 List jsonOutput = JsonPath.read(mdmsData, BPAConstants.MDMS_BUSSINES_SERVICE_PATH);
+    	 String filterExp = "$.[?((@.Department == '"+ bpa.getApplcationDetail().getLandAreaDetails().getNotifiedArea()+"') &&  "
+    	 		+ "@.Category == '"+bpa.getApplcationDetail().getLandAreaDetails().getCategory()+"')]";
+         List<Object> calTypes = JsonPath.read(jsonOutput, filterExp);
+         
+         Float plotArea = bpa.getApplcationDetail().getDescriptionOfLand().getTotalPlotArea();
+			filterExp = "$.[?((@.FromArea <= " + plotArea + " && @.ToArea >= " + plotArea + ") || (@.FromArea < "
+					+ plotArea + " ))].BussinessServiceName";
+//
+			List<String> riskTypes = JsonPath.read(calTypes, filterExp);
+			
+    	 
+    	 return riskTypes.get(0);
+    }
 
 	/**
 	 * Sets the ApplicationNumber for given bpaRequest
@@ -135,6 +216,23 @@ public class EnrichmentService {
 
 		List<String> applicationNumbers = getIdList(requestInfo, tenantId, config.getApplicationNoIdgenName(),
 				config.getApplicationNoIdgenFormat(), 1);
+		ListIterator<String> itr = applicationNumbers.listIterator();
+
+		Map<String, String> errorMap = new HashMap<>();
+
+		if (!errorMap.isEmpty())
+			throw new CustomException(errorMap);
+
+		bpa.setApplicationNo(itr.next());
+	}
+	
+	private void setIdgenIds2(BPARequestV2 request) {
+		RequestInfo requestInfo = request.getRequestInfo();
+		String tenantId = request.getBPA().getTenantId();
+		BpaV2 bpa = request.getBPA();
+
+		List<String> applicationNumbers = getIdList(requestInfo, tenantId, config.getBPAapplicationNumberIdgenName(),
+				config.getBPAapplicationNumberIdgenFormat(), 1);
 		ListIterator<String> itr = applicationNumbers.listIterator();
 
 		Map<String, String> errorMap = new HashMap<>();
@@ -183,6 +281,33 @@ public class EnrichmentService {
 		// BPA Documents
 		if (!CollectionUtils.isEmpty(bpaRequest.getBPA().getDocuments()))
 			bpaRequest.getBPA().getDocuments().forEach(document -> {
+				if (document.getId() == null) {
+					document.setId(UUID.randomUUID().toString());
+				}
+			});
+		// BPA WfDocuments
+		if (!CollectionUtils.isEmpty(bpaRequest.getBPA().getWorkflow().getVarificationDocuments())) {
+			bpaRequest.getBPA().getWorkflow().getVarificationDocuments().forEach(document -> {
+				if (document.getId() == null) {
+					document.setId(UUID.randomUUID().toString());
+				}
+			});
+		}
+
+	}
+	
+	
+	public void enrichBPAUpdateRequest2(BPARequestV2 bpaRequest, BusinessService businessService) {
+
+		RequestInfo requestInfo = bpaRequest.getRequestInfo();
+		AuditDetails auditDetails = bpaUtil.getAuditDetails(requestInfo.getUserInfo().getUuid(), false);
+		auditDetails.setCreatedBy(bpaRequest.getBPA().getAuditDetails().getCreatedBy());
+		auditDetails.setCreatedTime(bpaRequest.getBPA().getAuditDetails().getCreatedTime());
+		bpaRequest.getBPA().getAuditDetails().setLastModifiedTime(auditDetails.getLastModifiedTime());
+		enrichAssignes2(bpaRequest.getBPA());
+		// BPA Documents
+		if (!CollectionUtils.isEmpty(bpaRequest.getBPA().getApplcationDetail().getDocuments()))
+			bpaRequest.getBPA().getApplcationDetail().getDocuments().forEach(document -> {
 				if (document.getId() == null) {
 					document.setId(UUID.randomUUID().toString());
 				}
@@ -385,6 +510,44 @@ public class EnrichmentService {
 
 			if (!CollectionUtils.isEmpty(registeredUUIDS))
 				assignes.addAll(registeredUUIDS);
+
+		} else if (wf != null && (wf.getAction().equalsIgnoreCase(BPAConstants.ACTION_SEND_TO_ARCHITECT)
+				|| (bpa.getStatus().equalsIgnoreCase(BPAConstants.STATUS_CITIZEN_APPROVAL_INPROCESS)
+						&& wf.getAction().equalsIgnoreCase(BPAConstants.ACTION_APPROVE)))) {
+			// Adding creator of BPA(Licensee)
+			if (bpa.getAccountId() != null)
+				assignes.add(bpa.getAccountId());
+		}
+		if (bpa.getWorkflow() == null) {
+			Workflow wfNew = new Workflow();
+			wfNew.setAssignes(new LinkedList<>(assignes));
+			bpa.setWorkflow(wfNew);
+		} else {
+			bpa.getWorkflow().setAssignes(new LinkedList<>(assignes));
+		}
+	}
+	
+	public void enrichAssignes2(BpaV2 bpa) {
+		Workflow wf = bpa.getWorkflow();
+		Map<String,String> mobilenumberToUUIDs = new HashMap<>();
+		Set<String> assignes = new HashSet<>();
+		if (wf != null && wf.getAssignes() != null)
+			assignes.addAll(wf.getAssignes());
+		if (wf != null && wf.getAction().equalsIgnoreCase(BPAConstants.ACTION_SENDBACKTOCITIZEN)
+				|| wf.getAction().equalsIgnoreCase(BPAConstants.ACTION_SEND_TO_CITIZEN)) {
+
+			// Adding owners to assignes list
+//			bpa.getForm2().get.forEach(ownerInfo -> {
+//			        if(ownerInfo.getUuid() != null && ownerInfo.getActive()) {
+//							mobilenumberToUUIDs.put(ownerInfo.getMobileNumber(),ownerInfo.getUuid());
+//					}
+//			});
+
+//
+//			Set<String> registeredUUIDS = userService.getUUidFromUserName(bpa,mobilenumberToUUIDs);
+
+//			if (!CollectionUtils.isEmpty(registeredUUIDS))
+//				assignes.addAll(registeredUUIDS);
 
 		} else if (wf != null && (wf.getAction().equalsIgnoreCase(BPAConstants.ACTION_SEND_TO_ARCHITECT)
 				|| (bpa.getStatus().equalsIgnoreCase(BPAConstants.STATUS_CITIZEN_APPROVAL_INPROCESS)
