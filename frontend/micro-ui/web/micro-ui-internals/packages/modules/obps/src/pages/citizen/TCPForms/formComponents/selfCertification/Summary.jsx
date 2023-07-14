@@ -251,7 +251,7 @@ import {
       </div>
     
       </Card>
-      <Card style={{paddingRight:"16px"}}>
+      {/* <Card style={{paddingRight:"16px"}}>
       <CardSubHeader>{t("BPA_SUMMARY_FEE_EST")}</CardSubHeader> 
       <StatusTable>
           <Row className="border-none" label={t(`Application Fee`)} text={"₹ 100"} />
@@ -262,7 +262,7 @@ import {
       <CardHeader>{t("BPA_COMMON_TOTAL_AMT")}</CardHeader> 
       <CardHeader>₹ {"600"}</CardHeader> 
       <SubmitBar label={t("BPA_SEND_TO_CITIZEN_LABEL")} />
-      </Card>
+      </Card> */}
     </React.Fragment>
     );
   };
