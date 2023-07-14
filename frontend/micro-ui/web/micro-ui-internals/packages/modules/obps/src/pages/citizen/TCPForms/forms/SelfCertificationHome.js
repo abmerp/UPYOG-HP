@@ -8,7 +8,7 @@ import { Tabs, Tab, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Summary from "../formComponents/selfCertification/Summary";
 import PaymentConfirm from "../screens/PaymentConfirm";
-import SiteInspectionReport from "../SelfApprovalPortal/SiteInspectionReport";
+// import SiteInspectionReport from "../SelfApprovalPortal/SiteInspectionReport";
 
 const useStyles = makeStyles({
   tabsContainer: {
@@ -109,7 +109,7 @@ const SelfCertificationHome = () => {
       {activeTab === 1 && <div><Summary /></div>}
       {activeTab === 2 && <div><PaymentConfirm /></div>}
       {/* {activeTab === 3 && <div><SelfApproval /></div>} */}
-      {activeTab === 4 && <div><SiteInspectionReport /></div>}
+      {/* {activeTab === 4 && <div><SiteInspectionReport /></div>} */}
       {activeTab === 0 && subActiveTab === 0 && <div><Step1 /></div>}
       {activeTab === 0 && subActiveTab === 1 && <div><Step2 /></div>}
       {activeTab === 0 && subActiveTab === 2 && <div><Step3 /></div>}
