@@ -6,6 +6,7 @@ import java.util.List;
 import org.egov.bpa.config.BPAConfiguration;
 import org.egov.bpa.repository.ServiceRequestRepository;
 import org.egov.bpa.web.model.BPARequest;
+import org.egov.bpa.web.model.BPARequestV2;
 import org.egov.bpa.web.model.CalculationReq;
 import org.egov.bpa.web.model.CalulationCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,23 @@ public class CalculationService {
 	 * @param feeType
 	 */
 	public void addCalculation(BPARequest bpaRequest, String feeType) {
+
+		CalculationReq calulcationRequest = new CalculationReq();
+		calulcationRequest.setRequestInfo(bpaRequest.getRequestInfo());
+		CalulationCriteria calculationCriteria = new CalulationCriteria();
+		//calculationCriteria.setApplicationNo(bpaRequest.getBPA().getApplicationNo());
+	//	calculationCriteria.setBpa(bpaRequest.getBPA());
+		calculationCriteria.setFeeType(feeType);
+		calculationCriteria.setTenantId(bpaRequest.getBPA().getTenantId());
+		List<CalulationCriteria> criterias = Arrays.asList(calculationCriteria);
+		calulcationRequest.setCalulationCriteria(criterias);
+		StringBuilder url = new StringBuilder();
+		url.append(this.config.getCalculatorHost());
+		url.append(this.config.getCalulatorEndPoint());
+
+		this.serviceRequestRepository.fetchResult(url, calulcationRequest);
+	}
+	public void addCalculation(BPARequestV2 bpaRequest, String feeType) {
 
 		CalculationReq calulcationRequest = new CalculationReq();
 		calulcationRequest.setRequestInfo(bpaRequest.getRequestInfo());

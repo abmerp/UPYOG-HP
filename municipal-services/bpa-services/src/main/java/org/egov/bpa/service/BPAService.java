@@ -165,7 +165,7 @@ public class BPAService {
 			// So for any other type bypass call of calculation service
 			//prepare BpaRequest from BpaRequestV2 --
 			BPARequestV2 bpaRequestOld = BPARequestV2.builder().BPA(bpaRequest.getBPA()).requestInfo(requestInfo).build();
-//			this.addCalculation(applicationType, bpaRequestOld);
+			this.addCalculation(applicationType, bpaRequestOld);
 			//TODO:move below code to update
 			//directly set one step next status and call processinstance transition twice--
 			bpaRequest.getBPA().setStatus("");
@@ -173,6 +173,8 @@ public class BPAService {
 		}
 		else
 		{
+			BPARequestV2 bpaRequestOld = BPARequestV2.builder().BPA(bpaRequest.getBPA()).requestInfo(requestInfo).build();
+			this.addCalculation(applicationType, bpaRequestOld);
 			wfIntegrator.callWorkFlow2(bpaRequest);
 		}
 		repository.save2(bpaRequest);
@@ -180,6 +182,17 @@ public class BPAService {
 		
 	}
     
+
+	private void addCalculation(String applicationType, BPARequestV2 bpaRequestOld) {
+		if (bpaRequestOld.getBPA().getRiskType().equals(BPAConstants.LOW_RISKTYPE) && !applicationType.equalsIgnoreCase(BPAConstants.BUILDING_PLAN_OC)) {
+			calculationService.addCalculation(bpaRequestOld, BPAConstants.LOW_RISK_PERMIT_FEE_KEY);
+		} else {
+			calculationService.addCalculation(bpaRequestOld, BPAConstants.APPLICATION_FEE_KEY);
+		}
+		
+	}
+
+
 
 	/**
 	 * applies the required vlaidation for OC on Create

@@ -21,7 +21,7 @@ public class CalulationCriteria {
 
 	@JsonProperty("BPA")
 	@Valid
-	private BPA bpa;
+	private BpaV2 bpa;
 
 	@JsonProperty("applicationNo")
 	@Size(min = 2, max = 64)
