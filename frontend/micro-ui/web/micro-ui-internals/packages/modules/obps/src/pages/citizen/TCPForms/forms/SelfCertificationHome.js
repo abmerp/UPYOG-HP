@@ -3,7 +3,7 @@ import Step1 from "../formComponents/selfCertification/Step1";
 import Step2 from "../formComponents/selfCertification/Step2";
 import Step3 from "../formComponents/selfCertification/Step3";
 import Step4 from "../formComponents/selfCertification/Step4";
-import SelfApproval from "../SelfApprovalPortal/SelfApproval";
+// import SelfApproval from "../SelfApprovalPortal/SelfApproval";
 import { Tabs, Tab, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Summary from "../formComponents/selfCertification/Summary";
@@ -108,7 +108,7 @@ const SelfCertificationHome = () => {
 
       {activeTab === 1 && <div><Summary /></div>}
       {activeTab === 2 && <div><PaymentConfirm /></div>}
-      {activeTab === 3 && <div><SelfApproval /></div>}
+      {/* {activeTab === 3 && <div><SelfApproval /></div>} */}
       {activeTab === 4 && <div><SiteInspectionReport /></div>}
       {activeTab === 0 && subActiveTab === 0 && <div><Step1 /></div>}
       {activeTab === 0 && subActiveTab === 1 && <div><Step2 /></div>}
